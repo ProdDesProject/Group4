@@ -5,7 +5,7 @@ Web application API which primary function is to serve as a platform for selling
 
 ### API documentation (MusasampoAPI) 
 
-[https://app.swaggerhub.com/apis-docs/OAMK81/MusasampoAPI/1.0](Documentation)
+https://app.swaggerhub.com/apis-docs/OAMK81/MusasampoAPI/1.0
 
 #### Overview
 
