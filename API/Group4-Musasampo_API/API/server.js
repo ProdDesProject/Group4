@@ -14,11 +14,8 @@ app.use(express.json());
  *  import database and functions for user and item object
  */
 
-const bandsDatabase = require('./components/bandsDatabase.js');
+const itemsDatabase = require('./components/itemsDatabase.js');
 const usersDatabase = require('./components/usersDatabase.js');
-const albumsDatabase = require('./components/albumsDatabase.js');
-const songsDatabase = require('./components/songsDatabase.js');
-const db = require('./components/db.js')
 
 
 /**
@@ -120,9 +117,7 @@ app.post(
         const body = {
             userId: req.user.userId,
             username: req.user.username,
-            password: req.user.password, 
-            email: req.user.email, 
-            phoneNumber: req.user.phoneNumber
+            password: req.user.password
         };
 
         const payload = {
@@ -149,7 +144,7 @@ app.post(
 POST /users/create
 Create a new user
  */
-app.post('/registerUser',
+app.post('/users/create',
     (req, res) => {
 
         if (!req.body.password) {
@@ -182,7 +177,7 @@ app.post('/registerUser',
         const hashedPassword = bcrypt.hashSync(req.body.password, 6);
         console.log(hashedPassword);
         // call function to add user to database
-        usersDatabase.addUser(req.body.username, req.body.name, hashedPassword, req.body.email, req.body.phoneNumber);
+        usersDatabase.addUser(req.body.username, hashedPassword, req.body.email);
 
         res.status(201).json({
             status: "User successfully created"
@@ -196,7 +191,7 @@ POST /items/create
 Create a new item
  */
 
-app.post('/registerBand', passport.authenticate('jwt', {
+app.post('/items/create', passport.authenticate('jwt', {
     session: false
 }), uploadConfig.array('images', 4), (req, res) => {
 
@@ -244,7 +239,7 @@ app.post('/registerBand', passport.authenticate('jwt', {
     }
 
     // call function to add item to database 
-    bandsDatabase.add(req.user.userId, req.body.title, req.body.description, req.body.category, req.body.locationCountry, req.body.locationCity, req.files, req.body.askingPrice, req.body.deliveryType, req.body.sellerName, req.body.sellerEmail);
+    itemsDatabase.addItem(req.user.userId, req.body.title, req.body.description, req.body.category, req.body.locationCountry, req.body.locationCity, req.files, req.body.askingPrice, req.body.deliveryType, req.body.sellerName, req.body.sellerEmail);
 
     return res.status(201).json({
         "message": "Item successfully created."

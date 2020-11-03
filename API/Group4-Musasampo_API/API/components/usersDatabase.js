@@ -5,18 +5,14 @@ const {
 let users = [{
         userId: "1",
         username: 'tester',
-        name: 'tester',
         password: '$2y$06$PhZ74dT8/5g6B8SgssFq6ey4ojLxmP6pos2DcevMUGw25Vc9jGEou', // testerpassword
-        email: 'oof@gmail.com',
-        phoneNumber: '01234'
+        email: 'oof@gmail.com'
     },
     {
         userId: "2",
         username: "johndoe",
-        name: 'John Doe',
         password: '$2y$06$eQav1OaIyWSUnlvPSaFXRe5gWRqXd.s9vac1SV1GafxAr8hdmsgCy', // johndoepassword
-        email: 'oof@gmail.com',
-        phoneNumber: '12345'
+        email: 'oof@gmail.com'
     },
 ];
 
@@ -29,14 +25,11 @@ module.exports = {
     getUserByName: (username) => users.find(u => u.username == username),
 
     // Function to add a new user to the database
-    addUser: (username, name, password, email, phoneNumber) => {
+    addUser: (username, password) => {
         users.push({
             userId: uuidv4(),
             username,
-            name,
-            password,
-            email,
-            phoneNumber
+            password
         });
     },
 
