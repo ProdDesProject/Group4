@@ -1,0 +1,518 @@
+openapi: 3.0.0
+info:
+  title: Api-Buy-Sell
+  version: '1.0'
+  contact:
+    name: Taneli Turpeinen
+    email: t7tuta00@students.oamk.fi
+  description: Api-Buy-Sell like ebay''
+servers:
+  - url: 'http://localhost:3000'
+paths:
+  /login:
+    post:
+      summary: ''
+      operationId: post-login
+      responses:
+        '200':
+          description: 'OK, logged in.'
+          content:
+            application/json:
+              schema:
+                type: object
+              examples: {}
+        '401':
+          description: 'Unauthorized, logging failed'
+        '500':
+          description: Internal Server Error
+      description: 'Userlogin with Api-key '
+      security: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Login'
+            examples:
+              example-1:
+                value:
+                  id: 0
+                  username: string
+                  password: string
+        description: ''
+  /users/createuser:
+    post:
+      summary: ''
+      operationId: post-createUser
+      responses:
+        '201':
+          description: Created
+        '400':
+          description: Bad Request
+        '500':
+          description: Internal Server Error
+      description: 'Create a new user for API '
+      security: []
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Createuser'
+            examples: {}
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/Createuser'
+            examples:
+              example-1:
+                value:
+                  id: 0
+                  username: string
+                  name: string
+                  streetaddress: string
+                  city: string
+                  country: string
+                  email: string
+                  password: string
+                  dateofbirth: string
+        description: ''
+    parameters: []
+  /items:
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Items'
+              examples:
+                example-1:
+                  value:
+                    id: string
+                    title: string
+                    description: string
+                    category: string
+                    location: string
+                    images: string
+                    askingprice: 0
+                    dateofposting: 0
+                    deliverytype: string
+                    sellername: string
+                    sellermail: string
+                    sellerphonenumber: string
+        '500':
+          description: Internal Server Error
+      operationId: get-Item
+      description: Get all Items
+    parameters: []
+  /items/create:
+    post:
+      summary: ''
+      operationId: post-Items-createitem
+      responses:
+        '200':
+          description: OK
+        '401':
+          description: Unauthorized
+        '500':
+          description: Internal Server Error
+      description: 'Post-method: Create Item to Items'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Items'
+            examples:
+              example-1:
+                value:
+                  id: '0'
+                  title: string
+                  description: string
+                  category: string
+                  location: string
+                  images: string
+                  askingprice: 0
+                  dateofposting: 0
+                  deliverytype: string
+                  sellername: string
+                  sellermail: string
+                  sellerphonenumber: string
+      security: []
+    parameters: []
+  /items/change:
+    put:
+      summary: ''
+      operationId: put-Items-changeitem
+      responses:
+        '200':
+          description: OK
+        '401':
+          description: Unauthorized
+        '500':
+          description: Internal Server Error
+      description: 'PUT-method: Change item'
+      security: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: string
+            examples:
+              example-1:
+                value:
+                  id: '0'
+        description: ''
+    parameters: []
+  /items/delete:
+    delete:
+      summary: ''
+      operationId: delete-items-delete
+      responses:
+        '200':
+          description: OK
+        '401':
+          description: Unauthorized
+        '500':
+          description: Internal Server Error
+      description: Delete-method
+      security: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: number
+            examples:
+              example-1:
+                value:
+                  id: 0
+        description: ''
+  /items/search/category:
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Items'
+              examples:
+                example-1:
+                  value:
+                    id: '0'
+                    title: string
+                    description: string
+                    category: string
+                    location: string
+                    images: string
+                    askingprice: 0
+                    dateofposting: 0
+                    deliverytype: string
+                    sellername: string
+                    sellermail: string
+                    sellerphonenumber: string
+        '401':
+          description: Unauthorized
+        '500':
+          description: Internal Server Error
+      operationId: get-search-category
+      security: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                category:
+                  type: string
+            examples:
+              example-1:
+                value:
+                  category: string
+    parameters: []
+  /items/search/location:
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Items'
+              examples:
+                example-1:
+                  value:
+                    id: '0'
+                    title: string
+                    description: string
+                    category: string
+                    location: string
+                    images: string
+                    askingprice: 0
+                    dateofposting: 0
+                    deliverytype: string
+                    sellername: string
+                    sellermail: string
+                    sellerphonenumber: string
+        '401':
+          description: Unauthorized
+        '500':
+          description: Internal Server Error
+      operationId: get-search-location
+      security: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                location:
+                  type: string
+            examples:
+              example-1:
+                value:
+                  location: string
+        description: ''
+    parameters: []
+  /items/search/dateofposting:
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Items'
+              examples:
+                example-1:
+                  value:
+                    id: '0'
+                    title: string
+                    description: string
+                    category: string
+                    location: string
+                    images: string
+                    askingprice: 0
+                    dateofposting: 0
+                    deliverytype: string
+                    sellername: string
+                    sellermail: string
+                    sellerphonenumber: string
+        '401':
+          description: Unauthorized
+        '500':
+          description: Internal Server Error
+      operationId: get-search-dateofposting
+      security: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                dateofposting:
+                  type: string
+            examples:
+              example-1:
+                value:
+                  dateofposting: string
+    parameters: []
+  /users:
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Users'
+              examples:
+                example-1:
+                  value:
+                    id: 0
+                    username: string
+                    name: string
+                    streetaddress: string
+                    city: string
+                    country: string
+                    email: string
+                    password: string
+                    dateofbirth: string
+      operationId: get-users
+      description: Get user list
+      security: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties: {}
+  /users/delete:
+    delete:
+      summary: ''
+      operationId: delete-users-delete
+      responses:
+        '200':
+          description: Deleted user.
+        '400':
+          description: Bad Request
+        '500':
+          description: Internal Server Error
+      description: Delete-method for users
+      security:
+        - API Key - 1: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: number
+components:
+  schemas:
+    Login:
+      title: Login
+      type: object
+      x-examples:
+        example-1:
+          id: 0
+          username: string
+          password: string
+      properties:
+        id:
+          type: integer
+        username:
+          type: string
+        password:
+          type: string
+    Items:
+      title: Items
+      type: object
+      x-examples:
+        example-1:
+          id: 0
+          title: Selling used car
+          description: 'Used BMW 1995, black, diesel, etc.'
+          category: Cars
+          location: 'London,YK'
+          images: asd123asd123asd123
+          askingprice: 2000
+          dateofposting: 1591012800
+          deliverytype: Pickup
+          sellername: Bill BMW
+          sellermail: Billruleforever@gmail.com
+          sellerphonenumber: +44 23 448 112
+      properties:
+        id:
+          type: string
+        title:
+          type: string
+        description:
+          type: string
+        category:
+          type: string
+        location:
+          type: string
+        images:
+          type: string
+        askingprice:
+          type: number
+        dateofposting:
+          type: number
+        deliverytype:
+          type: string
+        sellername:
+          type: string
+        sellermail:
+          type: string
+        sellerphonenumber:
+          type: string
+    Createuser:
+      title: Createuser
+      type: object
+      properties:
+        id:
+          type: number
+        username:
+          type: string
+        name:
+          type: string
+        streetaddress:
+          type: string
+        city:
+          type: string
+        country:
+          type: string
+        email:
+          type: string
+        password:
+          type: string
+        dateofbirth:
+          type: string
+      x-examples:
+        example-1:
+          id: 0
+          username: string
+          name: string
+          streetaddress: string
+          city: string
+          country: string
+          email: string
+          password: string
+          dateofbirth: string
+    Users:
+      title: Users
+      type: object
+      x-examples:
+        example-2:
+          id: 0
+          username: string
+          name: string
+          streetaddress: string
+          city: string
+          country: string
+          email: string
+          password: string
+          dateofbirth: string
+      properties:
+        id:
+          type: number
+        username:
+          type: string
+        name:
+          type: string
+        streetaddress:
+          type: string
+        city:
+          type: string
+        country:
+          type: string
+        email:
+          type: string
+        password:
+          type: string
+        dateofbirth:
+          type: string
+  securitySchemes:
+    API Key - 1:
+      name: API Key
+      type: apiKey
+      in: query
+security:
+  - API Key - 1: []
