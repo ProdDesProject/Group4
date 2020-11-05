@@ -2,9 +2,7 @@ const express = require('express');
 var bodyParser = require('body-parser')
 const bcrypt = require('bcryptjs');
 let router = express.Router();
-const {
-    v4: uuidv4
-} = require('uuid');
+
 
 const users2 = require('./users2');
 const db = require('./db');
@@ -73,7 +71,7 @@ router
   .post(
       //passport.authenticate('basic', { session: false }),
       (req, res) => {
-        db.query('INSERT INTO users (username,password,name,email,phoneNumber)VALUES ("Tester","password123","Seppo","seppo@gmail.com","+35812123123");');
+        db.query('INSERT INTO users (username,password,name,email,phoneNumber)VALUES (?,?,?,?,?);',[req.body.username, req.body.password, req.body.name, req.body.email, req.body.phoneNumber]);
         //const hashedPassword = bcrypt.hashSync(req.body.password, 6);
         res.sendStatus(201);
     });
@@ -84,7 +82,6 @@ router
     //passport.authenticate('basic', { session: false }),
     (req, res) => {
         db.query('DELETE FROM users WHERE userId = ?',[req.params.userId]);
-        db.query('ALTER TABLE users AUTO_INCREMENT=?',[(req.params.userId-1)]); 
         /*let Itemid = req.params;
         console.log(Itemid.id);
         console.log(ItemsData[Itemid.id]);

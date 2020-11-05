@@ -8,7 +8,9 @@ const port = 3000
 
 //const login = require('./routers/login');
 const users = require('./routers/users');
-const items = require('./routers/items');
+const bands = require('./routers/bands');
+const albums = require('./routers/albums');
+const songs = require('./routers/songs');
 const users2 = require('./routers/users2');
 const db = require('./routers/db');
 //const imageUpload = require('./routers/imageupload');
@@ -18,7 +20,9 @@ app.use(bodyParser.json());
 
 //app.use('/login', login);
 app.use('/users', users);
-app.use('/items', items);
+app.use('/bands', bands);
+app.use('/albums', albums);
+app.use('/songs', songs);
 //app.use('/fileUpload', imageUpload);
 
 const passport = require('passport');
