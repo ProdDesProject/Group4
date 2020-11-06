@@ -36,7 +36,7 @@ router
     //passport.authenticate('basic', { session: false }),
     (req, res) => {
     db.query('SELECT * FROM bands;').then(results => {
-        res.json({ bands: results})
+        res.json({ bands2: results})
     })
     .catch(() => {
         res.sendStatus(500);
@@ -121,7 +121,9 @@ router
     })
 
 //export the router 
-module.exports = 
+/*module.exports = 
 {
     router:router
-}
+}*/
+
+module.exports = router;

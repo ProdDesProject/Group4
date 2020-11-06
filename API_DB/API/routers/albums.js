@@ -110,7 +110,9 @@ router
         res.sendStatus(200);
     })
 
-module.exports = 
+/*module.exports = 
 {
     router:router
-};
+};*/
+
+module.exports = router;

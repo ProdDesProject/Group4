@@ -14,8 +14,8 @@ const BasicStrategy = require('passport-http').BasicStrategy;
     {
         userId: 0,
         username: "Kilpikalevi",
-        name: "Taneli",
         password: '$2y$06$PhZ74dT8/5g6B8SgssFq6ey4ojLxmP6pos2DcevMUGw25Vc9jGEou', //testerpassword
+        name: "Taneli",
         email: "Apina@gmail.com",
         phoneNumber: "01234"
     }
@@ -25,8 +25,8 @@ const BasicStrategy = require('passport-http').BasicStrategy;
   let userObject = {
         "userId": 0,
         "username": "Kilpikalevi",
-        "name": "Taneli",
         "password": "$2y$06$PhZ74dT8/5g6B8SgssFq6ey4ojLxmP6pos2DcevMUGw25Vc9jGEou",
+        "name": "Taneli",
         "email": "Apina@gmail.com",
         "phoneNumber": "01234"
   };*/

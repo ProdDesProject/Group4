@@ -1,7 +1,6 @@
 const express = require('express');
 const parseobj = require('xml2js');
 
-
 let router = express.Router();
 const db = require('./db');
 
@@ -49,8 +48,10 @@ router
 .get(
     //passport.authenticate('basic', { session: false }),
     (req, res) => {
-    db.query('SELECT * FROM songs where songId = ?;',[req.params.songId]).then(results => {
+        console.log("Ppp");
+        db.query('SELECT * FROM songs where songId = ?;',[req.params.songId]).then(results => {
         res.json({ songs: results})
+        
     })
     .catch(() => {
         res.sendStatus(500);
