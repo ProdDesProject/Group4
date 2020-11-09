@@ -94,7 +94,7 @@ app.route('/documents').get( function(req, res)
 let apiInstance = null;
 exports.start = () => {
   apiInstance = app.listen(port, () => {
-    console.log(`Example app listening at http://localhost:${port}`)
+    console.log(`Server listening at http://localhost:${port}`)
   })
 }
 

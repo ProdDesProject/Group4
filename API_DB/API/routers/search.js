@@ -134,29 +134,26 @@ router
     {
         if(searchOption == 'name')
         {
-            if (searchValue == 'Taneli')
+            db.query('SELECT * FROM users WHERE name = ?' ,[req.params.searchValue]).then(results => 
             {
-                db.query('SELECT * FROM users WHERE name = ?' ,[req.params.searchValue]).then(results => {
-                    res.json({results});
-                    console.log(results);
-                    })
-                    .catch(() => {
-                        res.sendStatus(500);
-                    })
+                res.json({results});
+                console.log(results);
+            })
+            .catch(() => 
+            {
+                res.sendStatus(500);
+            })
 
-                /*db.query('SELECT * FROM '+ category +' WHERE '+ searchOption +'= ?' ,[req.params.searchValue]).then(results => {
-                    res.json({results});
-                    console.log(results);
-                    })
-                    .catch(() => {
-                        res.sendStatus(500);
-                    })*/
-            }
+            /*db.query('SELECT * FROM '+ category +' WHERE '+ searchOption +'= ?' ,[req.params.searchValue]).then(results => {
+                res.json({results});
+                console.log(results);
+                })
+                .catch(() => {
+                res.sendStatus(500);
+                })*/
         }
     }
 });
-
-
 
 //implementing the search for non-logged in users
 //THE SEARCH WORKS IF IN THE DATABASE NO SPACES ARE USED FOR STRINGS (the strings are decoded correctly from the URL tho)
@@ -171,7 +168,7 @@ router
   if(req.params.category === "bands")
   {
       // search for bands by name
-      if (req.params.searchOption === "bandName") 
+      if (req.params.searchOption === "name") 
       {
             // call function to get all requested bands from the database
             var  getInformationFromDB = function(callback) 

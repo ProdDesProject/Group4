@@ -90,8 +90,6 @@ router
 .put(
     //passport.authenticate('basic', { session: false }),
     (req,res) => {
-        
-    
     db.query('UPDATE bands SET nsfw = ?,bandName = ?,bandLogo = ?,country = ? WHERE bandId = ?'
     ,[req.body.nsfw,req.body.bandName,req.body.bandLogo,req.body.country,req.params.bandId]);
     res.sendStatus(201);
