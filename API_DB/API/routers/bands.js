@@ -50,10 +50,12 @@ router
 .get(
     //passport.authenticate('basic', { session: false }),
     (req, res) => {
-    db.query('SELECT * FROM bands where bandId = ?;',[req.params.bandId]).then(results => {
+    db.query('SELECT * FROM bands where bandId = ?;',[req.params.bandId]).then(results => 
+    {
         res.json({ band: results})
     })
-    .catch(() => {
+    .catch(() => 
+    {
         res.sendStatus(500);
     })
       /*let user = users2.getAllUsers()
@@ -65,10 +67,12 @@ router
 .get(
     //passport.authenticate('basic', { session: false }),
     (req, res) => {
-    db.query('SELECT * FROM bands where bandName = ?;',[req.params.bandName]).then(results => {
+    db.query('SELECT * FROM bands where bandName = ?;',[req.params.bandName]).then(results => 
+    {
         res.json({ bands: results})
     })
-    .catch(() => {
+    .catch(() => 
+    {
         res.sendStatus(500);
     })
       /*let user = users2.getAllUsers()
@@ -79,43 +83,86 @@ router
   .route('/createband')
   .post(
       //passport.authenticate('basic', { session: false }),
-      (req, res) => {
-        db.query('INSERT INTO bands (nsfw,bandName,bandLogo,country)VALUES(?,?,?,?);',[req.body.nsfw, req.body.bandName, req.body.bandLogo, req.body.country]);
-        //const hashedPassword = bcrypt.hashSync(req.body.password, 6);
-        res.sendStatus(201);
-    });
+      (req, res) => 
+      {
+        //check field filling
+        if(!req.body.nsfw || !req.body.bandName || !req.body.bandLogo || !req.body.country)
+        {
+            //fields not filled, bad request
+            res.sendStatus(400);
+        }
+        else
+        {
+            //create band if all fields are filled
+            db.query('INSERT INTO bands (nsfw,bandName,bandLogo,country)VALUES(?,?,?,?);',[req.body.nsfw, req.body.bandName, req.body.bandLogo, req.body.country]);
+            res.sendStatus(201);
+        }
+      });
 
+//modify a band's information based on id
 router
-.route('/:bandId')
+.route('/modify/:bandId')
 .put(
+    //check authentication
     //passport.authenticate('basic', { session: false }),
-    (req,res) => {
-    db.query('UPDATE bands SET nsfw = ?,bandName = ?,bandLogo = ?,country = ? WHERE bandId = ?'
-    ,[req.body.nsfw,req.body.bandName,req.body.bandLogo,req.body.country,req.params.bandId]);
-    res.sendStatus(201);
-
-    /*BandsData[Bandid.bandId] = {
-        bandId: Bandid.bandId,
-        bandName: req.body.bandName, 
-        bandLogo: req.body.bandLogo, 
-        country: req.body.country
-    }
-
-    res.send(BandsData[Bandid.bandId]);*/
-})   
+    (req,res) => 
+    {
+        //check if the id exists in the database first
+        //we need to send not found response if id is not found
+        db.query('SELECT bandId FROM bands WHERE bandId = ?;', [req.params.bandId]).then(results => 
+        {
+                //check for results
+                if (results.length)
+                {
+                    //check field filling
+                    //console.log(req.body.nsfw , req.body.bandName, req.body.bandLogo, req.body.country);
+                    if(req.body.bandName && req.body.bandLogo && req.body.country)
+                    {
+                        //band id found, modify band credentials from the database
+                        db.query('UPDATE bands SET nsfw = ?,bandName = ?,bandLogo = ?,country = ? WHERE bandId = ?' ,[req.body.nsfw,req.body.bandName,req.body.bandLogo,req.body.country,req.params.bandId]);
+                        //send ok status
+                        res.sendStatus(200);
+                    }
+                    else
+                    {
+                        //fields not filled, bad request
+                        res.sendStatus(400);
+                    }
+                }
+                else
+                {
+                    //band id not found, cannot be modified
+                    res.sendStatus(404);
+                }
+        });
+    });
 
 router
 .route('/delete/:bandId')
 .delete(
+    //check authentication
     //passport.authenticate('basic', { session: false }),
     (req, res) => {
-        db.query('DELETE FROM bands WHERE bandId = ?',[req.params.bandId]);
-        /*let Itemid = req.params;
-        console.log(Itemid.id);
-        console.log(ItemsData[Itemid.id]);
-        ItemsData.splice(Itemid.id,ItemsData.length);
-        console.log(ItemsData);*/
-        res.sendStatus(200);
+        //check if the id exists in the database first
+        //we need to send not found response if id is not found
+        db.query('SELECT bandId FROM bands WHERE bandId = ?;', [req.params.bandId]).then(results => 
+            {
+                //check for results
+                if (results.length)
+                {
+                    //band id found, delete band from the database
+                    db.query('DELETE FROM bands WHERE bandId = ?',[req.params.bandId]);
+                    //deincrement the band id field
+                    db.query('ALTER TABLE bands AUTO_INCREMENT=?',[(req.params.bandId - 1 )]); 
+                    //send ok status
+                    res.sendStatus(200);
+                }
+                else
+                {
+                    //band id not found, cannot be deleted
+                    res.sendStatus(404);
+                }
+            });
     })
 
 //export the router 

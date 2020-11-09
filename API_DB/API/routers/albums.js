@@ -79,36 +79,86 @@ router
 router
   .route('/createalbum')
   .post(
+      //bands need to be authenticated in order to post albums
       //passport.authenticate('basic', { session: false }),
-      (req, res) => {
-        db.query('INSERT INTO albums (albumName,albumLaunchDate,albumPicture,albumGenre)VALUES(?,?,?,?);',[req.body.albumName, req.body.albumLaunchDate, req.body.albumPicture, req.body.albumGenre]);
-        //const hashedPassword = bcrypt.hashSync(req.body.password, 6);
-        res.sendStatus(201);
+      (req, res) => 
+      {
+        //check field filling
+        if(req.body.albumName && req.body.albumLaunchDate && req.body.albumPicture && req.body.albumGenre)
+        {    //create album if all fields are filled
+            db.query('INSERT INTO albums (albumName,albumLaunchDate,albumPicture,albumGenre)VALUES(?,?,?,?);',[req.body.albumName, req.body.albumLaunchDate, req.body.albumPicture, req.body.albumGenre]);
+            //send created status
+            res.sendStatus(201);
+        }
+        else
+        {
+            //bad request
+            res.sendStatus(400);
+        }
     });
 
 router
-.route('/:albumId')
+.route('/modify/:albumId')
 .put(
+    //bands need to be logged in to modify their albums
     //passport.authenticate('basic', { session: false }),
-    (req,res) => { 
-    db.query('UPDATE albums SET albumName = ?,albumLaunchDate = ?,albumPicture = ?,albumGenre = ? WHERE albumId = ?'
-    ,[req.body.albumName,req.body.albumLaunchDate,req.body.albumPicture,req.body.albumGenre,req.params.albumId]);
-    res.sendStatus(201);
-})
+    (req,res) => 
+    {   
+        db.query('SELECT albumId FROM albums WHERE albumId = ?;', [req.params.albumId]).then(results => 
+        {
+                //check for results
+                if (results.length)
+                {
+                    //check field filling
+                    if(req.body.albumName && req.body.albumLaunchDate && req.body.albumPicture && req.body.albumGenre)
+                    {
+                        //modify album data
+                        db.query('UPDATE albums SET albumName = ?,albumLaunchDate = ?,albumPicture = ?,albumGenre = ? WHERE albumId = ?',[req.body.albumName,req.body.albumLaunchDate,req.body.albumPicture,req.body.albumGenre,req.params.albumId]);
+                        //send ok status
+                        res.sendStatus(200);
+                    }
+                    else
+                    {
+                        //fields not filled, bad request
+                        res.sendStatus(400);
+                    }
+                }
+                else
+                {
+                    //album id not found, cannot be modified
+                    res.sendStatus(404);
+                }
+        });
+});
 
 router
 .route('/delete/:albumId')
 .delete(
+    //bands need to be logged in to delete their albums
     //passport.authenticate('basic', { session: false }),
-    (req, res) => {
-        db.query('DELETE FROM albums WHERE albumId = ?',[req.params.albumId]);
-        /*let Itemid = req.params;
-        console.log(Itemid.id);
-        console.log(ItemsData[Itemid.id]);
-        ItemsData.splice(Itemid.id,ItemsData.length);
-        console.log(ItemsData);*/
-        res.sendStatus(200);
-    })
+    (req, res) => 
+    {
+        //check if the id exists in the database first
+        //we need to send not found response if id is not found
+        db.query('SELECT albumId FROM albums WHERE albumId = ?;', [req.params.albumId]).then(results => 
+        {
+            //check for results
+            if (results.length)
+            {
+                //delete found album
+                db.query('DELETE FROM albums WHERE albumId = ?',[req.params.albumId]);
+                //deincrement the album id field
+                db.query('ALTER TABLE albums AUTO_INCREMENT=?',[(req.params.albumId - 1)]); 
+                //send ok status
+                res.sendStatus(200);
+            }
+            else
+            {
+                //album id not found, cannot be deleted
+                res.sendStatus(404);
+            }
+        });
+})
 
 /*module.exports = 
 {
