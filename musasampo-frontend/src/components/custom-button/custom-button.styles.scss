@@ -9,7 +9,7 @@
   background-color: black;
   color: white;
   text-transform: uppercase;
-  font-family: 'Open Sans Condensed';
+  font-family: "Open Sans Condensed";
   font-weight: bolder;
   border: none;
   cursor: pointer;
@@ -22,16 +22,6 @@
     border: 1px solid black;
   }
 
-  &.google-sign-in {
-    background-color: #4285f4;
-    color: white;
-
-    &:hover {
-      background-color: #357ae8;
-      border: none;
-    }
-  }
-
   &.inverted {
     background-color: white;
     color: black;
@@ -42,5 +32,13 @@
       color: white;
       border: none;
     }
+  }
+}
+
+Link {
+  color: red;
+
+  &:hover {
+    color: white;
   }
 }

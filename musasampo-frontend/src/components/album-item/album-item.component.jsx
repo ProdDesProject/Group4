@@ -24,15 +24,10 @@ const AlbumItem = ({ item, history, match, routeName }) => {
       <div className='album-footer'>
         <span className='name'>{albumName}</span>
       </div>
-
-      <CustomButton inverted>
-        <Link to={{
-          pathname: `/shop/albums/${routeName}/${id}`
-        }}
-        >
-          ALBUM INFORMATION
-        </Link>
+      <CustomButton onClick={() => history.push(`${match.path}/${routeName}/${id}`)} inverted>
+        ALBUM INFORMATION
       </CustomButton>
+
     </div>
   );
 };
