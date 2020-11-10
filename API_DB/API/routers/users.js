@@ -1,3 +1,4 @@
+
 const express = require('express');
 var bodyParser = require('body-parser')
 const bcrypt = require('bcryptjs');
@@ -7,6 +8,7 @@ const users2 = require('./users2');
 const db = require('./db');
 
 const passport = require('passport');
+const { getUserByName } = require('./users2');
 const BasicStrategy = require('passport-http').BasicStrategy;
 
 /*let Userdata = [
