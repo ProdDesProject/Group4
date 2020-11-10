@@ -4,7 +4,9 @@ const fs = require('fs');
 const bcrypt = require('bcryptjs');
 const fetch = require("node-fetch");
 const app = express()
-const port = 3000
+
+const port = 9000
+var cors = require("cors");
 
 //const login = require('./routers/login');
 const users = require('./routers/users.js');
@@ -19,6 +21,7 @@ const db = require('./routers/db.js');
 
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
+app.use(cors());
 
 //app.use('/login', login);
 app.use('/users', users);
