@@ -49,6 +49,10 @@ router
     /*let user = users2.getAllUsers()
     res.json({user});*/
 });
+
+router.get("/asd", function(req, res, next) {
+    res.send("API is working properly");
+});
  
 //create a new user
 router

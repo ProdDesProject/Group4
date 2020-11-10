@@ -4,7 +4,10 @@ const fs = require('fs');
 const bcrypt = require('bcryptjs');
 const fetch = require("node-fetch");
 const app = express()
-const port = 3000
+const port = 9000
+
+var cors = require("cors");
+
 
 //const login = require('./routers/login');
 const users = require('./routers/users.js');
@@ -15,13 +18,17 @@ const users2 = require('./routers/users2.js');
 const search = require('./routers/search.js');
 
 const db = require('./routers/db.js');
+
+
 //const imageUpload = require('./routers/imageupload');
 
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
-
+app.use(cors());
 //app.use('/login', login);
+
 app.use('/users', users);
+
 
 //app.use(bands.router);
 //app.use(albums.router);
@@ -74,6 +81,10 @@ app.route('/main').get(passport.authenticate('basic',{ session: false }), functi
             );
         }
     });
+});
+
+app.get("/asd", function(req, res, next) {
+  res.send("API is working properly");
 });
 
 app.route('/documents').get( function(req, res) 
