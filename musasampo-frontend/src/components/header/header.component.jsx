@@ -26,7 +26,7 @@ const Header = () => (
       <Link className='option' to='/shop/albums'>
         SHOP
       </Link>
-      <Link className='option' to='/'>
+      <Link className='option' to='/login'>
         SIGN IN
           </Link>
     </div>

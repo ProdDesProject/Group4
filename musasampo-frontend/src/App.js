@@ -10,7 +10,7 @@ import AlbumPage from './pages/albums/albums.component';
 import AlbumComponent from './components/album/album.component';
 
 import Header from './components/header/header.component';
-
+import LoginPage from './pages/sign-in-and-sign-up/sign-in-and-sign-up.component';
 
 class App extends React.Component {
 
@@ -19,7 +19,8 @@ class App extends React.Component {
       <div>
         <Header />
         <Switch>
-          <Route exact path='/' component={HomePage} />          
+          <Route exact path='/' component={HomePage} />
+          <Route exact path='/login' component={LoginPage} />
           <Route exact path='/shop' component={ShopPage} />
           <Route exact path='/shop/albums' component={ShopPage} />
           <Route exact path='/shop/albums/:genre' component={AlbumPage} />          
