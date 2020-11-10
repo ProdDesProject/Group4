@@ -15,15 +15,33 @@ class SignIn extends React.Component {
     };
   }
 
+  
+
   handleSubmit = async event => {
     event.preventDefault();
 
     const { username, password } = this.state;
 
+    
+
+    
+
     try {
 
-      // SIGN IN CODE GOES HERE
+      //Kilpikalevi25
+      //testerpassword
+      const userslist = [];
 
+      //testing only, need new method for usernames only to check if there is existing user for login.
+
+      await fetch('http://localhost:9000/users/')
+      .then(res => res.json())
+      .then(data => userslist.push(data));
+      
+
+      //alert(userslist.user[0].username);
+     alert(userslist[0].user[0].username);
+    
       this.setState({ username: '', password: '' });
     } catch (error) {
       console.log(error);
@@ -32,7 +50,6 @@ class SignIn extends React.Component {
 
   handleChange = event => {
     const { value, name } = event.target;
-
     this.setState({ [name]: value });
   };
 
