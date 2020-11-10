@@ -11,7 +11,7 @@ const Header = () => (
       <img src={logo} alt="logo" />
     </Link>
     <div className='options'>
-      <Link className='option' to='/'>
+      <Link className='option' to='/guitartuner'>
         GUITAR TUNER
       </Link>
       <Link className='option' to='/'>
