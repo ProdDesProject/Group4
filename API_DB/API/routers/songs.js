@@ -78,36 +78,88 @@ router
 router
   .route('/createsong')
   .post(
-      //passport.authenticate('basic', { session: false }),
-      (req, res) => {
-        db.query('INSERT INTO songs (songName,MP3,MP4)VALUES(?,?,?);',[req.body.songName, req.body.MP3, req.body.MP4, req.body.albumGenre]);
-        //const hashedPassword = bcrypt.hashSync(req.body.password, 6);
-        res.sendStatus(201);
+      //bands need to be authenticated in order to add songs
+      passport.authenticate('jwt', { session: false }),
+      (req, res) => 
+      {
+        //check field filling
+        if(req.body.songName && req.body.MP3 && req.body.MP4)
+        {   
+            //create song if all fields are filled
+            db.query('INSERT INTO songs (songName,MP3,MP4)VALUES(?,?,?);',[req.body.songName, req.body.MP3, req.body.MP4]);
+            //send created status
+            res.sendStatus(201);
+        }
+        else
+        {
+            //bad request
+            res.sendStatus(400);
+        }
     });
 
+//modify a song
 router
-.route('/:songId')
+.route('/modify/:songId')
 .put(
-    //passport.authenticate('basic', { session: false }),
-    (req,res) => { 
-    db.query('UPDATE songs SET songName = ?,MP3 = ?,MP4 = ?, WHERE songId = ?'
-    ,[req.body.songName,req.body.MP3,req.body.MP4,req.params.songId]);
-    res.sendStatus(201);
-})
+    //a band needs to be authenticated to modify songs
+    passport.authenticate('jwt', { session: false }),
+    (req,res) => 
+    { 
+        db.query('SELECT songId FROM songs WHERE songId = ?;', [req.params.songId]).then(results => 
+            {
+                    //check for results
+                    if (results.length)
+                    {
+                        //check field filling
+                        if(req.body.songName && req.body.MP3 && req.body.MP4)
+                        {
+                            //modify the song 
+                            db.query('UPDATE songs SET songName = ?,MP3 = ?,MP4 = ?, WHERE songId = ?',[req.body.songName, req.body.MP3, req.body.MP4, req.params.songId]);
+                            //send ok status
+                            res.sendStatus(200);
+                        }
+                        else
+                        {
+                            //fields not filled, bad request
+                            res.sendStatus(400);
+                        }
+                    }
+                    else
+                    {
+                        //song id not found, cannot be modified
+                        res.sendStatus(404);
+                    }
+            });
+    });
 
+//delete a song
 router
 .route('/delete/:songId')
 .delete(
-    //passport.authenticate('basic', { session: false }),
-    (req, res) => {
-        db.query('DELETE FROM songs WHERE songId = ?',[req.params.songId]);
-        /*let Itemid = req.params;
-        console.log(Itemid.id);
-        console.log(ItemsData[Itemid.id]);
-        ItemsData.splice(Itemid.id,ItemsData.length);
-        console.log(ItemsData);*/
-        res.sendStatus(200);
-    })
+    //a band needs authentication to delete a song
+    passport.authenticate('jwt', { session: false }),
+    (req, res) => 
+    {
+        //check if the id exists in the database first
+        //we need to send not found response if id is not found
+        db.query('SELECT songId FROM songs WHERE songId = ?;', [req.params.songId]).then(results => 
+            {
+                //check for results
+                if (results.length)
+                {
+                    //delete found song
+                    db.query('DELETE FROM songs WHERE songId = ?',[req.params.songId]);
+                    //deincrement the song id field
+                    db.query('ALTER TABLE songs AUTO_INCREMENT=?',[(req.params.songId - 1)]); 
+                    //send ok status
+                    res.sendStatus(200);
+                }
+                else
+                {
+                    //song id not found, cannot be deleted
+                    res.sendStatus(404);
+                }
+            });
+    });
 
 module.exports = router;
-
