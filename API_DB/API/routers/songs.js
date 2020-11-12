@@ -34,10 +34,15 @@ router
     //passport.authenticate('basic', { session: false }),
     (req, res) => {
     db.query('SELECT * FROM songs;').then(results => {
-        res.json({ songs: results})
-    })
-    .catch(() => {
-        res.sendStatus(500);
+        if(results != undefined)
+        {
+            res.json({ songs: results})
+        }
+        else
+        {
+            //no songs in the database
+            res.sendStatus(404);
+        }
     })
     /*let user = users2.getAllUsers()
     res.json({user});*/

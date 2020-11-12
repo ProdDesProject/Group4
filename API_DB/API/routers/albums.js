@@ -35,8 +35,17 @@ router
 .get(
     //passport.authenticate('basic', { session: false }),
     (req, res) => {
-    db.query('SELECT * FROM albums;').then(results => {
-        res.json({ albums: results})
+    db.query('SELECT * FROM albums;').then(results => 
+        {
+        if(results != undefined)
+        {
+            res.json({ albums: results})
+        }
+        else
+        {
+            //no albums in the database
+            res.sendStatus(404);
+        }
     })
     .catch(() => {
         res.sendStatus(500);

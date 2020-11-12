@@ -77,7 +77,7 @@ passport.use(new BasicStrategy(
               return done(null, false, { message: "HTTP Basic password not found" });
           }
 
-          console.log("User gets token");
+          //console.log("User gets token");
           return done(null, user);
         }    
     })
@@ -110,8 +110,9 @@ options.secretOrKey = jwtSecretKey.secret;
 
 passport.use(new JwtStrategy(options, function(jwt_payload, done) 
 {
-  console.log("Processing JWT payload for token content:");
-  console.log(jwt_payload);
+  //display jwt confirmation
+  //console.log("Processing JWT payload for token content:");
+  //console.log(jwt_payload);
 
 
   /* Here you could do some processing based on the JWT payload.

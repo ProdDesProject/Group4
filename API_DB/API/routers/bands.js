@@ -34,7 +34,7 @@ router
     //passport.authenticate('basic', { session: false }),
     (req, res) => {
     db.query('SELECT * FROM bands;').then(results => {
-        res.json({ bands2: results})
+        res.json({ bands: results})
     })
     .catch(() => {
         res.sendStatus(500);
