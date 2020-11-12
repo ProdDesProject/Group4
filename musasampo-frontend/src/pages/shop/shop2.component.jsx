@@ -4,6 +4,7 @@ import SHOP_DATA from './shop.data.js';
 
 import AlbumsOverview from '../../components/albums-overview/albums-overview.component';
 import AlbumPage from '../albums/album.component';
+import './shop.styles.scss';
 
 // FOR TEST PURPOSES
 // https://medium.com/better-programming/how-to-pass-multiple-route-parameters-in-a-react-url-path-4b919de0abbe#:~:text=Route%20params%20are%20parameters%20whose,data%20based%20on%20the%20parameter.
