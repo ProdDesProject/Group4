@@ -174,8 +174,7 @@ function login (req)
 }
 
 app.post(
-  '/login',
-  passport.authenticate('basic', { session: false }),
+  '/login',passport.authenticate('basic', { session: false }),
   (req, res) => 
   {
     const token = login(req);

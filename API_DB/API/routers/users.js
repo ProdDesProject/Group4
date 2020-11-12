@@ -89,12 +89,11 @@ router
         var username = req.body.username;
         var password = req.body.password;
 
-        //console.log(username);
-        //console.log(password);
-
-        //console.log(results[0].password);
+        console.log(results[0].password);
 
         //results.body.password
+
+        //have to get for-loop for checking password.
 
         if(!bcrypt.compareSync(password,results[0].password)) 
         {
@@ -104,11 +103,13 @@ router
             res.json("404");
         }else
         {
-            var token = server.login(results);
+            //console.log("___________");
+            //var token = server.login(results);
+
+            //console.log("PÖÖÖ:::"+ token);
+
             res.json({ user: results});
         }
-
-        
 
     })
     .catch(() => 

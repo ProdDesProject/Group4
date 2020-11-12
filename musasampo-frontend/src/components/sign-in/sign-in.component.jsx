@@ -6,6 +6,8 @@ import { withRouter} from 'react-router-dom';
 
 import './sign-in.styles.scss';
 
+var base64 = require('base-64');
+
 class SignIn extends React.Component {
   constructor(props) {
     super(props);
@@ -32,18 +34,6 @@ class SignIn extends React.Component {
       //Kilpikalevi25
       //testerpassword
       //const userslist = [];
-
-      /*app.post(
-        '/login',
-        passport.authenticate('basic', { session: false }),
-        (req, res) => 
-        {
-          const token = login(req);
-          //add the token to the userToken field
-          db.query("UPDATE users SET usersToken = ? WHERE userId = ?", [token, req.user.userId]);
-          //return token and ok status
-          return res.status(200).json({ token });
-      })*/
 
       //TOIMII
       /*
@@ -78,7 +68,7 @@ class SignIn extends React.Component {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ username:username,password:password })
-        };
+      }
 
       const response = await fetch('http://localhost:9000/users/checkuser2/',requestOptions)
       const data = await response.json();
@@ -98,7 +88,18 @@ class SignIn extends React.Component {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ username:username,password:password })
         };*/
-  
+
+        //var data2;
+
+        let headers = new Headers();
+        headers.set('Authorization', 'Basic ' + base64.encode(username + ":" + password));
+
+        const response2 = await fetch("http://localhost:9000/login", {method:'POST',headers: headers,})
+        const token = await response2.json();
+
+        
+        alert(JSON.stringify(token));
+       
         this.props.history.push('/');
       }
 
