@@ -5,6 +5,8 @@ import CustomButton from '../custom-button/custom-button.component';
 import { withRouter} from 'react-router-dom';
 
 
+import { withRouter} from 'react-router-dom';
+
 import './sign-in.styles.scss';
 
 class SignIn extends React.Component {
@@ -32,7 +34,6 @@ class SignIn extends React.Component {
 
       //Kilpikalevi25
       //testerpassword
-
       //const userslist = [];
 
       /*app.post(
@@ -92,26 +93,25 @@ class SignIn extends React.Component {
       }
       else
       {
-        alert(data.user[0].username);
+        //alert(data.user[0].username);
         //---->MAINPAGE
-        this.props.history.push('/');
+        {
+          const requestOptions = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ username:username,password:password })
+        };
+  
+          const response = await fetch('http://localhost:9000/login', requestOptions)
+          const data = await response.json();
+          this.setState({ data: data.token });
+        }
 
+        this.props.history.push('/');
       }
 
-      /*if (data.user[0].username != undefined)
-      {
-        const requestOptions = {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ username:username,password:password })
-      };
-
-        const response = await fetch('http://localhost:9000/login', requestOptions)
-        const data = await response.json();
-        this.setState({ data: data.token });
-      }*/
-      
-      
+  
+     
 
       /*.then(res => res.json())
           //.then(data => this.setState({ postId: data.id }));
@@ -123,19 +123,6 @@ class SignIn extends React.Component {
       //.then(json => json.map(user => user.username));
       //alert(userslist[0].user[0].username);
       alert(userslist);*/
-
-      const userslist = [];
-
-      //testing only, need new method for usernames only to check if there is existing user for login.
-
-      await fetch('http://localhost:9000/users/')
-      .then(res => res.json())
-      .then(data => userslist.push(data));
-      
-
-      //alert(userslist.user[0].username);
-     alert(userslist[0].user[0].username);
-
     
       this.setState({ username: '', password: '' });
     } catch (error) {

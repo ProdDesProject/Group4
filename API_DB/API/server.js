@@ -91,9 +91,6 @@ app.get('/httpBasicProtectedResource',
   res.json({ yourProtectedResource: "profit" });
 });
 
-
-
-
 /*********************************************
  * JWT authentication
  * Passport module is used, see documentation
@@ -123,10 +120,12 @@ passport.use(new JwtStrategy(options, function(jwt_payload, done)
   const now = Date.now() / 1000;
   if(jwt_payload.exp > now) 
   {
+    //exports key and user
     done(null, jwt_payload.user);
   }
   else 
-  {// expired
+  {
+    // expired
     done(null, false);
   }
 }));
@@ -140,21 +139,20 @@ app.route('/main').get(function(req, res)
 {
     fs.readFile(__dirname + '/mainpage.html', 'utf8', function(err, html)
     {
-        if(err){
+        if(err)
+        {
             console.log(err);
-        }else{
-            res.send( 
-              html
-            );
+        }
+        else
+        {
+            res.send(html);
         }
     });
 });
 
-app.post(
-  '/login',
-  passport.authenticate('basic', { session: false }),
-  (req, res) => 
-  {
+//login function return token
+function login (req)
+{
     const body = {
       id: req.user.userId,
       email : req.user.email
@@ -171,7 +169,19 @@ app.post(
     }
 
     const token = jwt.sign(payload, jwtSecretKey.secret, options);
+    
+    return token;
+}
 
+app.post(
+  '/login',
+  passport.authenticate('basic', { session: false }),
+  (req, res) => 
+  {
+    const token = login(req);
+    //add the token to the userToken field
+    db.query("UPDATE users SET usersToken = ? WHERE userId = ?", [token, req.user.userId]);
+    //return token and ok status
     return res.status(200).json({ token });
 })
 
@@ -190,16 +200,13 @@ app.route('/documents').get( function(req, res)
     });
 });
 
-
 let apiInstance = null;
 exports.start = () => {
   apiInstance = app.listen(port, () => {
-    console.log(`Example app listening at http://localhost:${port}`)
+    console.log(`Musasampo app listening at http://localhost:${port}`)
   })
 }
 
 exports.stop = () => {
   apiInstance.close();
 }
-
-

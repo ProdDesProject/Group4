@@ -11,6 +11,11 @@ const passport = require('passport');
 const { getUserByName } = require('./users2');
 const BasicStrategy = require('passport-http').BasicStrategy;
 
+const jwt = require('jsonwebtoken');
+const JwtStrategy = require('passport-jwt').Strategy,
+      ExtractJwt = require('passport-jwt').ExtractJwt;
+const jwtSecretKey = require('../jwt-key.json');
+
 /*let Userdata = [
     {
         userId: 0,
@@ -52,8 +57,65 @@ router
     res.json({user});*/
 });
 
-router.get("/asd", function(req, res, next) {
+router.post("/asd", function(req, res, next) {
     res.send("API is working properly");
+});
+
+router
+.route('/checkuser/:username')
+.get(
+    (req, res) => {
+    db.query('SELECT * FROM users WHERE username = ?;',[req.params.username]).then(results => 
+    {
+        //show all users
+        res.json({ user: results});
+    })
+    .catch(() => 
+    {
+        //internal server error
+        res.sendStatus(500);
+    })
+    /*let user = users2.getAllUsers()
+    res.json({user});*/
+});
+
+router
+.route('/checkuser2/')
+.post(
+    (req, res) => {
+    db.query('SELECT * FROM users WHERE username = ?;',[req.body.username]).then(results => 
+    {
+        var username = req.body.username;
+        var password = req.body.password;
+
+        //console.log(username);
+        //console.log(password);
+
+        //console.log(results[0].password);
+
+        //results.body.password
+
+        if(!bcrypt.compareSync(password,results[0].password)) 
+        {
+            // Password does not match
+            console.log("HTTP Basic password not matching username");
+            //return done(null, false, { message: "HTTP Basic password not found" });
+            res.json("404");
+        }else
+        {
+            res.json({ user: results});
+        }
+
+        
+
+    })
+    .catch(() => 
+    {
+        //internal server error
+        res.sendStatus(500);
+    })
+    /*let user = users2.getAllUsers()
+    res.json({user});*/
 });
  
 //create a new user
@@ -63,7 +125,8 @@ router
     (req, res) => 
     {
         //search for the database 
-        db.query('SELECT username FROM users;').then(results => 
+        db.query('SELECT username FROM users;')
+        .then(results => 
         {
             //array of existing usernames
             var usernames = [];
@@ -101,7 +164,7 @@ router
 .route('/delete/:userId')
 .delete(
     //authentication required
-    //passport.authenticate('basic', { session: false }),
+    passport.authenticate('jwt', { session: false }),
     (req, res) => {
         //check if the id exists in the database first
         //we need to send not found response if id is not found
@@ -112,6 +175,8 @@ router
             {
                 //user id found, delete user from the database
                 db.query('DELETE FROM users WHERE userId = ?',[req.params.userId]);
+                //deincrement the user id field
+                db.query('ALTER TABLE bands AUTO_INCREMENT = ?',[(req.params.userId - 1)]); 
                 //send ok status
                 res.sendStatus(200);
             }
