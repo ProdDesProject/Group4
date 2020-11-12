@@ -4,9 +4,6 @@ import FormInput from '../form-input/form-input.component';
 import CustomButton from '../custom-button/custom-button.component';
 import { withRouter} from 'react-router-dom';
 
-
-import { withRouter} from 'react-router-dom';
-
 import './sign-in.styles.scss';
 
 class SignIn extends React.Component {
@@ -95,18 +92,13 @@ class SignIn extends React.Component {
       {
         //alert(data.user[0].username);
         //---->MAINPAGE
-        {
-          const requestOptions = {
+        
+         /* const requestOptions = {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ username:username,password:password })
-        };
+        };*/
   
-          const response = await fetch('http://localhost:9000/login', requestOptions)
-          const data = await response.json();
-          this.setState({ data: data.token });
-        }
-
         this.props.history.push('/');
       }
 

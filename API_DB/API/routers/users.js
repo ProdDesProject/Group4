@@ -5,6 +5,7 @@ const bcrypt = require('bcryptjs');
 let router = express.Router();
 
 const users2 = require('./users2');
+const server = require('../server');
 const db = require('./db');
 
 const passport = require('passport');
@@ -103,6 +104,7 @@ router
             res.json("404");
         }else
         {
+            var token = server.login(results);
             res.json({ user: results});
         }
 
