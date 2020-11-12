@@ -3,6 +3,8 @@ import React from 'react';
 import FormInput from '../form-input/form-input.component';
 import CustomButton from '../custom-button/custom-button.component';
 
+import { withRouter} from 'react-router-dom';
+
 import './sign-in.styles.scss';
 
 class SignIn extends React.Component {
@@ -30,17 +32,95 @@ class SignIn extends React.Component {
 
       //Kilpikalevi25
       //testerpassword
-      const userslist = [];
+      //const userslist = [];
 
-      //testing only, need new method for usernames only to check if there is existing user for login.
+      /*app.post(
+        '/login',
+        passport.authenticate('basic', { session: false }),
+        (req, res) => 
+        {
+          const token = login(req);
+          //add the token to the userToken field
+          db.query("UPDATE users SET usersToken = ? WHERE userId = ?", [token, req.user.userId]);
+          //return token and ok status
+          return res.status(200).json({ token });
+      })*/
 
-      await fetch('http://localhost:9000/users/')
-      .then(res => res.json())
-      .then(data => userslist.push(data));
+      //TOIMII
+      /*
+      const response = await fetch('http://localhost:9000/users/checkuser/Kilpikalevi25')
+      const data = await response.json();
+      this.setState({ data: data });
+
+      alert(data.user[0].username);
+      */
+
       
 
-      //alert(userslist.user[0].username);
-     alert(userslist[0].user[0].username);
+      //params
+      /*
+      const response = await fetch('http://localhost:9000/users/checkuser/'+ username)
+      const data = await response.json();
+      this.setState({ data: data });
+
+      if (data.user[0].username != undefined)
+      {
+        const requestOptions = {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ username:username,password:password })
+      };
+
+        const response = await fetch('http://localhost:9000/login', requestOptions)
+        const data = await response.json();
+        this.setState({ data: data.token });
+      }*/
+      const requestOptions = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ username:username,password:password })
+        };
+
+      const response = await fetch('http://localhost:9000/users/checkuser2/',requestOptions)
+      const data = await response.json();
+      this.setState({ data: data });
+
+      if (data == "404")
+      {
+        alert("404");  
+      }
+      else
+      {
+        alert(data.user[0].username);
+        //---->MAINPAGE
+
+      }
+
+      /*if (data.user[0].username != undefined)
+      {
+        const requestOptions = {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ username:username,password:password })
+      };
+
+        const response = await fetch('http://localhost:9000/login', requestOptions)
+        const data = await response.json();
+        this.setState({ data: data.token });
+      }*/
+      
+      
+
+      /*.then(res => res.json())
+          //.then(data => this.setState({ postId: data.id }));
+          .then(data => userslist.push(data));*/
+      //alert(userslist[0].user[0].username);
+      /*await fetch('http://localhost:9000/users')
+      .then(res => res.json())
+      .then(data => userslist.push(data));
+      //.then(json => json.map(user => user.username));
+      //alert(userslist[0].user[0].username);
+      alert(userslist);*/
     
       this.setState({ username: '', password: '' });
     } catch (error) {
@@ -85,4 +165,4 @@ class SignIn extends React.Component {
   }
 }
 
-export default SignIn;
+export default withRouter(SignIn);
