@@ -1,7 +1,7 @@
 const SHOP_DATA = [
   {
     id: 1,
-    title: 'Finnish',
+    title: 'FINNISH',
     routeName: 'finnish',
     items: [
       {
@@ -62,8 +62,8 @@ const SHOP_DATA = [
   },
   {
     id: 2,
-    title: 'Classic Music',
-    routeName: 'classic',
+    title: 'CLASSICS',
+    routeName: 'classics',
     items: [
       {
         id: 11,

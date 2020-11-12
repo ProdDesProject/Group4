@@ -7,9 +7,12 @@ import './header.styles.scss';
 
 const Header = () => (
   <div className='header'>
-    <Link className='logo-container' to='/'>
+    <Link className='logo-area' to='/'>
       <img src={logo} alt="logo" />
     </Link>
+    <Link className='title' to='/'>
+      MUSASAMPO
+      </Link>
     <div className='options'>
       <Link className='option' to='/'>
         GUITAR TUNER
