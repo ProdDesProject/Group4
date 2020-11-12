@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 const express = require('express');
 const parseobj = require('xml2js');
 
@@ -165,3 +166,179 @@ router
     })
 
 module.exports = router;
+=======
+const express = require('express');
+const parseobj = require('xml2js');
+
+
+let router = express.Router();
+const db = require('./db.js');
+
+const passport = require('passport');
+const { render } = require('ejs');
+const BasicStrategy = require('passport-http').BasicStrategy;
+
+/*let BandsData = [
+    {
+        bandId: "0",
+        nsfw: true,
+        bandName: "Slayer",
+        country: "USA",
+        bandlogo: "Slayer.png"
+    }
+
+  ];*/
+  
+  /*
+  let BandObject = {
+        "bandId": "0",
+        "nsfw": true,
+        "bandName": "Slayer",
+        "country": "USA",
+        "bandLogo": "Slayer.png"
+  };*/
+
+
+router
+.route('')
+.get(
+    //passport.authenticate('basic', { session: false }),
+    (req, res) => {
+    db.query('SELECT * FROM bands;').then(results => {
+        res.json({ bands2: results})
+    })
+    .catch(() => {
+        res.sendStatus(500);
+    })
+      /*let user = users2.getAllUsers()
+      res.json({user});*/
+});
+
+router
+.route(':bandId')
+.get(
+    //passport.authenticate('basic', { session: false }),
+    (req, res) => {
+    db.query('SELECT * FROM bands where bandId = ?;',[req.params.bandId]).then(results => 
+    {
+        res.json({ band: results})
+    })
+    .catch(() => 
+    {
+        res.sendStatus(500);
+    })
+      /*let user = users2.getAllUsers()
+      res.json({user});*/
+});
+
+router
+.route('/searchByName/:bandName')
+.get(
+    //passport.authenticate('basic', { session: false }),
+    (req, res) => {
+    db.query('SELECT * FROM bands where bandName = ?;',[req.params.bandName]).then(results => 
+    {
+        res.json({ bands: results})
+    })
+    .catch(() => 
+    {
+        res.sendStatus(500);
+    })
+      /*let user = users2.getAllUsers()
+      res.json({user});*/
+});
+
+router
+  .route('/createband')
+  .post(
+      //passport.authenticate('basic', { session: false }),
+      (req, res) => 
+      {
+        //check field filling
+        if(!req.body.nsfw || !req.body.bandName || !req.body.bandLogo || !req.body.country)
+        {
+            //fields not filled, bad request
+            res.sendStatus(400);
+        }
+        else
+        {
+            //create band if all fields are filled
+            db.query('INSERT INTO bands (nsfw,bandName,bandLogo,country)VALUES(?,?,?,?);',[req.body.nsfw, req.body.bandName, req.body.bandLogo, req.body.country]);
+            res.sendStatus(201);
+        }
+      });
+
+//modify a band's information based on id
+router
+.route('/modify/:bandId')
+.put(
+    //check authentication
+    //passport.authenticate('basic', { session: false }),
+    (req,res) => 
+    {
+        //check if the id exists in the database first
+        //we need to send not found response if id is not found
+        db.query('SELECT bandId FROM bands WHERE bandId = ?;', [req.params.bandId]).then(results => 
+        {
+                //check for results
+                if (results.length)
+                {
+                    //check field filling
+                    //console.log(req.body.nsfw , req.body.bandName, req.body.bandLogo, req.body.country);
+                    if(req.body.bandName && req.body.bandLogo && req.body.country)
+                    {
+                        //band id found, modify band credentials from the database
+                        db.query('UPDATE bands SET nsfw = ?,bandName = ?,bandLogo = ?,country = ? WHERE bandId = ?' ,[req.body.nsfw,req.body.bandName,req.body.bandLogo,req.body.country,req.params.bandId]);
+                        //send ok status
+                        res.sendStatus(200);
+                    }
+                    else
+                    {
+                        //fields not filled, bad request
+                        res.sendStatus(400);
+                    }
+                }
+                else
+                {
+                    //band id not found, cannot be modified
+                    res.sendStatus(404);
+                }
+        });
+    });
+
+router
+.route('/delete/:bandId')
+.delete(
+    //check authentication
+    //passport.authenticate('basic', { session: false }),
+    (req, res) => {
+        //check if the id exists in the database first
+        //we need to send not found response if id is not found
+        db.query('SELECT bandId FROM bands WHERE bandId = ?;', [req.params.bandId]).then(results => 
+            {
+                //check for results
+                if (results.length)
+                {
+                    //band id found, delete band from the database
+                    db.query('DELETE FROM bands WHERE bandId = ?',[req.params.bandId]);
+                    //deincrement the band id field
+                    db.query('ALTER TABLE bands AUTO_INCREMENT=?',[(req.params.bandId - 1 )]); 
+                    //send ok status
+                    res.sendStatus(200);
+                }
+                else
+                {
+                    //band id not found, cannot be deleted
+                    res.sendStatus(404);
+                }
+            });
+    })
+
+//export the router 
+/*module.exports = 
+{
+    router:router
+}*/
+
+module.exports = router;
+>>>>>>> origin/Musasampo2.0

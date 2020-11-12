@@ -4,6 +4,7 @@ import FormInput from '../form-input/form-input.component';
 import CustomButton from '../custom-button/custom-button.component';
 import { withRouter} from 'react-router-dom';
 
+
 import './sign-in.styles.scss';
 
 class SignIn extends React.Component {
@@ -31,6 +32,7 @@ class SignIn extends React.Component {
 
       //Kilpikalevi25
       //testerpassword
+
       //const userslist = [];
 
       /*app.post(
@@ -121,6 +123,19 @@ class SignIn extends React.Component {
       //.then(json => json.map(user => user.username));
       //alert(userslist[0].user[0].username);
       alert(userslist);*/
+
+      const userslist = [];
+
+      //testing only, need new method for usernames only to check if there is existing user for login.
+
+      await fetch('http://localhost:9000/users/')
+      .then(res => res.json())
+      .then(data => userslist.push(data));
+      
+
+      //alert(userslist.user[0].username);
+     alert(userslist[0].user[0].username);
+
     
       this.setState({ username: '', password: '' });
     } catch (error) {
@@ -164,4 +179,5 @@ class SignIn extends React.Component {
     );
   }
 }
+
 export default withRouter(SignIn);
