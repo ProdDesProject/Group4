@@ -45,7 +45,7 @@ function TabPanel(props) {
   /*const useStyles = makeStyles((theme) => ({
     root: {
       flexGrow: 1,
-      backgroundColor: theme.palette.background.paper,
+      backgroundColor: "white",
     },
   }));*/
   
@@ -85,13 +85,15 @@ function TabPanel(props) {
                 <dt>Something Something Records</dt>
                 <dt>CD, Vinyl, Cassette</dt>
             </div>
-        </div>
 
+            <div className='albumImage'>
+            </div>
+        </div>
 
             <div className='tabpanel1'>
                 <AppBar position="static">
-                <Tabs className='tabs' value={value} onChange={handleChange} indicatorColor="primary" textColor="primary" 
-                TabIndicatorProps={{style: { background: "#32e0c4", height: "4px", color: "#32e0c4"}}}>
+                <Tabs className='tabs' value={value} onChange={handleChange}
+                TabIndicatorProps={{style: { background: "#32e0c4", background: "#32e0c4", height: "4px"}}}>
                     <Tab className='tab-name' label="Songs" {...a11yProps(0)} />
                     <Tab className='tab-name' label="Lineup" {...a11yProps(1)} />
                     <Tab className='tab-name' label="Reviews" {...a11yProps(2)} />

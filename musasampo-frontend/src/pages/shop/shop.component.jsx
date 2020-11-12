@@ -3,6 +3,7 @@ import React from 'react';
 import SHOP_DATA from './shop.data.js';
 
 import AlbumPreview from '../../components/album-preview/album-preview.component';
+import './shop.styles.scss';
 
 class ShopPage extends React.Component {
   constructor(props) {
