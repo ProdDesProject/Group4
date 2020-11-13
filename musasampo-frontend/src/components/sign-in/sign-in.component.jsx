@@ -3,6 +3,8 @@ import React from 'react';
 import FormInput from '../form-input/form-input.component';
 import CustomButton from '../custom-button/custom-button.component';
 
+import { withRouter } from 'react-router-dom';
+
 import './sign-in.styles.scss';
 
 class SignIn extends React.Component {
@@ -22,9 +24,10 @@ class SignIn extends React.Component {
 
     try {
 
-      // SIGN IN CODE GOES HERE
+
 
       this.setState({ username: '', password: '' });
+      this.props.history.push('/');
     } catch (error) {
       console.log(error);
     }
@@ -68,4 +71,4 @@ class SignIn extends React.Component {
   }
 }
 
-export default SignIn;
+export default withRouter(SignIn);
