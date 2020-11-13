@@ -8,6 +8,7 @@ import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 
 import './album.styles.scss';
+import SHOP_DATA from '../../pages/shop/shop.data.js'
 
 function TabPanel(props) {
     const { children, value, index, ...other } = props;
@@ -45,7 +46,7 @@ function TabPanel(props) {
   /*const useStyles = makeStyles((theme) => ({
     root: {
       flexGrow: 1,
-      backgroundColor: theme.palette.background.paper,
+      backgroundColor: "white",
     },
   }));*/
   
@@ -83,15 +84,18 @@ function TabPanel(props) {
                 <dt>22.12.1999</dt>
                 <dt>2390189421</dt>
                 <dt>Something Something Records</dt>
-                <dt>CD, Vinyl, Cassette</dt>
+                <dt>CD</dt>
+            </div>
+
+            <div className='albumImage'>
+              <img className='img' src='https://upload.wikimedia.org/wikipedia/en/8/87/Nightwish_Angels_Fall_First.jpg' />
             </div>
         </div>
 
-
             <div className='tabpanel1'>
                 <AppBar position="static">
-                <Tabs className='tabs' value={value} onChange={handleChange} indicatorColor="primary" textColor="primary" 
-                TabIndicatorProps={{style: { background: "#32e0c4", height: "4px", color: "#32e0c4"}}}>
+                <Tabs className='tabs' value={value} onChange={handleChange}
+                TabIndicatorProps={{style: { background: "#32e0c4", background: "#32e0c4", height: "4px"}}}>
                     <Tab className='tab-name' label="Songs" {...a11yProps(0)} />
                     <Tab className='tab-name' label="Lineup" {...a11yProps(1)} />
                     <Tab className='tab-name' label="Reviews" {...a11yProps(2)} />

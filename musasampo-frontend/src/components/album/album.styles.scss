@@ -7,14 +7,12 @@
         font-size: 40px;
         display: flex;
         font-weight: bold;
-        color: Black;
       }
     
     .subtitle {
         font-size: 30px;
         display: flex;
         font-weight: bold;
-        color: Black;
         margin-left: 2px;
       }
 }
@@ -22,8 +20,7 @@
 .description {
     font-size: 16px;
     margin-left: 155px;
-    text-align: right; 
-    display: block;
+    text-align: right;
     font-family: 'Lucida Sans Unicode';
     letter-spacing: -0.3px;
 
@@ -45,7 +42,6 @@
 }
 
 .tabpanel1 {
-    background: white;
     width: 50%;
     margin-left: 150px;
     margin-top: 25px;
@@ -53,9 +49,9 @@
 
     .tabs {
         background: #393e46;
-        border-top-left-radius: 8px;
+        /*border-top-left-radius: 8px;
         border-top-right-radius: 8px;
-        width: 57%;
+        width: 57%;*/
     }
 
     .tab-name {
@@ -67,5 +63,20 @@
         max-height: 370px;
         border: 1px solid  #393e46;
         border-top: 0px solid;
+        background: white;
+    }
+}
+
+.albumImage {
+    border: 1px solid #393e46;
+    position: absolute;
+    left: 791px;
+    top: 160px;
+    width: 202px;
+    height: 202px;
+
+    .img {
+        width: 200px;
+        height: 200px;
     }
 }

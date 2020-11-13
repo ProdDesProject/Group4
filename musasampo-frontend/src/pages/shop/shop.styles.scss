@@ -1,0 +1,12 @@
+.shop-page {
+    display: flex;
+    flex-direction: column;
+    margin: auto 40px;
+  
+    .title {
+      font-size: 38px;
+      margin-bottom: 30px;
+      // If we want the titles in the center:
+      //margin: auto auto 30px;
+    }
+  }

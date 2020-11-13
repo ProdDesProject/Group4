@@ -2,13 +2,17 @@
   width: 380px;
   display: flex;
   flex-direction: column;
+  font-size: 20px;
 
   .title {
     margin: 10px 0;
   }
 
+  .subtitle {
+    margin-bottom: 10px;
+  }
+
   .buttons {
-    display: flex;
-    justify-content: space-between;
+    padding-top: 5px;
   }
 }
