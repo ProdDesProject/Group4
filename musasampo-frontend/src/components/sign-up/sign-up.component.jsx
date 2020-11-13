@@ -53,8 +53,8 @@ class SignUp extends React.Component {
     const { username, email, password, confirmPassword } = this.state;
     return (
       <div className='sign-up'>
-        <h2 className='title'>I do not have a account</h2>
-        <span>Sign up with your email and password</span>
+        <h2 className='title'>I do not have an account</h2>
+        <span className='subtitle'>Sign up with your email and a username</span>
         <form className='sign-up-form' onSubmit={this.handleSubmit}>
           <FormInput
             type='text'
@@ -88,7 +88,9 @@ class SignUp extends React.Component {
             label='Confirm Password'
             required
           />
-          <CustomButton type='submit'>SIGN UP</CustomButton>
+          <div className='buttons'>
+            <CustomButton type='submit'>SIGN UP</CustomButton>
+            </div>
         </form>
       </div>
     );
