@@ -8,6 +8,7 @@ import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 
 import './album.styles.scss';
+import SHOP_DATA from '../../pages/shop/shop.data.js'
 
 function TabPanel(props) {
     const { children, value, index, ...other } = props;
@@ -83,10 +84,11 @@ function TabPanel(props) {
                 <dt>22.12.1999</dt>
                 <dt>2390189421</dt>
                 <dt>Something Something Records</dt>
-                <dt>CD, Vinyl, Cassette</dt>
+                <dt>CD</dt>
             </div>
 
             <div className='albumImage'>
+              <img className='img' src='https://upload.wikimedia.org/wikipedia/en/8/87/Nightwish_Angels_Fall_First.jpg' />
             </div>
         </div>
 

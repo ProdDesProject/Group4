@@ -68,10 +68,15 @@
 }
 
 .albumImage {
-    border: 1px solid  #393e46;
+    border: 1px solid #393e46;
     position: absolute;
-    right: 220px;
-    top: 180px;
-    width: 200px;
-    height: 200px;
+    left: 791px;
+    top: 160px;
+    width: 202px;
+    height: 202px;
+
+    .img {
+        width: 200px;
+        height: 200px;
+    }
 }
