@@ -44,8 +44,6 @@ class SignIn extends React.Component {
       alert(data.user[0].username);
       */
 
-      
-
       //params
       /*
       const response = await fetch('http://localhost:9000/users/checkuser/'+ username)
@@ -89,18 +87,20 @@ class SignIn extends React.Component {
             body: JSON.stringify({ username:username,password:password })
         };*/
 
-        //var data2;
-
         let headers = new Headers();
         headers.set('Authorization', 'Basic ' + base64.encode(username + ":" + password));
 
         const response2 = await fetch("http://localhost:9000/login", {method:'POST',headers: headers,})
         const token = await response2.json();
 
-        
         alert(JSON.stringify(token));
        
-        this.props.history.push('/');
+        //this.props.history.push('/');
+
+        this.props.history.push({
+          pathname: '/',
+          state: { detail: token }
+        })
       }
 
   
