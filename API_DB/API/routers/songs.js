@@ -33,8 +33,9 @@ router
 .get(
     //passport.authenticate('basic', { session: false }),
     (req, res) => {
-    db.query('SELECT * FROM songs;').then(results => {
-        if(results != undefined)
+    db.query('SELECT * FROM songs;').then(results => 
+    {
+        if(results.length)
         {
             res.json({ songs: results})
         }
@@ -81,25 +82,37 @@ router
 });
 
 router
-  .route('/createsong')
+  .route('/:albumId/createsong')
   .post(
       //bands need to be authenticated in order to add songs
       passport.authenticate('jwt', { session: false }),
       (req, res) => 
       {
-        //check field filling
-        if(req.body.songName && req.body.MP3 && req.body.MP4)
-        {   
-            //create song if all fields are filled
-            db.query('INSERT INTO songs (songName,MP3,MP4)VALUES(?,?,?);',[req.body.songName, req.body.MP3, req.body.MP4]);
-            //send created status
-            res.sendStatus(201);
-        }
-        else
+        //albumId not found -- search for it
+        db.query("SELECT * FROM albums WHERE albumID = ?", [req.params.albumId]).then(results =>
         {
-            //bad request
-            res.sendStatus(400);
-        }
+                if(!results.length)
+                {
+                    //bad request
+                    res.sendStatus(400);
+                }
+                else
+                {
+                    //check field filling
+                    if(req.body.songName && req.body.MP3 && req.body.MP4)
+                    {   
+                        //create song if all fields are filled
+                        db.query('INSERT INTO songs (albumId, songName, MP3, MP4)VALUES(?,?,?,?);',[req.params.albumId, req.body.songName, req.body.MP3, req.body.MP4]);
+                        //send created status
+                        res.sendStatus(201);
+                    }
+                    else
+                    {
+                        //bad request
+                        res.sendStatus(400);
+                    }
+                }
+        });
     });
 
 //modify a song

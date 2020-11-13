@@ -37,19 +37,19 @@ router
     (req, res) => {
     db.query('SELECT * FROM albums;').then(results => 
         {
-        if(results != undefined)
-        {
-            res.json({ albums: results})
-        }
-        else
-        {
-            //no albums in the database
-            res.sendStatus(404);
-        }
-    })
-    .catch(() => {
-        res.sendStatus(500);
-    })
+            if(results.length)
+            {
+                res.json({ albums: results})
+            }
+            else
+            {
+                //no albums in the database
+                res.sendStatus(404);
+            }
+        })
+        .catch(() => {
+            res.sendStatus(500);
+        })
     /*let user = users2.getAllUsers()
     res.json({user});*/
 });
@@ -85,24 +85,36 @@ router
 });
 
 router
-  .route('/createalbum')
+  .route('/:bandId/createalbum')
   .post(
       //bands need to be authenticated in order to post albums
       passport.authenticate('jwt', { session: false }),
       (req, res) => 
       {
-        //check field filling
-        if(req.body.albumName && req.body.albumLaunchDate && req.body.albumPicture && req.body.albumGenre)
-        {    //create album if all fields are filled
-            db.query('INSERT INTO albums (albumName,albumLaunchDate,albumPicture,albumGenre)VALUES(?,?,?,?);',[req.body.albumName, req.body.albumLaunchDate, req.body.albumPicture, req.body.albumGenre]);
-            //send created status
-            res.sendStatus(201);
-        }
-        else
-        {
-            //bad request
-            res.sendStatus(400);
-        }
+          //bandId not found -- search for it
+          db.query("SELECT * FROM bands WHERE bandID = ?", [req.params.bandId]).then(results =>
+            {
+                if(!results.length)
+                {
+                    //bad request
+                    res.sendStatus(400);
+                }
+                else
+                {
+                    //check field filling
+                    if(req.body.albumName && req.body.albumLaunchDate && req.body.albumPicture && req.body.albumGenre)
+                    {    //create album if all fields are filled
+                        db.query('INSERT INTO albums (bandId,albumName,albumLaunchDate,albumPicture,albumGenre)VALUES(?,?,?,?,?);',[req.params.bandId, req.body.albumName, req.body.albumLaunchDate, req.body.albumPicture, req.body.albumGenre]);
+                        //send created status
+                        res.sendStatus(201);
+                    }
+                    else
+                    {
+                        //bad request
+                        res.sendStatus(400);
+                    }
+                }
+            })
     });
 
 router

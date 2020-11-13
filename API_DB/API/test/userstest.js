@@ -89,7 +89,7 @@ describe('test operations User', function()
       //.auth('Kilpikalevi2000', 'trololo')
       .send({
           //username has to be unique every time a new test is ran
-                username: "Kilpikalevi01",
+                username: "Lala1",
                 password: "trololo",
                 name: "Kokonut",
                 email: "fdosfdosjk@gmail.com",
@@ -106,11 +106,11 @@ describe('test operations User', function()
         .then(readResponse => 
             {
                 //change username to match here too
-                expect(readResponse.body.user[readResponse.body.user.length-1].username).to.equal("Kilpikalevi01");
+                expect(readResponse.body.user[readResponse.body.user.length].username).to.equal("Lala1");
                 //expect(bcrypt.compare("trololo", readResponse.body.user[readResponse.body.user.length-1].password)).to.equal(true);
-                expect(readResponse.body.user[readResponse.body.user.length-1].name).to.equal("Kokonut");
-                expect(readResponse.body.user[readResponse.body.user.length-1].email).to.equal("fdosfdosjk@gmail.com");
-                expect(readResponse.body.user[readResponse.body.user.length-1].phoneNumber).to.equal("012345");
+                expect(readResponse.body.user[readResponse.body.user.length].name).to.equal("Kokonut");
+                expect(readResponse.body.user[readResponse.body.user.length].email).to.equal("fdosfdosjk@gmail.com");
+                expect(readResponse.body.user[readResponse.body.user.length].phoneNumber).to.equal("012345");
             })
             
     });
@@ -143,22 +143,22 @@ describe('test operations User', function()
   describe("DELETE user", function()
   {
     it("Should NOT delete an user because userId was not found", async function()
-  {
-      this.timeout(5000);
-      await chai.request(apiAddress)
-      .delete('/users/delete/1')
-      .set({
-        Authorization: `Bearer ${token}`
-      })
-      .then(response => 
-        {
-          expect(response.status).to.equal(404);
+    {
+        this.timeout(5000);
+        await chai.request(apiAddress)
+        .delete('/users/delete/1')
+        .set({
+          Authorization: `Bearer ${token}`
         })
-      .catch(error => 
-        {
-          expect.fail(error)
-        })
-  })
+        .then(response => 
+          {
+            expect(response.status).to.equal(404);
+          })
+        .catch(error => 
+          {
+            expect.fail(error)
+          })
+    })
 
   it("Should NOT delete an user because token was not found", async function()
   {
@@ -184,7 +184,7 @@ describe('test operations User', function()
     {
         this.timeout(3000);
         await chai.request(apiAddress)
-        .delete('/users/delete/28')
+        .delete('/users/delete/30')
         .set({
             Authorization: `Bearer ${token}`
           })

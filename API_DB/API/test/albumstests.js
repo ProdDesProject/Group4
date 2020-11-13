@@ -53,7 +53,25 @@ describe('test operations Albums', function()
             })
     })
 
-    it('GET-method test for /albums', async function() 
+    it('GET-method test for /albums does not work', async function() 
+    {
+      this.timeout(3000);
+      await chai.request(apiAddress)
+      .get('/albums')
+      //.auth('Kilpikalevi2000', 'trololo')
+      
+      //no albums present in the database yet, test fails
+      .then(response => 
+        {
+            expect(response.status).to.equal(404);
+        })
+        .catch(error => 
+          {
+              expect.fail(error)
+          })
+      });
+
+    it('GET-method test for /albums works', async function() 
     {
       this.timeout(3000);
       await chai.request(apiAddress)
@@ -87,7 +105,7 @@ describe( "Create a album", function()
     {
       this.timeout(5000);
       await chai.request(apiAddress)
-      .post('/albums/createalbum')
+      .post('/albums/28/createalbum')
       .set({
         Authorization: `Bearer ${token}`
       })
@@ -110,7 +128,7 @@ describe( "Create a album", function()
     {
       this.timeout(5000);
       await chai.request(apiAddress)
-      .post('/albums/createalbum')
+      .post('/albums/28/createalbum')
       .set({
         Authorization: `Bearer ${token}`
       })
@@ -133,7 +151,7 @@ describe( "Create a album", function()
     {
       this.timeout(5000);
       await chai.request(apiAddress)
-      .post('/albums/createalbum')
+      .post('/albums/28/createalbum')
       .set({
         Authorization: `Bearer ${token}`
       })
@@ -156,7 +174,7 @@ describe( "Create a album", function()
     {
       this.timeout(5000);
       await chai.request(apiAddress)
-      .post('/albums/createalbum')
+      .post('/albums/28/createalbum')
       .set({
         Authorization: `Bearer ${token}`
       })
@@ -179,7 +197,7 @@ describe( "Create a album", function()
     {
       this.timeout(5000);
       await chai.request(apiAddress)
-      .post('/albums/createalbum')
+      .post('/albums/28/createalbum')
       .set({
         Authorization: `Bearer ${token}`
       })
@@ -207,30 +225,57 @@ describe( "Create a album", function()
 
 describe("DELETE albums", function()
 {
+    it("Should NOT delete an album because albumId was not found", async function()
+    {
+        this.timeout(5000);
+        await chai.request(apiAddress)
+        .delete('/albums/delete/9')
+        .set({
+          Authorization: `Bearer ${token}`
+        })
+        .then(response => 
+          {
+            expect(response.status).to.equal(404);
+          })
+        .catch(error => 
+          {
+            expect.fail(error)
+          })
+    })
+
+    it("Should NOT delete an album because token was not found", async function()
+    {
+        this.timeout(5000);
+        await chai.request(apiAddress)
+        .delete('/albums/delete/35')
+        /*
+        .set({
+          Authorization: `Bearer ${token}`
+        })
+        */
+        .then(response => 
+          {
+            expect(response.status).to.equal(401);
+          })
+        .catch(error => 
+          {
+            expect.fail(error)
+          })
+    })
     it('Delete-method,Should delete an album', async function() 
     {
         this.timeout(3000);
         await chai.request(apiAddress)
-        .get('/albums')
-        .auth('Kilpikalevi2000', 'trololo')
-        .then(response => 
-            {
-                expect(response.status).to.equal(200);
-                expect(response.body).to.be.a('object');
-                expect(response.body).to.have.a.property('albums');
-                expect(response.body.albums).to.be.a('array');
-            
-                storedresponse = response.body.albums.albumId;
-                storedLenght = response.body.albums.length;
-
-                return chai.request(apiAddress)
-                .delete('/albums/delete/'+storedresponse)
-                .auth('Kilpikalevi2000', 'trololo');
-            
-          }).catch(error => 
-            {
-                expect.fail(error)
-            })
+        .delete('/albums/delete/51')
+        .set({
+          Authorization: `Bearer ${token}`
+        })
+        .then(response => {
+          expect(response.status).to.equal(200);
+        })
+        .catch(error => {
+            expect.fail(error)
+        })
       });
   })
 });

@@ -86,7 +86,7 @@ describe( "Create a song", function()
     {
       this.timeout(5000);
       await chai.request(apiAddress)
-      .post('/songs/createsong')
+      .post('/songs/28/createsong')
       .set({
         Authorization: `Bearer ${token}`
       })
@@ -108,7 +108,7 @@ describe( "Create a song", function()
     {
       this.timeout(5000);
       await chai.request(apiAddress)
-      .post('/songs/createsong')
+      .post('/songs/28/createsong')
       .set({
         Authorization: `Bearer ${token}`
       })
@@ -130,7 +130,7 @@ describe( "Create a song", function()
     {
       this.timeout(5000);
       await chai.request(apiAddress)
-      .post('/songs/createsong')
+      .post('/songs/28/createsong')
       .set({
         Authorization: `Bearer ${token}`
       })
@@ -152,7 +152,7 @@ describe( "Create a song", function()
     {
       this.timeout(5000);
       await chai.request(apiAddress)
-      .post('/songs/createsong')
+      .post('/songs/28/createsong')
       .set({
         Authorization: `Bearer ${token}`
       })
@@ -178,30 +178,57 @@ describe( "Create a song", function()
 
 describe("DELETE songs", function()
 {
+    it("Should NOT delete a song because songId was not found", async function()
+    {
+        this.timeout(5000);
+        await chai.request(apiAddress)
+        .delete('/songs/delete/9')
+        .set({
+          Authorization: `Bearer ${token}`
+        })
+        .then(response => 
+          {
+            expect(response.status).to.equal(404);
+          })
+        .catch(error => 
+          {
+            expect.fail(error)
+          })
+    })
+
+    it("Should NOT delete a song because token was not found", async function()
+    {
+        this.timeout(5000);
+        await chai.request(apiAddress)
+        .delete('/songs/delete/25')
+        /*
+        .set({
+          Authorization: `Bearer ${token}`
+        })
+        */
+        .then(response => 
+          {
+            expect(response.status).to.equal(401);
+          })
+        .catch(error => 
+          {
+            expect.fail(error)
+          })
+    })
     it('Delete-method,Should delete an song', async function() 
     {
         this.timeout(3000);
         await chai.request(apiAddress)
-        .get('/songs')
-        .auth('Kilpikalevi2000', 'trololo')
-        .then(response => 
-            {
-                expect(response.status).to.equal(200);
-                expect(response.body).to.be.a('object');
-                expect(response.body).to.have.a.property('songs');
-                expect(response.body.songs).to.be.a('array');
-            
-                storedresponse = response.body.songs.songId;
-                storedLenght = response.body.songs.length;
-
-                return chai.request(apiAddress)
-                .delete('/songs/delete/'+storedresponse)
-                .auth('Kilpikalevi2000', 'trololo');
-            
-          }).catch(error => 
-            {
-                expect.fail(error)
-            })
-      });
+        .delete('/songs/delete/28')
+        .set({
+          Authorization: `Bearer ${token}`
+        })
+        .then(response => {
+          expect(response.status).to.equal(200);
+        })
+        .catch(error => {
+            expect.fail(error)
+        })
+    });
   })
 });

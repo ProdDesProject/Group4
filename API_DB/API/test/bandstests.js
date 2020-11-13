@@ -43,10 +43,12 @@ describe('test operations Bands', function()
       await chai.request(apiAddress)
           .post('/login')
           .auth("Kilpikalevi2000", "trololo")
-          .then(response => {
+          .then(response => 
+          {
               token = response.body.token;
           })
-          .catch(error => {
+          .catch(error => 
+          {
               expect.fail(error)
           })
     })
@@ -78,6 +80,30 @@ describe('test operations Bands', function()
 
 describe( "Create a band", function()
 {
+    //token not provided
+    it('Should NOT create a new band because no token provided', async function () 
+    {
+      this.timeout(5000);
+      await chai.request(apiAddress)
+      .post('/bands/createband')
+      /*
+      .set({
+        Authorization: `Bearer ${token}`
+      })
+      */
+      .send({
+              nsfw: 1,
+              bandName: "Turmion Kätilöt",
+              bandLogo: "TK.jpg",
+              country: "Finland"
+          })
+          .then(response => {
+              expect(response.status).to.equal(401);
+          })
+          .catch(error => {
+              expect.fail(error)
+          })
+    })
     //nsfw field not filled
     it('Should NOT create a new band because no nsfw flag was given', async function () 
     {
@@ -193,72 +219,25 @@ describe( "Create a band", function()
             })
         .then(readResponse => 
             {
+                expect(readResponse.body).to.be.a('object');
+                expect(readResponse.body.bands).to.be.a('array');
+                /*
+                expect(readResponse.body.bands).to.have.a.property('nsfw');
+                expect(readResponse.body.bands).to.have.a.property('bandName');
+                expect(readResponse.body.bands).to.have.a.property('bandLogo');
+                expect(readResponse.body.bands).to.have.a.property('country');
+                */
+                /*
                 expect(readResponse.body.bands[readResponse.body.bands.length-1].nsfw).to.equal(1);
                 expect(readResponse.body.bands[readResponse.body.bands.length-1].bandName).to.equal("Turmion Kätilöt");
                 expect(readResponse.body.bands[readResponse.body.bands.length-1].bandLogo).to.equal("TK.jpg");
                 expect(readResponse.body.bands[readResponse.body.bands.length-1].country).to.equal("Finland");
+                */
             })
     });
 });
 
-describe("DELETE bands", function()
-{
-  it("Should NOT delete a band because bandId was not found", async function()
-  {
-      this.timeout(5000);
-      await chai.request(apiAddress)
-      .delete('/bands/delete/9')
-      .set({
-        Authorization: `Bearer ${token}`
-      })
-      .then(response => 
-        {
-          expect(response.status).to.equal(404);
-        })
-      .catch(error => 
-        {
-          expect.fail(error)
-        })
-  })
-
-  it("Should NOT delete a band because token was not found", async function()
-  {
-      this.timeout(5000);
-      await chai.request(apiAddress)
-      .delete('/bands/delete/10')
-      /*
-      .set({
-        Authorization: `Bearer ${token}`
-      })
-      */
-      .then(response => 
-        {
-          expect(response.status).to.equal(401);
-        })
-      .catch(error => 
-        {
-          expect.fail(error)
-        })
-    })
-
-    it('Delete-method,Should delete a band', async function() 
-    {
-        this.timeout(3000);
-        await chai.request(apiAddress)
-        .delete('/bands/delete/38')
-        .set({
-          Authorization: `Bearer ${token}`
-        })
-        .then(response => {
-          expect(response.status).to.equal(200);
-        })
-        .catch(error => {
-            expect.fail(error)
-        })
-      });
-  })
-
-
+//testing the put method for the bands
 describe("Modify a band", function()
   {
       it("Should NOT modify a band because bandId was not found", async function()
@@ -316,7 +295,7 @@ describe("Modify a band", function()
       {
           this.timeout(5000);
           await chai.request(apiAddress)
-          .put('/bands/modify/37')
+          .put('/bands/modify/36')
           .set({
             Authorization: `Bearer ${token}`
           })
@@ -339,7 +318,7 @@ describe("Modify a band", function()
       {
           this.timeout(5000);
           await chai.request(apiAddress)
-          .put('/bands/modify/37')
+          .put('/bands/modify/36')
           .set({
             Authorization: `Bearer ${token}`
           })
@@ -384,14 +363,14 @@ describe("Modify a band", function()
       {
         this.timeout(5000);
         await chai.request(apiAddress)
-        .put('/bands/modify/37')
+        .put('/bands/modify/36')
         .set({
           Authorization: `Bearer ${token}`
         })
         .send({
                 nsfw: 1,
                 bandName: "Turmion Kätilöt",
-                bandLogo: "TK1.jpg",
+                bandLogo: "TK.jpg",
                 country: "Finland"
               })
           .then(response => 
@@ -412,7 +391,7 @@ describe("Modify a band", function()
               {
                   expect(readResponse.body.bands[readResponse.body.bands.length-1].nsfw).to.equal(1);
                   expect(readResponse.body.bands[readResponse.body.bands.length-1].bandName).to.equal("Turmion Kätilöt");
-                  expect(readResponse.body.bands[readResponse.body.bands.length-1].bandLogo).to.equal("TK1.jpg");
+                  expect(readResponse.body.bands[readResponse.body.bands.length-1].bandLogo).to.equal("TK.jpg");
                   expect(readResponse.body.bands[readResponse.body.bands.length-1].country).to.equal("Finland");
               })
             
@@ -422,4 +401,62 @@ describe("Modify a band", function()
             })
       });
   })
+  //testing the delete method for the bands
+  describe("DELETE bands", function()
+  {
+      it("Should NOT delete a band because bandId was not found", async function()
+      {
+          this.timeout(5000);
+          await chai.request(apiAddress)
+          .delete('/bands/delete/9')
+          .set({
+            Authorization: `Bearer ${token}`
+          })
+          .then(response => 
+            {
+              expect(response.status).to.equal(404);
+            })
+          .catch(error => 
+            {
+              expect.fail(error)
+            })
+      })
+
+      it("Should NOT delete a band because token was not found", async function()
+      {
+          this.timeout(5000);
+          await chai.request(apiAddress)
+          .delete('/bands/delete/10')
+          /*
+          .set({
+            Authorization: `Bearer ${token}`
+          })
+          */
+          .then(response => 
+            {
+              expect(response.status).to.equal(401);
+            })
+          .catch(error => 
+            {
+              expect.fail(error)
+            })
+      })
+
+      it('Delete-method,Should delete a band', async function() 
+      {
+          this.timeout(3000);
+          await chai.request(apiAddress)
+          .delete('/bands/delete/36')
+          .set({
+            Authorization: `Bearer ${token}`
+          })
+          .then(response => {
+            expect(response.status).to.equal(200);
+          })
+          .catch(error => {
+              expect.fail(error)
+          })
+      });
+  })
 });
+
