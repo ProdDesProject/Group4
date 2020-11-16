@@ -4,7 +4,6 @@ import FormInput from '../form-input/form-input.component';
 import CustomButton from '../custom-button/custom-button.component';
 import { withRouter} from 'react-router-dom';
 
-import { withRouter } from 'react-router-dom';
 
 import './sign-in.styles.scss';
 
