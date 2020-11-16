@@ -7,8 +7,7 @@ import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 
-import './album.styles.scss';
-import SHOP_DATA from '../../pages/shop/shop.data.js'
+import './band.styles.scss';
 
 function TabPanel(props) {
     const { children, value, index, ...other } = props;
@@ -42,35 +41,6 @@ function TabPanel(props) {
       'aria-controls': `simple-tabpanel-${index}`,
     };
   }
-  
-
-  /*export class ShopPage extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      albums: SHOP_DATA
-    };
-  }
-
-  render() {
-    const { albums } = this.state;
-    return (
-      <div className='shop-page'>
-        {albums.map(({ id, ...otherAlbumProps }) => (
-          <AlbumPreview key={id} {...otherAlbumProps} />
-        ))}
-      </div>
-    );
-  }
-}*/
-
-  /*const useStyles = makeStyles((theme) => ({
-    root: {
-      flexGrow: 1,
-      backgroundColor: "white",
-    },
-  }));*/
 
   export default function SimpleTabs() {
     //const classes = useStyles();
@@ -83,34 +53,35 @@ function TabPanel(props) {
     return (
         <div>
 
-            <div className='titles'>
-                <text className='title'>
-                    Example Album
-                    </text>
-                <text className='subtitle'>
-                    Example Band
-                    </text>
+            <div className='title'>
+                Example Band
             </div>
 
         <div className='description'>
              <div className='descriptor'>
-                <dt>Type:</dt>
-                <dt>Release date:</dt>
-                <dt>ID:</dt>
-                <dt>Label:</dt>
-                <dt>Format:</dt>
+                <dt>Country of origin:</dt>
+                <dt>Location:</dt>
+                <dt>Status:</dt>
+                <dt>Formed in:</dt>
+                <dt>Years active:</dt>
+                <dt>Genre:</dt>
+                <dt>Lyrical themes:</dt>
+                <dt>Current label</dt>
             </div>
 
             <div className='infotext'>
-                <dt>Demo</dt>
-                <dt>22.12.1999</dt>
-                <dt>2390189421</dt>
+                <dt>Finland</dt>
+                <dt>Oulu</dt>
+                <dt>Active</dt>
+                <dt>2019</dt>
+                <dt>2019-present</dt>
+                <dt>Symphonic Power Metal</dt>
+                <dt>Death, destruction, taxes</dt>
                 <dt>Something Something Records</dt>
-                <dt>CD</dt>
             </div>
 
-            <div className='albumImage'>
-              <img className='img' src='https://upload.wikimedia.org/wikipedia/en/8/87/Nightwish_Angels_Fall_First.jpg' />
+            <div className='bandImage'>
+              <img className='img' src='https://finland.fi/wp-content/uploads/2015/05/3531-nightwish_c_ville_juurikkala_550px-jpg.jpg' />
             </div>
         </div>
 
@@ -118,23 +89,19 @@ function TabPanel(props) {
                 <AppBar position="static">
                 <Tabs className='tabs' value={value} onChange={handleChange}
                 TabIndicatorProps={{style: { background: "#32e0c4", background: "#32e0c4", height: "4px"}}}>
-                    <Tab className='tab-name' label="Songs" {...a11yProps(0)} />
-                    <Tab className='tab-name' label="Lineup" {...a11yProps(1)} />
+                    <Tab className='tab-name' label="Discography" {...a11yProps(0)} />
+                    <Tab className='tab-name' label="Members" {...a11yProps(1)} />
                     <Tab className='tab-name' label="Reviews" {...a11yProps(2)} />
                 </Tabs>
                 </AppBar>
                 <TabPanel className='panel-content' value={value} index={0}>
-                1. Song 1 <br></br>
-                2. Song 2 <br></br>
-                3. Song 3 <br></br>
-                4. Song 4 <br></br>
-                5. Song 5 <br></br>
-                6. Song 6
+                Album 1     Demo 2019 <br></br>
+                Album 2     Full-length 2020
                 </TabPanel>
                 <TabPanel className='panel-content' value={value} index={1}>
-                Teppo Testi - Drums, Guitar <br></br>
-                Robert Smith - Vocals <br></br>
-                Seppo Sepponen - Bass
+                Teppo Testi - Drums, Guitar (2019-present) <br></br>
+                Robert Smith - Vocals (2019-present) <br></br>
+                Seppo Sepponen - Bass (2019-present)
                 </TabPanel>
                 <TabPanel className='panel-content' value={value} index={2}>
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque ut nisi pellentesque, malesuada mauris vel, posuere nibh. 
@@ -158,5 +125,3 @@ function TabPanel(props) {
       </div>
     );
   }
-
-//export default Album;
