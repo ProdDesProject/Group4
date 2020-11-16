@@ -4,6 +4,8 @@ import FormInput from '../form-input/form-input.component';
 import CustomButton from '../custom-button/custom-button.component';
 import { withRouter} from 'react-router-dom';
 
+import { withRouter } from 'react-router-dom';
+
 import './sign-in.styles.scss';
 
 var base64 = require('base-64');
@@ -68,6 +70,7 @@ class SignIn extends React.Component {
         body: JSON.stringify({ username:username,password:password })
       }
 
+
       const response = await fetch('http://localhost:9000/users/checkuser2/',requestOptions)
       const data = await response.json();
       this.setState({ data: data });
@@ -118,6 +121,7 @@ class SignIn extends React.Component {
       alert(userslist);*/
     
       this.setState({ username: '', password: '' });
+      this.props.history.push('/');
     } catch (error) {
       console.log(error);
     }
