@@ -32,6 +32,4 @@ const AlbumItem = ({ item, history, match, routeName }) => {
   );
 };
 
-
-
 export default withRouter(AlbumItem);
