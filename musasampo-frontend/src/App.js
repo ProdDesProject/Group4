@@ -72,7 +72,7 @@ class App extends React.Component {
         return (
             <div className="App">
                 <header className="App-header">
-
+                <Header />
                     <Switch>
                       <Route exact path='/' component={HomePage} />
                       <Route exact path='/login' component={LoginPage} />
