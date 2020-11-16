@@ -66,7 +66,7 @@ const useMultiAudio = urls => {
                 });
             });
         };
-    }, []);
+    });
 
     return [players, toggle];
 };
@@ -76,7 +76,7 @@ const MultiPlayer = (props) => {
 
     const soundUrls = [];
 
-    { props.strings.map((item, index) => soundUrls.push(item.soundUrl)) };
+    props.strings.map((item) => soundUrls.push(item.soundUrl));
 
     const [players, toggle] = useMultiAudio(soundUrls);
 
@@ -87,7 +87,7 @@ const MultiPlayer = (props) => {
             <div className="player-item">
                 <ul className="list">
                     {players.map((player, i) => (
-                        <li> <Player key={i} player={player} toggle={toggle(i)} title={props.title} /> </li>
+                        <li> <Player key={i} player={player} toggle={toggle(i)} /> </li>
                     ))}
                 </ul>
             </div>
@@ -127,12 +127,12 @@ const Play = (props) => {
     );
 };
 
-const Player = ({ player, toggle, title }) => (
+const Player = ({ player, toggle }) => (
+
     <div>
-        <div onClick={toggle} className={player.playing ? 'pause' : 'play'} >{player.playing ? <Pause className="pause-component" fill="black" /> : <Play fill="white" className="play-component" />} {title} </div>
+        <div onClick={toggle} className={player.playing ? 'pause' : 'play'} >{player.playing ? <Pause className="pause-component" fill="black" /> : <Play fill="white" className="play-component" />} </div>
     </div>
 );
-
 
 
 

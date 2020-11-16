@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { withRouter, Link } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 
 import CustomButton from '../custom-button/custom-button.component';
 

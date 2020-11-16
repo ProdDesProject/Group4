@@ -1,7 +1,5 @@
 import React from "react";
 
-import Headstock from '../../assets/guitarheadstock.png';
-
 import MultiPlayer from "../audio-player/audio-player.component";
 
 import './guitar-tuner.styles.scss';
@@ -13,7 +11,7 @@ function GuitarTuner(props) {
     const guitarId = props.match.params.guitarId;
     const guitar = GUITAR_DATA
         .filter(guitar => (
-            guitar.guitarId == guitarId),
+            guitar.guitarId === Number(guitarId)),
         );
 
     const strings = guitar[0].strings;

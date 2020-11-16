@@ -6,7 +6,7 @@ import CustomButton from '../custom-button/custom-button.component';
 import './guitar-item.styles.scss';
 
 const GuitarItem = ({ guitar, history, match }) => {
-    const { guitarId, title, imageUrl, routeName, strings } = guitar;
+    const { guitarId, title, imageUrl } = guitar;
     return (
         <div className='album-item'>
             <div
