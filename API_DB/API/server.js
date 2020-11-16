@@ -17,7 +17,7 @@ const users2 = require('./routers/users2.js');
 const search = require('./routers/search.js');
 
 const db = require('./routers/db.js');
-//const imageUpload = require('./routers/imageupload');
+const upload = require('./routers/upload');
 
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
@@ -31,7 +31,7 @@ app.use('/albums',albums);
 app.use('/songs', songs);
 app.use('/search', search);
 
-//app.use('/fileUpload', imageUpload);
+app.use('/upload', upload);
 
 /*********************************************
  * HTTP Basic Authentication

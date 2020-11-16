@@ -37,13 +37,16 @@ class App extends React.Component {
   }
 }
 
-
-
 export default App;*/
 import { Switch, Route, Redirect } from 'react-router-dom';
 
 import HomePage from './pages/homepage/homepage.component';
 import ShopPage from './pages/shop/shop.component';
+
+import Mp3 from './pages/mp3-upload/mp3.component';
+
+import GuitarOverview from './pages/guitar-tuner-overview/guitar-tuner-overview.component';
+import GuitarTuner from './components/guitar-tuner/guitar-tuner.component';
 
 import AlbumPage from './pages/albums/albums.component';
 import AlbumComponent from './components/album/album.component';
@@ -81,10 +84,13 @@ class App extends React.Component {
                     <Switch>
                       <Route exact path='/' component={HomePage} />
                       <Route exact path='/login' component={LoginPage} />
+                      <Route exact path='/mp3-upload' component={Mp3} />
                       <Route exact path='/shop' component={ShopPage} />
                       <Route exact path='/shop/albums' component={ShopPage} />
                       <Route exact path='/shop/albums/:genre' component={AlbumPage} />          
                       <Route exact path='/shop/albums/:genre/:albumId' component={AlbumComponent} />
+                      <Route exact path='/guitartuner' component={GuitarOverview} />    
+                      <Route exact path='/guitartuner/:guitarId' component={GuitarTuner} />      
                     </Switch>
                 </header>
                 <p className="App-intro">{this.state.apiResponse}</p>
