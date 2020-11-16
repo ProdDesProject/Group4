@@ -1,0 +1,34 @@
+.flex-container {
+    display: flex;
+    justify-content: column;
+    width: 100%;
+    height: auto;
+
+    .right {
+    }
+
+    .left {
+        font-size: 1.5em;
+        vertical-align: top;
+        display: inline-block;
+        text-align: center;
+        width: 30%;
+
+        .headstock {
+            width: 100%;
+            height: auto;
+        }
+
+        .caption {
+            display: block;
+        }
+    }
+}
+
+.flex-container > div {
+    margin: 10px;
+    padding: 20px;
+    font-size: 30px;
+    width: 100%;
+    flex-grow: 4;
+}
