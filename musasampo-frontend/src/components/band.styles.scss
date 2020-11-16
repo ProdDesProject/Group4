@@ -1,20 +1,9 @@
-.titles {
+.title {
     margin-left: 165px;
     margin-top: 30px;
     margin-bottom: 15px;
-
-    .title {
-        font-size: 40px;
-        display: flex;
-        font-weight: bold;
-      }
-    
-    .subtitle {
-        font-size: 30px;
-        display: flex;
-        font-weight: bold;
-        margin-left: 2px;
-      }
+    font-size: 40px;
+    font-weight: bold;
 }
 
 .description {
@@ -66,7 +55,7 @@
     }
 }
 
-.albumImage {
+.bandImage {
     border: 1px solid #393e46;
     position: absolute;
     left: 791px;
