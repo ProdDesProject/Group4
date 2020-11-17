@@ -6,6 +6,8 @@ const multer  = require('multer')
 const multerUpload = multer({ dest: '../uploads/pictures/' })
 const router = express.Router();
 const path = require('path');
+const musicpath = '../uploads/music';
+const imagepath = '../uploads/pictures';
 
 router.get('/', (req, res) => {
     res.send("Only POST method accepted with multipart file");
@@ -14,15 +16,15 @@ router.get('/', (req, res) => {
 router.get('/Hurt-test', (req, res) => {
   var results = "../uploads/music/Hurt.mp3"
   res.json({ source: results});
-})-
+})
 
 //works
-router.get('/imagepath.png', function (req, res) {
-  res.sendFile(path.join(__dirname, '../uploads/pictures', 'bandpic1.png'));
+router.get('/imagepath.png/:image', function (req, res) {
+  res.sendFile(path.join(__dirname, imagepath, req.params.image));
 });
 
-router.get('/mp3path.mp3', function (req, res) {
-  res.sendFile(path.join(__dirname, '../uploads/music', 'Hurt.mp3'));
+router.get('/mp3path.mp3/:song', function (req, res) {
+  res.sendFile(path.join(__dirname, musicpath, req.params.song));
 });
 
 

@@ -178,7 +178,7 @@ describe( "Create a song", function()
 
 describe("DELETE songs", function()
 {
-    it('Delete-method,Should delete an song', async function() 
+    it('Delete-method,Should delete a song', async function() 
     {
         this.timeout(3000);
         await chai.request(apiAddress)
