@@ -43,7 +43,7 @@ const useMultiAudio = urls => {
     useEffect(() => {
         sources.forEach((source, i) => {
             players[i].playing ? source.audio.play() : source.audio.pause();
-            source.audio.loop = true;
+            // source.audio.loop = true;
 
         });
     }, [sources, players]);
