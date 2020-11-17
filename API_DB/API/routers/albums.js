@@ -167,8 +167,10 @@ router
             {
                 //delete found album
                 db.query('DELETE FROM albums WHERE albumId = ?',[req.params.albumId]);
+                
                 //deincrement the album id field
                 db.query('ALTER TABLE albums AUTO_INCREMENT=?',[(req.params.albumId - 1)]); 
+                
                 //send ok status
                 res.sendStatus(200);
             }

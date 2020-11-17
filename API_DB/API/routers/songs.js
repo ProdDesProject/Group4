@@ -167,8 +167,10 @@ router
                 {
                     //delete found song
                     db.query('DELETE FROM songs WHERE songId = ?',[req.params.songId]);
+                    
                     //deincrement the song id field
                     db.query('ALTER TABLE songs AUTO_INCREMENT=?',[(req.params.songId - 1)]); 
+                    
                     //send ok status
                     res.sendStatus(200);
                 }

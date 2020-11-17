@@ -150,8 +150,10 @@ router
                 {
                     //band id found, delete band from the database
                     db.query('DELETE FROM bands WHERE bandId = ?',[req.params.bandId]);
+                    
                     //deincrement the band id field
                     db.query('ALTER TABLE bands AUTO_INCREMENT = ?',[(req.params.bandId - 1)]); 
+                    
                     //send ok status
                     res.sendStatus(200);
                 }

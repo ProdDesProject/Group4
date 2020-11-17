@@ -268,7 +268,7 @@ describe("Modify a band", function()
       {
         this.timeout(5000);
         await chai.request(apiAddress)
-        .put('/bands/modify/10')
+        .put('/bands/modify/36')
         /*
         .set({
           Authorization: `Bearer ${token}`
@@ -295,7 +295,7 @@ describe("Modify a band", function()
       {
           this.timeout(5000);
           await chai.request(apiAddress)
-          .put('/bands/modify/36')
+          .put('/bands/modify/40')
           .set({
             Authorization: `Bearer ${token}`
           })
@@ -318,7 +318,7 @@ describe("Modify a band", function()
       {
           this.timeout(5000);
           await chai.request(apiAddress)
-          .put('/bands/modify/36')
+          .put('/bands/modify/40')
           .set({
             Authorization: `Bearer ${token}`
           })
@@ -341,7 +341,7 @@ describe("Modify a band", function()
       {
           this.timeout(5000);
           await chai.request(apiAddress)
-          .put('/bands/modify/36')
+          .put('/bands/modify/40')
           .set({
             Authorization: `Bearer ${token}`
           })
@@ -363,14 +363,14 @@ describe("Modify a band", function()
       {
         this.timeout(5000);
         await chai.request(apiAddress)
-        .put('/bands/modify/36')
+        .put('/bands/modify/40')
         .set({
           Authorization: `Bearer ${token}`
         })
         .send({
                 nsfw: 1,
                 bandName: "Turmion Kätilöt",
-                bandLogo: "TK.jpg",
+                bandLogo: "TK1.jpg",
                 country: "Finland"
               })
           .then(response => 
@@ -446,7 +446,7 @@ describe("Modify a band", function()
       {
           this.timeout(3000);
           await chai.request(apiAddress)
-          .delete('/bands/delete/36')
+          .delete('/bands/delete/40')
           .set({
             Authorization: `Bearer ${token}`
           })

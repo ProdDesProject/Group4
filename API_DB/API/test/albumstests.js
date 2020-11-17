@@ -197,7 +197,7 @@ describe( "Create a album", function()
     {
       this.timeout(5000);
       await chai.request(apiAddress)
-      .post('/albums/28/createalbum')
+      .post('/albums/11/createalbum')
       .set({
         Authorization: `Bearer ${token}`
       })
@@ -247,7 +247,7 @@ describe("DELETE albums", function()
     {
         this.timeout(5000);
         await chai.request(apiAddress)
-        .delete('/albums/delete/35')
+        .delete('/albums/delete/54')
         /*
         .set({
           Authorization: `Bearer ${token}`
@@ -266,7 +266,7 @@ describe("DELETE albums", function()
     {
         this.timeout(3000);
         await chai.request(apiAddress)
-        .delete('/albums/delete/51')
+        .delete('/albums/delete/54')
         .set({
           Authorization: `Bearer ${token}`
         })
