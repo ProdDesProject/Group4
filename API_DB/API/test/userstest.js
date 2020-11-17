@@ -95,7 +95,7 @@ describe('test operations User', function()
       //.auth('Kilpikalevi2000', 'trololo')
       .send({
           //username has to be unique every time a new test is ran
-                username: "Lalala5",
+                username: "Lalala8",
                 password: "trololo",
                 name: "Kokonut",
                 email: "fdosfdosjk@gmail.com",
@@ -112,7 +112,7 @@ describe('test operations User', function()
         .then(readResponse => 
             {
                 //change username to match here too
-                expect(readResponse.body.user[readResponse.body.user.length-1].username).to.equal("Lalala4");
+                expect(readResponse.body.user[readResponse.body.user.length-1].username).to.equal("Lalala8");
                 //expect(bcrypt.compare("trololo", readResponse.body.user[readResponse.body.user.length-1].password)).to.equal(true);
                 expect(readResponse.body.user[readResponse.body.user.length-1].name).to.equal("Kokonut");
                 expect(readResponse.body.user[readResponse.body.user.length-1].email).to.equal("fdosfdosjk@gmail.com");
@@ -190,7 +190,7 @@ describe('test operations User', function()
     {
         this.timeout(3000);
         await chai.request(apiAddress)
-        .delete('/users/delete/43')
+        .delete('/users/delete/47')
         .set({
             Authorization: `Bearer ${token}`
           })

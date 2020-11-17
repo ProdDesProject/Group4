@@ -219,7 +219,7 @@ describe("DELETE songs", function()
     {
         this.timeout(3000);
         await chai.request(apiAddress)
-        .delete('/songs/delete/36')
+        .delete('/songs/delete/39')
         .set({
           Authorization: `Bearer ${token}`
         })

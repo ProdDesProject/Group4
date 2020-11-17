@@ -295,7 +295,7 @@ describe("Modify a band", function()
       {
           this.timeout(5000);
           await chai.request(apiAddress)
-          .put('/bands/modify/40')
+          .put('/bands/modify/45')
           .set({
             Authorization: `Bearer ${token}`
           })
@@ -318,7 +318,7 @@ describe("Modify a band", function()
       {
           this.timeout(5000);
           await chai.request(apiAddress)
-          .put('/bands/modify/40')
+          .put('/bands/modify/45')
           .set({
             Authorization: `Bearer ${token}`
           })
@@ -341,7 +341,7 @@ describe("Modify a band", function()
       {
           this.timeout(5000);
           await chai.request(apiAddress)
-          .put('/bands/modify/40')
+          .put('/bands/modify/45')
           .set({
             Authorization: `Bearer ${token}`
           })
@@ -363,7 +363,7 @@ describe("Modify a band", function()
       {
         this.timeout(5000);
         await chai.request(apiAddress)
-        .put('/bands/modify/40')
+        .put('/bands/modify/45')
         .set({
           Authorization: `Bearer ${token}`
         })
@@ -391,7 +391,7 @@ describe("Modify a band", function()
               {
                   expect(readResponse.body.bands[readResponse.body.bands.length-1].nsfw).to.equal(1);
                   expect(readResponse.body.bands[readResponse.body.bands.length-1].bandName).to.equal("Turmion Kätilöt");
-                  expect(readResponse.body.bands[readResponse.body.bands.length-1].bandLogo).to.equal("TK.jpg");
+                  expect(readResponse.body.bands[readResponse.body.bands.length-1].bandLogo).to.equal("TK1.jpg");
                   expect(readResponse.body.bands[readResponse.body.bands.length-1].country).to.equal("Finland");
               })
             
@@ -446,7 +446,7 @@ describe("Modify a band", function()
       {
           this.timeout(3000);
           await chai.request(apiAddress)
-          .delete('/bands/delete/40')
+          .delete('/bands/delete/45')
           .set({
             Authorization: `Bearer ${token}`
           })
