@@ -4,6 +4,7 @@ import { Switch, Route } from 'react-router-dom';
 import './App.css';
 
 import HomePage from './pages/homepage/homepage.component';
+import Search from './pages/search/search.component';
 import ShopPage from './pages/shop/shop.component';
 import GuitarOverview from './pages/guitar-tuner-overview/guitar-tuner-overview.component';
 import GuitarTuner from './components/guitar-tuner/guitar-tuner.component';
@@ -23,6 +24,7 @@ class App extends React.Component {
         <Header />
         <Switch>
           <Route exact path='/' component={HomePage} /> 
+          <Route exact path='/search' component={Search} /> 
           <Route exact path='/login' component={Login} />  
           <Route exact path='/guitartuner' component={GuitarOverview} />    
           <Route exact path='/guitartuner/:guitarId' component={GuitarTuner} />      
