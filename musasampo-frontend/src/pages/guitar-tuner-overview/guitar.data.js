@@ -6,28 +6,30 @@ const GUITAR_DATA = [
         routeName: 'acoustic',
         strings: [{
             id: 0,
-            title: 'D',
-            soundUrl: 'https://tuner-online.com/audio/d3.mp3',
-        },
-        {
-            id: 1,
-            title: 'A',
-            soundUrl: 'https://tuner-online.com/audio/a2.mp3',
-        },
-        {
-            id: 2,
             title: 'E',
             soundUrl: 'https://tuner-online.com/audio/e4.mp3',
         },
         {
-            id: 3,
+            id: 1,
+            title: 'B',
+            soundUrl: 'https://tuner-online.com/audio/b3.mp3',
+        },
+        {
+            id: 2,
             title: 'G',
             soundUrl: 'https://tuner-online.com/audio/g3.mp3',
         },
         {
+            id: 3,
+            title: 'D',
+            soundUrl: 'https://tuner-online.com/audio/d3.mp3',
+            
+        },
+        {
             id: 4,
-            title: 'B',
-            soundUrl: 'https://tuner-online.com/audio/b3.mp3',
+            title: 'A',
+            soundUrl: 'https://tuner-online.com/audio/a2.mp3',
+            
         },
         {
             id: 5,
@@ -78,28 +80,30 @@ const GUITAR_DATA = [
         routeName: 'electric',
         strings: [{
             id: 0,
-            title: 'D',
-            soundUrl: 'https://tuner-online.com/audio/d3.mp3',
-        },
-        {
-            id: 1,
-            title: 'A',
-            soundUrl: 'https://tuner-online.com/audio/a2.mp3',
-        },
-        {
-            id: 2,
             title: 'E',
             soundUrl: 'https://tuner-online.com/audio/e4.mp3',
         },
         {
-            id: 3,
+            id: 1,
+            title: 'B',
+            soundUrl: 'https://tuner-online.com/audio/b3.mp3',
+        },
+        {
+            id: 2,
             title: 'G',
             soundUrl: 'https://tuner-online.com/audio/g3.mp3',
         },
         {
+            id: 3,
+            title: 'D',
+            soundUrl: 'https://tuner-online.com/audio/d3.mp3',
+            
+        },
+        {
             id: 4,
-            title: 'B',
-            soundUrl: 'https://tuner-online.com/audio/b3.mp3',
+            title: 'A',
+            soundUrl: 'https://tuner-online.com/audio/a2.mp3',
+            
         },
         {
             id: 5,
@@ -114,23 +118,23 @@ const GUITAR_DATA = [
         routeName: 'bass',
         strings: [{
             id: 0,
+            title: 'G',
+            soundUrl: 'https://tuner-online.com/audio/g3.mp3',
+        },
+        {
+            id: 1,
             title: 'D',
             soundUrl: 'https://tuner-online.com/audio/d3.mp3',
         },
         {
-            id: 1,
+            id: 2,
             title: 'A',
             soundUrl: 'https://tuner-online.com/audio/a2.mp3',
         },
         {
-            id: 2,
-            title: 'E',
-            soundUrl: 'https://tuner-online.com/audio/e4.mp3',
-        },
-        {
             id: 3,
-            title: 'G',
-            soundUrl: 'https://tuner-online.com/audio/g3.mp3',
+            title: 'E',
+            soundUrl: 'https://tuner-online.com/audio/e2.mp3',
         }]
     },
     {

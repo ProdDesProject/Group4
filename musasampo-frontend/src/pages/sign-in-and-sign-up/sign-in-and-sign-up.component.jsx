@@ -5,10 +5,12 @@ import SignUp from '../../components/sign-up/sign-up.component';
 
 import './sign-in-and-sign-up.styles.scss';
 
+//<SignUp />
+
 const SignInAndSignUpPage = () => (
   <div className='sign-in-and-sign-up'>
     <SignIn />
-    <SignUp />
+    
   </div>
 );
 
