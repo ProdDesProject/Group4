@@ -8,7 +8,7 @@ const server = require('../server');
 const db = require('../routers/db');
 
 const expect = chai.expect;
-const apiAddress = 'http://localhost:9000';
+const apiAddress = 'http://localhost:3000';
 
 const passport = require('passport');
 const { use } = require('chai');
