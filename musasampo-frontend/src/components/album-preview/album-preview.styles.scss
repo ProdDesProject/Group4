@@ -8,7 +8,7 @@
   }
 
   .title {
-    font-size: 28px;
+    font-size: 38px;
     margin-bottom: 25px;
 
     cursor: pointer;
@@ -24,7 +24,7 @@
     @media screen and (max-width: 800px) {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      grid-gap: 550px;
+      grid-gap: 10px;
     }
   }
 }
