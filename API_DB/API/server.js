@@ -4,18 +4,14 @@ const fs = require('fs');
 const bcrypt = require('bcryptjs');
 const fetch = require("node-fetch");
 const app = express()
-
 const port = 9000
 var cors = require("cors");
-
-//const login = require('./routers/login');
 const users = require('./routers/users.js');
 const bands = require('./routers/bands.js');
 const albums = require('./routers/albums.js');
 const songs = require('./routers/songs.js');
 const users2 = require('./routers/users2.js');
 const search = require('./routers/search.js');
-
 const db = require('./routers/db.js');
 const upload = require('./routers/upload');
 
@@ -23,14 +19,11 @@ app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 app.use(cors());
 
-//app.use('/login', login);
 app.use('/users', users);
-
 app.use('/bands',bands);
 app.use('/albums',albums);
 app.use('/songs', songs);
 app.use('/search', search);
-
 app.use('/upload', upload);
 
 /*********************************************
