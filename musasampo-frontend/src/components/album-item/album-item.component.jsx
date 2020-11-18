@@ -7,28 +7,29 @@ import CustomButton from '../custom-button/custom-button.component';
 
 import './album-item.styles.scss';
 
-const AlbumItem = ({ item, history, match, routeName }, props) => {
-  const { id, bandName, albumName, imageUrl } = item;
+const AlbumItem = ({ album, history, match, routeName }, props) => {
+  const { bandId, albumId, albumName, albumLaunchDate, albumPicture, albumGenre } = album;
+
   const genre = match.params.genre;
   return (
     <div className='album-item'>
       <div
         className='image'
         style={{
-          backgroundImage: `url(${imageUrl})`
+          backgroundImage: `url(${albumPicture})`
         }}
       />
       <div className='album-footer'>
-        <span className='albumInformation'>{bandName}</span>
+        <span className='albumInformation'>{String(bandId)}</span>
       </div>
       <div className='album-footer'>
         <span className='name'>{albumName}</span>
       </div>
       <CustomButton onClick={() => {
         if (genre) {
-          history.push(`${routeName}/${id}`)
+          history.push(`${routeName}/${albumId}`)
         } else {
-          history.push(`${match.path}/${routeName}/${id}`)
+          history.push(`${match.path}/${routeName}/${albumId}`)
         }
       }} inverted>
         ALBUM INFORMATION

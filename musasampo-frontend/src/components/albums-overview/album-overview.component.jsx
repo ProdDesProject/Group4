@@ -1,6 +1,6 @@
 import React from 'react';
 
-import SHOP_DATA from '../../pages/shop/shop.data.js';
+import ALBUMS from '../../data/albums';
 
 import AlbumPreview from '../album-preview/album-preview.component';
 
@@ -9,7 +9,7 @@ class ShopPage extends React.Component {
     super(props);
 
     this.state = {
-      albums: SHOP_DATA
+      albums: ALBUMS
     };
   }
 
