@@ -16,6 +16,7 @@ function GuitarTuner(props) {
 
     const strings = guitar[0].strings;
 
+
     return (
         <div className="">
             <h2 className='title'>{guitar[0].title}</h2>
