@@ -113,7 +113,7 @@ const SHOP_DATA = [
       },
       {
         id: 10,
-        bandName: 'Guns n Roses',
+        bandName: "Guns N' Roses",
         imageUrl: 'https://www.rollingstone.com/wp-content/uploads/2018/06/rs-135077-square.jpg?w=306',
         albumName: 'fancy album name'
       }

@@ -4,8 +4,9 @@ import { withRouter, Link } from 'react-router-dom';
 
 import CustomButton from '../custom-button/custom-button.component';
 
-
 import './album-item.styles.scss';
+
+// This is for each individual album on the shop page
 
 const AlbumItem = ({ item, history, match, routeName }) => {
   const { id, bandName, albumName, imageUrl } = item;

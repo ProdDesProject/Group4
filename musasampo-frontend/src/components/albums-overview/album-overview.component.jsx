@@ -4,6 +4,8 @@ import SHOP_DATA from '../../pages/shop/shop.data.js';
 
 import AlbumPreview from '../album-preview/album-preview.component';
 
+// Doesn't seem to do anything?
+
 class ShopPage extends React.Component {
   constructor(props) {
     super(props);
