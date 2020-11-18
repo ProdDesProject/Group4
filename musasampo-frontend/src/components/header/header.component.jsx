@@ -18,7 +18,6 @@ const Header = () => (
     <Link className='title' to='/'>
       MUSASAMPO
       </Link>
-
     <div className='options'>
       <Link className='option' to='/search'>
         SEARCH
@@ -32,7 +31,7 @@ const Header = () => (
       <div className='option'>
         |
         </div>
-      <Link className='option' to='/shop/albums'>
+      <Link className='option' to='/shop'>
         SHOP
       </Link>
       <Link className='option' to='/login'>

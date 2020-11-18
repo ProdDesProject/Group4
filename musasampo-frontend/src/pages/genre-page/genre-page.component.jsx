@@ -1,18 +1,18 @@
 
 import React from 'react';
 
-import SHOP_DATA from '../shop/shop.data.js';
+import ALBUMS from '../../data/albums';
 
 import AlbumItem from '../../components/album-item/album-item.component';
 
-import './albums.styles.scss';
+import './genre-page.styles.scss';
 
 class AlbumPage extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      albums: SHOP_DATA,
+      albums: ALBUMS,
     };
   }
 
