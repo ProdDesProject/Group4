@@ -21,7 +21,7 @@ const Header = () => (
       <CustomButton className='search-button' type='submit'> Search </CustomButton>
 
     <div className='options'>
-      <Link className='option' to='/'>
+      <Link className='option' to='/guitartuner'>
         GUITAR TUNER
       </Link>
       <Link className='option' to='/'>
