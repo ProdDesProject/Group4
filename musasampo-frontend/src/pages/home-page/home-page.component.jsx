@@ -6,9 +6,6 @@ import './home-page.styles.scss';
 
 import logo from '../../assets/logo.png';
 
-
-
-
 class Mainpage extends React.Component {
   constructor(props) {
     super(props);

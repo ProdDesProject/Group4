@@ -49,8 +49,8 @@ import Mp3 from './pages/mp3-upload/mp3.component';
 
 import GuitarOverview from './pages/guitartuner-page/guitartuner-page.component';
 import GuitarTuner from './components/guitar-tuner/guitar-tuner.component';
-
-import AlbumPage from './pages/genre-page/genre-page.component';
+import SearchPage from './pages/search/search.component';
+import GenrePage from './pages/genre-page/genre-page.component';
 import AlbumComponent from './components/album/album.component';
 
 import Header from './components/header/header.component';
@@ -88,8 +88,9 @@ class App extends React.Component {
                       <Route exact path='/login' component={LoginPage} />
                       <Route exact path='/mp3-upload' component={Mp3} />
                       <Route exact path='/shop' component={ShopPage} />
-                      <Route exact path='/shop/albums/:genre' component={AlbumPage} />          
-                      <Route exact path='/shop/albums/:genre/:albumId' component={AlbumComponent} />
+                      <Route exact path= '/search' component={SearchPage} />
+                      <Route exact path='/shop/albums/genre/:genre' component={GenrePage} />          
+                      <Route exact path='/shop/albums/:albumId' component={AlbumComponent} />
                       <Route exact path='/guitartuner' component={GuitarOverview} />    
                       <Route exact path='/guitartuner/:guitarId' component={GuitarTuner} />      
                     </Switch>

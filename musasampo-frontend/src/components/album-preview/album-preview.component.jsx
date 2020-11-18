@@ -12,7 +12,7 @@ export const AlbumPreview = ({
   match,
 }) => (
     <div className="album-preview">
-      <h1 className='title' onClick={() => history.push(`${match.path}/${title.toLowerCase()}`)}>
+      <h1 className='title' onClick={() => history.push(`${match.path}/albums/genre/${title.toLowerCase()}`)}>
         {title.toUpperCase()}
       </h1>
       <div className='preview'>

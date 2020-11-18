@@ -19,18 +19,16 @@ class AlbumPage extends React.Component {
   render() {
     const { albums } = this.state;
     const genreName = this.props.match.params.genre;
-    const album = albums
-      .filter(genre => (
-        genre.routeName.includes(String(genreName))),
-      );
+
     return (
       <div className='album-page'>
-        <h2 className='title'>{album[0].title}</h2>
+        <h2 className='title'>{genreName.toUpperCase()}</h2>
         <div className='items'>
-
-          {album[0].items.map((item) => (
-            <AlbumItem key={item.id} item={item} routeName={genreName} />
-          ))}
+          {albums
+            .filter(album => album.albumGenre.toLowerCase() === genreName.toLowerCase())
+            .map((album) => (
+              <AlbumItem key={album.albumId} album={album} routeName={genreName} />
+            ))}
 
         </div>
       </div>
