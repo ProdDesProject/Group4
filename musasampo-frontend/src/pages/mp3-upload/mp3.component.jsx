@@ -18,6 +18,7 @@ import { saveAs } from 'file-saver';
 
 import music from '../../music';
 import logo from '../../assets/bandpic1.png';
+import { stringify } from 'querystring';
 
 /*import music1 from '../../assets/music/Hurt.mp3';
 import music2 from '../../assets/music/Angel-of-Death.mp3';
@@ -35,6 +36,7 @@ class Mp3_upload extends React.Component {
     super(props);
 
     this.state = {
+      selectedFile: null
     
     };
   }
@@ -106,10 +108,57 @@ class Mp3_upload extends React.Component {
     )*/
   }
 
+
   handleChange = event => {
-    //const { value, name } = event.target;
-    //this.setState({ [name]: value });
+    //const {name,value } = event.target;
+    this.setState({ selectedFile: event.target.files[0],
+    loaded: 0,
+    });
+
+    alert(event.target.files[0]);
   };
+
+
+  onClickHandler = () => 
+  {
+    //THIS WORKS WITH MP3:
+
+    async function postmethod(data)
+    {
+      var FormData = data;
+
+      const requestOptions = {
+        method: 'POST',
+        //headers: { 'Content-Type': '' },
+        body: FormData
+      }
+  
+      const response =  await fetch('http://localhost:9000/upload/mp3byfile',requestOptions)
+      const data2 = await response;
+      //this.setState({ data: data });
+  
+
+      //THIS REPLY DOESNT WORK YET
+      //alert("Data2:"+stringify(data2));
+  
+      if (data2 == "404")
+        {
+          alert("404");  
+        }
+        else
+        {
+          alert("done");
+        }
+      
+    }
+
+    const data = new FormData();
+    data.append('testFile', this.state.selectedFile);
+
+    postmethod(data);
+
+    
+  }
 
   /**
    * UPDATE ALWAYS WHEN CTRL+R
@@ -141,8 +190,8 @@ class Mp3_upload extends React.Component {
         </audio>
 
         <form enctype="multipart/form-data">
-          <input type = "file" name="file" id="file" accept = ".mp3"/>
-          <input type = "button" value = "Click to upload!" name = "button" onClick = {this.submitSong}/>
+          <input type = "file" name="file" id="file" accept = ".mp3" onChange={this.handleChange}/>
+          <input type = "button" value = "Click to upload!" name = "button" onClick = {this.onClickHandler}/>
         </form>
 
         </div>
