@@ -45,9 +45,9 @@ const useMultiAudio = urls => {
     useEffect(() => {
         sources.forEach((source, i) => {
             players[i].playing ? source.audio.play() : source.audio.pause();
-            players[i].addEventListener("ended", () => {
-                players[i].playing = false;
-            });
+            //players[i].addEventListener("ended", () => {
+            //    players[i].playing = false;
+            // });
             // source.audio.loop = true;
 
 
