@@ -1,7 +1,7 @@
 
 import React from 'react';
 
-import SHOP_DATA from '../shop/shop.data.js';
+import ALBUMS from '../../data/albums';
 
 import SearchBox from '../../components/search-box/search-box.component';
 import AlbumItem from '../../components/album-item/album-item.component';
@@ -19,18 +19,17 @@ class Search extends React.Component {
     }
 
     componentDidMount() {
-        this.setState({ albums: SHOP_DATA });
+        this.setState({ albums: ALBUMS });
     }
 
     onSearchChange = event => {
         this.setState({ searchField: event.target.value });
-        console.log(JSON.stringify(this.state.albums))
     };
 
     render() {
         const { albums, searchField } = this.state;
         const filteredAlbums = albums.filter(album =>
-            album.items.albumName.toLowerCase().includes(searchField.toLowerCase())
+            album.albumName.toLowerCase().includes(searchField.toLowerCase())
         );
 
         return (
@@ -39,8 +38,8 @@ class Search extends React.Component {
 
                 <div className='preview'>
                     {filteredAlbums
-                        .map(item => (
-                            <AlbumItem key={item.id} item={item} />
+                        .map(album => (
+                            <AlbumItem key={album.albumId} album={album} routeName={album.albumGenre.toLowerCase()} />
                         ))}
                 </div>
 

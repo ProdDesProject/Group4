@@ -26,11 +26,12 @@ const AlbumItem = ({ album, history, match, routeName }, props) => {
         <span className='name'>{albumName}</span>
       </div>
       <CustomButton onClick={() => {
-        if (genre) {
-          history.push(`${routeName}/${albumId}`)
-        } else {
-          history.push(`${match.path}/${routeName}/${albumId}`)
-        }
+        history.push(`/shop/albums/${albumId}`)
+        //    if (genre) {
+        //     history.push(`${routeName}/${albumId}`)
+        //  } else {
+        //    history.push(`${match.path}/${routeName}/${albumId}`)
+        //  }
       }} inverted>
         ALBUM INFORMATION
       </CustomButton>
