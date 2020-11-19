@@ -76,7 +76,7 @@ function TabPanel(props) {
                 <dt>2019</dt>
                 <dt>2019-present</dt>
                 <dt>Symphonic Power Metal</dt>
-                <dt>Death, destruction, taxes</dt>
+                <dt>Death, taxes</dt>
                 <dt>Something Something Records</dt>
             </div>
 

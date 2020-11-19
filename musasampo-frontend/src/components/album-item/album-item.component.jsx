@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { withRouter } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import CustomButton from '../custom-button/custom-button.component';
 
@@ -11,6 +12,7 @@ import './album-item.styles.scss';
 const AlbumItem = ({ item, history, match, routeName }, props) => {
   const { id, bandName, albumName, imageUrl } = item;
   const genre = match.params.genre;
+  const band = match.params.bandName;
   return (
     <div className='album-item'>
       <div
@@ -19,9 +21,13 @@ const AlbumItem = ({ item, history, match, routeName }, props) => {
           backgroundImage: `url(${imageUrl})`
         }}
       />
-      <div className='album-footer'>
-        <span className='albumInformation'>{bandName}</span>
-      </div>
+      <div className='album-footer' onClick={() => { 
+        if (band) {
+          history.push(`${routeName}/${bandName}`)
+        } else {
+          history.push(`${match.path}/${routeName}/${bandName}`)
+        }}}>{bandName}
+        </div>
       <div className='album-footer'>
         <span className='name'>{albumName}</span>
       </div>
@@ -34,7 +40,6 @@ const AlbumItem = ({ item, history, match, routeName }, props) => {
       }} inverted>
         ALBUM INFORMATION
       </CustomButton>
-
     </div>
   );
 };
