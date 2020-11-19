@@ -39,7 +39,8 @@ let userObject = {
 module.exports = {
   //getUserById: (id) => users.find(u => u.id == id),
   //getUserByName: (username) => users.find(u => u.username == username),
-  getUserByName: async function(username){
+  getUserByName: async function(username)
+  {
     var results2;
     var username2;
     
@@ -49,14 +50,48 @@ module.exports = {
     username2 = results2.username;
 
     if (username2 == username)
-      {
-        console.log("going back");
-        console.log(results2);
-        return results2;
-      }
-      else{
-        return undefined;
-      }
+    {
+      console.log("going back");
+      console.log(results2);
+      return results2;
+    }
+    else
+    {
+      return undefined;
+    }
+  },
+
+  //function used to get users by username (uses the mighty callback method)
+  getUserByUsername(username, callback)
+  {
+    db.query('SELECT * FROM users WHERE username = ?', [username], function(err, result)
+    {
+        if (err) 
+            //sql command error
+            callback(err, null);
+        else
+        {
+          //return the first found username (it is the one we want because usernames are unique)
+          callback(null, result[0]);
+        }
+    });
+  },
+
+
+  //function used to get users by username (uses the mighty callback method)
+  getUserByUsername(username, callback)
+  {
+    db.query('SELECT * FROM users WHERE username = ?', [username], function(err, result)
+    {
+        if (err) 
+            //sql command error
+            callback(err, null);
+        else
+        {
+          //return the first found username (it is the one we want because usernames are unique)
+          callback(null, result[0]);
+        }
+    });
   },
 
   addUser: (username, password, name, email, phoneNumber) => {

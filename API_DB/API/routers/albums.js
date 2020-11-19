@@ -18,7 +18,6 @@ const BasicStrategy = require('passport-http').BasicStrategy;
         albumPicture: "shownomercy.png",
         albumGenre: "Thrash Metal"
     }
-
   ];*/
   
   /*
@@ -36,8 +35,17 @@ router
 .get(
     //passport.authenticate('basic', { session: false }),
     (req, res) => {
-    db.query('SELECT * FROM albums;').then(results => {
-        res.json({ albums: results})
+    db.query('SELECT * FROM albums;').then(results => 
+        {
+        if(results != undefined)
+        {
+            res.json({ albums: results})
+        }
+        else
+        {
+            //no albums in the database
+            res.sendStatus(404);
+        }
     })
     .catch(() => {
         res.sendStatus(500);
@@ -79,40 +87,85 @@ router
 router
   .route('/createalbum')
   .post(
-      //passport.authenticate('basic', { session: false }),
-      (req, res) => {
-        db.query('INSERT INTO albums (albumName,albumLaunchDate,albumPicture,albumGenre)VALUES(?,?,?,?);',[req.body.albumName, req.body.albumLaunchDate, req.body.albumPicture, req.body.albumGenre]);
-        //const hashedPassword = bcrypt.hashSync(req.body.password, 6);
-        res.sendStatus(201);
+      //bands need to be authenticated in order to post albums
+      passport.authenticate('jwt', { session: false }),
+      (req, res) => 
+      {
+        //check field filling
+        if(req.body.albumName && req.body.albumLaunchDate && req.body.albumPicture && req.body.albumGenre)
+        {    //create album if all fields are filled
+            db.query('INSERT INTO albums (albumName,albumLaunchDate,albumPicture,albumGenre)VALUES(?,?,?,?);',[req.body.albumName, req.body.albumLaunchDate, req.body.albumPicture, req.body.albumGenre]);
+            //send created status
+            res.sendStatus(201);
+        }
+        else
+        {
+            //bad request
+            res.sendStatus(400);
+        }
     });
 
 router
-.route('/:albumId')
+.route('/modify/:albumId')
 .put(
-    //passport.authenticate('basic', { session: false }),
-    (req,res) => { 
-    db.query('UPDATE albums SET albumName = ?,albumLaunchDate = ?,albumPicture = ?,albumGenre = ? WHERE albumId = ?'
-    ,[req.body.albumName,req.body.albumLaunchDate,req.body.albumPicture,req.body.albumGenre,req.params.albumId]);
-    res.sendStatus(201);
-})
+    //bands need to be logged in to modify their albums
+    passport.authenticate('jwt', { session: false }),
+    (req,res) => 
+    {   
+        db.query('SELECT albumId FROM albums WHERE albumId = ?;', [req.params.albumId]).then(results => 
+        {
+                //check for results
+                if (results.length)
+                {
+                    //check field filling
+                    if(req.body.albumName && req.body.albumLaunchDate && req.body.albumPicture && req.body.albumGenre)
+                    {
+                        //modify album data
+                        db.query('UPDATE albums SET albumName = ?,albumLaunchDate = ?,albumPicture = ?,albumGenre = ? WHERE albumId = ?',[req.body.albumName,req.body.albumLaunchDate,req.body.albumPicture,req.body.albumGenre,req.params.albumId]);
+                        //send ok status
+                        res.sendStatus(200);
+                    }
+                    else
+                    {
+                        //fields not filled, bad request
+                        res.sendStatus(400);
+                    }
+                }
+                else
+                {
+                    //album id not found, cannot be modified
+                    res.sendStatus(404);
+                }
+        });
+});
 
 router
 .route('/delete/:albumId')
 .delete(
-    //passport.authenticate('basic', { session: false }),
-    (req, res) => {
-        db.query('DELETE FROM albums WHERE albumId = ?',[req.params.albumId]);
-        /*let Itemid = req.params;
-        console.log(Itemid.id);
-        console.log(ItemsData[Itemid.id]);
-        ItemsData.splice(Itemid.id,ItemsData.length);
-        console.log(ItemsData);*/
-        res.sendStatus(200);
-    })
-
-/*module.exports = 
-{
-    router:router
-};*/
+    //bands need to be logged in to delete their albums
+    passport.authenticate('jwt', { session: false }),
+    (req, res) => 
+    {
+        //check if the id exists in the database first
+        //we need to send not found response if id is not found
+        db.query('SELECT albumId FROM albums WHERE albumId = ?;', [req.params.albumId]).then(results => 
+        {
+            //check for results
+            if (results.length)
+            {
+                //delete found album
+                db.query('DELETE FROM albums WHERE albumId = ?',[req.params.albumId]);
+                //deincrement the album id field
+                db.query('ALTER TABLE albums AUTO_INCREMENT=?',[(req.params.albumId - 1)]); 
+                //send ok status
+                res.sendStatus(200);
+            }
+            else
+            {
+                //album id not found, cannot be deleted
+                res.sendStatus(404);
+            }
+        });
+})
 
 module.exports = router;

@@ -9,8 +9,8 @@ import './album-item.styles.scss';
 
 // This is for each individual album on the shop page
 
-const AlbumItem = ({ item, history, match, routeName }, props) => {
-  const { id, bandName, albumName, imageUrl } = item;
+const AlbumItem = ({ album, history, match, routeName }, props) => {
+  const { bandId, albumId, bandName, albumName, albumLaunchDate, albumPicture, albumGenre } = album;
   const genre = match.params.genre;
   const band = match.params.bandName;
   return (
@@ -18,7 +18,7 @@ const AlbumItem = ({ item, history, match, routeName }, props) => {
       <div
         className='image'
         style={{
-          backgroundImage: `url(${imageUrl})`
+          backgroundImage: `url(${albumPicture})`
         }}
       />
       <div className='album-footer' onClick={() => { 
@@ -32,11 +32,12 @@ const AlbumItem = ({ item, history, match, routeName }, props) => {
         <span className='name'>{albumName}</span>
       </div>
       <CustomButton onClick={() => {
-        if (genre) {
-          history.push(`${routeName}/${id}`)
-        } else {
-          history.push(`${match.path}/${routeName}/${id}`)
-        }
+        history.push(`/shop/albums/${albumId}`)
+        //    if (genre) {
+        //     history.push(`${routeName}/${albumId}`)
+        //  } else {
+        //    history.push(`${match.path}/${routeName}/${albumId}`)
+        //  }
       }} inverted>
         ALBUM INFORMATION
       </CustomButton>

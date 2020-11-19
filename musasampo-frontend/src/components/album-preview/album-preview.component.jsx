@@ -9,20 +9,19 @@ import './album-preview.styles.scss';
 
 export const AlbumPreview = ({
   title,
-  items,
+  albums,
   history,
   match,
-  routeName
 }) => (
     <div className="album-preview">
-      <h1 className='title' onClick={() => history.push(`${match.path}/${routeName}`)}>
+      <h1 className='title' onClick={() => history.push(`${match.path}/albums/genre/${title.toLowerCase()}`)}>
         {title.toUpperCase()}
       </h1>
       <div className='preview'>
-        {items
-          .filter((item, idx) => idx < 4)
-          .map(item => (
-            <AlbumItem key={item.id} item={item} routeName={routeName} />
+        {albums
+          .filter((album, idx) => idx < 4)
+          .map(album => (
+            <AlbumItem key={album.albumId} album={album} routeName={title.toLowerCase()} />
           ))}
       </div>
     </div>
