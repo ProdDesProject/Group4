@@ -14,13 +14,18 @@ const fileTypes = ["jpg", "jpeg", "bmp", "png"];
 //filename testing function
 function fileNameTesting(fileName, fileExtension)
 {
-  if(!fileName)
+  //if the file name is undefined
+  if(fileName == undefined)
   {
     return false;
   }
 
-  if(!((fileName.search(";") === -1) && (fileName.search(":") === -1) && (fileName.search(">") === -1) && (fileName.search("<") === -1) && (fileName.search("/") === -1) && (fileName.search("'") === -1) && (fileName.search("$") === -1) && (fileName.search("%") === -1) && (fileName.search("*") === -1) ))
+  //check for unallowed characters in the file name
+  //$ is the endOfString character and if it's present in another place than the end of string it is not gud
+  if(fileName.search(";") !== -1 || fileName.search(":") !== -1 || fileName.search(">") !== -1 || fileName.search("<") !== -1 || fileName.search("/") !== -1 || fileName.search("%") !== -1 || fileName.search("$") !== fileName.length)
   {
+    console.log("File name contains unallowed characters");
+    console.log(fileName.search(";"), fileName.search(":"), fileName.search(">"), fileName.search("<"), fileName.search("/"), fileName.search("%"), fileName.search("$"));
     return false;
   }
 
@@ -30,6 +35,7 @@ function fileNameTesting(fileName, fileExtension)
   //more than 1 dot is not allowed in fileName
   if(!(splittedName.length === 2))
   {
+    console.log("Too many dots");
     return false;
   }
 
