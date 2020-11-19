@@ -18,8 +18,14 @@ function fileNameTesting(fileName, fileExtension)
   {
     return false;
   }
+
+  if(!((fileName.search(";") === -1) && (fileName.search(":") === -1) && (fileName.search(">") === -1) && (fileName.search("<") === -1) && (fileName.search("/") === -1) && (fileName.search("'") === -1) && (fileName.search("$") === -1) && (fileName.search("%") === -1) && (fileName.search("*") === -1) ))
+  {
+    return false;
+  }
+
   //split the fileName with the . separator
-  const splittedName = fileName.split(/[\s.]+/);
+  const splittedName = fileName.split(".");
 
   //more than 1 dot is not allowed in fileName
   if(!(splittedName.length === 2))
