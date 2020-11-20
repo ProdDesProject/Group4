@@ -1,0 +1,23 @@
+.search-page {
+    margin: 30px;
+
+    .search-preview {
+        display: flex;
+        flex-direction: column;
+
+        .title {
+            font-size: 28px;
+            margin-bottom: 25px;
+        }
+
+        .items {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr 1fr;
+            grid-gap: 10px;
+
+            & .album-item {
+                margin-bottom: 30px;
+            }
+        }
+    }
+}

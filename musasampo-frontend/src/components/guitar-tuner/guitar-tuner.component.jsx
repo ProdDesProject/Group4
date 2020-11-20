@@ -4,7 +4,7 @@ import MultiPlayer from "../audio-player/audio-player.component";
 
 import './guitar-tuner.styles.scss';
 
-import GUITAR_DATA from '../../pages/guitar-tuner-overview/guitar.data';
+import GUITAR_DATA from '../../pages/guitartuner-page/guitar.data';
 
 function GuitarTuner(props) {
 
@@ -15,6 +15,7 @@ function GuitarTuner(props) {
         );
 
     const strings = guitar[0].strings;
+
 
     return (
         <div className="">
