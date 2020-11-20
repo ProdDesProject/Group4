@@ -3,7 +3,7 @@ import { withRouter } from 'react-router-dom';
 
 import GuitarItem from '../../components/guitar-item/guitar-item.component';
 
-import './guitar-tuner-overview.styles.scss';
+import './guitartuner-page.styles.scss';
 
 import GUITAR_DATA from './guitar.data.js';
 

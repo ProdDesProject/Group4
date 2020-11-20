@@ -40,9 +40,14 @@ const useMultiAudio = urls => {
         setPlayers(newPlayers);
     };
 
+
+
     useEffect(() => {
         sources.forEach((source, i) => {
             players[i].playing ? source.audio.play() : source.audio.pause();
+            //players[i].addEventListener("ended", () => {
+            //    players[i].playing = false;
+            // });
             // source.audio.loop = true;
 
         });
@@ -70,6 +75,8 @@ const useMultiAudio = urls => {
 
     return [players, toggle];
 };
+
+
 
 const MultiPlayer = (props) => {
 
