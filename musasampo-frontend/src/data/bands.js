@@ -2,7 +2,7 @@ const BANDS = [
     {
       bandId: 1,
       nsfw: 1,
-      bandName: 'Bandname 1',
+      bandName: 'Nightwish',
       bandLogo: 'https://finland.fi/wp-content/uploads/2015/05/3531-nightwish_c_ville_juurikkala_550px-jpg.jpg',
       },
     {

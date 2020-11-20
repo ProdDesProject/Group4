@@ -9,6 +9,7 @@ import Box from '@material-ui/core/Box';
 
 import './album.styles.scss';
 import ALBUMS from '../../data/albums';
+import { Divider } from '@material-ui/core';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -72,7 +73,18 @@ render() {
   },
 }));*/
 
-export default function SimpleTabs() {
+export default function SimpleTabs(props) {
+
+  const albumId = props.match.params.albumId;
+  //console.log(albumId);
+  const albums = ALBUMS;
+  const albums2=albums
+    .filter(album => album.albumId == albumId)
+    
+
+    console.log(JSON.stringify(albums2[0].albumName));
+
+
   //const classes = useStyles();
   const [value, setValue] = React.useState(0);
 
@@ -84,12 +96,12 @@ export default function SimpleTabs() {
     <div>
 
       <div className='titles'>
-        <text className='title'>
-          Example Album
-                    </text>
-        <text className='subtitle'>
+        <div className='title'>
+          {albums2[0].albumName}
+                    </div>
+        <div className='subtitle'>
           Example Band
-                    </text>
+                    </div>
       </div>
 
       <div className='description'>
@@ -158,5 +170,3 @@ export default function SimpleTabs() {
     </div>
   );
 }
-
-//export default Album;

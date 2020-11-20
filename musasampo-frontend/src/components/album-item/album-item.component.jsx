@@ -10,7 +10,7 @@ import './album-item.styles.scss';
 // This is for each individual album on the shop page
 
 const AlbumItem = ({ album, history, match, routeName }, props) => {
-  const { bandId, albumId, bandName, albumName, albumLaunchDate, albumPicture, albumGenre } = album;
+  const { bandId, albumId, albumName, albumLaunchDate, albumPicture, albumGenre } = album;
   const genre = match.params.genre;
   const band = match.params.bandName;
   return (
@@ -22,11 +22,8 @@ const AlbumItem = ({ album, history, match, routeName }, props) => {
         }}
       />
       <div className='album-footer' onClick={() => { 
-        if (band) {
-          history.push(`${routeName}/${bandName}`)
-        } else {
-          history.push(`${match.path}/${routeName}/${bandName}`)
-        }}}>{bandName}
+          history.push(`/bands/${bandId}`)
+        }}><span className='albumInformation'>{String(bandId)}</span>
         </div>
       <div className='album-footer'>
         <span className='name'>{albumName}</span>
