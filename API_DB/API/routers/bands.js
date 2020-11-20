@@ -78,7 +78,7 @@ router
 });
 
 router
-  .route('/createband')
+  .route('/createband2')
   .post(
       //only authenticated users can create bands
       passport.authenticate('jwt', { session: false }),
@@ -97,6 +97,48 @@ router
             res.sendStatus(201);
         }
       });
+
+
+router
+    .route('/createband/:userId')
+    .post(
+        //only authenticated users can create bands
+        passport.authenticate('jwt', { session: false }),
+        (req, res) => 
+        {
+            async function getUser(req,userId)
+            {
+                var req2 = req;
+                var UserId = userId;
+
+                await db.query('INSERT INTO bands(nsfw,bandName,bandLogo,country)VALUES(?,?,?,?);',[req2.body.nsfw, req2.body.bandName, req2.body.bandLogo, req2.body.country]);
+    
+                console.log("req2:" + req2.body.nsfw, req2.body.bandName, req2.body.bandLogo, req2.body.country);
+                
+                var bandId = await db.query('SELECT bandId FROM bands WHERE bandName = ?;',[req2.body.bandName]);
+                console.log(bandId[0].bandId);
+
+                db.query('INSERT INTO users_bands(bandId, userId)VALUES(?,?);',[bandId[0].bandId, UserId]);
+            }
+
+            console.log("userid:" + req.params.userId);
+
+            //check field filling
+            if(!req.body.nsfw || !req.body.bandName || !req.body.bandLogo || !req.body.country)
+            {
+                //fields not filled, bad request
+                res.sendStatus(400);
+            }
+            else
+            {
+                //create band if all fields are filled
+                getUser(req,req.params.userId);
+
+               
+
+                res.sendStatus(201);
+            }
+        });
 
 //modify a band's information based on id
 router
