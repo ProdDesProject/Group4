@@ -15,7 +15,7 @@ export const AlbumPreview = ({
       <h1 className='title' onClick={() => history.push(`${match.path}/albums/genre/${title.toLowerCase()}`)}>
         {title.toUpperCase()}
       </h1>
-      <div className='preview'>
+      <div className='items'>
         {albums
           .filter((album, idx) => idx < 4)
           .map(album => (
