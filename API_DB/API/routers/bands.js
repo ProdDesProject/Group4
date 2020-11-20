@@ -106,10 +106,10 @@ router
         passport.authenticate('jwt', { session: false }),
         (req, res) => 
         {
-            async function getUser(req,userId)
+            async function getUser(req)
             {
                 var req2 = req;
-                var UserId = userId;
+                var UserId = req2.params.userId;
 
                 await db.query('INSERT INTO bands(nsfw,bandName,bandLogo,country)VALUES(?,?,?,?);',[req2.body.nsfw, req2.body.bandName, req2.body.bandLogo, req2.body.country]);
     
@@ -132,7 +132,7 @@ router
             else
             {
                 //create band if all fields are filled
-                getUser(req,req.params.userId);
+                getUser(req);
 
                
 

@@ -20,12 +20,13 @@ function fileNameTesting(fileName, fileExtension)
     return false;
   }
 
-  //check for unallowed characters in the file name
-  //$ is the endOfString character and if it's present in another place than the end of string it is not gud
-  if(fileName.search(";") !== -1 || fileName.search(":") !== -1 || fileName.search(">") !== -1 || fileName.search("<") !== -1 || fileName.search("/") !== -1 || fileName.search("%") !== -1 || fileName.search("$") !== fileName.length)
+  //filter out any character except for dots, digits or latin letters
+  var regEx = /[^A-Za-z0-9.]+/;
+
+  console.log(`Test ${fileName}:`+regEx.test(fileName));
+
+  if(regEx.test(fileName))
   {
-    console.log("File name contains unallowed characters");
-    console.log(fileName.search(";"), fileName.search(":"), fileName.search(">"), fileName.search("<"), fileName.search("/"), fileName.search("%"), fileName.search("$"));
     return false;
   }
 
