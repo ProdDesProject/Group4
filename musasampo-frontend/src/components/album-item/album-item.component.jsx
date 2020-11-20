@@ -5,14 +5,15 @@ import { Link } from 'react-router-dom';
 
 import CustomButton from '../custom-button/custom-button.component';
 
+import BANDS from '../../data/bands';
+
 import './album-item.styles.scss';
 
-// This is for each individual album on the shop page
-
-const AlbumItem = ({ album, history, match, routeName }, props) => {
+const AlbumItem = ({ album, history, match }) => {
   const { bandId, albumId, albumName, albumLaunchDate, albumPicture, albumGenre } = album;
-  const genre = match.params.genre;
-  const band = match.params.bandName;
+
+  const band = BANDS.filter(band => band.bandId == bandId);
+
   return (
     <div className='album-item'>
       <div
@@ -21,20 +22,14 @@ const AlbumItem = ({ album, history, match, routeName }, props) => {
           backgroundImage: `url(${albumPicture})`
         }}
       />
-      <div className='album-footer' onClick={() => { 
-          history.push(`/bands/${bandId}`)
-        }}><span className='albumInformation'>{String(bandId)}</span>
-        </div>
+      <div className='album-footer'>
+        <span className='albumInformation'>{band[0].bandName}</span>
+      </div>
       <div className='album-footer'>
         <span className='name'>{albumName}</span>
       </div>
       <CustomButton onClick={() => {
         history.push(`/shop/albums/${albumId}`)
-        //    if (genre) {
-        //     history.push(`${routeName}/${albumId}`)
-        //  } else {
-        //    history.push(`${match.path}/${routeName}/${albumId}`)
-        //  }
       }} inverted>
         ALBUM INFORMATION
       </CustomButton>
