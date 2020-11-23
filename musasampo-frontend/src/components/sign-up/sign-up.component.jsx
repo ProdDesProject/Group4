@@ -29,7 +29,11 @@ class SignUp extends React.Component {
       alert("Passwords don't match");
       return;
     }
-
+    if(!username || !email || !name)
+    {
+      alert("Neccessary fields not filled!");
+      return;
+    }
     try {
 
       // SIGN UP CODE GOES HERE
@@ -55,7 +59,6 @@ class SignUp extends React.Component {
 
   onClickHandler = () =>
   {
-    //THIS WORKS WITH MP3:
 
     async function postmethod(data)
     {
@@ -69,27 +72,27 @@ class SignUp extends React.Component {
       }
   
       const response =  await fetch('http://localhost:9000/users/createuser',requestOptions)
-      const data2 = await response;
+      const data2 = await response.json();
+      
+      //useless stuff that doesn't run
 
-      //THIS REPLY DOESNT WORK YET
-      //alert("Data2:"+stringify(data2));
-  
-      if (data2 == "404")
-        {
-          alert("404");  
-        }
-        else
-        {
-          alert("done");
-        }
+      alert(stringify(data2));
+
+      this.setState(data2);
+
+      switch (data2)
+      {
+          case '404': alert('not found'); break;
+          case '400': alert('bad request'); break;
+          case '200': alert('done'); break;
+          default: alert('something went wrong');
+      }
       
     }
 
     const data = new FormData();
-    //data.append('testFile', this.state.selectedFile);
-    //data.append('username', this.state.username);
-    /*alerts*/
-    var object = {
+    var object = 
+    {
       "username": this.state.username, 
       "password": this.state.password,
       "name": this.state.name, 
@@ -97,15 +100,11 @@ class SignUp extends React.Component {
       "phoneNumber": this.state.phoneNumber,
       "usersToken": null
     };
-    postmethod(object);
-    alert(stringify(object));
 
-    /*alert(this.state.username);
-    alert(this.state.email);
-    alert(this.state.name);
-    alert(this.state.phoneNumber);
-    alert(this.state.password);*/
-    
+    postmethod(object);
+
+    //alert object
+    //alert(stringify(object));
   }
 
   render() {
@@ -132,7 +131,7 @@ class SignUp extends React.Component {
             required
           />
           <FormInput
-            type='name'
+            type='text'
             name='name'
             value={name}
             onChange={this.handleChange}
@@ -140,7 +139,7 @@ class SignUp extends React.Component {
             required
           />
           <FormInput
-            type='phoneNumber'
+            type='text'
             name='phoneNumber'
             value={phoneNumber}
             onChange={this.handleChange}
