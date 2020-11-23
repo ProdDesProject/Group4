@@ -2,6 +2,7 @@ import React from 'react';
 
 import FormInput from '../form-input/form-input.component';
 import CustomButton from '../custom-button/custom-button.component';
+import { stringify } from 'querystring';
 
 import './sign-up.styles.scss';
 
@@ -63,8 +64,8 @@ class SignUp extends React.Component {
       const requestOptions = 
       {
         method: 'POST',
-        //headers: { 'Content-Type': '' },
-        body: FormData
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(FormData)
       }
   
       const response =  await fetch('http://localhost:9000/users/createuser',requestOptions)
@@ -88,12 +89,22 @@ class SignUp extends React.Component {
     //data.append('testFile', this.state.selectedFile);
     //data.append('username', this.state.username);
     /*alerts*/
-    alert(this.state.username);
+    var object = {
+      "username": this.state.username, 
+      "password": this.state.password,
+      "name": this.state.name, 
+      "email": this.state.email, 
+      "phoneNumber": this.state.phoneNumber,
+      "usersToken": null
+    };
+    postmethod(object);
+    alert(stringify(object));
+
+    /*alert(this.state.username);
     alert(this.state.email);
     alert(this.state.name);
     alert(this.state.phoneNumber);
-    alert(this.state.password);
-    postmethod(data);
+    alert(this.state.password);*/
     
   }
 
