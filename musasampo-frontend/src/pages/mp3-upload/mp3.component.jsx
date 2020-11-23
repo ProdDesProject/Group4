@@ -4,8 +4,7 @@ import axios from 'axios';
 
 import FormInput from '../../components/form-input/form-input.component';
 import CustomButton from '../../components/custom-button/custom-button.component';
-
-//import ReactAudioPlayer from 'react-audio-player';
+import ReactPlayer from "react-player";
 
 import { withRouter} from 'react-router-dom';
 
@@ -16,18 +15,12 @@ import { saveAs } from 'file-saver';
 
 //const logo = require('./pictures/bandpic1.png');
 
-import music from '../../music';
+//import music from '../../music';
 import logo from '../../assets/bandpic1.png';
 import { stringify } from 'querystring';
 
-/*import music1 from '../../assets/music/Hurt.mp3';
-import music2 from '../../assets/music/Angel-of-Death.mp3';
-import music3 from '../../assets/music/Kill-the-Cult.mp3';
-import music4 from '../../assets/music/La-Grange.mp3';
-import music5 from '../../assets/music/Mouth-For-War.mp3';*/
-
 var fs = require('fs'),
-  request = require('request');
+request = require('request');
 
 var base64 = require('base-64');
 
@@ -72,40 +65,7 @@ class Mp3_upload extends React.Component {
      });
 
     saveAs(blob,filename);
-  }
     
-   /**
-     * GET-METHOD FOR MUSIC PATH IN BACK-END:
-     */
-  async fetchMusic()
-  {
-    const response2 = await fetch('http://localhost:9000/upload/Hurt-test')
-    const data2 = await response2.json();
-    
-    //alert("response2:"+ response2);
-    alert(data2.source);
-
-
-    
-    /*const playAudio = async (id) => {
-      try {
-        const response = await axios.get(`api/getaudio/id/${id}`)
-        const mp3 = new Blob([response.data], { type: 'audio/mp3' })
-        const url = window.URL.createObjectURL(mp3)
-        const audio = new Audio(url)
-        audio.load()
-        await audio.play()
-      } catch (e) {
-        console.log('play audio error: ', e)
-      }
-    }
-    return (
-      <ul>
-        {this.props.topList.map(item => (
-          <li onClick={() => playAudio(item.id)}>{item.title}</li>
-        ))}
-      </ul>
-    )*/
   }
 
 
@@ -135,8 +95,6 @@ class Mp3_upload extends React.Component {
   
       const response =  await fetch('http://localhost:9000/upload/mp3byfile',requestOptions)
       const data2 = await response;
-      //this.setState({ data: data });
-  
 
       //THIS REPLY DOESNT WORK YET
       //alert("Data2:"+stringify(data2));
@@ -156,7 +114,6 @@ class Mp3_upload extends React.Component {
     data.append('testFile', this.state.selectedFile);
 
     postmethod(data);
-
     
   }
 
@@ -165,7 +122,7 @@ class Mp3_upload extends React.Component {
    * 
    */
   async componentDidMount() {
-      this.fetchMusic();
+      //this.fetchMusic();
   }
 
   /**
@@ -184,10 +141,15 @@ class Mp3_upload extends React.Component {
         
         <div>
 
-        <audio controls>
-        <source src={music[0].src} type="audio/mpeg"/>
-        Your browser does not support the audio element.
-        </audio>
+        <div>
+          <ReactPlayer
+            url="http://localhost:9000/upload//mp3path.mp3/Hurt.mp3"
+            width="400px"
+            height="50px"
+            playing={false}
+            controls={true}
+          />
+        </div>
 
         <form enctype="multipart/form-data">
           <input type = "file" name="file" id="file" accept = ".mp3" onChange={this.handleChange}/>

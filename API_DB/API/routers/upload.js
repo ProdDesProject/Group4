@@ -59,10 +59,10 @@ router.get('/', (req, res) => {
     res.send("Only POST method accepted with multipart file");
 })
 
-router.get('/Hurt-test', (req, res) => {
+/*router.get('/Hurt-test', (req, res) => {
   var results = "../uploads/music/Hurt.mp3"
   res.json({ source: results});
-})
+})*/
 
 //works
 router.get('/imagepath.png/:image', function (req, res) {
