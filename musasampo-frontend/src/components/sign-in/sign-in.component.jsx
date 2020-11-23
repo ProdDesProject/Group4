@@ -130,7 +130,7 @@ class SignIn extends React.Component {
     const { value, name } = event.target;
     this.setState({ [name]: value });
   };
-
+  
   render() {
     return (
       <div className='sign-in'>

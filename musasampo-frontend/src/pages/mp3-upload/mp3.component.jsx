@@ -89,7 +89,8 @@ class Mp3_upload extends React.Component {
     {
       var FormData = data;
 
-      const requestOptions = {
+      const requestOptions = 
+      {
         method: 'POST',
         //headers: { 'Content-Type': '' },
         body: FormData
@@ -123,7 +124,8 @@ class Mp3_upload extends React.Component {
    * UPDATE ALWAYS WHEN CTRL+R
    * 
    */
-  async componentDidMount() {
+  async componentDidMount() 
+  {
       //this.fetchMusic();
   }
 
@@ -140,7 +142,7 @@ class Mp3_upload extends React.Component {
     </div >
        
         <img src={logo} alt="bandpic1" width="200" height="200"></img>
-        
+        <img src="http://localhost:9000/upload/imagepath.png/bandpic1.png" alt="bandpic1" width="200" height="200"></img>
         <div>
 
         <div>
