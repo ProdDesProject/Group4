@@ -7,6 +7,8 @@ import CustomButton from '../../components/custom-button/custom-button.component
 
 //import ReactAudioPlayer from 'react-audio-player';
 
+
+
 import { withRouter} from 'react-router-dom';
 
 import './mp3.styles.scss';
@@ -79,11 +81,17 @@ class Mp3_upload extends React.Component {
      */
   async fetchMusic()
   {
-    const response2 = await fetch('http://localhost:9000/upload/Hurt-test')
-    const data2 = await response2.json();
+    const response2 = await fetch('http://localhost:9000/upload/mp3path.mp3/Hurt.mp3');
+    var keys = Object.getOwnPropertyNames(response2);
+    alert("PÖÖÖÖÖ" + keys);
+    //alert(response2);
+    //const data2 = await response2.json();
+    //alert(stringify(response2));
+    return response2;
+    
     
     //alert("response2:"+ response2);
-    alert(data2.source);
+    
 
 
     
@@ -165,7 +173,11 @@ class Mp3_upload extends React.Component {
    * 
    */
   async componentDidMount() {
-      this.fetchMusic();
+    /*router.get('/mp3path.mp3/:song', function (req, res) {
+    res.sendFile(path.join(__dirname, musicpath, req.params.song));
+    });*/
+
+      var music = this.fetchMusic();
   }
 
   /**
@@ -185,7 +197,7 @@ class Mp3_upload extends React.Component {
         <div>
 
         <audio controls>
-        <source src={music[0].src} type="audio/mpeg"/>
+        <source src={this.music} type="audio/mpeg"/>
         Your browser does not support the audio element.
         </audio>
 

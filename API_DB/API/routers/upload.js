@@ -71,6 +71,7 @@ router.get('/imagepath.png/:image', function (req, res) {
 
 router.get('/mp3path.mp3/:song', function (req, res) {
   res.sendFile(path.join(__dirname, musicpath, req.params.song));
+  console.log();
 });
 
 
