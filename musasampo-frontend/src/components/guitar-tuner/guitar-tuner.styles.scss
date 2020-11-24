@@ -1,3 +1,9 @@
+.page-title {
+    margin-left: 40px;
+    font-size: 28px;
+    margin-top: 40px;
+}
+
 .flex-container {
     display: flex;
     justify-content: column;
@@ -28,6 +34,7 @@
 .flex-container > div {
     margin: 10px;
     padding: 20px;
+    padding-top: 5px;
     font-size: 30px;
     width: 100%;
     flex-grow: 4;

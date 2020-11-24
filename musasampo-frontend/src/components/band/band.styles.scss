@@ -55,16 +55,28 @@
     }
 }
 
-.bandImage {
-    border: 1px solid #393e46;
+.bandLogo {
     position: absolute;
-    left: 791px;
+    left: 1120px;
     top: 160px;
-    width: 202px;
-    height: 202px;
+    width: auto;
+    height: auto;
 
     .img {
-        width: 200px;
-        height: 200px;
+        max-width: 250px;
+        max-height: 250px;
+    }
+}
+
+.bandImage {
+    position: absolute;
+    left: 1120px;
+    top: 330px;
+    width: auto;
+    height: auto;
+
+    .img {
+        max-width: 380px;
+        max-height: 380px;
     }
 }

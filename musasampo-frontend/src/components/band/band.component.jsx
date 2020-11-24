@@ -8,6 +8,7 @@ import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 
 import './band.styles.scss';
+import BANDS from '../../data/bands';
 
 function TabPanel(props) {
     const { children, value, index, ...other } = props;
@@ -42,7 +43,21 @@ function TabPanel(props) {
     };
   }
 
-  export default function SimpleTabs() {
+  export default function SimpleTabs(props) {
+
+    const bandId = props.match.params.bandId;
+    //console.log(bandId);
+    const bands = BANDS;
+    const bands2 = bands
+      .filter(band => band.bandId == bandId)
+      
+  
+      console.log(JSON.stringify(bands2[0].bandName));
+  
+  
+
+
+
     //const classes = useStyles();
     const [value, setValue] = React.useState(0);
   
@@ -54,7 +69,7 @@ function TabPanel(props) {
         <div>
 
             <div className='title'>
-                Example Band
+              {bands2[0].bandName}
             </div>
 
         <div className='description'>
@@ -64,24 +79,27 @@ function TabPanel(props) {
                 <dt>Status:</dt>
                 <dt>Formed in:</dt>
                 <dt>Years active:</dt>
-                <dt>Genre:</dt>
+                <dt>Genres:</dt>
                 <dt>Lyrical themes:</dt>
                 <dt>Current label</dt>
             </div>
 
             <div className='infotext'>
-                <dt>Finland</dt>
-                <dt>Oulu</dt>
-                <dt>Active</dt>
-                <dt>2019</dt>
-                <dt>2019-present</dt>
-                <dt>Symphonic Power Metal</dt>
-                <dt>Death, destruction, taxes</dt>
-                <dt>Something Something Records</dt>
+                <dt>{bands2[0].bandInfo[0]}</dt>
+                <dt>{bands2[0].bandInfo[1]}</dt>
+                <dt>{bands2[0].bandInfo[2]}</dt>
+                <dt>{bands2[0].bandInfo[3]}</dt>
+                <dt>{bands2[0].bandInfo[4]}</dt>
+                <dt>{bands2[0].bandInfo[5]}</dt>
+                <dt>{bands2[0].bandInfo[6]}</dt>
+                <dt>{bands2[0].bandInfo[7]}</dt>
             </div>
 
+            <div className='bandLogo'>
+              <img className='img' src={bands2[0].bandLogo} />
+            </div>
             <div className='bandImage'>
-              <img className='img' src='https://finland.fi/wp-content/uploads/2015/05/3531-nightwish_c_ville_juurikkala_550px-jpg.jpg' />
+              <img className='img' src={bands2[0].bandImage} />
             </div>
         </div>
 
@@ -95,13 +113,10 @@ function TabPanel(props) {
                 </Tabs>
                 </AppBar>
                 <TabPanel className='panel-content' value={value} index={0}>
-                Album 1     Demo 2019 <br></br>
-                Album 2     Full-length 2020
+                  {bands2[0].albums}
                 </TabPanel>
                 <TabPanel className='panel-content' value={value} index={1}>
-                Teppo Testi - Drums, Guitar (2019-present) <br></br>
-                Robert Smith - Vocals (2019-present) <br></br>
-                Seppo Sepponen - Bass (2019-present)
+                  {bands2[0].members}
                 </TabPanel>
                 <TabPanel className='panel-content' value={value} index={2}>
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque ut nisi pellentesque, malesuada mauris vel, posuere nibh. 

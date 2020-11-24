@@ -1,9 +1,15 @@
+var brk = <br></br>;
+
 const BANDS = [
     {
       bandId: 1,
       nsfw: 1,
-      bandName: 'Bandname 1',
-      bandLogo: 'https://finland.fi/wp-content/uploads/2015/05/3531-nightwish_c_ville_juurikkala_550px-jpg.jpg',
+      bandName: 'Nightwish',
+      bandLogo: 'https://global-uploads.webflow.com/5e235b1105541e20386fd864/5e387a68d64e7c7191c1883a_nw-hn-logo-small.png',
+      bandImage: 'https://finland.fi/wp-content/uploads/2015/05/3531-nightwish_c_ville_juurikkala_550px-jpg.jpg', 
+      bandInfo: ['Finland', 'Kitee, Pohjois-Karjala', 'Active', '1996', '1996 - present', 'Metal', 'Love, Nature, Religion, Fantasy', 'Nuclear Blast'],
+      albums: ['Angels Fall First', brk, 'Amaranth', brk, 'Lokikirja'],
+      members: ['Tarja Turunen - Vocals (1996-2005)', brk, 'Tuomas Holopainen - Keyboard, Piano, Vocals', brk, 'Emppu Vuorinen - Guitar, Bass', brk, 'Jukka Nevala - Drums, Percussion']
       },
     {
         bandId: 2,

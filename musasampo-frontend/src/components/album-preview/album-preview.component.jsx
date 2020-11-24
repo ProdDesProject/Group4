@@ -5,6 +5,8 @@ import AlbumItem from '../album-item/album-item.component';
 
 import './album-preview.styles.scss';
 
+// This is for each row on the shop page, such as Finnish, Classic, etc.
+
 export const AlbumPreview = ({
   title,
   albums,
