@@ -81,7 +81,7 @@ router
 });
 
 router
-  .route('/createsong')
+  .route('/:albumId/createsong')
   .post(
       //bands need to be authenticated in order to add songs
       passport.authenticate('jwt', { session: false }),
@@ -91,7 +91,7 @@ router
         if(req.body.songName && req.body.MP3 && req.body.MP4)
         {   
             //create song if all fields are filled
-            db.query('INSERT INTO songs (songName,MP3,MP4)VALUES(?,?,?);',[req.body.songName, req.body.MP3, req.body.MP4]);
+            db.query('INSERT INTO songs (albumId, songName, MP3, MP4)VALUES(?,?,?,?);',[req.params.albumId, req.body.songName, req.body.MP3, req.body.MP4]);
             //send created status
             res.sendStatus(201);
         }

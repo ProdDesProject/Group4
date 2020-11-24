@@ -10,7 +10,7 @@ import ReactPlayer from "react-player";
 
 import { withRouter} from 'react-router-dom';
 
-import './mp3.styles.scss';
+import './profile.styles.scss';
 
 import { saveAs } from 'file-saver';
 
@@ -18,15 +18,15 @@ import { saveAs } from 'file-saver';
 //const logo = require('./pictures/bandpic1.png');
 
 //import music from '../../music';
-import logo from '../../assets/bandpic1.png';
+//import logo from '../../assets/bandpic1.png';
 import { stringify } from 'querystring';
 
-var fs = require('fs'),
-request = require('request');
+//var fs = require('fs'),
+//request = require('request');
 
 var base64 = require('base-64');
 
-class Mp3_upload extends React.Component {
+class Profile extends React.Component {
   constructor(props) {
     super(props);
 
@@ -51,23 +51,6 @@ class Mp3_upload extends React.Component {
       return "tyhjä"
     }
 
-  }
-
- /**
-  * DOWNLOAD DATA TO USER BETA
-  */
-  downloadData()
-  {
-    //toimii
-    var content = "What's up , hello world";
-    var filename = "hello.txt";
-
-    var blob = new Blob([content], {
-      type: "text/plain;charset=utf-8"
-     });
-
-    saveAs(blob,filename);
-    
   }
 
 
@@ -140,25 +123,12 @@ class Mp3_upload extends React.Component {
         < div >
         
     </div >
-       
-        <img src={logo} alt="bandpic1" width="200" height="200"></img>
-        <img src="http://localhost:9000/upload/imagepath.png/bandpic1.png" alt="bandpic1" width="200" height="200"></img>
+        <img src="http://localhost:9000/upload/imagepath.png/kilpikalevi.PNG" alt="bandpic1" width="200" height="200"></img>
         <div>
 
-        <div>
-          <ReactPlayer
-            url="http://localhost:9000/upload/mp3path.mp3/Hurt.mp3"
-            width="400px"
-            height="50px"
-            playing={false}
-            controls={true}
-          />
-        </div>
+        <h1>Profile page, welcome</h1>
 
-        <form enctype="multipart/form-data">
-          <input type = "file" name="file" id="file" accept = ".mp3" onChange={this.handleChange}/>
-          <input type = "button" value = "Click to upload!" name = "button" onClick = {this.onClickHandler}/>
-        </form>
+      
 
         </div>
       </header>
@@ -168,4 +138,4 @@ class Mp3_upload extends React.Component {
   }
 }
 
-export default withRouter(Mp3_upload);
+export default withRouter(Profile);

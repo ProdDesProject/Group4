@@ -85,7 +85,7 @@ router
 });
 
 router
-  .route('/createalbum')
+  .route('/:bandId/createalbum')
   .post(
       //bands need to be authenticated in order to post albums
       passport.authenticate('jwt', { session: false }),
@@ -93,8 +93,9 @@ router
       {
         //check field filling
         if(req.body.albumName && req.body.albumLaunchDate && req.body.albumPicture && req.body.albumGenre)
-        {    //create album if all fields are filled
-            db.query('INSERT INTO albums (albumName,albumLaunchDate,albumPicture,albumGenre)VALUES(?,?,?,?);',[req.body.albumName, req.body.albumLaunchDate, req.body.albumPicture, req.body.albumGenre]);
+        {   
+            //create album if all fields are filled
+            db.query('INSERT INTO albums (bandId, albumName, albumLaunchDate, albumPicture, albumGenre)VALUES(?,?,?,?,?);',[req.params.bandId, req.body.albumName, req.body.albumLaunchDate, req.body.albumPicture, req.body.albumGenre]);
             //send created status
             res.sendStatus(201);
         }
