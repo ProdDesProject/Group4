@@ -9,10 +9,13 @@ const ALBUMS = [
           albumLaunchDate: '12.12.2019',
           albumPicture: 'https://finland.fi/wp-content/uploads/2015/05/3531-nightwish_c_ville_juurikkala_550px-jpg.jpg',
           albumCover: 'https://upload.wikimedia.org/wikipedia/en/8/87/Nightwish_Angels_Fall_First.jpg',
-            trackList: ['1. Elvenpath', brk, '2. Beauty and the Beast', brk, '3. The Carpenter', brk, '4. Astral Romance', brk, '5. Angels Fall First', brk, '6. Tutankhamen', brk, '7. Nymphomaniac Fantasia', brk, '8. Know Why the Nightingale Sings', brk, '9. Lappi (Lapland) I: Erämaajärvi', brk, '10. Lappi (Lapland) II: Witchdrums', brk, '11. Lappi (Lapland) III: This Moment Is Eternity', brk, '12. Lappi (Lapland) IV: Etiäinen'],
-            lineup: ['Tarja Turunen - Lead Vocals', brk, 'Tuomas Holopainen - Keyboard, Piano, Vocals', brk, 'Emppu Vuorinen - Guitar, Bass', brk, 'Jukka Nevala - Drums, Percussion'],
-            albumInfo: ['Full-length', 'November 1st, 1997', 'Spinefarm Records', 'CD'],
+          trackList: ['1. Elvenpath', brk, '2. Beauty and the Beast', brk, '3. The Carpenter', brk, '4. Astral Romance', brk, '5. Angels Fall First', brk, '6. Tutankhamen', brk, '7. Nymphomaniac Fantasia', brk, '8. Know Why the Nightingale Sings', brk, '9. Lappi (Lapland) I: Erämaajärvi', brk, '10. Lappi (Lapland) II: Witchdrums', brk, '11. Lappi (Lapland) III: This Moment Is Eternity', brk, '12. Lappi (Lapland) IV: Etiäinen'],
+          lineup: ['Tarja Turunen - Lead Vocals', brk, 'Tuomas Holopainen - Keyboard, Piano, Vocals', brk, 'Emppu Vuorinen - Guitar, Bass', brk, 'Jukka Nevala - Drums, Percussion'],
           albumGenre: 'Metal',
+          albumType: 'Full-length',
+          releaseDate: 'November 1st, 1997',
+          albumLabel: 'Spinefarm Records',
+          albumFormat: 'CD'
           },
         {
             bandId: 2,

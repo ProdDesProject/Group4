@@ -115,10 +115,10 @@ export default function SimpleTabs(props) {
 
         <div className='infotext'>
           <dt>{albums2[0].albumGenre}</dt>
-          <dt>{albums2[0].albumInfo[0]}</dt>
-          <dt>{albums2[0].albumInfo[1]}</dt>
-          <dt>{albums2[0].albumInfo[2]}</dt>
-          <dt>{albums2[0].albumInfo[3]}</dt>
+          <dt>{albums2[0].albumType}</dt>
+          <dt>{albums2[0].releaseDate}</dt>
+          <dt>{albums2[0].albumLabel}</dt>
+          <dt>{albums2[0].albumFormat}</dt>
         </div>
 
         <div className='albumImage'>
