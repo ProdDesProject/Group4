@@ -7,8 +7,8 @@ const multer  = require('multer')
 const multerUpload = multer({ dest: '../uploads/pictures/' })
 const router = express.Router();
 const path = require('path');
-const musicpath = '../uploads/music';
-const imagepath = '../uploads/pictures';
+const musicpath = '../uploads/music/Pyry Viirret - Classics covered';
+const imagepath = '../uploads/pictures/Pyry Viirret - Classics covered pictures';
 const fileTypes = ["jpg", "jpeg", "bmp", "png"];
 
 //filename testing function
