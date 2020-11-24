@@ -19,13 +19,13 @@ function GuitarTuner(props) {
 
     return (
         <div className="">
-            <h2 className='title'>{guitar[0].title}</h2>
+            <h2 className='page-title'>{guitar[0].title}</h2>
             <div className="flex-container">
 
                 <div className="left">
                     <img src={guitar[0].imageUrl} alt="headstock" className="headstock" />
                     <span className="caption">
-                        Tune your guitar by pressing the play button of one note and compare the sound to the sound of the string of your own guitar
+                        Tune your guitar by pressing the play button of a note and compare the sound to a string of your own guitar
                     </span>
                 </div>
                 <div className="right"><MultiPlayer key={guitarId} strings={strings} /></div>
@@ -33,7 +33,5 @@ function GuitarTuner(props) {
         </div>
     );
 }
-
-
 
 export default GuitarTuner;

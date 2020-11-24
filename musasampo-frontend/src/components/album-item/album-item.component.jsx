@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { withRouter } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import CustomButton from '../custom-button/custom-button.component';
 
@@ -9,7 +10,7 @@ import BANDS from '../../data/bands';
 import './album-item.styles.scss';
 
 const AlbumItem = ({ album, history, match }) => {
-  const { bandId, albumId, albumName, albumLaunchDate, albumPicture, albumGenre } = album;
+  const { bandId, albumId, albumName, bandName, albumPicture, albumGenre, albumInfo, lineup, trackList } = album;
 
   const band = BANDS.filter(band => band.bandId == bandId);
 
@@ -24,6 +25,10 @@ const AlbumItem = ({ album, history, match }) => {
       <div className='album-footer'>
         <span className='albumInformation'>{band[0].bandName}</span>
       </div>
+      {/*<div className='album-footer' onClick={() => { 
+          history.push(`/bands/${bandId}`)
+        }}><span className='albumInformation'>{String(bandId)}</span>
+      </div>*/}
       <div className='album-footer'>
         <span className='name'>{albumName}</span>
       </div>
@@ -32,7 +37,6 @@ const AlbumItem = ({ album, history, match }) => {
       }} inverted>
         ALBUM INFORMATION
       </CustomButton>
-
     </div>
   );
 };
