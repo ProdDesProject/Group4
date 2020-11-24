@@ -7,8 +7,11 @@ const multer  = require('multer')
 const multerUpload = multer({ dest: '../uploads/pictures/' })
 const router = express.Router();
 const path = require('path');
-const musicpath = '../uploads/music/Pyry Viirret - Classics covered';
-const imagepath = '../uploads/pictures/Pyry Viirret - Classics covered pictures';
+
+var pasicpath = '../uploads/music/';
+var musicpath = '../uploads/music/Pyry Viirret - Classics covered';
+var imagepath = '../uploads/pictures/Pyry Viirret - Classics covered pictures';
+
 const fileTypes = ["jpg", "jpeg", "bmp", "png"];
 
 //filename testing function
@@ -92,6 +95,16 @@ router.post('/mp3byfile', multerUpload.single('testFile'), (req, res) => {
       res.send("Test");
     });
   }
+});
+
+/**
+ * Change mp3-path for different music song
+ * 
+ */
+router.post('/changemp3path', (req, res) => 
+{
+  musicpath = pasicpath + req.path;
+  console.log("Music-path changed");
 });
 
 //works

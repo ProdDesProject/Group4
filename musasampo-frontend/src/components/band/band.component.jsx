@@ -43,6 +43,18 @@ function TabPanel(props) {
     };
   }
 
+  async function getinfo(index)
+  {
+    if (index == 0)
+    {
+      const response =  await fetch('http://localhost:9000/songs/1')
+      var songName = response[0].songName;
+      return songName;
+    }
+     
+  }
+  
+
   export default function SimpleTabs(props) {
 
     const bandId = props.match.params.bandId;
@@ -84,6 +96,8 @@ function TabPanel(props) {
                 <dt>Current label</dt>
             </div>
 
+            
+
             <div className='infotext'>
                 <dt>{bands2[0].bandInfo[0]}</dt>
                 <dt>{bands2[0].bandInfo[1]}</dt>
@@ -96,10 +110,12 @@ function TabPanel(props) {
             </div>
 
             <div className='bandLogo'>
-              <img className='img' src={bands2[0].bandLogo} />
+              <img className='img' src="http://localhost:9000/upload/imagepath.png/pyrynlogo.png"/>
+              
             </div>
             <div className='bandImage'>
-              <img className='img' src={bands2[0].bandImage} />
+              <img className='img' src="http://localhost:9000/upload/imagepath.png/bandpic1.png" />
+              
             </div>
         </div>
 
