@@ -44,13 +44,13 @@ router
 });
 
 router
-.route(':bandId')
+.route('/:bandId')
 .get(
     //passport.authenticate('basic', { session: false }),
     (req, res) => {
     db.query('SELECT * FROM bands where bandId = ?;',[req.params.bandId]).then(results => 
     {
-        res.json({ band: results})
+        res.json(results)
     })
     .catch(() => 
     {

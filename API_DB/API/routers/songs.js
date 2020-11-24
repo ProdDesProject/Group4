@@ -53,9 +53,10 @@ router
 .get(
     //passport.authenticate('basic', { session: false }),
     (req, res) => {
-        console.log(req.params.songId);
+        //console.log(req.params.songId);
         db.query('SELECT * FROM songs where songId = ?;',[req.params.songId]).then(results => {
-            res.json({ songs: results})
+        console.log(results);
+        res.json(results)
         
     })
     .catch(() => {

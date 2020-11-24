@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
@@ -9,6 +9,62 @@ import Box from '@material-ui/core/Box';
 
 import './band.styles.scss';
 import BANDS from '../../data/bands';
+
+import { stringify } from 'querystring';
+
+class Band extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { message: '' };
+  }
+
+  async componentDidMount() {
+    
+  }
+
+  async getinfo(index)
+  {
+    async function getBands()
+    {
+      //BANDS INFO FROM BACK-END
+      const response1 = await fetch('http://localhost:9000/bands/1')
+      const data1 = await response1.json();
+      
+      //stringify(data2.songs)
+      alert(data1[0].country);
+          
+      return data1;
+    }
+    
+    async function getSongs()
+    {
+      //SONGS INFO FROM BACK-END
+      const response2 = await fetch('http://localhost:9000/songs/1')
+      const data2 = await response2.json();
+     
+      return data2;
+    }
+
+    //var result1 = getBands();
+    var result2 = getSongs();
+
+    if (index == 0)
+    {
+      var result1 = getBands();
+      alert("PÖÖ"+result1)
+      //return result1[0].country;
+    }
+
+  }
+
+  /*render() {
+    return (
+     
+    );
+  }*/
+}
+
+
 
 function TabPanel(props) {
     const { children, value, index, ...other } = props;
@@ -29,8 +85,44 @@ function TabPanel(props) {
       </div>
     );
   }
-  
 
+  async function getinfo(index)
+  {
+    async function getBands()
+    {
+      //BANDS INFO FROM BACK-END
+      const response1 = await fetch('http://localhost:9000/bands/1')
+      const data1 = await response1.json();
+      
+      //stringify(data2.songs)
+      alert(data1[0].country);
+          
+      return data1;
+    }
+    
+    async function getSongs()
+    {
+      //SONGS INFO FROM BACK-END
+      const response2 = await fetch('http://localhost:9000/songs/1')
+      const data2 = await response2.json();
+     
+      return data2;
+    }
+
+    //var result1 = getBands();
+    var result2 = getSongs();
+    var result1 = getBands();
+
+    if (index == 0)
+    {
+      alert("PÖÖ"+result1[0].country)
+      return result1[0].country;
+    }
+   
+    
+
+  }
+  
   TabPanel.propTypes = {
     children: PropTypes.node,
     index: PropTypes.any.isRequired,
@@ -44,18 +136,7 @@ function TabPanel(props) {
     };
   }
 
-  async function getinfo(index)
-  {
-    if (index == 0)
-    {
-      const response =  await fetch('http://localhost:9000/songs/1')
-      var songName = response[0].songName;
-      //return songName;
-      return "PÖÖÖÖ";
-    }
-     
-  }
-  
+ 
 
   export default function SimpleTabs(props) {
 
@@ -67,12 +148,6 @@ function TabPanel(props) {
       
   
       console.log(JSON.stringify(bands2[0].bandName));
-  
-      function componentDidMount() {
-        this.getinfo(0);
-      }
-      
-
 
 
     //const classes = useStyles();
@@ -80,10 +155,14 @@ function TabPanel(props) {
   
     const handleChange = (event, newValue) => {
       setValue(newValue);
+
+      var result = getinfo(0);
+      
+      this.setState({ country: result[0].country
+        });
     };
-  
 
-
+   
     return (
         <div>
 
@@ -103,26 +182,15 @@ function TabPanel(props) {
                 <dt>Current label</dt>
             </div>
 
-            
-
             <div className='infotext'>
-                <dt>{getinfo(0)}</dt>
-                <dt>{bands2[0].bandInfo[1]}</dt>
-                <dt>{bands2[0].bandInfo[2]}</dt>
-                <dt>{bands2[0].bandInfo[3]}</dt>
-                <dt>{bands2[0].bandInfo[4]}</dt>
-                <dt>{bands2[0].bandInfo[5]}</dt>
-                <dt>{bands2[0].bandInfo[6]}</dt>
-                <dt>{bands2[0].bandInfo[7]}</dt>
+                <dt>{}</dt>
             </div>
 
             <div className='bandLogo'>
-              <img className='img' src="http://localhost:9000/upload/imagepath.png/pyrynlogo.png"/>
-              
+              <img className='img' src={bands2[0].bandLogo} />
             </div>
             <div className='bandImage'>
-              <img className='img' src="http://localhost:9000/upload/imagepath.png/bandpic1.png" />
-              
+              <img className='img' src={bands2[0].bandImage} />
             </div>
         </div>
 
@@ -163,3 +231,7 @@ function TabPanel(props) {
       </div>
     );
   }
+
+
+
+  
