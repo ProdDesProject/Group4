@@ -78,7 +78,7 @@ export default function SimpleTabs(props) {
   const albumId = props.match.params.albumId;
   //console.log(albumId);
   const albums = ALBUMS;
-  const albums2=albums
+  const albums2 = albums
     .filter(album => album.albumId == albumId)
     
 
@@ -100,29 +100,29 @@ export default function SimpleTabs(props) {
           {albums2[0].albumName}
                     </div>
         <div className='subtitle'>
-          Example Band
+          {albums2[0].bandName}
                     </div>
       </div>
 
       <div className='description'>
         <div className='descriptor'>
+          <dt>Genre:</dt>
           <dt>Type:</dt>
           <dt>Release date:</dt>
-          <dt>ID:</dt>
           <dt>Label:</dt>
           <dt>Format:</dt>
         </div>
 
         <div className='infotext'>
-          <dt>Demo</dt>
-          <dt>22.12.1999</dt>
-          <dt>2390189421</dt>
-          <dt>Something Something Records</dt>
-          <dt>CD</dt>
+          <dt>{albums2[0].albumGenre}</dt>
+          <dt>{albums2[0].albumInfo[0]}</dt>
+          <dt>{albums2[0].albumInfo[1]}</dt>
+          <dt>{albums2[0].albumInfo[2]}</dt>
+          <dt>{albums2[0].albumInfo[3]}</dt>
         </div>
 
         <div className='albumImage'>
-          <img className='img' src='https://upload.wikimedia.org/wikipedia/en/8/87/Nightwish_Angels_Fall_First.jpg' />
+          <img className='img' src={albums2[0].albumCover} />
         </div>
       </div>
 
@@ -136,17 +136,10 @@ export default function SimpleTabs(props) {
           </Tabs>
         </AppBar>
         <TabPanel className='panel-content' value={value} index={0}>
-          1. Song 1 <br></br>
-                2. Song 2 <br></br>
-                3. Song 3 <br></br>
-                4. Song 4 <br></br>
-                5. Song 5 <br></br>
-                6. Song 6
+          {albums2[0].trackList}
                 </TabPanel>
         <TabPanel className='panel-content' value={value} index={1}>
-          Teppo Testi - Drums, Guitar <br></br>
-                Robert Smith - Vocals <br></br>
-                Seppo Sepponen - Bass
+          {albums2[0].lineup}
                 </TabPanel>
         <TabPanel className='panel-content' value={value} index={2}>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque ut nisi pellentesque, malesuada mauris vel, posuere nibh.

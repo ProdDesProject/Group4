@@ -8,7 +8,7 @@ import CustomButton from '../custom-button/custom-button.component';
 import './band-item.styles.scss';
 
 const BandItem = ({ band, history }, props) => {
-    const { bandId, nsfw, bandName, bandLogo } = band;
+    const { bandId, nsfw, bandName, bandLogo, bandImage } = band;
 
     return (
         <div className='band-item'>

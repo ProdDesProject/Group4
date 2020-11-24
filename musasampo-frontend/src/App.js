@@ -48,7 +48,7 @@ class App extends React.Component {
                       <Route exact path='/mp3-upload' component={Mp3} />
                       <Route exact path='/shop' component={ShopPage} />
                       <Route exact path='/search' component={SearchPage} />
-                      <Route exact path='/bands/stupid' component={BandPage} /> 
+                      <Route exact path='/bands/:bandId' component={BandPage} /> 
                       <Route exact path='/shop/albums/genre/:genre' component={GenrePage} />          
                       <Route exact path='/shop/albums/:albumId' component={AlbumComponent} />
                       <Route exact path='/guitartuner' component={GuitarOverview} />    

@@ -1,5 +1,3 @@
-// This doesn't seem to do anything?
-
 .album-preview {
   display: flex;
   flex-direction: column;
@@ -7,6 +5,7 @@
   .title {
     font-size: 38px;
     margin-bottom: 25px;
+    margin-left: 0px;
   }
 
   .items {
@@ -15,7 +14,7 @@
     grid-gap: 10px;
 
     & .album-item {
-      margin-bottom: 30px;
+      margin-bottom: -20px;
     }
   }
 }
