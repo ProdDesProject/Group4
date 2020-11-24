@@ -7,12 +7,11 @@ const SHOP_DATA = [
       {
         id: 1,
         bandName: 'Nightwish',
-        imageUrl: 'https://finland.fi/wp-content/uploads/2015/05/3531-nightwish_c_ville_juurikkala_550px-jpg.jpg',
-        albumName: 'Angels Fall First',
-        albumCover: 'https://upload.wikimedia.org/wikipedia/en/8/87/Nightwish_Angels_Fall_First.jpg',
-        trackList: ['1. Elvenpath', '2. Beauty and the Beast', '3. The Carpenter', '4. Astral Romance', '5. Angels Fall First', '6. Tutankhamen', '7. Nymphomaniac Fantasia', '8. Know Why the Nightingale Sings', '9. Lappi (Lapland) I: Erämaajärvi', '10. Lappi (Lapland) II: Witchdrums', '11. Lappi (Lapland) III: This Moment Is Eternity', '12. Lappi (Lapland) IV: Etiäinen'],
-        lineup: ['Tarja Turunen - Lead Vocals', 'Tuomas Holopainen - Keyboard, Piano, Vocals', 'Emppu Vuorinen - Guitar, Bass', 'Jukka Nevala - Drums, Percussion'],
-        albumInfo: ['Full-length', 'November 1st, 1997', 'testID1234', 'Spinefarm Records', 'CD']
+        bandImage: 'https://finland.fi/wp-content/uploads/2015/05/3531-nightwish_c_ville_juurikkala_550px-jpg.jpg',
+        bandLogo: 'https://global-uploads.webflow.com/5e235b1105541e20386fd864/5e387a68d64e7c7191c1883a_nw-hn-logo-small.png',
+        genres: 'Metal', 
+        albums: ['Angels Fall First', 'Test'
+        ]
       },
       {
         id: 2,
@@ -113,7 +112,7 @@ const SHOP_DATA = [
       },
       {
         id: 10,
-        bandName: 'Guns n Roses',
+        bandName: "Guns N' Roses",
         imageUrl: 'https://www.rollingstone.com/wp-content/uploads/2018/06/rs-135077-square.jpg?w=306',
         albumName: 'fancy album name'
       }

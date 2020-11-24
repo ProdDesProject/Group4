@@ -27,7 +27,6 @@ const SearchBox = props => (
             </IconButton>
         </div>
     </div>
-
 );
 
 export default SearchBox;

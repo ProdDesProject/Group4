@@ -1,11 +1,10 @@
-
 import React from 'react';
 
 import ALBUMS from '../../data/albums';
-
 import AlbumItem from '../../components/album-item/album-item.component';
-
 import './genre-page.styles.scss';
+
+// This is the page that opens when clicking a genre on the shop page
 
 class AlbumPage extends React.Component {
   constructor(props) {

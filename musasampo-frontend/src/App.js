@@ -1,45 +1,3 @@
-/*import React from 'react';
-import { Switch, Route, Redirect } from 'react-router-dom';
-
-import './App.css';
-
-import HomePage from './pages/homepage/homepage.component';
-import Search from './pages/search/search.component';
-import ShopPage from './pages/shop/shop.component';
-import GuitarOverview from './pages/guitar-tuner-overview/guitar-tuner-overview.component';
-import GuitarTuner from './components/guitar-tuner/guitar-tuner.component';
-import AlbumPage from './pages/albums/albums.component';
-import AlbumComponent from './components/album/album.component';
-
-import Login from './pages/sign-in-and-sign-up/sign-in-and-sign-up.component';
-
-import Header from './components/header/header.component';
-
-
-class App extends React.Component {
-
-  render() {
-    return (
-      <div>
-        <Header />
-        <Switch>
-          <Route exact path='/' component={HomePage} /> 
-          <Route exact path='/search' component={Search} /> 
-          <Route exact path='/login' component={Login} />  
-          <Route exact path='/guitartuner' component={GuitarOverview} />    
-          <Route exact path='/guitartuner/:guitarId' component={GuitarTuner} />      
-          <Route exact path='/shop' component={ShopPage} />
-          <Route exact path='/shop/albums' component={ShopPage} />
-          <Route exact path='/shop/albums/:genre' component={AlbumPage} />          
-          <Route exact path='/shop/albums/:genre/:albumId' component={AlbumComponent} />
-         
-        </Switch>
-      </div>
-    );
-  }
-}
-
-export default App;*/
 import { Switch, Route, Redirect } from 'react-router-dom';
 
 import HomePage from './pages/home-page/home-page.component';
@@ -51,6 +9,7 @@ import GuitarOverview from './pages/guitartuner-page/guitartuner-page.component'
 import GuitarTuner from './components/guitar-tuner/guitar-tuner.component';
 import SearchPage from './pages/search/search.component';
 import GenrePage from './pages/genre-page/genre-page.component';
+import BandPage from './components/band/band.component';
 import AlbumComponent from './components/album/album.component';
 
 import Header from './components/header/header.component';
@@ -88,7 +47,8 @@ class App extends React.Component {
                       <Route exact path='/login' component={LoginPage} />
                       <Route exact path='/mp3-upload' component={Mp3} />
                       <Route exact path='/shop' component={ShopPage} />
-                      <Route exact path= '/search' component={SearchPage} />
+                      <Route exact path='/search' component={SearchPage} />
+                      <Route exact path='/bands/:bandId' component={BandPage} /> 
                       <Route exact path='/shop/albums/genre/:genre' component={GenrePage} />          
                       <Route exact path='/shop/albums/:albumId' component={AlbumComponent} />
                       <Route exact path='/guitartuner' component={GuitarOverview} />    
