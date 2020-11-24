@@ -56,6 +56,7 @@ class Mp3_upload extends React.Component {
  /**
   * DOWNLOAD DATA TO USER BETA
   */
+ /*
   downloadData()
   {
     //toimii
@@ -68,7 +69,7 @@ class Mp3_upload extends React.Component {
 
     saveAs(blob,filename);
     
-  }
+  }*/
 
 
   handleChange = event => {
@@ -141,7 +142,6 @@ class Mp3_upload extends React.Component {
         
     </div >
        
-        <img src={logo} alt="bandpic1" width="200" height="200"></img>
         <img src="http://localhost:9000/upload/imagepath.png/bandpic1.png" alt="bandpic1" width="200" height="200"></img>
         <div>
 
