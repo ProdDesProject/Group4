@@ -49,13 +49,13 @@ router
 });
 
 router
-.route(':songId')
+.route('/:songId')
 .get(
     //passport.authenticate('basic', { session: false }),
     (req, res) => {
-        console.log("Ppp");
+        console.log(req.params.songId);
         db.query('SELECT * FROM songs where songId = ?;',[req.params.songId]).then(results => {
-        res.json({ songs: results})
+            res.json({ songs: results})
         
     })
     .catch(() => {

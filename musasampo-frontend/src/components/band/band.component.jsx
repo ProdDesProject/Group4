@@ -30,6 +30,7 @@ function TabPanel(props) {
     );
   }
   
+
   TabPanel.propTypes = {
     children: PropTypes.node,
     index: PropTypes.any.isRequired,
@@ -49,7 +50,8 @@ function TabPanel(props) {
     {
       const response =  await fetch('http://localhost:9000/songs/1')
       var songName = response[0].songName;
-      return songName;
+      //return songName;
+      return "PÖÖÖÖ";
     }
      
   }
@@ -66,7 +68,10 @@ function TabPanel(props) {
   
       console.log(JSON.stringify(bands2[0].bandName));
   
-  
+      function componentDidMount() {
+        this.getinfo(0);
+      }
+      
 
 
 
@@ -77,6 +82,8 @@ function TabPanel(props) {
       setValue(newValue);
     };
   
+
+
     return (
         <div>
 
@@ -99,7 +106,7 @@ function TabPanel(props) {
             
 
             <div className='infotext'>
-                <dt>{bands2[0].bandInfo[0]}</dt>
+                <dt>{getinfo(0)}</dt>
                 <dt>{bands2[0].bandInfo[1]}</dt>
                 <dt>{bands2[0].bandInfo[2]}</dt>
                 <dt>{bands2[0].bandInfo[3]}</dt>
