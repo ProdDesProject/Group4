@@ -4,6 +4,7 @@ import FormInput from '../form-input/form-input.component';
 import SignInButton from '../sign-in-button/sign-in-button.component';
 import { withRouter} from 'react-router-dom';
 
+import App from '../../App'
 
 import './sign-in.styles.scss';
 
@@ -66,12 +67,16 @@ class SignIn extends React.Component {
 
         this.props.history.push({
           pathname: '/',
-          state: { detail: token }
+          state: { token: token }
         })
+
+        
       }
     
       this.setState({ username: '', password: '' });
-      this.props.history.push('/');
+      
+      //this.props.history.push('/');
+
     } catch (error) {
       console.log(error);
     }

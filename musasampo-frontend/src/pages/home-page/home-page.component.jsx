@@ -4,6 +4,8 @@ import CustomButton from '../../components/custom-button/custom-button.component
 import { withRouter } from 'react-router-dom';
 import './home-page.styles.scss';
 
+import { stringify } from 'querystring';
+
 import logo from '../../assets/logo.png';
 
 class Mainpage extends React.Component {
@@ -19,6 +21,7 @@ class Mainpage extends React.Component {
     event.preventDefault();
 
     const { token2 } = this.state;
+    alert(this.state.token2);
 
   }
 
@@ -33,13 +36,18 @@ class Mainpage extends React.Component {
     }
 
   }
+  
+  async componentDidMount() {
+    this.callAPI();
+
+    //this.props.location.state.token = access to information from sign-in 
+
+    alert(stringify(this.props.location.state.token));
+}
 
   handleChange = event => {
     //const { value, name } = event.target;
     //this.setState({ [name]: value });
-
-
-
 
   };
 

@@ -128,6 +128,7 @@ class Mp3_upload extends React.Component {
   async componentDidMount() 
   {
       //this.fetchMusic();
+      
   }
 
   /**
@@ -154,6 +155,8 @@ class Mp3_upload extends React.Component {
             controls={true}
           />
         </div>
+
+        
 
         <form enctype="multipart/form-data">
           <input type = "file" name="file" id="file" accept = ".mp3" onChange={this.handleChange}/>

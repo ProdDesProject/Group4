@@ -18,44 +18,30 @@ class Data extends React.Component
   constructor(props) {
     super(props);
 
-    this.state = { returnData: 'loading' };
-
-    this.state = { message: 'loading' };
-    
-    this.state = { bandId: 'loading' };
-    this.state = { country: 'loading' };
-    this.state = { location: 'loading' };
-
-    this.state = { nswf: 'loading' };
-    this.state = { bandName: 'loading' };
-    this.state = { bandLogo: 'loading' };
-
-    this.state = { status: 'loading' };
-    this.state = { formedIn: 'loading' };
-    this.state = { yearsactive: 'loading' };
-    this.state = { genres: 'loading' };
-    this.state = { lyricalThemes: 'loading' };
-    this.state = { currentLabel: 'loading' };
-
   }
 
-  async getSongs() 
+  //Method for Get-method for all songs from backend.
+  async getAllSongs() 
   {
-    const response2 = await fetch('http://localhost:9000/songs/1')
+    const response2 = await fetch('http://localhost:9000/songs')
     const data2 = await response2.json(); 
+    
+    //this is furioiting to find right path to inside of object:
+    //alert(data2.songs[0].songName);
     return data2;
   }
 
-  async getBand()
+  //Method for Get-method for all bands from backend.
+  async getAllBands()
     {
       //BANDS INFO FROM BACK-END
-      const response1 = await fetch('http://localhost:9000/bands/1')
+      const response1 = await fetch('http://localhost:9000/bands')
       const data1 = await response1.json();
       
       //stringify(data2.songs)
       //alert(data1[0].country);
           
-      return data1[0].country;
+      return data1;
     }
 
   /*async componentDidMount() 
@@ -153,6 +139,9 @@ class Data extends React.Component
 }*/
 
 //export default withRouter(Band);
+
+
+//Data class object thas is exported to another files
 const data = new Data();
 export default data;
 
