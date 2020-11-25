@@ -4,8 +4,6 @@ import FormInput from '../form-input/form-input.component';
 import SignInButton from '../sign-in-button/sign-in-button.component';
 import { withRouter} from 'react-router-dom';
 
-import App from '../../App'
-
 import './sign-in.styles.scss';
 
 var base64 = require('base-64');
@@ -20,16 +18,17 @@ class SignIn extends React.Component {
     };
   }
 
-  
-
-  handleSubmit = async event => {
+  //when clicket sign in button: post-login and returns token if succeeded.
+  handleSubmit = async event => 
+  {
     event.preventDefault();
 
     const { username, password } = this.state;
 
-    try {
-
-      const requestOptions = {
+    try 
+    {
+      const requestOptions = 
+      {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ username:username,password:password })
@@ -45,16 +44,6 @@ class SignIn extends React.Component {
       }
       else
       {
-        //route to main page
-        //alert(data.user[0].username);
-        //---->MAINPAGE
-        
-         /* const requestOptions = {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ username:username,password:password })
-        };*/
-
         let headers = new Headers();
         headers.set('Authorization', 'Basic ' + base64.encode(username + ":" + password));
 
@@ -62,25 +51,21 @@ class SignIn extends React.Component {
         const token = await response2.json();
 
         alert(JSON.stringify(token));
-       
-        //this.props.history.push('/');
 
         this.props.history.push({
           pathname: '/',
           state: { token: token }
         })
 
-        
       }
     
       this.setState({ username: '', password: '' });
-      
-      //this.props.history.push('/');
 
     } catch (error) {
       console.log(error);
     }
   };
+
 
   handleChange = event => {
     const { value, name } = event.target;

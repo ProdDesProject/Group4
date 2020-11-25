@@ -35,7 +35,7 @@ class Data extends React.Component
   async getAllBands()
     {
       //BANDS INFO FROM BACK-END
-      const response1 = await fetch('http://localhost:9000/bands')
+      const response1 = await fetch('http://localhost:9000/bands/')
       const data1 = await response1.json();
       
       //stringify(data2.songs)
@@ -43,6 +43,15 @@ class Data extends React.Component
           
       return data1;
     }
+
+  async getAllUsers()
+  {
+    const result = await fetch("http://localhost:9000/users/")
+    const data = await result.json();
+
+    return data;
+  }
+    
 
   /*async componentDidMount() 
   { 

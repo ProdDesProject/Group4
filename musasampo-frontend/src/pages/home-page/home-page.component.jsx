@@ -6,6 +6,10 @@ import './home-page.styles.scss';
 
 import { stringify } from 'querystring';
 
+import Header from '../../components/header/header.component';
+
+import Mp3 from '../mp3-upload/mp3.component';
+
 import logo from '../../assets/logo.png';
 
 class Mainpage extends React.Component {
@@ -22,9 +26,18 @@ class Mainpage extends React.Component {
 
     const { token2 } = this.state;
     alert(this.state.token2);
-
   }
 
+
+  //
+  childFunction=(e)=>{
+    e.preventDefault();
+    this.props.functionCallFromParent("Hello From Child1");
+}
+
+
+
+  //check if token is ready to use
   callAPI() {
     if (this.props.location.state != undefined) {
       var token2 = this.props.location.state.detail;
@@ -39,16 +52,15 @@ class Mainpage extends React.Component {
   
   async componentDidMount() {
     this.callAPI();
-
-    //this.props.location.state.token = access to information from sign-in 
-
-    alert(stringify(this.props.location.state.token));
+    //alert(this.props.valueFromParent);
+    this.handleChange();
+    //alert(stringify(this.props.location.state.token));
+    //this.childFunction()
 }
 
   handleChange = event => {
     //const { value, name } = event.target;
     //this.setState({ [name]: value });
-
   };
 
   render() {
@@ -77,7 +89,10 @@ class Mainpage extends React.Component {
           </div>
         </header>
         <p className="Mainpage">{this.state.apiResponse}</p>
+        
       </div>
+
+      
     );
   }
 }
@@ -107,4 +122,5 @@ class Mainpage extends React.Component {
   </div>
 );*/
 
-export default withRouter(Mainpage);
+//export default withRouter(Mainpage);
+export default Mainpage;

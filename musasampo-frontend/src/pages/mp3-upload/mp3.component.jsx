@@ -1,4 +1,4 @@
-import React , { Fragment, useState } from 'react';
+import React , { Component,Fragment, useState } from 'react';
 
 import axios from 'axios';
 
@@ -6,6 +6,7 @@ import FormInput from '../../components/form-input/form-input.component';
 import CustomButton from '../../components/custom-button/custom-button.component';
 import ReactPlayer from "react-player";
 
+import HomePage from '../home-page/home-page.component';
 
 
 import { withRouter} from 'react-router-dom';
@@ -26,7 +27,7 @@ request = require('request');
 
 var base64 = require('base-64');
 
-class Mp3_upload extends React.Component {
+class Mp3_upload extends Component {
   constructor(props) {
     super(props);
 
@@ -128,6 +129,7 @@ class Mp3_upload extends React.Component {
   async componentDidMount() 
   {
       //this.fetchMusic();
+      alert("mp3:"+this.props.valueFromParent);
       
   }
 
@@ -156,8 +158,6 @@ class Mp3_upload extends React.Component {
           />
         </div>
 
-        
-
         <form enctype="multipart/form-data">
           <input type = "file" name="file" id="file" accept = ".mp3" onChange={this.handleChange}/>
           <input type = "button" value = "Click to upload!" name = "button" onClick = {this.onClickHandler}/>
@@ -171,4 +171,5 @@ class Mp3_upload extends React.Component {
   }
 }
 
-export default withRouter(Mp3_upload);
+//export default withRouter(Mp3_upload);
+export default Mp3_upload;

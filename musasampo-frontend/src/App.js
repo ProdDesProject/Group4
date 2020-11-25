@@ -16,40 +16,46 @@ import Header from './components/header/header.component';
 import LoginPage from './pages/sign-in-and-sign-up/sign-in-and-sign-up.component';
 
 import Profile from './pages/profile/profile.component';
-
 import { stringify } from 'querystring';
 
-//import data from './components/data/data.jsx';
-
+import Data from './components/data/data';
 
 import React, { Component } from "react";
 import logo from "./logo.svg";
 import "./App.css";
 
-class App extends React.Component {
+class App extends Component {
     constructor(props) {
         super(props);
         this.state = { apiResponse: "" };
+        this.state= { value_key:"asd"};
     }
 
-    callAPI() {
-        fetch("http://localhost:9000/users/")
-            .then(res => res.text())
-            .then(res => this.setState({ apiResponse: res }))
-            .catch(err => err);
-    }
+    
 
-    getStateVariables() {
-        return this.state.data;
+    parentFunction= async (data_from_child)=>{
+        this.setState({value_key: data_from_child});
+       
     }
 
     async componentDidMount() {
-        //this.callAPI();
-        //alert(stringify(this.props.location.state.token));
+
+        await this.parentFunction();
+        alert(this.state.value_key);
+        
+
+        //this is example how to get data from data-class.jsx
+
+        //var users = await Data.getAllUsers();
+        //alert(users.user[0].username);
+
+      
 
     }
-
+    value = "Pöö";
+    
     render() {
+     
         return (
             <div className="App">
                 <header className="App-header">
@@ -60,19 +66,16 @@ class App extends React.Component {
                       <Route exact path='/mp3-upload' component={Mp3} />
                       <Route exact path='/shop' component={ShopPage} />
                       <Route exact path='/search' component={SearchPage}/>
-
                       <Route exact path='/profile' component={Profile} />
-
                       <Route exact path='/bands/:bandId' component={BandPage} /> 
                       <Route exact path='/shop/albums/genre/:genre' component={GenrePage} />          
                       <Route exact path='/shop/albums/:albumId' component={AlbumComponent} />
                       <Route exact path='/guitartuner' component={GuitarOverview} />    
                       <Route exact path='/guitartuner/:guitarId' component={GuitarTuner} />  
-                      
 
                     </Switch>
-                </header>
-                
+                </header> 
+
             </div>
         );
     }
