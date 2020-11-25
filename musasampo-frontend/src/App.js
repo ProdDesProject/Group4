@@ -11,15 +11,11 @@ import SearchPage from './pages/search/search.component';
 import GenrePage from './pages/genre-page/genre-page.component';
 import BandPage from './components/band/band.component';
 import AlbumComponent from './components/album/album.component';
-
 import Header from './components/header/header.component';
 import LoginPage from './pages/sign-in-and-sign-up/sign-in-and-sign-up.component';
-
 import Profile from './pages/profile/profile.component';
 import { stringify } from 'querystring';
-
 import Data from './components/data/data';
-
 import React, { Component } from "react";
 import logo from "./logo.svg";
 import "./App.css";
@@ -31,28 +27,21 @@ class App extends Component {
         this.state= { value_key:"asd"};
     }
 
-    
-
     parentFunction= async (data_from_child)=>{
         this.setState({value_key: data_from_child});
-       
     }
 
     async componentDidMount() {
 
         await this.parentFunction();
-        alert(this.state.value_key);
+        //alert(this.state.value_key);
         
 
         //this is example how to get data from data-class.jsx
 
         //var users = await Data.getAllUsers();
         //alert(users.user[0].username);
-
-      
-
     }
-    value = "Pöö";
     
     render() {
      

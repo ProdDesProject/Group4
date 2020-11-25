@@ -74,9 +74,7 @@ class SignUp extends React.Component {
       const response =  await fetch('http://localhost:9000/users/createuser',requestOptions)
       const data2 = await response.json();
       
-      //useless stuff that doesn't run
-
-      alert(stringify(data2));
+      //alert(stringify(data2));
 
       this.setState(data2);
 

@@ -5,11 +5,8 @@ import { withRouter } from 'react-router-dom';
 import './home-page.styles.scss';
 
 import { stringify } from 'querystring';
-
 import Header from '../../components/header/header.component';
-
 import Mp3 from '../mp3-upload/mp3.component';
-
 import logo from '../../assets/logo.png';
 
 class Mainpage extends React.Component {
@@ -17,7 +14,7 @@ class Mainpage extends React.Component {
     super(props);
 
     this.state = {
-      token2: ""
+      token2: "asd"
     };
   }
 
@@ -25,7 +22,7 @@ class Mainpage extends React.Component {
     event.preventDefault();
 
     const { token2 } = this.state;
-    alert(this.state.token2);
+    //alert(this.state.token2);
   }
 
 
@@ -39,6 +36,7 @@ class Mainpage extends React.Component {
 
   //check if token is ready to use
   callAPI() {
+
     if (this.props.location.state != undefined) {
       var token2 = this.props.location.state.detail;
       //<p1>{this.callAPI()}</p1>
@@ -51,9 +49,11 @@ class Mainpage extends React.Component {
   }
   
   async componentDidMount() {
-    this.callAPI();
-    //alert(this.props.valueFromParent);
-    this.handleChange();
+    //await this.callAPI();
+
+    alert(stringify(this.props.location.state.token) );
+
+    //this.handleChange();
     //alert(stringify(this.props.location.state.token));
     //this.childFunction()
 }
@@ -89,38 +89,15 @@ class Mainpage extends React.Component {
           </div>
         </header>
         <p className="Mainpage">{this.state.apiResponse}</p>
-        
+        <p1>{this.callAPI()}</p1>
       </div>
+
+      
 
       
     );
   }
 }
 
-
-
-/*const HomePage = () => (
-  <div className='homepage'>
-    <div className='introduction'>
-      <div className='logo-area'>
-        <img src={logo} alt="logo" />
-      </div>
-      <div className='infoText'>
-        MUSASAMPO is a website dedicated to all your music needs. We offer a multitude of services for bands and fans alike. Please edit this text.
-      </div>
-    </div>
-    <div className='parts'>
-      <div className='part-container'>
-        <div className='part1'>
-        </div>
-        <div className='part2'>
-        </div>
-      </div>
-      <div className='part3'>
-      </div>
-    </div>
-  </div>
-);*/
-
-//export default withRouter(Mainpage);
-export default Mainpage;
+export default withRouter(Mainpage);
+//export default Mainpage;

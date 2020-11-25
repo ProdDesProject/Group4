@@ -13,12 +13,94 @@ import { withRouter} from 'react-router-dom';
 import { stringify } from 'querystring';
 import ReactPlayer from "react-player";
 
+import Signin2 from '../../components/sign-in/sign-in.component.jsx'
+
+var base64 = require('base-64');
+
 class Data extends React.Component 
 {
   constructor(props) {
     super(props);
 
+    this.state = {
+      username: '',
+      password: '',
+      data: "",
+      token: ""
+    };
   }
+
+  //save token need test
+  async loadToken()
+  {
+    return this.state.token;
+  }
+
+
+  async Signin(username2,password2)
+  {
+    //alert(username2);
+    //alert(password2);
+    //return "true";
+    //alert("Going in!");
+    //alert(username2);
+    //alert(password2);
+
+    //const { username, password } = this.state;
+      
+    try
+    {
+    const requestOptions = 
+      {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ username:username2,password:password2 })
+      }
+
+      //alert(requestOptions.body);
+
+      const response = await fetch('http://localhost:9000/users/checkuser2/',requestOptions)
+      const data = await response.json();
+      //this.setState({ data: data });
+      //alert(data);
+
+      //alert(this.state.data);
+
+      
+      //alert("data:"+data);
+
+      if (data == "404")
+      {
+        alert("404");  
+      }
+      else
+      {
+
+        let headers = new Headers();
+        headers.set('Authorization', 'Basic ' + base64.encode(username2 + ":" + password2));
+
+        const response2 = await fetch("http://localhost:9000/login", {method:'POST',headers: headers,})
+        const token = await response2.json();
+        this.setState({ token: token });
+        
+        //alert("Data:"+token);
+
+        var obj = {
+          result: "true",
+          token: token
+        };
+        
+        return obj;
+      }
+    
+      //this.setState({ username: '', password: '' });
+
+    } catch (error) {
+      console.log(error);
+      return "false";
+     
+    }
+  };
 
   //Method for Get-method for all songs from backend.
   async getAllSongs() 
@@ -51,104 +133,8 @@ class Data extends React.Component
 
     return data;
   }
-    
-
-  /*async componentDidMount() 
-  { 
-    //get-songs from backend
-    const returnData = await this.getSongs();
-    //alert(returnData[0].songName);
-
-    async function getBand()
-    {
-      //BANDS INFO FROM BACK-END
-      const response1 = await fetch('http://localhost:9000/bands/1')
-      const data1 = await response1.json();
-      
-      //stringify(data2.songs)
-      //alert(data1[0].country);
-          
-      return data1;
-    }
-    
-    var result1 = await getBand();
-
-    //var country2 = result1[0].country;
-    this.setState({ returnData : returnData[0].songName });
-
-    //setting setSate global variables from band
-    this.setState({ 
-      bandId : result1[0].bandId,
-      nswf : result1[0].nswf,
-      bandName : result1[0].bandName,
-      bandLogo : result1[0].bandLogo,
-      country: result1[0].country, 
-      location : result1[0].location,
-      status : result1[0].status,
-      formedIn : result1[0].formedIn,
-      yearsactive : result1[0].yearsActive,
-      genres : result1[0].genres,
-      lyricalThemes : result1[0].lyricalThemes,
-      currentLabel : result1[0].currentLabel
-      });
-
-  }*/
 
 }
-
-  /*
-  render() {
-    let { bandId,nswf,bandName,bandLogo,country,location,status,formedIn,yearsactive,genres,lyricalThemes,currentLabel } = this.state;
-    const { returnData } = this.state;
-    return (
-      <div>
-
-            <div className='title'>
-              {}
-            </div>
-
-        <div className='description'>
-             <div className='descriptor'>
-                <dt>Country of origin:</dt>
-                <dt>Location:</dt>
-                <dt>Status:</dt>
-                <dt>Formed in:</dt>
-                <dt>Years active:</dt>
-                <dt>Genres:</dt>
-                <dt>Lyrical themes:</dt>
-                <dt>Current label</dt>
-            </div>
-
-            <div className='infotext'>
-                <dt>{country}</dt>
-                <dt>{location}</dt>
-                <dt>{status}</dt>
-                <dt>{formedIn}</dt>
-                <dt>{yearsactive}</dt>
-                <dt>{genres}</dt>
-                <dt>{lyricalThemes}</dt>
-                <dt>{currentLabel}</dt>  
-            </div>
-          
-            <h1>Music song:</h1>
-            <div>{returnData}</div>
-
-            <div className='bandLogo'>
-              <img className='img' src={"http://localhost:9000/upload/imagepath.png/pyrynlogo.png"} />
-            </div>
-            <div className='bandImage'>
-              <img className='img' src={"http://localhost:9000/upload/imagepath.png/bandpic1.png"} />
-            </div>
-        </div>
-
-            
-      </div>
-    );
-  }
-}*/
-
-//export default withRouter(Band);
-
 
 //Data class object thas is exported to another files
 const data = new Data();
