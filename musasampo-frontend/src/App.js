@@ -17,7 +17,7 @@ import LoginPage from './pages/sign-in-and-sign-up/sign-in-and-sign-up.component
 
 import Profile from './pages/profile/profile.component';
 
-import data from './components/data/data.jsx';
+//import data from './components/data/data.jsx';
 
 
 import React, { Component } from "react";
@@ -42,17 +42,18 @@ class App extends React.Component {
     }
 
     async componentDidMount() {
-        this.callAPI();
+        //this.callAPI();
 
         //ACCESS TO DATA.jsx WHERE ARE METHODS FOR GETTING DATA
-        var result1 = await data.getBand();
-        var result2= await data.getSongs();
+        //var result1 = await data.getBand();
+        //var result2= await data.getSongs();
 
         //var country2 = result1[0].country;
         //this.setState({ returnData : returnData[0].songName });
 
         //setting setSate global variables from band¨
-        this.setState({ 
+        
+        /*this.setState({ 
            data: result1
             });
 
@@ -69,7 +70,7 @@ class App extends React.Component {
         genres : result1[0].genres,
         lyricalThemes : result1[0].lyricalThemes,
         currentLabel : result1[0].currentLabel
-        });
+        });*/
 
         //works
         //alert(result2[0].songName);

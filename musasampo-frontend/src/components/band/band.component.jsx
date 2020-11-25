@@ -14,8 +14,9 @@ import { stringify } from 'querystring';
 import ReactPlayer from "react-player";
 
 import App from '../../App';
+import Data1 from '../data/data';
 
-
+/*
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
@@ -57,8 +58,12 @@ function getBand()
   //const obj = new App();
   //var result = obj.getStateVariables();
   //alert(result);
-  
-  return "asd";
+
+  var result1 = data.getBand();
+  //stringify(result1)
+  alert(JSON.stringify(result1));
+
+  return result1;
 }
 
 
@@ -151,9 +156,10 @@ export default function SimpleTabs(props) {
     </div>
   );
 }
+*/
 
 
-/*
+
 class Band extends React.Component {
   constructor(props) {
     super(props);
@@ -179,23 +185,16 @@ class Band extends React.Component {
 
   }
 
-  async getSongs() 
-  {
-    const response2 = await fetch('http://localhost:9000/songs/1')
-    const data2 = await response2.json(); 
-    return data2;
-  }
-
   async componentDidMount() 
   {
     //get-songs from backend
-    const returnData = await this.getSongs();
+    const returnSongs = await Data1.getSongs();
+    const returnBands = await Data1.getBand();
     //alert(returnData[0].songName);
     
-    
-  
-
-
+    alert(returnSongs[0].MP3);
+    alert(returnBands);
+    /*
     async function getBand()
     {
       //BANDS INFO FROM BACK-END
@@ -227,7 +226,7 @@ class Band extends React.Component {
       genres : result1[0].genres,
       lyricalThemes : result1[0].lyricalThemes,
       currentLabel : result1[0].currentLabel
-      });
+      });*/
 
   }
 
@@ -282,4 +281,4 @@ class Band extends React.Component {
 }
 
 export default withRouter(Band);
-*/
+

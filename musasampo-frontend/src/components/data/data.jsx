@@ -55,10 +55,10 @@ class Data extends React.Component
       //stringify(data2.songs)
       //alert(data1[0].country);
           
-      return data1;
+      return data1[0].country;
     }
 
-  async componentDidMount() 
+  /*async componentDidMount() 
   { 
     //get-songs from backend
     const returnData = await this.getSongs();
@@ -97,7 +97,7 @@ class Data extends React.Component
       currentLabel : result1[0].currentLabel
       });
 
-  }
+  }*/
 
 }
 
