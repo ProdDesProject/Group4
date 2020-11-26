@@ -2,6 +2,8 @@ import React from 'react';
 
 import './custom-button.styles.scss';
 
+
+{/*reusable button component */ }
 const CustomButton = ({
   children,
   inverted,
@@ -14,7 +16,5 @@ const CustomButton = ({
       {children}
     </button>
   );
-
-  //comment
 
 export default CustomButton;

@@ -10,10 +10,12 @@ import BandItem from '../../components/band-item/band-item.component';
 
 import './search.styles.scss';
 
+{/* Search page */ }
+
 class Search extends React.Component {
     constructor() {
         super();
-
+        {/* Empty array for filtered albums and bands + searchfield input  */ }
         this.state = {
             albums: [],
             bands: [],
@@ -21,17 +23,21 @@ class Search extends React.Component {
         };
     }
 
+    /* add all albums from data to array  */
     componentDidMount() {
         this.setState({ albums: ALBUMS });
         this.setState({ bands: BANDS })
     }
 
+    /* change search field state to search field input  */
     onSearchChange = event => {
         this.setState({ searchField: event.target.value });
     };
 
     render() {
         const { albums, bands, searchField } = this.state;
+
+        {/* filter albums and bands with search field value  */ }
         const filteredAlbums = albums.filter(album =>
             album.albumName.toLowerCase().includes(searchField.toLowerCase())
         );
@@ -47,6 +53,7 @@ class Search extends React.Component {
                         ALBUMS
                     </h2>
 
+                    {/* Display filtered albums  */}
                     <div className='items'>
                         {filteredAlbums
                             .filter((album, idx) => idx < 4)
@@ -56,6 +63,7 @@ class Search extends React.Component {
                     </div>
                 </div>
 
+                {/* display filtered bands  */}
                 <div className="search-preview">
                     <h2 className='title'>
                         BANDS

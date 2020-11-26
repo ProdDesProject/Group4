@@ -85,14 +85,14 @@ function TabPanel(props) {
             </div>
 
             <div className='infotext'>
-                <dt>{bands2[0].bandInfo[0]}</dt>
-                <dt>{bands2[0].bandInfo[1]}</dt>
-                <dt>{bands2[0].bandInfo[2]}</dt>
-                <dt>{bands2[0].bandInfo[3]}</dt>
-                <dt>{bands2[0].bandInfo[4]}</dt>
-                <dt>{bands2[0].bandInfo[5]}</dt>
-                <dt>{bands2[0].bandInfo[6]}</dt>
-                <dt>{bands2[0].bandInfo[7]}</dt>
+                <dt>{bands2[0].countryOfOrigin}</dt>
+                <dt>{bands2[0].bandLocation}</dt>
+                <dt>{bands2[0].bandStatus}</dt>
+                <dt>{bands2[0].formedIn}</dt>
+                <dt>{bands2[0].yearsActive}</dt>
+                <dt>{bands2[0].bandGenres}</dt>
+                <dt>{bands2[0].lyricalThemes}</dt>
+                <dt>{bands2[0].currentLabel}</dt>
             </div>
 
             <div className='bandLogo'>
