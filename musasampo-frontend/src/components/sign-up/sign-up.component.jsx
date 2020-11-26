@@ -3,12 +3,15 @@ import React from 'react';
 import FormInput from '../form-input/form-input.component';
 import CustomButton from '../custom-button/custom-button.component';
 import { stringify } from 'querystring';
+import Data from '../../components/data/data.jsx';
+
+import { withRouter} from 'react-router-dom';
 
 import './sign-up.styles.scss';
 
 class SignUp extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
     this.state = {
       username: '',
@@ -37,7 +40,6 @@ class SignUp extends React.Component {
     try {
 
       // SIGN UP CODE GOES HERE
-
       this.setState({
         username: '',
         email: '',
@@ -49,6 +51,9 @@ class SignUp extends React.Component {
     } catch (error) {
       console.error(error);
     }
+
+
+    
   };
 
   handleChange = event => {
@@ -57,52 +62,20 @@ class SignUp extends React.Component {
     this.setState({ [name]: value });
   };
 
-  onClickHandler = () =>
+  onClickHandler = async () =>
   {
+    var result = await Data.Signup(this.state.username,this.state.email,this.state.name,this.state.phoneNumber,this.state.password);
+    alert(result);
 
-    async function postmethod(data)
+    if (result.result == "true")
     {
-      var FormData = data;
-
-      const requestOptions = 
-      {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(FormData)
-      }
-  
-      const response =  await fetch('http://localhost:9000/users/createuser',requestOptions)
-      const data2 = await response.json();
-      
-      //alert(stringify(data2));
-
-      this.setState(data2);
-
-      switch (data2)
-      {
-          case '404': alert('not found'); break;
-          case '400': alert('bad request'); break;
-          case '200': alert('done'); break;
-          default: alert('something went wrong');
-      }
-      
+      this.props.history.push({
+        pathname: '/',
+      });
+    }else
+    {
+      alert("something went wrong!");
     }
-
-    const data = new FormData();
-    var object = 
-    {
-      "username": this.state.username, 
-      "password": this.state.password,
-      "name": this.state.name, 
-      "email": this.state.email, 
-      "phoneNumber": this.state.phoneNumber,
-      "usersToken": null
-    };
-
-    postmethod(object);
-
-    //alert object
-    //alert(stringify(object));
   }
 
   render() {
@@ -168,4 +141,4 @@ class SignUp extends React.Component {
   }
 }
 
-export default SignUp;
+export default withRouter(SignUp);

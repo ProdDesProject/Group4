@@ -18,6 +18,7 @@ export const GuitarOverview = (props) => (
             ))}
 
         </div>
+
     </div>
 );
 

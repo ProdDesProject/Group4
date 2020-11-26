@@ -5,6 +5,10 @@ import Homepage from '../../pages/home-page/home-page.component';
 import { withRouter} from 'react-router-dom';
 import './header.styles.scss';
 
+import Data from '../../components/data/data.jsx';
+import { stringify } from 'querystring';
+
+//var token = "";
 
 class Header extends React.Component 
 {
@@ -20,6 +24,13 @@ class Header extends React.Component
   //route to /guitartune
   Guitartuner = async event => 
   {
+    var token2 = "Guitartoken: empty";
+
+    token2 = await Data.loadToken();
+    this.setState({ token: token2 });
+
+    alert("bands:"+stringify(token2));
+
     this.props.history.push({
       pathname: '/guitartuner',
       state: { token: "secret" }

@@ -20,10 +20,9 @@ class SignIn extends React.Component {
     };
   }
 
+  //push to Mainpage when called
   async goMain(token)
   {
-    //alert(await Data.loadToken());
-
     this.props.history.push({
       pathname: '/',
       state: { token: token }
@@ -34,9 +33,9 @@ class SignIn extends React.Component {
   handleSubmit = async event => 
   {
     var token="";
-
     event.preventDefault();
-    alert("start");
+
+    //alert("start");
     var result = await Data.Signin(this.state.username,this.state.password);
     
     //alert("asd!:"+stringify(result.token));
@@ -44,7 +43,7 @@ class SignIn extends React.Component {
     if (result.result == "true")
     {
       token = result.token;
-      alert(stringify(token));
+      //alert(stringify(token));
       this.goMain(token);
     }else
     {

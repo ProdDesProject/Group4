@@ -1,6 +1,8 @@
-import note1 from '../notes/A.mp3';
+//import self recorded notes that I put into the notes-folder
+import note1 from '../notes/A.mp3'; //Is actually A#, # is not allowed in the filename
 import note2 from '../notes/F.mp3';
 
+//Tuners in order, named with titles. Strings go from thinnest to the thickest from up to down.
 const GUITAR_DATA = [
     {
         guitarId: 0,
@@ -190,6 +192,7 @@ const GUITAR_DATA = [
             soundUrl: 'https://tuner-online.com/audio/c2.mp3',
         }]
     },
+    //7-stringed still have images of a 6-stringed, could be changed but not necessary
     {
         guitarId: 8,
         title: '7-String standard',
@@ -302,6 +305,7 @@ const GUITAR_DATA = [
             soundUrl: 'https://tuner-online.com/audio/e1.mp3',
         }]
     },
+    //ukulele image is not a silhouette yet - couldn't find one from the internet. Could provide a copyright issue but maybe not necessary to edit.
     {
         guitarId: 3,
         title: 'Ukulele Tuner',

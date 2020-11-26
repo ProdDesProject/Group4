@@ -3,11 +3,12 @@ import FormInput from '../../components/form-input/form-input.component';
 import CustomButton from '../../components/custom-button/custom-button.component';
 import { withRouter } from 'react-router-dom';
 import './home-page.styles.scss';
-
 import { stringify } from 'querystring';
 import Header from '../../components/header/header.component';
 import Mp3 from '../mp3-upload/mp3.component';
 import logo from '../../assets/logo.png';
+
+import Data from '../../components/data/data.jsx';
 
 class Mainpage extends React.Component {
   constructor(props) {
@@ -21,8 +22,8 @@ class Mainpage extends React.Component {
   handleSubmit = async event => {
     event.preventDefault();
 
-    const { token2 } = this.state;
-    //alert(this.state.token2);
+    //const { token2 } = this.state;
+    //alert(this.props.location.state);
   }
 
 
@@ -49,9 +50,15 @@ class Mainpage extends React.Component {
   }
   
   async componentDidMount() {
-    //await this.callAPI();
+    
+    //get token from data
+    var token = await Data.loadToken();
+    alert(stringify(token));
 
-    alert(stringify(this.props.location.state.token) );
+    //var result = await this.callAPI();
+    //alert(result);
+
+    //alert(stringify(this.props.location.state.token) );
 
     //this.handleChange();
     //alert(stringify(this.props.location.state.token));
