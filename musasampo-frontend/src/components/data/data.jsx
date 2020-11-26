@@ -31,12 +31,13 @@ class Data extends React.Component
     };
   }
 
-  //save token need test
+  //load token 
   async loadToken()
   {
     return token2;
   }
 
+  //save token 
   async saveToken(data)
   {
     token2 = data;

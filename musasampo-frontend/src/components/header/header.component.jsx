@@ -26,14 +26,17 @@ class Header extends React.Component
   {
     var token2 = "Guitartoken: empty";
 
+    //fetch for token from data.jsx
     token2 = await Data.loadToken();
+    //save it to this.state.variable
     this.setState({ token: token2 });
 
     alert("bands:"+stringify(token2));
 
+    //push to the guitarpage with the token
     this.props.history.push({
       pathname: '/guitartuner',
-      state: { token: "secret" }
+      //state: { token: "secret" }
     });
     
   }
