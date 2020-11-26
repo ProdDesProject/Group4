@@ -31,6 +31,12 @@ class Data extends React.Component
     };
   }
 
+  //delete token2 local variable
+  async deleteToken()
+  {
+    token2 = "";
+  }
+
   //load token 
   async loadToken()
   {
