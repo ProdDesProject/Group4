@@ -18,12 +18,14 @@ const BandItem = ({ band, history }, props) => {
                     backgroundImage: `url(${bandLogo})`
                 }}
             />
+            {/* Band information */}
             <div className='band-footer'>
                 <span className='bandInformation'>{bandName}</span>
             </div>
             <div className='band-footer'>
                 <span className='name'> Artist</span>
             </div>
+            {/*Button in the band cover, onClick opens path /shop/bands/:bandId*/}
             <CustomButton onClick={() => {
                 history.push(`/shop/bands/${bandId}`)
             }} inverted>

@@ -6,6 +6,8 @@ import './audio-player.styles.scss'
 // https://stackoverflow.com/questions/47686345/playing-sound-in-reactjs
 // Last access 13.11.2020
 
+
+{/* make audio object from of every url we are receiving from props */ }
 const useMultiAudio = urls => {
     const [sources] = useState(
 
@@ -17,6 +19,7 @@ const useMultiAudio = urls => {
         })
     );
 
+    {/* handle state of every audio player in players array */ }
     const [players, setPlayers] = useState(
         urls.map(soundUrl => {
             return {
@@ -26,14 +29,18 @@ const useMultiAudio = urls => {
         })
     );
 
+    {/* updates  state of every audio player in players array*/ }
     const toggle = targetIndex => () => {
         const newPlayers = [...players];
         const currentIndex = players.findIndex(p => p.playing === true);
+        {/* other player is playing, so set this one to false and the targeted player to true */ }
         if (currentIndex !== -1 && currentIndex !== targetIndex) {
             newPlayers[currentIndex].playing = false;
             newPlayers[targetIndex].playing = true;
+            {/* targeted player is current active player so set state to false */ }
         } else if (currentIndex !== -1) {
             newPlayers[targetIndex].playing = false;
+            {/* no active player currently */ }
         } else {
             newPlayers[targetIndex].playing = true;
         }
@@ -41,7 +48,7 @@ const useMultiAudio = urls => {
     };
 
 
-
+    {/* start and stop the actual audio */ }
     useEffect(() => {
         sources.forEach((source, i) => {
             players[i].playing ? source.audio.play() : source.audio.pause();
@@ -53,6 +60,7 @@ const useMultiAudio = urls => {
         });
     }, [sources, players]);
 
+    {/* set state to false when audio has ended */ }
     useEffect(() => {
         sources.forEach((source, i) => {
             source.audio.addEventListener("ended", () => {
@@ -83,6 +91,7 @@ const MultiPlayer = (props) => {
 
     const soundUrls = [];
 
+    // map soundUrls from props and push them to soundUrls array
     props.strings.map((item) => soundUrls.push(item.soundUrl));
 
     const [players, toggle] = useMultiAudio(soundUrls);
@@ -93,12 +102,13 @@ const MultiPlayer = (props) => {
 
             <div className="player-item">
                 <ul className="list">
+                    {/* map all audio players */}
                     {players.map((player, i) => (
                         <li> <Player key={i} player={player} toggle={toggle(i)} /> </li>
                     ))}
                 </ul>
             </div>
-
+            {/* map all guitar sound names */}
             <div className="string-name">
                 <ul className="list">
                     {props.strings.map((item, index) =>
@@ -113,6 +123,7 @@ const MultiPlayer = (props) => {
     );
 };
 
+{/* pause button shape */ }
 const Pause = (props) => {
     return (
         <div>
@@ -124,6 +135,7 @@ const Pause = (props) => {
     );
 };
 
+{/* play button shape */ }
 const Play = (props) => {
     return (
         <div>
@@ -134,6 +146,7 @@ const Play = (props) => {
     );
 };
 
+{/* one single player button, that switches between "playing" and "pause" */ }
 const Player = ({ player, toggle }) => (
 
     <div>

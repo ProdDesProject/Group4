@@ -7,14 +7,10 @@ import SearchIcon from '@material-ui/icons/Search';
 import './search-box.styles.scss';
 
 const SearchBox = props => (
-    //    <input
-    // className='search-box'
-    //type='search'
-    //placeholder='search musasampo'
-    //onChange={props.onSearchChange}
-    ///>
 
-    <div>
+    /* Search box that calls a function from props on input  */
+
+    < div >
         <div className="root">
             <InputBase
                 className="input"
@@ -26,7 +22,7 @@ const SearchBox = props => (
                 <SearchIcon />
             </IconButton>
         </div>
-    </div>
+    </div >
 );
 
 export default SearchBox;
