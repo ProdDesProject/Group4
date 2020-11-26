@@ -12,6 +12,7 @@ const ShopPage = (props) => (
     ))}
   </div>
 )
+{/* Really stupid code to put the data I receive in the needed format for the AlbumPreview component  */ }
 
 const albums = ALBUMS;
 
