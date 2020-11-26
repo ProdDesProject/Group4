@@ -102,7 +102,6 @@ class Band extends React.Component {
             <div className='infotext'>
                 <StyledContentLoader
                 isLoading={isloading}>
-
                 <dt>{bandName}</dt>
                 </StyledContentLoader>
             </div>
