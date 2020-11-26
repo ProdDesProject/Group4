@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import PubNub from 'pubnub';
 import { PubNubProvider, usePubNub } from 'pubnub-react';
+import SendIcon from '@material-ui/icons/Send';
 
 import './chat-box.styles.scss'
 
@@ -29,23 +30,27 @@ const Chat = (props) => {
     }, [messages]);
 
     const sendMessage = useCallback(
-        async message => {
-            await pubnub.publish({
-                channel: channels[0],
-                message: {
-                    userName,
-                    message,
-                }
-            });
 
-            setInput('');
+        async message => {
+            if (message) {
+                await pubnub.publish({
+                    channel: channels[0],
+                    message: {
+                        userName,
+                        message,
+                    }
+                });
+
+                setInput('');
+            }
         },
         [pubnub, setInput]
+
     );
 
     return (
         <div className="chat">
-            <div className="chat-header">React Chat Example</div>
+            <div className="chat-header">Musasampo Chatroom</div>
             <div className="chat-window" >
                 {messages.map((message, messageIndex) => {
                     return (
@@ -77,13 +82,14 @@ const Chat = (props) => {
                     }
                     }
                 />
-                <button className="send"
-                    onClick={e => {
-                        e.preventDefault();
-                        sendMessage(input);
-                    }}                >
-                    Send Message
-            </button>
+                <div className="send">
+                    <SendIcon style={{ fontSize: 40 }}
+                        onClick={e => {
+                            e.preventDefault();
+                            sendMessage(input);
+                        }} />
+                </div>
+
             </div>
         </div>
     );
@@ -91,11 +97,9 @@ const Chat = (props) => {
 
 const ChatBox = (props) => {
     return (
-        <div className="wrapper">
-            <PubNubProvider client={pubnub}>
-                <Chat userName={props.userName} />
-            </PubNubProvider>
-        </div>
+        <PubNubProvider client={pubnub}>
+            <Chat userName={props.userName} />
+        </PubNubProvider>
     );
 };
 

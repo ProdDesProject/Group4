@@ -19,9 +19,7 @@ class ChatPage extends React.Component {
         const { userId, userName } = this.state;
 
         return (
-            <div className="root">
-                <ChatBox userName={userName} userId={userId} />
-            </div>
+            <ChatBox userName={userName} userId={userId} />
         );
     }
 }
