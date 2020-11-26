@@ -20,7 +20,7 @@ const Header = () => (
       <Link className='option' to='/guitartuner'>
         GUITAR TUNER
       </Link>
-      <Link className='option' to='/'>
+      <Link className='option' to='/chat'>
         CHAT
       </Link>
       <div className='option'>
