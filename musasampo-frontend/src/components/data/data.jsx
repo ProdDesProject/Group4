@@ -19,6 +19,7 @@ var base64 = require('base-64');
 
 var token2 = "";
 
+
 class Data extends React.Component 
 {
   constructor(props) {

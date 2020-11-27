@@ -28,7 +28,7 @@ class Header extends React.Component
     //token not found
     if(!token)
     {
-        this.setState({signInOut: "SIGN IN"});
+        //this.setState({signInOut: "SIGN IN"});
         //push to the login page
         this.props.history.push({
           pathname: '/login',
@@ -53,6 +53,7 @@ class Header extends React.Component
     //save it to this.state.variable
     this.setState({ token: token2 });
     //singed out case
+
     if(!token2)
     {
         this.setState({signInOut : "SIGN IN"});
@@ -135,42 +136,75 @@ class Header extends React.Component
       }
   }
 
-  async componentDidUpdate()
+  checkToken()
   {
-      //this.tokenGiven();
+   return "asd";
   }
+
+  async shouldComponentUpdate()
+  {
+   
+    //
+    if (this.props.history.location.signInOut != undefined)
+    {
+      this.setState({signInOut: this.props.history.location.signInOut});
+      
+      this.props.history.push({
+        signInOut: undefined
+      });
+    }
+    
+  }
+
+  async componentDidMount() 
+  {
+    //var logintext = this.checkLogin(this.state.signInOut);
+    //return <h1>logintext</h1>;
+  }
+
+  
 
   render() 
   {
+    //let {signInOut} = this.state;
+    //let logintext = this.checkLogin(signInOut);
+
     return (
 
         <div className='header'>
+
           <Link className='logo-area' to='/'>
             <img src={logo} alt="logo" />
           </Link>
+
           <Link className='title' to = '/'>
             MUSASAMPO
             </Link>
+
           <div className='options'>
             <Link className='option' to='/search'>
               SEARCH
             </Link>
+
             <Link className='option' onClick={this.Guitartuner}>
               GUITAR TUNER
             </Link>
+
             <Link className='option' onClick={this.Chat}>
               CHAT
             </Link>
+
             <div className='option'>
               |
               </div>
+
             <Link className='option' onClick={this.Shop}>
               SHOP
             </Link>
-            <Link className='option' onClick = {this.LoginLogout}>
-                {this.state.signInOut}
-                </Link>
+
+            <Link className='option' onClick = {this.LoginLogout}>{this.state.signInOut}</Link>
             </div>
+
           </div>
         
       );

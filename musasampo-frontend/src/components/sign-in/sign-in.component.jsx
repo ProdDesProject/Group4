@@ -17,15 +17,16 @@ class SignIn extends React.Component {
     this.state = {
       username: '',
       password: ''
+
     };
   }
 
-  //push to Mainpage when called
+  //push to Mainpage when called with global variable singInOut goes -> home-page
   async goMain(token)
   {
     this.props.history.push({
       pathname: '/',
-      state: { token: token }
+      signInOut: "SIGN OUT"
     });
   }
 

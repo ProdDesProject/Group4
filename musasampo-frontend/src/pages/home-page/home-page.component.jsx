@@ -49,11 +49,14 @@ class Mainpage extends React.Component {
 
   }
   
+  //happens when called class
   async componentDidMount() {
     
     //get token from data
     var token = await Data.loadToken();
-    alert(stringify(token));
+    alert("Token:"+stringify(token));
+
+    //alert(this.props.history.location.signInOut);
 
     //var result = await this.callAPI();
     //alert(result);
