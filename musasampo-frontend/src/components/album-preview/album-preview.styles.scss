@@ -5,7 +5,12 @@
   .title {
     font-size: 38px;
     margin-bottom: 25px;
-    margin-left: 0px;
+    margin-top: 0px;
+
+    cursor: pointer;
+        &:hover {
+            color: grey;
+        }
   }
 
   .items {

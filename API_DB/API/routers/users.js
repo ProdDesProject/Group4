@@ -127,39 +127,48 @@ router
 .post(
     (req, res) => 
     {
-        //search for the database 
-        db.query('SELECT username FROM users;')
-        .then(results => 
+        if(!req.body.username || !req.body.password || !req.body.email || !req.body.name)
         {
-            //array of existing usernames
-            var usernames = [];
-            //res.json({ user: results})
-            usernames = results;
+            //bad request, required fields not filled!!!
+            console.log("Fields not filled")
+            res.sendStatus(400);
+        }
+        else
+        {
+            //search for the database 
+            db.query('SELECT username FROM users;')
+            .then(results => 
+            {
+                //array of existing usernames
+                var usernames = [];
+                //res.json({ user: results})
+                usernames = results;
 
-            //search for already existing usernames
-            var found = usernames.find(u => u.username == req.body.username);
-            
-            //nothing is found, create a new user
-            if(found == null) 
-            {
-                const hashedPassword = bcrypt.hashSync(req.body.password, 6);
-                //console.log(hashedPassword, req.body.username, req.body.name, req.body.email, req.body.phoneNumber);
-                users2.addUser(
-                    req.body.username,
-                    hashedPassword,
-                    req.body.name,
-                    req.body.email,
-                    req.body.phoneNumber
-                )
-                //send created status 
-                res.sendStatus(201);
-            } 
-            else
-            {
-                //send bad request status
-                res.sendStatus(400);
-            }
-        })
+                //search for already existing usernames
+                var found = usernames.find(u => u.username == req.body.username);
+                
+                //nothing is found, create a new user
+                if(found == null) 
+                {
+                    const hashedPassword = bcrypt.hashSync(req.body.password, 6);
+                    //console.log(hashedPassword, req.body.username, req.body.name, req.body.email, req.body.phoneNumber);
+                    users2.addUser(
+                        req.body.username,
+                        hashedPassword,
+                        req.body.name,
+                        req.body.email,
+                        req.body.phoneNumber
+                    )
+                    //send created status 
+                    res.sendStatus(201);
+                } 
+                else
+                {
+                    //send bad request status
+                    res.sendStatus(400);
+                }
+            })
+        }
     });
 
 //delete a user based on id(only logged in users should be able to do that)
