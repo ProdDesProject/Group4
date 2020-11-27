@@ -5,6 +5,7 @@ import ShopPage from './pages/shop-page/shop-page.component';
 
 import Mp3 from './pages/mp3-upload/mp3.component';
 
+import ChatPage from './pages/chat/chat.component';
 import GuitarOverview from './pages/guitartuner-page/guitartuner-page.component';
 import GuitarTuner from './components/guitar-tuner/guitar-tuner.component';
 import SearchPage from './pages/search/search.component';
@@ -49,6 +50,7 @@ class App extends React.Component {
                 <Header />
                     <Switch>
                       <Route exact path='/' component={HomePage} />
+                      <Route exact path='/chat' component={ChatPage} />
                       <Route exact path='/login' component={LoginPage} />
                       <Route exact path='/mp3-upload' component={Mp3} />
                       <Route exact path='/shop' component={ShopPage} />
