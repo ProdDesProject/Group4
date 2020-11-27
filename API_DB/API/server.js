@@ -178,6 +178,8 @@ app.post(
     return res.status(200).json({ token });
 })
 
+//need updated index.html from Stefan 
+//https://app.swaggerhub.com/apis-docs/OAMK81/MusasampoAPI/2.2#/
 
 app.route('/documents').get( function(req, res) 
 {

@@ -136,11 +136,6 @@ class Header extends React.Component
       }
   }
 
-  checkToken()
-  {
-   return "asd";
-  }
-
   async shouldComponentUpdate()
   {
    
