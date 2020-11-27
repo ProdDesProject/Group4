@@ -202,6 +202,10 @@ class Header extends React.Component
               SHOP
             </Link>
 
+            <Link className='option' onClick={this.myBand}>
+              MY BANDS
+            </Link>
+
             <Link className='option' onClick = {this.LoginLogout}>{this.state.signInOut}</Link>
             </div>
 
