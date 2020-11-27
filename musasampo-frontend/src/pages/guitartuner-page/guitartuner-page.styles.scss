@@ -1,7 +1,7 @@
 .tuner-page {
     display: flex;
     flex-direction: column;
-    margin-bottom: 30px;
+    margin: auto 40px;
 
     @media screen and (max-width: 800px) {
         align-items: center;
@@ -9,9 +9,7 @@
 
     .title {
         font-size: 38px;
-        margin-bottom: 25px;
-        margin-left: 40px;
-        margin-top: 0px;
+        margin: 0 auto 30px;
 
         cursor: pointer;
         &:hover {
@@ -19,14 +17,13 @@
         }
     }
 
-    .preview {
-        display: flex;
-        justify-content: space-between;
+    .items {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+        grid-gap: 10px;
 
-        @media screen and (max-width: 800px) {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            grid-gap: 15px;
+        & .album-item {
+            margin-bottom: 30px;
         }
     }
 }

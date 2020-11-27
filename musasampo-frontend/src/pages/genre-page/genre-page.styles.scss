@@ -5,8 +5,7 @@
 
   .title {
     font-size: 38px;
-    margin-top: 0px;
-    margin-bottom: 26px;
+    margin: 0 auto 30px;
   }
 
   .items {
@@ -15,7 +14,7 @@
     grid-gap: 10px;
 
     & .album-item {
-      margin-bottom: 0px;
+      margin-bottom: 30px;
     }
   }
 }
