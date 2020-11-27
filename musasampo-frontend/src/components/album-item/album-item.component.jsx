@@ -24,13 +24,14 @@ const AlbumItem = ({ album, history, match }) => {
       />
       <div className='album-footer'>
         <span className='albumInformation'>{band[0].bandName}</span>
-      </div>
+      
       {/*<div className='album-footer' onClick={() => { 
           history.push(`/bands/${bandId}`)
         }}><span className='albumInformation'>{String(bandId)}</span>
       </div>*/}
       <div className='album-footer'>
         <span className='name'>{albumName}</span>
+      </div>
       </div>
       <CustomButton onClick={() => {
         history.push(`/shop/albums/${albumId}`)

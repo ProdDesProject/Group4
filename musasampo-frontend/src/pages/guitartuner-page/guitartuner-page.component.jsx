@@ -9,8 +9,8 @@ import GUITAR_DATA from './guitar.data.js';
 
 
 export const GuitarOverview = (props) => (
-    <div className='album-page'>
-        <h2 className='title'>Guitar Tuner</h2>
+    <div className='tuner-page'>
+        <h2 className='title'>GUITAR TUNER</h2>
         <div className='items'>
 
             {guitars.map((guitar, index) => (
