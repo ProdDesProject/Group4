@@ -5,12 +5,15 @@ import axios from 'axios';
 import FormInput from '../../components/form-input/form-input.component';
 import CustomButton from '../../components/custom-button/custom-button.component';
 import ReactPlayer from "react-player";
+import SignInButton from '../../components/custom-button/custom-button.component';
 
 
 
 import { withRouter} from 'react-router-dom';
 
-import './mp3.styles.scss';
+import '../../components/custom-button/custom-button.component';
+
+import './profile.styles.scss';
 
 import { saveAs } from 'file-saver';
 
@@ -18,15 +21,15 @@ import { saveAs } from 'file-saver';
 //const logo = require('./pictures/bandpic1.png');
 
 //import music from '../../music';
-import logo from '../../assets/bandpic1.png';
+//import logo from '../../assets/bandpic1.png';
 import { stringify } from 'querystring';
 
-var fs = require('fs'),
-request = require('request');
+//var fs = require('fs'),
+//request = require('request');
 
 var base64 = require('base-64');
 
-class Mp3_upload extends React.Component {
+class Profile extends React.Component {
   constructor(props) {
     super(props);
 
@@ -51,23 +54,6 @@ class Mp3_upload extends React.Component {
       return "tyhjä"
     }
 
-  }
-
- /**
-  * DOWNLOAD DATA TO USER BETA
-  */
-  downloadData()
-  {
-    //toimii
-    var content = "What's up , hello world";
-    var filename = "hello.txt";
-
-    var blob = new Blob([content], {
-      type: "text/plain;charset=utf-8"
-     });
-
-    saveAs(blob,filename);
-    
   }
 
 
@@ -135,37 +121,39 @@ class Mp3_upload extends React.Component {
 
   render() {
     return (
+      <div className='profile-item'>
       <div className="App">
-      <header className="App-header">
-        < div >
-        
-    </div >
-       
-        <img src={logo} alt="bandpic1" width="200" height="200"></img>
-        <img src="http://localhost:9000/upload/imagepath.png/bandpic1.png" alt="bandpic1" width="200" height="200"></img>
-        <div>
-
-        <div>
-          <ReactPlayer
-            url="http://localhost:9000/upload/mp3path.mp3/Hurt.mp3"
-            width="400px"
-            height="50px"
-            playing={false}
-            controls={true}
-          />
+        <div className='test'>
+        <div className='profileImage'>
+          <img className='img' src="http://localhost:9000/upload/imagepath.png/kilpikalevi.PNG" alt="bandpic1"></img>
         </div>
-
-        <form enctype="multipart/form-data">
-          <input type = "file" name="file" id="file" accept = ".mp3" onChange={this.handleChange}/>
-          <input type = "button" value = "Click to upload!" name = "button" onClick = {this.onClickHandler}/>
-        </form>
-
+        <div className='titleText'>
+          Account details:
         </div>
-      </header>
+        <div className='user-info'>
+             <div className='descriptor'>
+                <dt>Username:</dt>
+                <dt>Email:</dt>
+                <dt>Name:</dt>
+                <dt>Phone number:</dt>
+            </div>
+
+            <div className='infotext'>
+                <dt>coolPeter88</dt>
+                <dt>peter.peter@mail.com</dt>
+                <dt>Peter Peter</dt>
+                <dt>123 90++</dt>
+            </div>
+        </div>
+        <a href="/profile/edit" className='button'>
+            <SignInButton> Edit </SignInButton>
+          </a>
     </div>
-
+    <div className='band-stuff'></div>
+    </div>
+    </div>
     );
   }
 }
 
-export default withRouter(Mp3_upload);
+export default withRouter(Profile);

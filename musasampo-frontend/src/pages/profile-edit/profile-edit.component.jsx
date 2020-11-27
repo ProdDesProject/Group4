@@ -1,12 +1,13 @@
 import React from 'react';
 
-import FormInput from '../form-input/form-input.component';
-import CustomButton from '../custom-button/custom-button.component';
+import FormInput from '../../components/form-input/form-input.component';
+import CustomButton from '../../components/custom-button/custom-button.component';
+import SignInButton from '../../components/sign-in-button/sign-in-button.component';
 import { stringify } from 'querystring';
 
-import './sign-up.styles.scss';
+import './profile-edit.styles.scss';
 
-class SignUp extends React.Component {
+class EditProfile extends React.Component {
   constructor() {
     super();
 
@@ -14,26 +15,14 @@ class SignUp extends React.Component {
       username: '',
       email: '',
       name: '',
-      phoneNumber: '',
-      password: '',
-      confirmPassword: ''
+      phoneNumber: ''
     };
   }
 
   handleSubmit = async event => {
     event.preventDefault();
 
-    const { username, email,name, phoneNumber, password, confirmPassword } = this.state;
-
-    if (password !== confirmPassword) {
-      alert("Passwords don't match");
-      return;
-    }
-    if(!username || !email || !name)
-    {
-      alert("Neccessary fields not filled!");
-      return;
-    }
+    const { username, email,name, phoneNumber } = this.state;
     try {
 
       // SIGN UP CODE GOES HERE
@@ -42,9 +31,7 @@ class SignUp extends React.Component {
         username: '',
         email: '',
         name: '',
-        phoneNumber: '',
-        password: '',
-        confirmPassword: ''
+        phoneNumber: ''
       });
     } catch (error) {
       console.error(error);
@@ -94,7 +81,6 @@ class SignUp extends React.Component {
     var object = 
     {
       "username": this.state.username, 
-      "password": this.state.password,
       "name": this.state.name, 
       "email": this.state.email, 
       "phoneNumber": this.state.phoneNumber,
@@ -108,66 +94,49 @@ class SignUp extends React.Component {
   }
 
   render() {
-    const { username, email,name, phoneNumber, password, confirmPassword } = this.state;
+    const { username, email,name, phoneNumber } = this.state;
     return (
-      <div className='sign-up'>
-        <h2 className='title'>I do not have an account</h2>
-        <span className='subtitle'>Sign up with your email and a username</span>
+      <div className='container'>
+      <div className='edit'>
+        <h2 className='title'>Change account details</h2>
         <form className='sign-up-form' onSubmit={this.handleSubmit}>
           <FormInput
             type='text'
             name='username'
             value={username}
             onChange={this.handleChange}
-            label='Username'
-            required
+            label='coolPeter88'
           />
           <FormInput
             type='email'
             name='email'
             value={email}
             onChange={this.handleChange}
-            label='Email'
-            required
+            label='peter.peter@mail.com'
           />
           <FormInput
             type='text'
             name='name'
             value={name}
             onChange={this.handleChange}
-            label='Name'
-            required
+            label='Peter Peter'
           />
           <FormInput
             type='text'
             name='phoneNumber'
             value={phoneNumber}
             onChange={this.handleChange}
-            label='Phone Number'
+            label='123 90++'
           />
-          <FormInput
-            type='password'
-            name='password'
-            value={password}
-            onChange={this.handleChange}
-            label='Password'
-            required
-          />
-          <FormInput
-            type='password'
-            name='confirmPassword'
-            value={confirmPassword}
-            onChange={this.handleChange}
-            label='Confirm Password'
-            required
-          />
-          <div className='buttons'>
-          <CustomButton type='submit' onClick = {this.onClickHandler}> Sign up </CustomButton>
-            </div>
+          <div className='buttons1'>
+            <CustomButton type='submit' onClick = {this.onClickHandler}> Cancel </CustomButton>
+            <SignInButton type='submit' onClick = {this.onClickHandler}> Save changes </SignInButton>
+          </div>
         </form>
+      </div>
       </div>
     );
   }
 }
 
-export default SignUp;
+export default EditProfile;

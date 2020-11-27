@@ -1,7 +1,7 @@
 import React from 'react';
 
 import FormInput from '../form-input/form-input.component';
-import CustomButton from '../custom-button/custom-button.component';
+import SignInButton from '../sign-in-button/sign-in-button.component';
 import { withRouter} from 'react-router-dom';
 
 
@@ -26,49 +26,13 @@ class SignIn extends React.Component {
 
     const { username, password } = this.state;
 
-    
-
-    
-
     try {
 
-      //Kilpikalevi25
-      //testerpassword
-      //const userslist = [];
-
-      //TOIMII
-      /*
-      const response = await fetch('http://localhost:9000/users/checkuser/Kilpikalevi25')
-      const data = await response.json();
-      this.setState({ data: data });
-
-      alert(data.user[0].username);
-      */
-
-      //params
-      /*
-      const response = await fetch('http://localhost:9000/users/checkuser/'+ username)
-      const data = await response.json();
-      this.setState({ data: data });
-
-      if (data.user[0].username != undefined)
-      {
-        const requestOptions = {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ username:username,password:password })
-      };
-
-        const response = await fetch('http://localhost:9000/login', requestOptions)
-        const data = await response.json();
-        this.setState({ data: data.token });
-      }*/
       const requestOptions = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ username:username,password:password })
       }
-
 
       const response = await fetch('http://localhost:9000/users/checkuser2/',requestOptions)
       const data = await response.json();
@@ -80,6 +44,7 @@ class SignIn extends React.Component {
       }
       else
       {
+        //route to main page
         //alert(data.user[0].username);
         //---->MAINPAGE
         
@@ -104,20 +69,6 @@ class SignIn extends React.Component {
           state: { detail: token }
         })
       }
-
-  
-     
-
-      /*.then(res => res.json())
-          //.then(data => this.setState({ postId: data.id }));
-          .then(data => userslist.push(data));*/
-      //alert(userslist[0].user[0].username);
-      /*await fetch('http://localhost:9000/users')
-      .then(res => res.json())
-      .then(data => userslist.push(data));
-      //.then(json => json.map(user => user.username));
-      //alert(userslist[0].user[0].username);
-      alert(userslist);*/
     
       this.setState({ username: '', password: '' });
       this.props.history.push('/');
@@ -130,7 +81,7 @@ class SignIn extends React.Component {
     const { value, name } = event.target;
     this.setState({ [name]: value });
   };
-
+  
   render() {
     return (
       <div className='sign-in'>
@@ -155,7 +106,7 @@ class SignIn extends React.Component {
             required
           />
           <div className='buttons'>
-            <CustomButton type='submit'> Sign in </CustomButton>
+            <SignInButton type='submit'> Sign in </SignInButton>
           </div>
         </form>
       </div>

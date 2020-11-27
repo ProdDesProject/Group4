@@ -9,7 +9,8 @@ import './guitar-item.styles.scss';
 const GuitarItem = ({ guitar, history, match }) => {
     const { guitarId, title, imageUrl } = guitar;
     return (
-        <div className='album-item'>
+        <div className='guitar-item'>
+        {/*</div><div className='album-item'>
             {/* Guitar picture */}
             <div
                 className='image'

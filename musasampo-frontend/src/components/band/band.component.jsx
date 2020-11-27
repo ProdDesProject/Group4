@@ -66,7 +66,7 @@ function TabPanel(props) {
     };
   
     return (
-        <div>
+        <div className='band-page'>
 
             <div className='title'>
               {bands2[0].bandName}
@@ -94,14 +94,14 @@ function TabPanel(props) {
                 <dt>{bands2[0].lyricalThemes}</dt>
                 <dt>{bands2[0].currentLabel}</dt>
             </div>
+        </div>
 
-            <div className='bandLogo'>
+        <div className='bandLogo'>
               <img className='img' src={bands2[0].bandLogo} />
             </div>
             <div className='bandImage'>
               <img className='img' src={bands2[0].bandImage} />
             </div>
-        </div>
 
             <div className='tabpanel1'>
                 <AppBar position="static">

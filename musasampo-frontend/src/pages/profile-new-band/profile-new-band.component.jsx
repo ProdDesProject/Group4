@@ -1,10 +1,11 @@
 import React from 'react';
 
-import FormInput from '../form-input/form-input.component';
-import CustomButton from '../custom-button/custom-button.component';
+import FormInput from '../../components/form-input/form-input.component';
+import CustomButton from '../../components/custom-button/custom-button.component';
+import SignInButton from '../../components/sign-in-button/sign-in-button.component';
 import { stringify } from 'querystring';
 
-import './sign-up.styles.scss';
+import './profile-new-band.styles.scss';
 
 class SignUp extends React.Component {
   constructor() {
@@ -110,61 +111,71 @@ class SignUp extends React.Component {
   render() {
     const { username, email,name, phoneNumber, password, confirmPassword } = this.state;
     return (
-      <div className='sign-up'>
-        <h2 className='title'>I do not have an account</h2>
-        <span className='subtitle'>Sign up with your email and a username</span>
+      <div className='container'>
+      <div className='new-band'>
+        <h2 className='title5'>Add a new band</h2>
+        <span className='subtitle5'>Fill in information for your band</span>
         <form className='sign-up-form' onSubmit={this.handleSubmit}>
           <FormInput
             type='text'
-            name='username'
+            name='bandName'
             value={username}
             onChange={this.handleChange}
-            label='Username'
+            label='Band Name'
             required
           />
           <FormInput
             type='email'
-            name='email'
+            name='countryOfOrigin'
             value={email}
             onChange={this.handleChange}
-            label='Email'
+            label='Country of Origin'
             required
           />
           <FormInput
             type='text'
-            name='name'
+            name='location'
             value={name}
             onChange={this.handleChange}
-            label='Name'
+            label='Location'
             required
           />
           <FormInput
             type='text'
-            name='phoneNumber'
+            name='formedIn'
             value={phoneNumber}
             onChange={this.handleChange}
-            label='Phone Number'
+            label='Formed In (Year)'
           />
           <FormInput
-            type='password'
-            name='password'
+            type='text'
+            name='genres'
             value={password}
             onChange={this.handleChange}
-            label='Password'
+            label='Genres'
             required
           />
           <FormInput
-            type='password'
-            name='confirmPassword'
+            type='text'
+            name='LyricalThemes'
             value={confirmPassword}
             onChange={this.handleChange}
-            label='Confirm Password'
+            label='Lyrical Themes'
             required
           />
-          <div className='buttons'>
-          <CustomButton type='submit' onClick = {this.onClickHandler}> Sign up </CustomButton>
+          <FormInput
+            type='text'
+            name='currentLabel'
+            value={confirmPassword}
+            onChange={this.handleChange}
+            label='Current Label'
+            required
+          />
+          <div className='buttons5'>
+          <SignInButton type='submit' onClick = {this.onClickHandler}> Add Band </SignInButton>
             </div>
         </form>
+      </div>
       </div>
     );
   }
