@@ -10,7 +10,7 @@ class ChatPage extends React.Component {
 
         this.state = {
             userId: 1,
-            userName: 'testuser1'
+            userName: 'Jonas'
         };
     }
 
