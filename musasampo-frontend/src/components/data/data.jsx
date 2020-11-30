@@ -15,9 +15,6 @@ import Signin2 from '../../components/sign-in/sign-in.component.jsx'
 
 var base64 = require('base-64');
 
-var token2 = "";
-
-
 class Data extends React.Component 
 {
   constructor(props) {
@@ -26,66 +23,39 @@ class Data extends React.Component
     this.state = {
       username: '',
       password: '',
-      data: "",
     };
   }
 
-  //delete token2 local variable
-  async deleteToken()
+  //Postmethod async function that get data as an object and creates new user
+  async postmethod(data)
   {
-    token2 = "";
-  }
+    var FormData = data;
 
-  //load token 
-  async loadToken()
-  {
-    return token2;
-  }
+    //Parameter for postmethod
+    const requestOptions = 
+    {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(FormData)
+    }
 
-  //save token 
-  async saveToken(data)
-  {
-    token2 = data;
+    //fetch for creating a new user and it sends response back if succeeded or not
+    const response =  await fetch('http://localhost:9000/users/createuser',requestOptions)
+    const data2 = await response.json();
+
+    switch (data2)
+    {
+        case '404': alert('not found'); break;
+        case '400': alert('bad request'); break;
+        case '200': alert('done'); break;
+        default: alert('something went wrong');
+    }
     
-    /*//this saves token to props
-    this.props.history.push({
-      token:data
-    });*/
-   
-   /* //this is how we get it back, works in every file
-    var token2 = this.props.location.state.token;*/
   }
 
   //User Signup in login. Gets variables for creating new user
   async Signup(username,email,name,phoneNumber,password)
   {
-    //Postmethod async function that get data as an object and creates new user
-    async function postmethod(data)
-    {
-      var FormData = data;
-
-      //Parameter for postmethod
-      const requestOptions = 
-      {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(FormData)
-      }
-  
-      //fetch for creating a new user and it sends response back if succeeded or not
-      const response =  await fetch('http://localhost:9000/users/createuser',requestOptions)
-      const data2 = await response.json();
-
-      switch (data2)
-      {
-          case '404': alert('not found'); break;
-          case '400': alert('bad request'); break;
-          case '200': alert('done'); break;
-          default: alert('something went wrong');
-      }
-      
-    }
-
     /**
      * LOADTOKEN() START HERE
      */
@@ -100,7 +70,7 @@ class Data extends React.Component
       "phoneNumber": phoneNumber,
     };
 
-    postmethod(object);
+    this.postmethod(object);
 
     var obj = {
       result: "true",
@@ -141,11 +111,6 @@ class Data extends React.Component
         //fetch for login and response2 is token if all goes well
         const response2 = await fetch("http://localhost:9000/login", {method:'POST',headers: headers,})
         const token = await response2.json();
-        
-        this.setState({ token: token });
-        
-        //save token for global variable
-        this.saveToken(token);
 
         //object for result and token to sign-in.component
         var obj = {

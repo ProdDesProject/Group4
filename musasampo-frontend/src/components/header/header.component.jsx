@@ -8,8 +8,6 @@ import './header.styles.scss';
 import Data from '../../components/data/data.jsx';
 import { stringify } from 'querystring';
 
-//var token = "";
-
 class Header extends React.Component 
 {
   constructor(props) 
@@ -17,104 +15,53 @@ class Header extends React.Component
     super(props);
 
     this.state = {
-      token: "asd",
-      signInOut: "SIGN IN"
+      login: false,
+      SignInOutText: "SIGN IN"
     };
   }
 
   //function that checks for the token and grants access to the path
-  async tokenCheck(token, pathName)
+  async loginCheck(pathName)
   {
-    //token not found
-    if(!token)
+    //login not true
+    if(this.state.login !== true)
     {
-        //this.setState({signInOut: "SIGN IN"});
         //push to the login page
         this.props.history.push({
           pathname: '/login',
         });
     }
-    else //token found
+    else //login true
     {
-        this.setState({signInOut: "SIGN OUT"});
-         //push to the guitarpage with the token
+         //push to the guitarpage
         this.props.history.push({
           pathname: pathName,
         });
     }
   }
-  //function that only checks if token was given
-  async tokenGiven()
-  {
-    var token2 = "Token: empty";
-
-    //fetch for token from data.jsx
-    token2 = await Data.loadToken();
-    //save it to this.state.variable
-    this.setState({ token: token2 });
-    //singed out case
-
-    if(!token2)
-    {
-        this.setState({signInOut : "SIGN IN"});
-    }
-    else//signed in case
-    {
-      this.setState({signInOut : "SIGN OUT"});
-    }
-
-  }
 
   //route to /guitartuner
   Guitartuner = async event => 
   {
-    var token2 = "Guitartoken: empty";
-
-    //fetch for token from data.jsx
-    token2 = await Data.loadToken();
-    //save it to this.state.variable
-    this.setState({ token: token2 });
-
-    //alert("bands:"+stringify(token2));
-
-    this.tokenCheck(token2, '/guitartuner');
+    this.loginCheck('/guitartuner');
   };
 
   //route to /chat --needs the chat page
   Chat = async event =>
   {
-    var token2 = "Chattoken: empty";
-
-    //fetch for token from data.jsx
-    token2 = await Data.loadToken();
-    //save it to this.state.variable
-    this.setState({ token: token2 });
-
-    //alert("Cat: "+ stringify(token2));
-
-    this.tokenCheck(token2, '/chat');
+    this.loginCheck('/chat');
   }
-
 
   //route to /shop page
   Shop = async event =>
   {
-    var token2 = "Shoptoken: empty";
-
-    //fetch for token from data.jsx
-    token2 = await Data.loadToken();
-    //save it to this.state.variable
-    this.setState({ token: token2 });
-
-    //alert("Cat: "+ stringify(token2));
-
-    this.tokenCheck(token2, '/shop');
+    this.loginCheck('/shop');
   }
 
   //change header if user is logged in or not
   LoginLogout = async event =>
   {
-      var logged = this.state.signInOut;
+      var logged = this.state.SignInOutText;
       
       //user is logged out, reroute to login page
       if(logged === "SIGN IN")
@@ -126,9 +73,11 @@ class Header extends React.Component
       else //user is logged in, destroy token, set state to SIGN IN and reroute to main page
       { 
         //set states
-        this.setState({token: "", signInOut: "SIGN IN"});
-        //destroy token
-        await Data.deleteToken();
+        this.setState({login: false, SignInOutText: "SIGN IN"});
+        
+        //erase token
+        this.props.history.push({token: ''});
+
         //reroute to main page
         this.props.history.push({
           pathname: '/',
@@ -136,34 +85,33 @@ class Header extends React.Component
       }
   }
 
-  async shouldComponentUpdate()
+  //Checks updates on props and states
+  componentDidUpdate (prevProps, prevState) 
   {
-   
-    //
-    if (this.props.history.location.signInOut != undefined)
-    {
-      this.setState({signInOut: this.props.history.location.signInOut});
-      
-      this.props.history.push({
-        signInOut: undefined
-      });
-    }
+    //prevProps contains props, prevState contains local states
+    var login1 = prevProps.history.location.login;
+    var login2 = prevState.login;
     
-  }
-
-  async componentDidMount() 
-  {
-    //var logintext = this.checkLogin(this.state.signInOut);
-    //return <h1>logintext</h1>;
-  }
-
+    //token can access like this:
+    var token = prevProps.history.location.token;
   
+    //if props is changed and props and states are differents, stuff happens
+    if (login1 !== undefined && login1 !== login2)
+    {
+      //if login is true can change proceed
+      if(login1 === true)
+      {
+        //local states changes now:
+        this.setState({SignInOutText: "SIGN OUT"});
+        this.setState({login: true});
+      }
+    }
+      
+  }
 
+  //render render stuff
   render() 
   {
-    //let {signInOut} = this.state;
-    //let logintext = this.checkLogin(signInOut);
-
     return (
 
         <div className='header'>
@@ -201,7 +149,7 @@ class Header extends React.Component
               MY BANDS
             </Link>
 
-            <Link className='option' onClick = {this.LoginLogout}>{this.state.signInOut}</Link>
+            <Link className='option' onClick = {this.LoginLogout}>{this.state.SignInOutText}</Link>
             </div>
 
           </div>
@@ -210,38 +158,3 @@ class Header extends React.Component
     }
   }
 export default withRouter(Header);
-
-
-/*
-const Header = () => (
-  <div className='header'>
-    <Link className='logo-area' to='/'>
-      <img src={logo} alt="logo" />
-    </Link>
-    <Link className='title' to='/'>
-      MUSASAMPO
-      </Link>
-    <div className='options'>
-      <Link className='option' to='/search'>
-        SEARCH
-      </Link>
-      <Link className='option' to={goGuitar()}>
-        GUITAR TUNER
-      </Link>
-      <Link className='option' to='/'>
-        CHAT
-      </Link>
-      <div className='option'>
-        |
-        </div>
-      <Link className='option' to='/shop'>
-        SHOP
-      </Link>
-      <Link className='login' to='/login'>
-        SIGN IN
-          </Link>
-    </div>
-  </div>
-);*/
-
-//export default Header;

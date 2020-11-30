@@ -10,104 +10,50 @@ import logo from '../../assets/logo.png';
 
 import Data from '../../components/data/data.jsx';
 
-class Mainpage extends React.Component {
-  constructor(props) {
+class Mainpage extends React.Component 
+{
+  constructor(props) 
+  {
     super(props);
 
-    this.state = {
-      token2: "asd"
-    };
   }
 
+  //handle event if needed
   handleSubmit = async event => {
     event.preventDefault();
 
-    //const { token2 } = this.state;
-    //alert(this.props.location.state);
   }
 
-
-  //
-  childFunction=(e)=>{
-    e.preventDefault();
-    this.props.functionCallFromParent("Hello From Child1");
-}
-
-
-
-  //check if token is ready to use
-  callAPI() {
-
-    if (this.props.location.state != undefined) {
-      var token2 = this.props.location.state.detail;
-      //<p1>{this.callAPI()}</p1>
-      return JSON.stringify(token2);
-    }
-    else {
-      return "tyhjä"
-    }
+  componentDidMount()
+  {
+    //this is how you can access props on different components
+    var login1 = this.props.history.location.login;
+    var token = this.props.history.location.token;
 
   }
-  
-  //happens when called class
-  async componentDidMount() {
-    
-    //get token from data
-    var token = await Data.loadToken();
-    alert("Token:"+stringify(token));
-
-    //alert(this.props.history.location.signInOut);
-
-    //var result = await this.callAPI();
-    //alert(result);
-
-    //alert(stringify(this.props.location.state.token) );
-
-    //this.handleChange();
-    //alert(stringify(this.props.location.state.token));
-    //this.childFunction()
-}
-
-  handleChange = event => {
-    //const { value, name } = event.target;
-    //this.setState({ [name]: value });
-  };
 
   render() {
     return (
       <div className="homepage">
         <header className="homepage-header">
           <div className='homepage'>
-            <div className='introduction'>
-              <div className='logo-area'>
-                <img src={logo} alt="logo" />
-              </div>
-              <div className='infoText'>
+          <div className='introduction'>
+            
+            <div className='logo-area'>
+            <img src={logo} alt="logo" />
+            </div>
+
+            <div className='infoText'>
                 MUSASAMPO is a website dedicated to all your music needs. We offer a multitude of services for bands and fans alike. Please edit this text.
-      </div>
             </div>
-            <div className='parts'>
-              <div className='part-container'>
-                <div className='part1'>
-                </div>
-                <div className='part2'>
-                </div>
-              </div>
-              <div className='part3'>
-              </div>
-            </div>
+
+          </div>
           </div>
         </header>
-        <p className="Mainpage">{this.state.apiResponse}</p>
-        <p1>{this.callAPI()}</p1>
       </div>
-
-      
-
-      
     );
   }
 }
 
 export default withRouter(Mainpage);
-//export default Mainpage;
+

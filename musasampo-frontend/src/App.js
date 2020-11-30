@@ -21,26 +21,19 @@ import logo from "./logo.svg";
 import "./App.css";
 
 class App extends Component {
-    constructor(props) {
+    
+    constructor(props) 
+    {
         super(props);
-        this.state = { apiResponse: "" };
-        this.state= { value_key:"asd"};
-    }
-
-    parentFunction= async (data_from_child)=>{
-        this.setState({value_key: data_from_child});
     }
 
     async componentDidMount() {
+        //await this.parentFunction();
+    }
 
-        await this.parentFunction();
-        //alert(this.state.value_key);
-        
-
-        //this is example how to get data from data-class.jsx
-
-        //var users = await Data.getAllUsers();
-        //alert(users.user[0].username);
+    shouldComponentUpdate()
+    { 
+     
     }
     
     render() {
@@ -61,7 +54,6 @@ class App extends Component {
                       <Route exact path='/shop/albums/:albumId' component={AlbumComponent} />
                       <Route exact path='/guitartuner' component={GuitarOverview} />    
                       <Route exact path='/guitartuner/:guitarId' component={GuitarTuner} />  
-
                     </Switch>
                 </header> 
 

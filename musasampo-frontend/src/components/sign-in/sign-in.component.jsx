@@ -17,35 +17,25 @@ class SignIn extends React.Component {
     this.state = {
       username: '',
       password: ''
-
     };
-  }
-
-  //push to Mainpage when called with global variable singInOut goes -> home-page
-  async goMain(token)
-  {
-    this.props.history.push({
-      pathname: '/',
-      signInOut: "SIGN OUT"
-    });
   }
 
   //when clicket sign in button: post-login and returns token if succeeded.
   handleSubmit = async event => 
   {
-    var token="";
     event.preventDefault();
-
-    //alert("start");
     var result = await Data.Signin(this.state.username,this.state.password);
-    
-    //alert("asd!:"+stringify(result.token));
 
     if (result.result == "true")
     {
-      token = result.token;
-      //alert(stringify(token));
-      this.goMain(token);
+      let token = result.token;
+      
+      this.props.history.push({
+        pathname: '/',
+        token: token,
+        login: true
+      });
+
     }else
     {
       alert("something went wrong!");
@@ -53,12 +43,13 @@ class SignIn extends React.Component {
 
   };
 
-
+  //handles changes on user input 
   handleChange = event => {
     const { value, name } = event.target;
     this.setState({ [name]: value });
   };
   
+  //render render stuff
   render() {
     return (
       <div className='sign-in'>
@@ -91,10 +82,5 @@ class SignIn extends React.Component {
   }
 }
 
-const sign = new SignIn();
-
 export default withRouter(SignIn);
-//export default sign;
-/*export{
-  sign
- };*/
+
