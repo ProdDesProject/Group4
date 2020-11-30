@@ -5,6 +5,43 @@ import ALBUMS from '../../data/albums';
 import AlbumPreview from '../../components/album-preview/album-preview.component';
 import './shop-page.styles.scss';
 
+
+class ShopPage extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      username: '',
+      password: ''
+    };
+  }
+
+  //when clicket sign in button: post-login and returns token if succeeded.
+  handleSubmit = async event => 
+  {
+    event.preventDefault();
+   
+  };
+
+  
+  //render render stuff
+  render() {
+    return (
+     
+    );
+  }
+}
+
+export default ShopPage;
+
+
+
+
+
+
+
+
+/*
 const ShopPage = (props) => (
   <div className='shop-page'>
     {sortedAlbums.map(({ albumId, ...otherAlbumProps }) => (
@@ -50,4 +87,4 @@ if (albums[0]) {
 
 
 
-export default ShopPage;
+export default ShopPage;*/

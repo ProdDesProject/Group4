@@ -14,7 +14,8 @@ import { stringify } from 'querystring';
 import ReactPlayer from "react-player";
 
 import App from '../../App';
-import Data1 from '../data/data';
+import Data1 from '../data/songs';
+import Data2 from '../data/band';
 
 import StyledContentLoader from 'styled-content-loader'
 
@@ -58,7 +59,7 @@ class Band extends React.Component {
   {
     //Data1 link for data.jsx 
     const returnSongs = await Data1.getAllSongs();
-    const returnBands = await Data1.getAllBands();
+    const returnBands = await Data2.getAllBands();
     
     /**
      * ReturnSongs

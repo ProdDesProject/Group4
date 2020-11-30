@@ -26,15 +26,6 @@ class App extends Component {
     {
         super(props);
     }
-
-    async componentDidMount() {
-        //await this.parentFunction();
-    }
-
-    shouldComponentUpdate()
-    { 
-     
-    }
     
     render() {
      

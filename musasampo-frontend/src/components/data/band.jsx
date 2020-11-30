@@ -27,6 +27,17 @@ class Bands extends React.Component
     };
   }
 
+  async getAllBands()
+    {
+      const response1 = await fetch('http://localhost:9000/bands/')
+      const data1 = await response1.json();
+      
+      //stringify(data2.songs)
+      //alert(data1[0].country);
+          
+      return data1;
+    }
+
 
   async createBand(nsfw, bandName, bandLogo, country)
   {
