@@ -129,31 +129,31 @@ class Header extends React.Component
               SEARCH
             </Link>
 
-            <Link className='option' onClick={this.Guitartuner}>
+            {this.state.login && <Link className='option' onClick={this.Guitartuner}>
               GUITAR TUNER
-            </Link>
+            </Link>}
 
-            <Link className='option' onClick={this.Chat}>
+            {this.state.login &&<Link className='option' onClick={this.Chat}>
               CHAT
-            </Link>
+            </Link>}
 
             <div className='option'>
               |
-              </div>
+            </div>
 
-            <Link className='option' onClick={this.Shop}>
+            {this.state.login &&<Link className='option' onClick={this.Shop}>
               SHOP
-            </Link>
+            </Link>}
 
-            <Link className='option' onClick={this.myBand}>
+            {this.state.login && <Link className='option' onClick={this.myBand}>
               MY BANDS
-            </Link>
+            </Link>}
 
             <Link className='option' onClick = {this.LoginLogout}>{this.state.SignInOutText}</Link>
             </div>
 
           </div>
-        
+
       );
     }
   }
