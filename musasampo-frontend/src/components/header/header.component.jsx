@@ -5,7 +5,8 @@ import Homepage from '../../pages/home-page/home-page.component';
 import { withRouter} from 'react-router-dom';
 import './header.styles.scss';
 
-import Data from '../../components/data/data.jsx';
+import {SignInServices} from '../../services/sign-in-service';
+
 import { stringify } from 'querystring';
 
 class Header extends React.Component 
@@ -78,9 +79,12 @@ class Header extends React.Component
         //erase token
         this.props.history.push({token: ''});
 
-        //reroute to main page
+        //call the logout function to erase the token from the local storage
+        SignInServices.Signout();
+
+        //reroute to sign in page
         this.props.history.push({
-          pathname: '/',
+          pathname: '/login',
         });
       }
   }

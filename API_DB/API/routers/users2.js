@@ -61,22 +61,6 @@ module.exports = {
     }
   },
 
-  //function used to get users by username (uses the mighty callback method)
-  getUserByUsername(username, callback)
-  {
-    db.query('SELECT * FROM users WHERE username = ?', [username], function(err, result)
-    {
-        if (err) 
-            //sql command error
-            callback(err, null);
-        else
-        {
-          //return the first found username (it is the one we want because usernames are unique)
-          callback(null, result[0]);
-        }
-    });
-  },
-
 
   //function used to get users by username (uses the mighty callback method)
   getUserByUsername(username, callback)

@@ -86,36 +86,40 @@ router
     (req, res) => {
     db.query('SELECT * FROM users WHERE username = ?;',[req.body.username]).then(results => 
     {
-        var username = req.body.username;
-        var password = req.body.password;
-
-        console.log(results[0].password);
-
-        //results.body.password
-
-        //have to get for-loop for checking password.
-
-        if(!bcrypt.compareSync(password,results[0].password)) 
+        if(!results.length)
         {
-            // Password does not match
-            console.log("HTTP Basic password not matching username");
-            //return done(null, false, { message: "HTTP Basic password not found" });
-            res.json("404");
-        }else
-        {
-            //console.log("___________");
-            //var token = server.login(results);
-
-            //console.log("PÖÖÖ:::"+ token);
-
-            res.json({ user: results});
+            res.status(404).json({message: "Username not found: error 404"});
         }
+        else
+        {
+            //var username = req.body.username;
+            var password = req.body.password;
+
+            console.log(results[0].password);
+
+            //results.body.password
+
+            //have to get for-loop for checking password.
+
+            if(!bcrypt.compareSync(password,results[0].password)) 
+            {
+                // Password does not match
+                console.log("HTTP Basic password not matching username");
+                //return done(null, false, { message: "HTTP Basic password not found" });
+                res.status(400).json({message: "Password not matching username: error 400"});
+            }
+            else
+            {
+                res.status(200).json({ user: results });
+            }
+        }
+        
 
     })
     .catch(() => 
     {
         //internal server error
-        res.sendStatus(500);
+        res.status(500).json({message: "Internal server error: 500"});
     })
     /*let user = users2.getAllUsers()
     res.json({user});*/
