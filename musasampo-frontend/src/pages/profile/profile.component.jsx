@@ -5,10 +5,13 @@ import axios from 'axios';
 import FormInput from '../../components/form-input/form-input.component';
 import CustomButton from '../../components/custom-button/custom-button.component';
 import ReactPlayer from "react-player";
+import SignInButton from '../../components/custom-button/custom-button.component';
 
 
 
 import { withRouter} from 'react-router-dom';
+
+import '../../components/custom-button/custom-button.component';
 
 import './profile.styles.scss';
 
@@ -118,22 +121,37 @@ class Profile extends React.Component {
 
   render() {
     return (
+      <div className='profile-item'>
       <div className="App">
-      <header className="App-header">
-        < div >
-        
-    </div >
-        <img src="http://localhost:9000/upload/imagepath.png/kilpikalevi.PNG" alt="bandpic1" width="200" height="200"></img>
-        <div>
-
-        <h1>Profile page, welcome</h1>
-
-      
-
+        <div className='test'>
+        <div className='profileImage'>
+          <img className='img' src="http://localhost:9000/upload/imagepath.png/kilpikalevi.PNG" alt="bandpic1"></img>
         </div>
-      </header>
-    </div>
+        <div className='titleText'>
+          Account details:
+        </div>
+        <div className='user-info'>
+             <div className='descriptor'>
+                <dt>Username:</dt>
+                <dt>Email:</dt>
+                <dt>Name:</dt>
+                <dt>Phone number:</dt>
+            </div>
 
+            <div className='infotext'>
+                <dt>coolPeter88</dt>
+                <dt>peter.peter@mail.com</dt>
+                <dt>Peter Peter</dt>
+                <dt>123 90++</dt>
+            </div>
+        </div>
+        <a href="/profile/edit" className='button'>
+            <SignInButton> Edit </SignInButton>
+          </a>
+    </div>
+    <div className='band-stuff'></div>
+    </div>
+    </div>
     );
   }
 }

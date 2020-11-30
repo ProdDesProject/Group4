@@ -8,9 +8,11 @@ const multerUpload = multer({ dest: '../uploads/pictures/' })
 const router = express.Router();
 const path = require('path');
 
-var pasicpath = '../uploads/music/';
-var musicpath = '../uploads/music/Pyry Viirret - Classics covered';
-var imagepath = '../uploads/pictures/Pyry Viirret - Classics covered pictures';
+var musicpath = '../uploads/music/';
+var imagepath = '../uploads/pictures/';
+
+var musicpath2 = '../uploads/music/Pyry Viirret - Classics covered';
+var imagepath2 = '../uploads/pictures/Pyry Viirret - Classics covered pictures';
 
 const fileTypes = ["jpg", "jpeg", "bmp", "png"];
 
@@ -68,12 +70,22 @@ router.get('/', (req, res) => {
 })*/
 
 //works
+router.get('/imagepath.png/:band/:image', function (req, res) {
+  res.sendFile(path.join(__dirname, imagepath, req.params.band, req.params.image));
+});
+
+router.get('/mp3path.mp3/:band/:song', function (req, res) {
+  res.sendFile(path.join(__dirname, musicpath, req.params.band, req.params.song));
+  console.log();
+});
+
+//works
 router.get('/imagepath.png/:image', function (req, res) {
-  res.sendFile(path.join(__dirname, imagepath, req.params.image));
+  res.sendFile(path.join(__dirname, imagepath2, req.params.image));
 });
 
 router.get('/mp3path.mp3/:song', function (req, res) {
-  res.sendFile(path.join(__dirname, musicpath, req.params.song));
+  res.sendFile(path.join(__dirname, musicpath2, req.params.song));
   console.log();
 });
 
@@ -97,15 +109,7 @@ router.post('/mp3byfile', multerUpload.single('testFile'), (req, res) => {
   }
 });
 
-/**
- * Change mp3-path for different music song
- * 
- */
-router.post('/changemp3path', (req, res) => 
-{
-  musicpath = pasicpath + req.path;
-  console.log("Music-path changed");
-});
+
 
 //works
 router.post('/picturebyfile', multerUpload.single('testFile'), (req, res) => {

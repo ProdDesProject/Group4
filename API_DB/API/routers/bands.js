@@ -50,7 +50,7 @@ router
     (req, res) => {
     db.query('SELECT * FROM bands where bandId = ?;',[req.params.bandId]).then(results => 
     {
-        res.json(results)
+        res.json(results);
     })
     .catch(() => 
     {
@@ -59,6 +59,7 @@ router
       /*let user = users2.getAllUsers()
       res.json({user});*/
 });
+
 
 router
 .route('/searchByName/:bandName')
@@ -85,7 +86,7 @@ router
       (req, res) => 
       {
         //check field filling
-        if(!req.body.nsfw || !req.body.bandName || !req.body.bandLogo || !req.body.country)
+        if(!req.body.userId || !req.body.nsfw || !req.body.bandName || !req.body.bandLogo || !req.body.country)
         {
             //fields not filled, bad request
             res.sendStatus(400);
@@ -93,7 +94,7 @@ router
         else
         {
             //create band if all fields are filled
-            db.query('INSERT INTO bands (nsfw,bandName,bandLogo,country)VALUES(?,?,?,?);',[req.body.nsfw, req.body.bandName, req.body.bandLogo, req.body.country]);
+            db.query('INSERT INTO bands(userId,nsfw,bandName,bandLogo,country)VALUES(?,?,?,?,?);',[req.body.userId,req.body.nsfw, req.body.bandName, req.body.bandLogo, req.body.country]);
             res.sendStatus(201);
         }
       });

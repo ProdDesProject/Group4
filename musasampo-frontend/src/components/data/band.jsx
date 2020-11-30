@@ -38,6 +38,22 @@ class Bands extends React.Component
       return data1;
     }
 
+  async getBandPicture(band,picture)
+    {
+      var band = band;
+      var picture = picture;
+      
+      const response1 = await fetch('http://localhost:9000/upload/imagepath.png/'+ band +'/'+ picture +'.png')
+      const data1 = await response1.json();
+      
+      //stringify(data2.songs)
+      //alert(data1[0].country);
+          
+      return data1;
+    }
+
+  
+
 
   async createBand(nsfw, bandName, bandLogo, country)
   {

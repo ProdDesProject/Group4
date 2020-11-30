@@ -17,12 +17,14 @@ class AlbumPage extends React.Component {
 
   render() {
     const { albums } = this.state;
+    {/* get genre name from url */ }
     const genreName = this.props.match.params.genre;
 
     return (
       <div className='album-page'>
         <h2 className='title'>{genreName.toUpperCase()}</h2>
         <div className='items'>
+          {/* filter albums and show only albums from specific genre  */}
           {albums
             .filter(album => album.albumGenre.toLowerCase() === genreName.toLowerCase())
             .map((album) => (

@@ -1,0 +1,25 @@
+.container {
+    width: 95%;
+
+    .new-band {
+        width: 380px;
+        display: flex;
+        flex-direction: column;
+        margin: auto;
+    
+        .title5 {
+        font-size: 34px;
+        margin-top: 0px;
+        margin-bottom: 5px;
+        }
+    
+        .subtitle5 {
+        font-size: 26px;
+        }
+    
+        .buttons5 {
+        float: right;
+        padding-top: 5px;
+        }
+    }
+}

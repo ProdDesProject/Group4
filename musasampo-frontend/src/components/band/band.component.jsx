@@ -88,6 +88,7 @@ class Band extends React.Component {
     const { returnData } = this.state;
     return (
       <div>
+        
 
             <div className='title'>
               {}
@@ -116,9 +117,9 @@ class Band extends React.Component {
             <div className='bandImage'>
               <img className='img' src={"http://localhost:9000/upload/imagepath.png/bandpic1.png"} />
             </div>
-        </div>
 
             
+      </div>
       </div>
     );
   }

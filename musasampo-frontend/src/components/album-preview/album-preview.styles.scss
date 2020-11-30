@@ -3,9 +3,13 @@
   flex-direction: column;
 
   .title {
-    font-size: 38px;
+    font-size: 28px;
     margin-bottom: 25px;
-    margin-left: 0px;
+
+    cursor: pointer;
+    &:hover {
+      color: grey;
+    }
   }
 
   .items {
@@ -14,7 +18,7 @@
     grid-gap: 10px;
 
     & .album-item {
-      margin-bottom: -20px;
+      margin-bottom: 30px;
     }
   }
 }
