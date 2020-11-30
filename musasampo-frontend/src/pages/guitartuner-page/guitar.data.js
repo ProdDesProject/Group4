@@ -305,11 +305,10 @@ const GUITAR_DATA = [
             soundUrl: 'https://tuner-online.com/audio/e1.mp3',
         }]
     },
-    //ukulele image is not a silhouette yet - couldn't find one from the internet. Could provide a copyright issue but maybe not necessary to edit.
     {
         guitarId: 3,
         title: 'Ukulele Tuner',
-        imageUrl: 'https://stuff.fendergarage.com/images/4/w/v/online-tuner-web-ukulele-headstock@2x.png',
+        imageUrl: 'https://static.thenounproject.com/png/171499-200.png',
         routeName: 'ukulele',
         strings: [{
             id: 0,
