@@ -20,6 +20,7 @@ import Profile from './pages/profile/profile.component';
 import ProfileEdit from './pages/profile-edit/profile-edit.component';
 import ProfileChangePassword from './pages/profile-change-password/profile-change-password.component';
 import NewBand from './pages/profile-new-band/profile-new-band.component';
+import NewAlbum from './pages/profile-new-album/profile-new-album.component';
 
 
 import React, { Component } from "react";
@@ -60,6 +61,7 @@ class App extends React.Component {
                       <Route exact path='/profile/edit' component={ProfileEdit} />
                       <Route exact path='/profile/password' component={ProfileChangePassword} />
                       <Route exact path='/profile/newband' component={NewBand} />
+                      <Route exact path='/profile/newalbum' component={NewAlbum} />
 
                       <Route exact path='/bands/:bandId' component={BandPage} /> 
                       <Route exact path='/shop/albums/genre/:genre' component={GenrePage} />          

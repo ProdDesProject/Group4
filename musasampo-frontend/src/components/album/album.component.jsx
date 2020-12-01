@@ -132,11 +132,11 @@ export default function SimpleTabs(props) {
             TabIndicatorProps={{ style: { background: "#32e0c4", background: "#32e0c4", height: "4px" } }}>
             <Tab className='tab-name' label="Songs" {...a11yProps(0)} />
             <Tab className='tab-name' label="Lineup" {...a11yProps(1)} />
-            <Tab className='tab-name' label="Reviews" {...a11yProps(2)} />
+            <Tab className='tab-name' label="Description" {...a11yProps(2)} />
           </Tabs>
         </AppBar>
         <TabPanel className='panel-content' value={value} index={0}>
-          {albums2[0].trackList}
+        {albums2[0].trackList}
                 </TabPanel>
         <TabPanel className='panel-content' value={value} index={1}>
           {albums2[0].lineup}
