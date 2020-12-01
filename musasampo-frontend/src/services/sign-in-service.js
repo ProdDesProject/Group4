@@ -23,7 +23,7 @@ async function Signin(username2,password2)
     }
 
     //fetch for checkuser2 and get a response
-    const checkUserResponse = await fetch('http://localhost:9000/users/checkuser2/',requestOptions)
+    const checkUserResponse = await fetch('http://localhost:9000/users/checkuser/',requestOptions)
     //get the status response
     const data = checkUserResponse.status;
     

@@ -2,7 +2,6 @@ const express = require('express')
 var bodyParser = require('body-parser')
 const fs = require('fs');
 const bcrypt = require('bcryptjs');
-const fetch = require("node-fetch");
 const app = express()
 const port = 9000
 var cors = require("cors");
@@ -26,11 +25,6 @@ app.use('/songs', songs);
 app.use('/search', search);
 app.use('/upload', upload);
 
-/*********************************************
- * HTTP Basic Authentication
- * Passport module used
- * http://www.passportjs.org/packages/passport-http/
- ********************************************/
 const passport = require('passport');
 const BasicStrategy = require('passport-http').BasicStrategy;
 
@@ -84,12 +78,7 @@ app.get('/httpBasicProtectedResource',
   res.json({ yourProtectedResource: "profit" });
 });
 
-/*********************************************
- * JWT authentication
- * Passport module is used, see documentation
- * http://www.passportjs.org/packages/passport-jwt/
- ********************************************/
-
+//JWT authentication
 const jwt = require('jsonwebtoken');
 const JwtStrategy = require('passport-jwt').Strategy,
       ExtractJwt = require('passport-jwt').ExtractJwt;
@@ -102,15 +91,7 @@ options.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken();
 options.secretOrKey = jwtSecretKey.secret;
 
 passport.use(new JwtStrategy(options, function(jwt_payload, done) 
-{
-  //display jwt confirmation
-  //console.log("Processing JWT payload for token content:");
-  //console.log(jwt_payload);
-
-
-  /* Here you could do some processing based on the JWT payload.
-  For example check if the key is still valid based on expires property.
-  */
+{ 
   const now = Date.now() / 1000;
   if(jwt_payload.exp > now) 
   {
@@ -127,21 +108,6 @@ passport.use(new JwtStrategy(options, function(jwt_payload, done)
 app.get('',(req, res) => 
 {
   res.send("/Welcome, go to /main Login:{tester,testerpassword}");
-});
-
-app.route('/main').get(function(req, res)
-{
-    fs.readFile(__dirname + '/mainpage.html', 'utf8', function(err, html)
-    {
-        if(err)
-        {
-            console.log(err);
-        }
-        else
-        {
-            res.send(html);
-        }
-    });
 });
 
 //login function return token

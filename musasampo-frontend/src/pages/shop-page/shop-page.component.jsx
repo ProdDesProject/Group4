@@ -7,6 +7,7 @@ import './shop-page.styles.scss';
 import band from '../../components/data/band';
 import album from '../../components/data/album';
 import { stringify } from 'querystring';
+import fetchAlbums from '../../services/albums-in-service'
 
 class ShopPage extends React.Component {
   constructor(props) {
@@ -74,18 +75,19 @@ class ShopPage extends React.Component {
 }
 
 export default ShopPage;
-
 /*const ShopPage = (props) => (
   <div className='shop-page'>
     {sortedAlbums.map(({ albumId, ...otherAlbumProps }) => (
       <AlbumPreview key={albumId} {...otherAlbumProps} />
     ))}
-  </div>*/
-//)
+  </div>
+)*/
 
 //{/* Really stupid code to put the data I receive in the needed format for the AlbumPreview component  */ }
+
+
 /*
-const albums = ALBUMS;
+const albums = await fetchAlbums.fetchAlbums();
 
 albums.sort((a, b) => a.albumGenre.localeCompare(b.albumGenre));
 const sortedAlbums = [];
@@ -112,11 +114,11 @@ if (albums[0]) {
   const oneGenreCopy = { ...oneGenre };
   sortedAlbums.push(JSON.parse(JSON.stringify(oneGenreCopy)));
   console.log(JSON.stringify(sortedAlbums));
-}*/
+}
 
 
-
-
+export default ShopPage;
+*/
 
 
 

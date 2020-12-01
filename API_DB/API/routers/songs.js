@@ -1,33 +1,29 @@
 const express = require('express');
-const parseobj = require('xml2js');
-
 let router = express.Router();
 const db = require('./db');
-
 const passport = require('passport');
-const { render } = require('ejs');
-const BasicStrategy = require('passport-http').BasicStrategy;
 
-/*let Songsdata = [
+//Array of songs Example:
+let Songsdata = [
     {
         albumId: "1",
-        songId: "1"
+        songId: "1",
         songName: "Evil Has No Boundaries",
         MP3: "evilhasnoboundaries.mp3",
         MP4: "evilhasnoboundaries.mp4"
     }
-];*/
+];
 
-/*
-  let SongObject = {
-        "albumId": "1",
-        "songId": "1",
-        "songName": "Evil Has No Boundaries",
-        "MP3": "evilhasnoboundaries.mp3",
-        "MP4": "evilhasnoboundaries.mp4"
-  };*/
+//Object of song Example:
+let SongObject = {
+    "albumId": "1",
+    "songId": "1",
+    "songName": "Evil Has No Boundaries",
+    "MP3": "evilhasnoboundaries.mp3",
+    "MP4": "evilhasnoboundaries.mp4"
+};
 
-
+//GET-method for getting all songs:
 router
 .route('')
 .get(
@@ -40,32 +36,27 @@ router
         }
         else
         {
-            //no songs in the database
             res.sendStatus(404);
         }
     })
-    /*let user = users2.getAllUsers()
-    res.json({user});*/
 });
 
+//GET-method for getting song by songId in params:
 router
 .route('/:songId')
 .get(
     //passport.authenticate('basic', { session: false }),
     (req, res) => {
-        //console.log(req.params.songId);
         db.query('SELECT * FROM songs where songId = ?;',[req.params.songId]).then(results => {
         console.log(results);
         res.json(results)
-        
     })
     .catch(() => {
         res.sendStatus(500);
     })
-      /*let user = users2.getAllUsers()
-      res.json({user});*/
 });
 
+//GET-method for search by songname in params:
 router
 .route('/searchByName/:songName')
 .get(
@@ -77,10 +68,9 @@ router
     .catch(() => {
         res.sendStatus(500);
     })
-      /*let user = users2.getAllUsers()
-      res.json({user});*/
 });
 
+//POST-method for creating a new song:
 router
   .route('/:albumId/createsong')
   .post(
@@ -103,7 +93,7 @@ router
         }
     });
 
-//modify a song
+//PUT-method for modifying song:
 router
 .route('/modify/:songId')
 .put(
@@ -111,6 +101,7 @@ router
     passport.authenticate('jwt', { session: false }),
     (req,res) => 
     { 
+        //get song by songId
         db.query('SELECT songId FROM songs WHERE songId = ?;', [req.params.songId]).then(results => 
             {
                     //check for results
@@ -138,7 +129,7 @@ router
             });
     });
 
-//delete a song
+//DELETE-method for song by songId:
 router
 .route('/delete/:songId')
 .delete(
