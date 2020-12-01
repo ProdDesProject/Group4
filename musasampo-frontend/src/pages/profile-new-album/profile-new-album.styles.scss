@@ -1,0 +1,56 @@
+$highlight-color:#32e0c4;
+$main-dark-color:  #222831;
+$main-light-color: #393e46;
+
+.req {
+    display: inline;
+    color: red;
+}
+
+.container {
+    width: 95%;
+    input[type=checkbox] {
+        visibility: hidden;
+    }
+
+    .new-album {
+        width: 450px;
+        display: flex;
+        flex-direction: column;
+        margin: auto;
+    
+        .title6 {
+        font-size: 34px;
+        margin-top: 0px;
+        margin-bottom: 5px;
+        }
+    
+        .subtitle6 {
+        font-size: 26px;
+        }
+    
+        .buttons6 {
+        float: right;
+        margin-top: 5px;
+        }
+    }
+}
+
+.sides {
+    display: flex;
+    flex-direction: row;
+    width: 860px;
+    margin-left: -220px;
+
+    .left-side {
+        float: left;
+        margin-right: 50px;
+        width: 50%;
+    }
+    
+    .right-side {
+        float: right;
+        margin-left: 50px;
+        width: 50%;
+    }
+}
