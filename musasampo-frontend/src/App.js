@@ -17,14 +17,12 @@ import LoginPage from './pages/sign-in-and-sign-up/sign-in-and-sign-up.component
 import Profile from './pages/profile/profile.component';
 
 import { stringify } from 'querystring';
-import Data from './components/data/data';
 import ProfileEdit from './pages/profile-edit/profile-edit.component';
 import ProfileChangePassword from './pages/profile-change-password/profile-change-password.component';
 import NewBand from './pages/profile-new-band/profile-new-band.component';
 
 
 import React, { Component } from "react";
-import logo from "./logo.svg";
 import "./App.css";
 
 class App extends Component {

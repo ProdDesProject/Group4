@@ -6,7 +6,6 @@ import { withRouter} from 'react-router-dom';
 import './header.styles.scss';
 
 import {SignInServices} from '../../services/sign-in-service';
-
 import { stringify } from 'querystring';
 
 class Header extends React.Component 
