@@ -86,7 +86,7 @@ router
       (req, res) => 
       {
         //check field filling
-        if(!req.body.userId || !req.body.nsfw || !req.body.bandName || !req.body.bandLogo || !req.body.country)
+        if(!req.body.userId || !req.body.nsfw == null || !req.body.bandName || !req.body.bandLogo || !req.body.country)
         {
             //fields not filled, bad request
             res.sendStatus(400);
