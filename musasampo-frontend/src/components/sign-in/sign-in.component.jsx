@@ -12,6 +12,16 @@ class SignIn extends React.Component
   constructor(props) 
   {
     super(props);
+
+    //check for already existing token in the browser(user already logged in)
+    if(SignInServices.currentTokenValue)
+    {
+      //reroute to main with authorization
+      this.props.history.push({
+        pathname: '/',
+      });
+    }
+
     //state for current username, password, status of the login and submission awaiting
     this.state = 
     {
@@ -32,15 +42,12 @@ class SignIn extends React.Component
     {
       if (result !== undefined && result.result === true)
       {
-        let token = result.token;
         
         this.setState({status: true, submitting: false});
 
         //reroute to main with authorization
         this.props.history.push({
-          pathname: '/',
-          token: token,
-          login: true
+          pathname: '/'
         });
       }
       else

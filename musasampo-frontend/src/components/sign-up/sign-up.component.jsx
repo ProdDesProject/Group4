@@ -78,7 +78,6 @@ class SignUp extends React.Component {
     //required fields not filled
     if(!username || !email || !name)
     {
-      this.setState({});
       this.setState({
         status: false, 
         submittingMessage: "Neccessary fields not filled!",

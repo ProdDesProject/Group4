@@ -26,11 +26,24 @@ import NewAlbum from './pages/profile-new-album/profile-new-album.component';
 import React, { Component } from "react";
 import "./App.css";
 
+import {SignInServices} from './services/sign-in-service';
+import {PrivateRoute} from './components/private-route/PrivateRoute'
+
 class App extends Component {
     
     constructor(props) 
     {
         super(props);
+        this.state = 
+        {
+            currentToken: null
+        }
+    }
+
+    componentDidMount()
+    {
+        //get the token from the auth services
+        SignInServices.currentToken.subscribe(x => this.setState({currentToken: x}));
     }
     
     render() {
@@ -41,21 +54,21 @@ class App extends Component {
                 <Header />
                     <Switch>
                       <Route exact path='/' component={HomePage} />
-                      <Route exact path='/chat' component={ChatPage} />
+                      <PrivateRoute exact path='/chat' component={ChatPage} />
                       <Route exact path='/login' component={LoginPage} />
-                      <Route exact path='/mp3-upload' component={Mp3} />
-                      <Route exact path='/shop' component={ShopPage} />
+                      <PrivateRoute exact path='/mp3-upload' component={Mp3} />
+                      <PrivateRoute exact path='/shop' component={ShopPage} />
                       <Route exact path='/search' component={SearchPage}/>
-                      <Route exact path='/profile' component={Profile} />
-                      <Route exact path='/profile/edit' component={ProfileEdit} />
-                      <Route exact path='/profile/password' component={ProfileChangePassword} />
-                      <Route exact path='/profile/newband' component={NewBand} />
-                      <Route exact path='/profile/newalbum' component={NewAlbum} />
-                      <Route exact path='/bands/:bandId' component={BandPage} /> 
-                      <Route exact path='/shop/albums/genre/:genre' component={GenrePage} />          
-                      <Route exact path='/shop/albums/:albumId' component={AlbumComponent} />
-                      <Route exact path='/guitartuner' component={GuitarOverview} />    
-                      <Route exact path='/guitartuner/:guitarId' component={GuitarTuner} />  
+                      <PrivateRoute exact path='/profile' component={Profile} />
+                      <PrivateRoute exact path='/profile/edit' component={ProfileEdit} />
+                      <PrivateRoute exact path='/profile/password' component={ProfileChangePassword} />
+                      <PrivateRoute exact path='/profile/newband' component={NewBand} />
+                      <PrivateRoute exact path='/profile/newalbum' component={NewAlbum} />
+                      <PrivateRoute exact path='/bands/:bandId' component={BandPage} /> 
+                      <PrivateRoute exact path='/shop/albums/genre/:genre' component={GenrePage} />          
+                      <PrivateRoute exact path='/shop/albums/:albumId' component={AlbumComponent} />
+                      <PrivateRoute exact path='/guitartuner' component={GuitarOverview} />    
+                      <PrivateRoute exact path='/guitartuner/:guitarId' component={GuitarTuner} />  
                     </Switch>
                 </header> 
 

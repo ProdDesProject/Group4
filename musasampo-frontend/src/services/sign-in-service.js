@@ -70,5 +70,5 @@ async function Signin(username2,password2)
 function Signout()
 {
     localStorage.removeItem('currentToken');
-    currentTokenSubject.next(null);
+    currentTokenSubject.next(null); 
 }
