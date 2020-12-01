@@ -3,9 +3,7 @@ import React from 'react';
 import FormInput from '../form-input/form-input.component';
 import SignInButton from '../sign-in-button/sign-in-button.component';
 import { withRouter} from 'react-router-dom';
-
 import './sign-in.styles.scss';
-
 import {SignInServices} from '../../services/sign-in-service'
 
 

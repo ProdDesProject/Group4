@@ -7,25 +7,11 @@ import CustomButton from '../../components/custom-button/custom-button.component
 import ReactPlayer from "react-player";
 import SignInButton from '../../components/custom-button/custom-button.component';
 
-
-
 import { withRouter} from 'react-router-dom';
-
 import '../../components/custom-button/custom-button.component';
-
 import './profile.styles.scss';
-
 import { saveAs } from 'file-saver';
-
-
-//const logo = require('./pictures/bandpic1.png');
-
-//import music from '../../music';
-//import logo from '../../assets/bandpic1.png';
 import { stringify } from 'querystring';
-
-//var fs = require('fs'),
-//request = require('request');
 
 var base64 = require('base-64');
 
@@ -146,10 +132,17 @@ class Profile extends React.Component {
             </div>
         </div>
         <a href="/profile/edit" className='button'>
-            <SignInButton> Edit </SignInButton>
+            <CustomButton> Edit </CustomButton>
           </a>
     </div>
-    <div className='band-stuff'></div>
+    <div className='band-stuff'>
+    <a href="/profile/newband" className='button'>
+            <CustomButton> Add Your Band </CustomButton>
+          </a>
+    <a href="/profile/newalbum" className='button'>
+            <CustomButton> Add an Album for Your Band </CustomButton>
+          </a>
+    </div>
     </div>
     </div>
     );
