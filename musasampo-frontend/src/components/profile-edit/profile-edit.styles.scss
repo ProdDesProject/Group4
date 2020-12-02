@@ -1,7 +1,7 @@
 .container {
     width: 95%;
 
-    .sign-up {
+    .edit {
         width: 380px;
         display: flex;
         flex-direction: column;
@@ -12,9 +12,14 @@
         margin-top: 40px;
         }
     
-        .buttons2 {
-        float: right;
+        .buttons {
+        display: flex;
+        justify-content: space-between;
         padding-top: 15px;
+        }
+
+        .form-input-label {
+            color: black;
         }
     }
 }

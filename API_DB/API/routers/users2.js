@@ -50,6 +50,4 @@ module.exports = {
     ,[username,password,name,email,phoneNumber]);
     console.log("201,created");
   }
-
 }
-

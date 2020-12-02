@@ -1,8 +1,8 @@
 import React from 'react';
 
-import './sign-in-button.styles.scss';
+import './submit-button.styles.scss';
 
-const SignInButton = ({
+const SubmitButton = ({
   children,
   inverted,
   ...otherProps
@@ -17,4 +17,4 @@ const SignInButton = ({
 
   //comment
 
-export default SignInButton;
+export default SubmitButton;
