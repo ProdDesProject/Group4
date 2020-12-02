@@ -70,6 +70,11 @@ class Header extends React.Component
     this.loginCheck('/shop');
   }
 
+  Profile = event =>
+  {
+    this.loginCheck('/profile');
+  }
+
   //change header if user is logged in or not
   LoginLogout = event =>
   {      
@@ -142,8 +147,8 @@ class Header extends React.Component
               SHOP
             </Link>}
 
-            {this.state.login && <Link className='option' onClick={this.myBand}>
-              MY BANDS
+            {this.state.login && <Link className='option' onClick={this.Profile}>
+              PROFILE
             </Link>}
 
             <Link className='option' onClick = {this.LoginLogout}>{this.state.SignInOutText}</Link>

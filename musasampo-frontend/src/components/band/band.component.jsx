@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
@@ -9,89 +9,67 @@ import Box from '@material-ui/core/Box';
 
 import './band.styles.scss';
 import BANDS from '../../data/bands';
-import { withRouter} from 'react-router-dom';
-import { stringify } from 'querystring';
-import ReactPlayer from "react-player";
 
-import App from '../../App';
-import Data1 from '../data/songs';
-import Data2 from '../data/band';
-
-import StyledContentLoader from 'styled-content-loader'
-
-class Band extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.state = { songsData: '' };
-    this.state = { bandsData: '' };
-
-    this.state = { message: '' };
-    
-    this.state = { country: '' };
-    this.state = { nswf: '' };
-    this.state = { bandName: '' };
-    this.state = { bandLogo: '' };
-
-    this.state = { status: '' };
-    this.state = { formedIn: '' };
-    this.state = { yearsactive: '' };
-    this.state = { genres: '' };
-    this.state = { lyricalThemes: '' };
-    this.state = { currentLabel: '' };
-
-    this.state = { isloading: false};
-  }
-
-  isLoading()
-  {
-    if (this.state.bandName != undefined)
-    {
-      return true;
-    } else
-    {
-      return false;
-    } 
-    
-  }
-
-  async componentDidMount() 
-  {
-    //Data1 link for data.jsx 
-    const returnSongs = await Data1.getAllSongs();
-    const returnBands = await Data2.getAllBands();
-    
-    /**
-     * ReturnSongs
-     * ReturnSongs.songs
-     * ReturnSongs.songs[0] <- first 
-     * returnSongs.songs[0].songName <- we are in.
-     */
-
-    //alert(returnSongs.songs[0].songName);
-    //alert(returnBands.bands[0].bandName);
-    
-
-    this.setState({ songsData : returnSongs, bandsData : returnBands  });
-
-    //setting setSate global variables from band
-    this.setState({ 
-      songName : returnSongs.songs[0].songName,
-      bandName: returnBands.bands[0].bandName,  
-      isloading: this.isLoading()
-      });
-
-  }
-
-  render() {
-    let { isloading,bandId,nswf,bandName,bandLogo,country,location,status,formedIn,yearsactive,genres,lyricalThemes,currentLabel } = this.state;
-    const { returnData } = this.state;
+function TabPanel(props) {
+    const { children, value, index, ...other } = props;
+  
     return (
-      <div>
-        
+      <div
+        role="tabpanel"
+        hidden={value !== index}
+        id={`simple-tabpanel-${index}`}
+        aria-labelledby={`simple-tab-${index}`}
+        {...other}
+      >
+        {value === index && (
+          <Box p={3}>
+            <Typography>{children}</Typography>
+          </Box>
+        )}
+      </div>
+    );
+  }
+  
+  TabPanel.propTypes = {
+    children: PropTypes.node,
+    index: PropTypes.any.isRequired,
+    value: PropTypes.any.isRequired,
+  };
+  
+  function a11yProps(index) {
+    return {
+      id: `simple-tab-${index}`,
+      'aria-controls': `simple-tabpanel-${index}`,
+    };
+  }
+
+  export default function SimpleTabs(props) {
+
+    const bandId = props.match.params.bandId;
+    //console.log(bandId);
+    const bands = BANDS;
+    const bands2 = bands
+      .filter(band => band.bandId == bandId)
+      
+  
+      console.log(JSON.stringify(bands2[0].bandName));
+  
+  
+
+
+
+    //const classes = useStyles();
+    const [value, setValue] = React.useState(0);
+  
+    const handleChange = (event, newValue) => {
+      setValue(newValue);
+    };
+  
+    return (
+        <div className='band-page'>
 
             <div className='title'>
-              {}
+              {bands2[0].bandName}
             </div>
 
         <div className='description'>
@@ -106,7 +84,6 @@ class Band extends React.Component {
                 <dt>Current label</dt>*/}
             </div>
 
-            
             <div className='infotext'>
                 <dt>{bands2[0].countryOfOrigin}</dt>
                 {/*<dt>{bands2[0].bandLocation}</dt>
@@ -117,12 +94,10 @@ class Band extends React.Component {
                 <dt>{bands2[0].lyricalThemes}</dt>
                 <dt>{bands2[0].currentLabel}</dt>*/}
             </div>
-           
-            
-            <div>{returnData}</div>
+        </div>
 
-            <div className='bandLogo'>
-              <img className='img' src={"http://localhost:9000/upload/imagepath.png/pyrynlogo.png"} />
+        <div className='bandLogo'>
+              <img className='img' src={bands2[0].bandLogo} />
             </div>
             {/*<div className='bandImage'>
               <img className='img' src={bands2[0].bandImage} />
@@ -163,11 +138,5 @@ class Band extends React.Component {
                 </TabPanel>*/}
             </div>
       </div>
-      </div>
     );
   }
-}
-
-export default withRouter(Band);
-
-

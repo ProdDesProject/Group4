@@ -252,7 +252,7 @@ class SignUp extends React.Component {
             placeholder='Nature, Love, War, etc.'
           />
     */}
-        <label for="AlbumLogo">Album Logo: {req}</label>
+        <label for="AlbumLogo">Band Logo: {req}</label>
           <FormInput2
             type='text'
             name='albumLogo'
