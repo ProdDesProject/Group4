@@ -20,7 +20,7 @@ var musicpath2 = '../uploads/music/Pyry Viirret - Classics covered';
 var imagepath2 = '../uploads/pictures/Pyry Viirret - Classics covered pictures';
 var multerdes;
 
-const fileTypes = ["jpg", "jpeg", "bmp", "png"];
+const fileTypes = ["jpg", "jpeg", "bmp", "png", "mp3"];
 
 //filename testing function
 function fileNameTesting(fileName, fileExtension)
@@ -53,7 +53,7 @@ function fileNameTesting(fileName, fileExtension)
 
   //get the file extension
   const extension = splittedName[splittedName.length - 1];
-  console.log(extension);
+  console.log("extension:"+extension);
 
   //check if file extension corresponds
   if(!(extension === fileExtension))
@@ -64,16 +64,9 @@ function fileNameTesting(fileName, fileExtension)
   return true;
 }
 
-
-
 router.get('/', (req, res) => {
     res.send("Only POST method accepted with multipart file");
 })
-
-/*router.get('/Hurt-test', (req, res) => {
-  var results = "../uploads/music/Hurt.mp3"
-  res.json({ source: results});
-})*/
 
 //works
 router.get('/imagepath.png/:band/:image', function (req, res) {
@@ -96,26 +89,27 @@ router.get('/mp3path.mp3/:song', function (req, res) {
 });
 
 //POST-method for checking uploading information and filenametesting
-router.post('/createFoldersForUpload', function (req, res) {
+router.post('/checkData', function (req, res) {
 
-  //Res.bandObject Example:
-  var bandObj = {
-    bandName: req.body.bandName,
-    bandLogo: req.body.bandLogo,
-  };
-  //Res.albumObject Example:
-  var albumObj = {
-    bandName: req.body.bandName,
-    albumName: req.body.albumName,
-    albumPicture: req.body.albumPicture,
-  };
-  //Res.songObject Example:
-  var songObj = {
-    bandName: req.body.bandName,
-    albumName: req.body.albumName,
-    songName: req.body.songName,
-    MP3:req.body.MP3
-  };
+  var data = req.body.data;
+
+  console.log("req.body:"+req.body.data);
+
+  //need to get path in req, then it needs to verify it can be done -> if route true -> change multerUpload des. for creating new album, etc
+  if(!(fileNameTesting(data, fileTypes[0]) ||  fileNameTesting(data, fileTypes[1]) || fileNameTesting(data, fileTypes[2]) || fileNameTesting(data, fileTypes[3]) || fileNameTesting(data, fileTypes[4])))
+  {
+    console.log("405");
+    res.send("405");
+  }else
+  {
+    console.log("200");
+    res.send("200");
+  }
+ 
+});
+
+//POST-method for creating folders for uploading images and music:
+router.post('/createFoldersForUpload', function (req, res) {
 
   async function createFolders(name)
     {
@@ -136,73 +130,48 @@ router.post('/createFoldersForUpload', function (req, res) {
       {
         //Paths for creating folders:
         let path = "./uploads/"+req.body.bandName+"/music/"+req.body.albumName;
-        //console.log(path);
+
         //Create folder by bandName and inside music and pictures:
         await fs.mkdirSync(path, { recursive: true });
       }
      
     }
 
-  if (bandObj.bandName != undefined && bandObj.bandLogo != undefined)
+  //Res.bandObject Example:
+  var bandObj = {
+    bandName: req.body.bandName,
+  };
+  //Res.albumObject Example:
+  var albumObj = {
+    bandName: req.body.bandName,
+    albumName: req.body.albumName,
+  };
+
+  if (bandObj.bandName != undefined)
   {
-    
     console.log("bandObj");
-    let testjpg = req.body.bandLogo;
-    //need to get path in req, then it needs to verify it can be done -> if route true -> change multerUpload des. for creating new album, etc
-    if(!(fileNameTesting(testjpg, fileTypes[0]) ||  fileNameTesting(testjpg, fileTypes[1]) || fileNameTesting(testjpg, fileTypes[2]) || fileNameTesting(testjpg, fileTypes[3])))
-    {
-      res.sendStatus(405);
-    }else
-    {
-      console.log("meni läpi");
-      createFolders("bands");
-      res.sendStatus(200);
-    }
+    createFolders("bands");
+    res.sendStatus(200);
   }
 
-    if (albumObj.albumName != undefined)
-    {
-    console.log("albumObj");
-    let testjpg = req.body.albumPicture;
-    //need to get path in req, then it needs to verify it can be done -> if route true -> change multerUpload des. for creating new album, etc
-    if(!(fileNameTesting(testjpg, fileTypes[0]) ||  fileNameTesting(testjpg, fileTypes[1]) || fileNameTesting(testjpg, fileTypes[2]) || fileNameTesting(testjpg, fileTypes[3])))
-    {
-      res.sendStatus(405);
-    }else
-    {
-      console.log("meni läpi");
-      createFolders("albums");
-      res.sendStatus(200);
-    }
-  }
-
-  if (songObj.songName != undefined)
+  if (albumObj.albumName != undefined)
   {
-    console.log("songObj");
-    let testmp3 = req.body.MP3;
-    //need to get path in req, then it needs to verify it can be done -> if route true -> change multerUpload des. for creating new album, etc
-    if(!(fileNameTesting(testmp3, fileTypes[0]) ||  fileNameTesting(testmp3, fileTypes[1]) || fileNameTesting(testmp3, fileTypes[2]) || fileNameTesting(testmp3, fileTypes[3])))
-    {
-      res.sendStatus(405);
-    }else
-    {
-      //let path = "./uploads/bands/"+req.body.bandName+"/"+req.body.albumName+"/";
-      res.sendStatus(200);
-    }
+    console.log("albumObj");
+    createFolders("albums");
+    res.sendStatus(200);  
   }
  
 });
 
 
 //works
-router.post('/mp3byfile', multerUpload1.single('testFile'), (req, res) => {
+router.post('/mp3byfile/:bandName/:albumName', multerUpload1.single('testFile'), (req, res) => {
   console.log("req.file:"+ req.file);
   
-  /**
-   * Need to get bandName and albumname here as an object and get it down below for fs.rename!!!
-   **/
+  var bandName = req.params.bandName;
+  var albumName = req.params.albumName;
 
-  fs.rename(req.file.path, './uploads/' + req.file.bandName +'/music/'+ req.file.albumName +'/'+ req.file.originalname, function (err) {
+  fs.rename(req.file.path, './uploads/' + bandName +'/music/'+ albumName +'/'+ req.file.originalname, function (err) {
     if (err) throw err;
     console.log('renamed complete');
     res.send("Test");
@@ -214,7 +183,7 @@ router.post('/mp3byfile', multerUpload1.single('testFile'), (req, res) => {
 //works
 router.post('/picturebyfile', multerUpload2.single('testFile'), (req, res) => {
   console.log("req.file:"+ req.file);
-  
+
   /**
    * Need to get bandName and albumname here as an object and get it down below for fs.rename!!!
    **/

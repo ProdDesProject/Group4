@@ -8,17 +8,13 @@ import ReactPlayer from "react-player";
 
 import HomePage from '../home-page/home-page.component';
 
+import checkUploadData from '../../services/check-upload-data-service';
+import uploadData from '../../services/upload-mp3-jpg-service' 
+import createFolders from '../../services/create-folders-for-upload-servise'
 
 import { withRouter} from 'react-router-dom';
-
 import './mp3.styles.scss';
-
 import { saveAs } from 'file-saver';
-
-
-//const logo = require('./pictures/bandpic1.png');
-
-//import music from '../../music';
 import logo from '../../assets/bandpic1.png';
 import { stringify } from 'querystring';
 
@@ -32,62 +28,35 @@ class Mp3_upload extends Component {
     super(props);
 
     this.state = {
-      selectedFile: null
-    
+      bandName: "Hiipparit",
+      albumName: "Hiirialbum",
+      selectedFile: null,
+      selectedFileName: ""
     };
   }
 
-  /**
-   * TOKEN
-   */
-  callAPI() 
-  {
-    if (this.props.location.state != undefined)
-    {
-      var token2 = this.props.location.state.detail;
-      //<p1>{this.callAPI()}</p1>
-    return JSON.stringify(token2);
-    }
-    else{
-      return "tyhjä"
-    }
-
-  }
-
- /**
-  * DOWNLOAD DATA TO USER BETA
-  */
- /*
-  downloadData()
-  {
-    //toimii
-    var content = "What's up , hello world";
-    var filename = "hello.txt";
-
-    var blob = new Blob([content], {
-      type: "text/plain;charset=utf-8"
-     });
-
-    saveAs(blob,filename);
-    
-  }*/
-
-
+  //Handles changes on upload realtime:
   handleChange = event => {
-    //const {name,value } = event.target;
+    
+    //save file
     this.setState({ selectedFile: event.target.files[0],
     loaded: 0,
     });
+    //save filename
+    this.setState({ selectedFileName: event.target.files[0].name,
+      loaded: 0,
+      });
 
-    alert(event.target.files[0]);
+    //alert(event.target.files[0]);
+    //alert(event.target.files[0].name);
   };
 
 
-  onClickHandler = () => 
+  //Clickhandler:
+  onClickHandler = async () => 
   {
-    //THIS WORKS WITH MP3:
 
-    async function postmethod(data)
+    /*async function postmethod(data)
     {
       var FormData = data;
 
@@ -100,49 +69,39 @@ class Mp3_upload extends Component {
   
       const response =  await fetch('http://localhost:9000/upload/mp3byfile',requestOptions)
       const data2 = await response;
-
-      //THIS REPLY DOESNT WORK YET
-      //alert("Data2:"+stringify(data2));
-  
-      if (data2 == "404")
-        {
-          alert("404");  
-        }
-        else
-        {
-          alert("done");
-        }
       
+    }*/
+
+    //checkResult can be 200 or 400
+    var checkResult = await checkUploadData(this.state.selectedFileName);
+
+    alert("checkResult:"+checkResult);
+
+    if (checkResult == "200")
+    {
+      const data = new FormData();
+      data.append('testFile', this.state.selectedFile);
+      //postmethod(data);
+      alert("toimii");
+
+      //need these here!:
+      var bandName,albumName;
+
+      //now local state variables: need to get them from token
+      createFolders(this.state.bandName,this.state.albumName);
+      //uploadData(data,bandName,albumName);
+    }else
+    {
+      alert("CheckResults went wrong, try again");
     }
-
-    const data = new FormData();
-    data.append('testFile', this.state.selectedFile);
-
-    postmethod(data);
+   
     
   }
 
   /**
-   * UPDATE ALWAYS WHEN CTRL+R
-   * 
-   */
-  async componentDidMount() 
-  {
-      //this.fetchMusic();
-      alert("mp3:"+this.props.valueFromParent);
-      
-  }
-
-  /**
    * RENDER
-   */
-
-  render() {
-    return (
-      <div className="App">
-      <header className="App-header">
-        < div >
-        
+   * 
+   *      
     </div >
        
         <img src="http://localhost:9000/upload/imagepath.png/bandpic1.png" alt="bandpic1" width="200" height="200"></img>
@@ -157,6 +116,14 @@ class Mp3_upload extends Component {
             controls={true}
           />
         </div>
+   */
+
+  render() {
+    return (
+      <div className="App">
+      <header className="App-header">
+        < div >
+   
 
         <form enctype="multipart/form-data">
           <input type = "file" name="file" id="file" accept = ".mp3" onChange={this.handleChange}/>
