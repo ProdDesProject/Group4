@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<student>
+
+    <html>
+        <head><title>Main</title></head>
+        <body>
+            <h1> Welcome to MainPage Beta </h1>
+
+            <h2>Documents</h2>
+            Get-method :<a href="/Documents">localhost/Documents</a><br>
+            <br><br>
+
+            <h2>Users</h2>
+            Get-method :<a href="/users">localhost/users</a><br>
+            <br><br>
+
+            <body>
+                ___________________________________________________________________________
+            </body><br><br>
+
+            <div>
+                <h3>Post-method, use postman</h3>
+                
+                <h4>
+                    http://localhost:3000/users/createuser
+                </h4>
+
+                <body>{
+                    Basic Auth: tester,testerpassword
+                }</body><br>
+
+                <body>{
+                    "username": "tester2",
+                    "email": "tester@mail.com",
+                    "password": "testerisalis",
+                    "name": "Taneli",
+                    "streetaddress": "Apinakuja 2",
+                    "city": "Oulu",
+                    "country": "Suomi",
+                    "dateofbirth": "12.12.1990"
+                }</body><br><br>
+
+                <body>
+                    ___________________________________________________________________________
+                </body><br><br>
+
+                <input type="button" id="b1" value="Create user DoesNotWork"/>
+            </div>
+            
+            <h3>Delete</h3>
+            Method :<a href="/users/delete/2">localhost/users/delete/2</a><br>
+
+            <h2>Items</h2>
+            Get-method :<a href="/items">localhost/items</a><br>
+            Get-method :<a href="/items/1">localhost/items/1</a><br>
+            Get-method :<a href="/items/2">localhost/items/2</a><br>
+            <br><br>
+
+            <body>
+                ___________________________________________________________________________
+            </body><br><br>
+
+
+            <div>
+                <h3>Post-method, use postman</h3>
+
+                <h4>
+                    http://localhost:3000/items/create
+                </h4>
+
+                <body>{
+                    Basic Auth: tester,testerpassword
+                }</body><br>
+
+                <body>
+                    {
+                        "title":"Selling used bicycle",
+                        "description":"Used bisycle,black and ugly",
+                        "category":"Bicycle",
+                        "location": "Oulu",
+                        "askingprice":"100",
+                        "dateofposting":"1602504398",
+                        "deliverytype":"Pickup",
+                        "sellername":"Lasse",
+                        "sellermail":"Lasse@gmail.com",
+                        "sellerphonenumber":"+35844233123",
+                        "image1":"https://cdn.shopify.com/s/files/1/1245/1481/products/600_HERO_WEB_FIRST_1024x1024.jpg?v=1597712912",
+                        "image2":"https://cdn.shopify.com/s/files/1/1245/1481/products/600_HERO_WEB_FIRST_1024x1024.jpg?v=1597712912",
+                        "image3":"https://cdn.shopify.com/s/files/1/1245/1481/products/600_HERO_WEB_FIRST_1024x1024.jpg?v=1597712912",
+                        "image4":"https://cdn.shopify.com/s/files/1/1245/1481/products/600_HERO_WEB_FIRST_1024x1024.jpg?v=1597712912"
+                    }
+                </body><br><br>
+
+                <body>
+                    ___________________________________________________________________________
+                </body><br><br>
+
+                <h3>Put-method, use postman</h3>
+                <h4>
+                    http://localhost:3000/items/change/:id
+                </h4>
+
+                <body>{
+                    Basic Auth: tester,testerpassword
+                }</body><br>
+
+                <body>
+                    {
+                        "title":"Selling used bicycleCHANGED",
+                        "description":"Used bisycle,black and uglyCHANGED",
+                        "category":"Bicycle",
+                        "location": "Oulu",
+                        "askingprice":"100",
+                        "dateofposting":"1602504398",
+                        "deliverytype":"Pickup",
+                        "sellername":"Lasse",
+                        "sellermail":"Lasse@gmail.com",
+                        "sellerphonenumber":"+35844233123",
+                        "image1":"https://cdn.shopify.com/s/files/1/1245/1481/products/600_HERO_WEB_FIRST_1024x1024.jpg?v=1597712912",
+                        "image2":"https://cdn.shopify.com/s/files/1/1245/1481/products/600_HERO_WEB_FIRST_1024x1024.jpg?v=1597712912",
+                        "image3":"https://cdn.shopify.com/s/files/1/1245/1481/products/600_HERO_WEB_FIRST_1024x1024.jpg?v=1597712912",
+                        "image4":"https://cdn.shopify.com/s/files/1/1245/1481/products/600_HERO_WEB_FIRST_1024x1024.jpg?v=1597712912"
+                    }
+                </body><br><br>
+
+                <body>
+                    ___________________________________________________________________________
+                </body><br><br>
+
+                <h3>/items/search/category/:category  //Cars or Bicycle</h3>
+                <body>
+                    ___________________________________________________________________________
+                </body><br><br>
+                <h3>/items/search/location/:location  //London,YK or Oulu</h3>
+                <body>
+                    ___________________________________________________________________________
+                </body><br><br>
+                <h3>/items/search/dateofposting/:dateofposting    //1591012800 or 1602504398</h3>
+                <body>
+                    ___________________________________________________________________________
+                </body><br><br>
+
+                
+
+               
+                
+                <input type="button" id="b1" value="Create user DoesNotWork"/>
+            </div>
+        </body>
+        </html>
+        

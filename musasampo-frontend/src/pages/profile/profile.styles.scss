@@ -1,0 +1,77 @@
+.profile-item {
+  margin-left: 40px;
+  margin-top: 40px;
+
+.test {
+  height: 260px;
+  width: 50%;
+  background: #c5c5c5;
+  border-bottom: 2px solid #808080;
+  border-right: 1px solid #919191;
+  border-left: 2px solid #919191;
+  border-top: 1px solid #9c9c9c;
+  border-top-right-radius: 22px;
+  border-bottom-right-radius: 22px;
+
+  .profileImage {
+    display: block;
+    float: left;
+    margin-left: 30px;
+    margin-top: 30px;
+    .img {
+      width: 200px;
+      height: 200px;
+    }
+  }
+
+  .titleText {
+    display: inline-block;
+    font-size: 35px;
+    font-weight: bold;
+    margin-top: 25px;
+    margin-left: 30px;
+  }
+
+  .user-info {
+    font-size: 16px;
+    font-family: 'Lucida Sans Unicode';
+    letter-spacing: -0.3px;
+    padding-top: 10px;
+    display: block;
+
+    .descriptor {
+      height: 100%;
+      width: auto;
+      display: table-cell;
+      text-align: left;
+      font-weight: bold;
+      padding-right: 10px;
+      padding-left: 30px;
+    }
+  
+    .infotext {
+        height: 100%;
+        display: table-cell;
+        white-space: nowrap;
+        text-align: left;
+        margin: auto;
+    }
+  }
+  .button {
+    float: right;
+    margin-right: 30px;
+  }
+}
+
+.band-stuff {
+  height: 400px;
+  width: 98%;
+  margin-top: 30px;
+  background: #e2e2e2;
+  border: solid 5px #393e46;
+
+  .button {
+    margin: 80px;
+  }
+  }
+}
