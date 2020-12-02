@@ -46,52 +46,15 @@ class EditProfile extends React.Component {
 
   onClickHandler = () =>
   {
-
-    async function postmethod(data)
-    {
-      var FormData = data;
-
-      const requestOptions = 
-      {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(FormData)
-      }
-  
-      const response =  await fetch('http://localhost:9000/users/createuser',requestOptions)
-      const data2 = await response.json();
-      
-      //useless stuff that doesn't run
-
-      alert(stringify(data2));
-
-      this.setState(data2);
-
-      switch (data2)
-      {
-          case '404': alert('not found'); break;
-          case '400': alert('bad request'); break;
-          case '200': alert('done'); break;
-          default: alert('something went wrong');
-      }
-      
+      this.props.history.push('/profile')
     }
 
-    const data = new FormData();
-    var object = 
-    {
-      "username": this.state.username, 
-      "name": this.state.name, 
-      "email": this.state.email, 
-      "phoneNumber": this.state.phoneNumber,
-      "usersToken": null
-    };
+    onClickHandler2 = () =>
+  {
+    }
 
-    postmethod(object);
 
-    //alert object
-    //alert(stringify(object));
-  }
+    
 
   render() {
     const { username, email,name, phoneNumber } = this.state;
@@ -130,7 +93,7 @@ class EditProfile extends React.Component {
           />
           <div className='buttons1'>
             <CustomButton type='submit' onClick = {this.onClickHandler}> Cancel </CustomButton>
-            <SignInButton type='submit' onClick = {this.onClickHandler}> Save changes </SignInButton>
+            <SignInButton type='submit' onClick = {this.onClickHandler2}> Save changes </SignInButton>
           </div>
         </form>
       </div>
