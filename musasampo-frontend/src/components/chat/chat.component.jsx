@@ -3,21 +3,15 @@ import PubNub from 'pubnub';
 import { PubNubProvider, usePubNub } from 'pubnub-react';
 import SendIcon from '@material-ui/icons/Send';
 
-import './chat-box.styles.scss'
-
-const pubnub = new PubNub({
-    publishKey: 'pub-c-ace1075f-a7ff-421a-a32f-ba5059ee6858',
-    subscribeKey: 'sub-c-716579b0-2e2f-11eb-9713-12bae088af96',
-});
-
-
-const channels = ['awesomeChannel'];
+import './chat.styles.scss'
 
 const Chat = (props) => {
     const pubnub = usePubNub();
     const [messages, setMessages] = useState([]);
     const [input, setInput] = useState('');
     const userName = props.userName;
+    const users = props.users;
+    const channels = props.channels;
 
     useEffect(() => {
         pubnub.addListener({
@@ -95,12 +89,4 @@ const Chat = (props) => {
     );
 };
 
-const ChatBox = (props) => {
-    return (
-        <PubNubProvider client={pubnub}>
-            <Chat userName={props.userName} />
-        </PubNubProvider>
-    );
-};
-
-export default ChatBox;
+export default Chat;
