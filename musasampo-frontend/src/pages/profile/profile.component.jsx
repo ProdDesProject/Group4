@@ -146,10 +146,17 @@ class Profile extends React.Component {
             </div>
         </div>
         <a href="/profile/edit" className='button'>
-            <SignInButton> Edit </SignInButton>
+            <CustomButton> Edit </CustomButton>
           </a>
     </div>
-    <div className='band-stuff'></div>
+    <div className='band-stuff'>
+    <a href="/profile/newband" className='button'>
+            <CustomButton> Add Your Band </CustomButton>
+          </a>
+    <a href="/profile/newalbum" className='button'>
+            <CustomButton> Add an Album for Your Band </CustomButton>
+          </a>
+    </div>
     </div>
     </div>
     );

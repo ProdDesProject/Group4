@@ -6,7 +6,7 @@ import CustomButton from '../../components/custom-button/custom-button.component
 import SignInButton from '../../components/sign-in-button/sign-in-button.component';
 import { stringify } from 'querystring';
 
-import './profile-new-band.styles.scss';
+import './profile-new-album.styles.scss';
 
 var req = <p className="req">*</p>;
 
@@ -117,164 +117,134 @@ class SignUp extends React.Component {
     const { username, email,name, phoneNumber, password, confirmPassword, formedIn } = this.state;
     return (
     <div className='container'>
-      <div className='new-band'>
-        <h2 className='title5'>Add a new band</h2>
-        <span className='subtitle5'>Fill in information for your band</span>
+      <div className='new-album'>
+        <h2 className='title6'>Add a new album</h2>
+        <span className='subtitle6'>Fill in information for an album from your band</span>
         <br></br><br></br>
         <form className='sign-up-form' onSubmit={this.handleSubmit}>
         <div className='sides'>
             <div className='left-side'>
-        <label for="bandName">Band Name: {req}</label>
+        <label for="albumName">Album Name: {req}</label>
           <FormInput2
             type='text'
             name='username'
-            id='bandName'
+            id='albumName'
             value={username}
             onChange={this.handleChange}
             placeholder=""
             maxLength='30'
             required
           />
-          <label for="country">Country of Origin: {req}</label>
+          {/*<label for="type">Type: {req}</label>
           <FormInput2
             type='email'
             name='email'
-            id='country'
+            id='type'
             value={email}
             onChange={this.handleChange}
-            placeholder=""
+            placeholder="Full-length, Demo, etc."
             maxLength='30'
             required
-          />
-          {/*<label for="location">Band Location:</label>
+    />*/}
+          <label for="releaseData">Release Date: {req}</label>
           <FormInput2
             type='text'
             name='name'
-            id='location'
+            id='releaseDate'
             value={name}
             onChange={this.handleChange}
-            placeholder='London, Texas, etc.'
-            maxLength='40'
+            placeholder='Format: January 1st 2020'
+            maxLength='20'
           />
-    */}
-          {/*<label for="currentLabel">Current Label: {req}</label>
+          <label for="AlbumCover">Album Cover: {req}</label>
           <FormInput2
             type='text'
-            name='currentLabel'
-            id='currentLabel'
+            name='albumCover'
+            id='AlbumCover'
+            value={formedIn}
+            onChange={this.handleChange}
+            placeholder='Upload a picture for the album cover'
+            required
+          />
+         {/*} <label for="label">Label: {req}</label>
+          <FormInput2
+            type='text'
+            name='lLabel'
+            id='label'
             value={formedIn}
             onChange={this.handleChange}
             placeholder=''
             maxLength='30'
             required
           />
-*/}
-            {/*<form>
-            <p>Band Status: {req}</p>
-            <input
-                type='radio'
-                id='Active'
-                name='Band Status'
-                value="None"
-                onChange={this.handleChange}/>
-                <label for='Active'>Active</label>
-                <br></br>
-
-                <input
-                type='radio'
-                id='Disbanded'
-                name='Band Status'
-                value="None" 
-                onChange={this.handleChange}/>
-                <label for='Disbanded'>Disbanded</label>
-                <br></br>
-                
-                <input
-                type='radio'
-                id='On Break'
-                name='Band Status'
-                value="On Break"
-                onChange={this.handleChange}/>
-                <label for='On Break'>On Break</label>
-          </form>
-            */}
+  */}
           </div>
 
 
 
           <div className='right-side'>
           {/*<form>
-          <label for="formedIn">Formed in (Year): {req}</label>
+          <label for="format">Format: {req}</label>
           <FormInput2
             type='text'
-            name='formedIn'
-            id='formedIn'
+            name='format'
+            id='format'
             value={formedIn}
             onChange={this.handleChange}
-            maxLength='4'
+            placeholder='CD, Vinyl, etc.'
+            maxLength='30'
             required
             />
             </form>
           */}
-          {/*<form>
-          <label for="yearsActive">Years active: {req}</label>
-            <FormInput2
-            type='text'
-            name='yearsActive'
-            value={formedIn}
-            onChange={this.handleChange}
-            id='yearsActive'
-            maxLength='30'
-            required
-          />
-          </form>
-          */}
-          {/*<label for="genres">Genres: {req}</label>
+          <label for="genre">Genre: {req}</label>
           <FormInput2
             type='text'
-            name='genres'
-            id='genres'
+            name='genre'
+            id='genre'
             value={formedIn}
             onChange={this.handleChange}
             placeholder='Metal, Rock, etc.'
             maxLength='30'
             required
           />
-        */}
-          {/*<label for="lyricalThemes">Lyrical Themes:</label>
-          <FormInput2
+          <form>
+          <label for="songs">Songs: {req}</label>
+            <FormInput2
             type='text'
-            name='lyricalThemes'
-            id='themes'
+            name='songs'
             value={formedIn}
             onChange={this.handleChange}
-            maxLength='40'
-            placeholder='Nature, Love, War, etc.'
-          />
-    */}
-        <label for="AlbumLogo">Album Logo: {req}</label>
-          <FormInput2
-            type='text'
-            name='albumLogo'
-            id='AlbumLogo'
-            value={formedIn}
-            onChange={this.handleChange}
-            placeholder='Upload a picture for the album logo'
+            id='songs'
+            maxLength='30'
             required
           />
-          <form>
-            <p>NSFW: {req}</p>
-            <div class="switch">	
-                <input type="checkbox" 
-                value="None" 
-                id="switch" 
-                name="check" 
-                onChange={this.handleChange}/>
-                <label for="switch"></label>
-            </div>
           </form>
-          <div className='buttons5'>
-          <CustomButton type='submit' onClick = {this.onClickHandler}> Add Band </CustomButton>
+          {/*<label for="lineup">Lineup: {req}</label>
+          <FormInput2
+            type='text'
+            name='lineup'
+            id='lineup'
+            value={formedIn}
+            onChange={this.handleChange}
+            placeholder='Format: Peter Smith - Drums, Vocals'
+            maxLength='50'
+            required
+          />
+        */}
+          {/*<label for="description">Description:</label>
+          <FormInput2
+            type='text'
+            name='description'
+            id='description'
+            value={formedIn}
+            onChange={this.handleChange}
+            maxLength='1600'
+            placeholder='Write a description for the album'
+          />
+      */}
+          <div className='buttons6'>
+          <CustomButton type='submit' onClick = {this.onClickHandler}> Add Album </CustomButton>
             </div>
             </div>
             </div>
