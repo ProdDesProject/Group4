@@ -75,47 +75,47 @@ function TabPanel(props) {
         <div className='description'>
              <div className='descriptor'>
                 <dt>Country of origin:</dt>
-                <dt>Location:</dt>
-                <dt>Status:</dt>
+                {/*<dt>Location:</dt>
+                <dt>Status:</dt>*/}
                 <dt>Formed in:</dt>
-                <dt>Years active:</dt>
+                {/*<dt>Years active:</dt>
                 <dt>Genres:</dt>
                 <dt>Lyrical themes:</dt>
-                <dt>Current label</dt>
+                <dt>Current label</dt>*/}
             </div>
 
             <div className='infotext'>
                 <dt>{bands2[0].countryOfOrigin}</dt>
-                <dt>{bands2[0].bandLocation}</dt>
-                <dt>{bands2[0].bandStatus}</dt>
+                {/*<dt>{bands2[0].bandLocation}</dt>
+                <dt>{bands2[0].bandStatus}</dt>*/}
                 <dt>{bands2[0].formedIn}</dt>
-                <dt>{bands2[0].yearsActive}</dt>
+                {/*<dt>{bands2[0].yearsActive}</dt>
                 <dt>{bands2[0].bandGenres}</dt>
                 <dt>{bands2[0].lyricalThemes}</dt>
-                <dt>{bands2[0].currentLabel}</dt>
+                <dt>{bands2[0].currentLabel}</dt>*/}
             </div>
         </div>
 
         <div className='bandLogo'>
               <img className='img' src={bands2[0].bandLogo} />
             </div>
-            <div className='bandImage'>
+            {/*<div className='bandImage'>
               <img className='img' src={bands2[0].bandImage} />
-            </div>
+            </div>*/}
 
             <div className='tabpanel1'>
                 <AppBar position="static">
                 <Tabs className='tabs' value={value} onChange={handleChange}
                 TabIndicatorProps={{style: { background: "#32e0c4", background: "#32e0c4", height: "4px"}}}>
                     <Tab className='tab-name' label="Discography" {...a11yProps(0)} />
-                    <Tab className='tab-name' label="Members" {...a11yProps(1)} />
-                    <Tab className='tab-name' label="Reviews" {...a11yProps(2)} />
+                    {/*<Tab className='tab-name' label="Members" {...a11yProps(1)} />
+                    <Tab className='tab-name' label="Description" {...a11yProps(2)} />*/}
                 </Tabs>
                 </AppBar>
                 <TabPanel className='panel-content' value={value} index={0}>
                   {bands2[0].albums}
                 </TabPanel>
-                <TabPanel className='panel-content' value={value} index={1}>
+                {/*<TabPanel className='panel-content' value={value} index={1}>
                   {bands2[0].members}
                 </TabPanel>
                 <TabPanel className='panel-content' value={value} index={2}>
@@ -135,7 +135,7 @@ function TabPanel(props) {
                 Proin elementum varius quam eget aliquet. Phasellus id elit id felis posuere laoreet. Proin in sapien nec justo condimentum sollicitudin ut nec tellus. 
                 Donec id dolor porta, sollicitudin tortor vitae, cursus nisl. Curabitur maximus nibh eget finibus suscipit. Praesent quis tempor turpis, sit amet cursus diam. Praesent faucibus purus non ante elementum venenatis. 
                 Donec lorem metus, ornare ut nibh et, cursus faucibus nulla. Morbi mauris magna, eleifend eget eleifend in, elementum at turpis. Donec nec dapibus sem, in scelerisque urna.
-                </TabPanel>
+                </TabPanel>*/}
             </div>
       </div>
     );
