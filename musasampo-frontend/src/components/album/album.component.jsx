@@ -107,18 +107,18 @@ export default function SimpleTabs(props) {
       <div className='description'>
         <div className='descriptor'>
           <dt>Genre:</dt>
-          <dt>Type:</dt>
+          {/*<dt>Type:</dt>*/}
           <dt>Release date:</dt>
-          <dt>Label:</dt>
-          <dt>Format:</dt>
+          {/*<dt>Label:</dt>
+          <dt>Format:</dt>*/}
         </div>
 
         <div className='infotext'>
           <dt>{albums2[0].albumGenre}</dt>
-          <dt>{albums2[0].albumType}</dt>
+          {/*<dt>{albums2[0].albumType}</dt>*/}
           <dt>{albums2[0].releaseDate}</dt>
-          <dt>{albums2[0].albumLabel}</dt>
-          <dt>{albums2[0].albumFormat}</dt>
+          {/*<dt>{albums2[0].albumLabel}</dt>
+          <dt>{albums2[0].albumFormat}</dt>*/}
         </div>
 
         <div className='albumImage'>
@@ -131,14 +131,14 @@ export default function SimpleTabs(props) {
           <Tabs className='tabs' value={value} onChange={handleChange}
             TabIndicatorProps={{ style: { background: "#32e0c4", background: "#32e0c4", height: "4px" } }}>
             <Tab className='tab-name' label="Songs" {...a11yProps(0)} />
-            <Tab className='tab-name' label="Lineup" {...a11yProps(1)} />
-            <Tab className='tab-name' label="Description" {...a11yProps(2)} />
+            {/*<Tab className='tab-name' label="Lineup" {...a11yProps(1)} />
+            <Tab className='tab-name' label="Description" {...a11yProps(2)} />*/}
           </Tabs>
         </AppBar>
         <TabPanel className='panel-content' value={value} index={0}>
         {albums2[0].trackList}
                 </TabPanel>
-        <TabPanel className='panel-content' value={value} index={1}>
+        {/*<TabPanel className='panel-content' value={value} index={1}>
           {albums2[0].lineup}
                 </TabPanel>
         <TabPanel className='panel-content' value={value} index={2}>
@@ -159,6 +159,7 @@ export default function SimpleTabs(props) {
                 Donec id dolor porta, sollicitudin tortor vitae, cursus nisl. Curabitur maximus nibh eget finibus suscipit. Praesent quis tempor turpis, sit amet cursus diam. Praesent faucibus purus non ante elementum venenatis.
                 Donec lorem metus, ornare ut nibh et, cursus faucibus nulla. Morbi mauris magna, eleifend eget eleifend in, elementum at turpis. Donec nec dapibus sem, in scelerisque urna.
                 </TabPanel>
+  */}
       </div>
     </div>
   );

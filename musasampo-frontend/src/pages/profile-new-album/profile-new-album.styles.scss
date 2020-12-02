@@ -28,11 +28,6 @@ $main-light-color: #393e46;
         .subtitle6 {
         font-size: 26px;
         }
-    
-        .buttons6 {
-        float: right;
-        margin-top: 5px;
-        }
     }
 }
 
@@ -52,5 +47,10 @@ $main-light-color: #393e46;
         float: right;
         margin-left: 50px;
         width: 50%;
+
+        .buttons6 {
+            float: right;
+            padding-top: 20px;
+            }
     }
 }
