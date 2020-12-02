@@ -135,7 +135,7 @@ class SignUp extends React.Component {
             maxLength='30'
             required
           />
-          <label for="type">Type: {req}</label>
+          {/*<label for="type">Type: {req}</label>
           <FormInput2
             type='email'
             name='email'
@@ -145,7 +145,7 @@ class SignUp extends React.Component {
             placeholder="Full-length, Demo, etc."
             maxLength='30'
             required
-          />
+    />*/}
           <label for="releaseData">Release Date: {req}</label>
           <FormInput2
             type='text'
@@ -156,7 +156,17 @@ class SignUp extends React.Component {
             placeholder='Format: January 1st 2020'
             maxLength='20'
           />
-          <label for="label">Label: {req}</label>
+          <label for="AlbumCover">Album Cover: {req}</label>
+          <FormInput2
+            type='text'
+            name='albumCover'
+            id='AlbumCover'
+            value={formedIn}
+            onChange={this.handleChange}
+            placeholder='Upload a picture for the album cover'
+            required
+          />
+         {/*} <label for="label">Label: {req}</label>
           <FormInput2
             type='text'
             name='lLabel'
@@ -167,12 +177,13 @@ class SignUp extends React.Component {
             maxLength='30'
             required
           />
+  */}
           </div>
 
 
 
           <div className='right-side'>
-          <form>
+          {/*<form>
           <label for="format">Format: {req}</label>
           <FormInput2
             type='text'
@@ -185,6 +196,18 @@ class SignUp extends React.Component {
             required
             />
             </form>
+          */}
+          <label for="genre">Genre: {req}</label>
+          <FormInput2
+            type='text'
+            name='genre'
+            id='genre'
+            value={formedIn}
+            onChange={this.handleChange}
+            placeholder='Metal, Rock, etc.'
+            maxLength='30'
+            required
+          />
           <form>
           <label for="songs">Songs: {req}</label>
             <FormInput2
@@ -197,7 +220,7 @@ class SignUp extends React.Component {
             required
           />
           </form>
-          <label for="lineup">Lineup: {req}</label>
+          {/*<label for="lineup">Lineup: {req}</label>
           <FormInput2
             type='text'
             name='lineup'
@@ -208,7 +231,8 @@ class SignUp extends React.Component {
             maxLength='50'
             required
           />
-          <label for="description">Description:</label>
+        */}
+          {/*<label for="description">Description:</label>
           <FormInput2
             type='text'
             name='description'
@@ -218,6 +242,7 @@ class SignUp extends React.Component {
             maxLength='1600'
             placeholder='Write a description for the album'
           />
+      */}
           <div className='buttons6'>
           <CustomButton type='submit' onClick = {this.onClickHandler}> Add Album </CustomButton>
             </div>

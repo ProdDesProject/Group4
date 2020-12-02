@@ -146,7 +146,7 @@ class SignUp extends React.Component {
             maxLength='30'
             required
           />
-          <label for="location">Band Location:</label>
+          {/*<label for="location">Band Location:</label>
           <FormInput2
             type='text'
             name='name'
@@ -156,7 +156,8 @@ class SignUp extends React.Component {
             placeholder='London, Texas, etc.'
             maxLength='40'
           />
-          <label for="currentLabel">Current Label: {req}</label>
+    */}
+          {/*<label for="currentLabel">Current Label: {req}</label>
           <FormInput2
             type='text'
             name='currentLabel'
@@ -167,7 +168,8 @@ class SignUp extends React.Component {
             maxLength='30'
             required
           />
-            <form>
+*/}
+            {/*<form>
             <p>Band Status: {req}</p>
             <input
                 type='radio'
@@ -195,12 +197,13 @@ class SignUp extends React.Component {
                 onChange={this.handleChange}/>
                 <label for='On Break'>On Break</label>
           </form>
+            */}
           </div>
 
 
 
           <div className='right-side'>
-          <form>
+          {/*<form>
           <label for="formedIn">Formed in (Year): {req}</label>
           <FormInput2
             type='text'
@@ -212,7 +215,8 @@ class SignUp extends React.Component {
             required
             />
             </form>
-          <form>
+          */}
+          {/*<form>
           <label for="yearsActive">Years active: {req}</label>
             <FormInput2
             type='text'
@@ -224,7 +228,8 @@ class SignUp extends React.Component {
             required
           />
           </form>
-          <label for="genres">Genres: {req}</label>
+          */}
+          {/*<label for="genres">Genres: {req}</label>
           <FormInput2
             type='text'
             name='genres'
@@ -235,7 +240,8 @@ class SignUp extends React.Component {
             maxLength='30'
             required
           />
-          <label for="lyricalThemes">Lyrical Themes:</label>
+        */}
+          {/*<label for="lyricalThemes">Lyrical Themes:</label>
           <FormInput2
             type='text'
             name='lyricalThemes'
@@ -244,6 +250,17 @@ class SignUp extends React.Component {
             onChange={this.handleChange}
             maxLength='40'
             placeholder='Nature, Love, War, etc.'
+          />
+    */}
+        <label for="AlbumLogo">Album Logo: {req}</label>
+          <FormInput2
+            type='text'
+            name='albumLogo'
+            id='AlbumLogo'
+            value={formedIn}
+            onChange={this.handleChange}
+            placeholder='Upload a picture for the album logo'
+            required
           />
           <form>
             <p>NSFW: {req}</p>
