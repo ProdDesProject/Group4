@@ -17,7 +17,8 @@ const JwtStrategy = require('passport-jwt').Strategy,
       ExtractJwt = require('passport-jwt').ExtractJwt;
 const jwtSecretKey = require('../jwt-key.json');
 
-/*let Userdata = [
+//User-array Example:
+let Userdata = [
     {
         userId: 0,
         username: "Kilpikalevi",
@@ -26,19 +27,18 @@ const jwtSecretKey = require('../jwt-key.json');
         email: "Apina@gmail.com",
         phoneNumber: "01234"
     }
-  ];*/
-  
-  /*
-  let userObject = {
-        "userId": 0,
-        "username": "Kilpikalevi",
-        "password": "$2y$06$PhZ74dT8/5g6B8SgssFq6ey4ojLxmP6pos2DcevMUGw25Vc9jGEou",
-        "name": "Taneli",
-        "email": "Apina@gmail.com",
-        "phoneNumber": "01234"
-  };*/
+];
+//User-object Example:
+let userObject = {
+    "userId": 0,
+    "username": "Kilpikalevi",
+    "password": "$2y$06$PhZ74dT8/5g6B8SgssFq6ey4ojLxmP6pos2DcevMUGw25Vc9jGEou",
+    "name": "Taneli",
+    "email": "Apina@gmail.com",
+    "phoneNumber": "01234"
+  };
 
-//get all users (test only)
+//GET-method for all users
 router
 .route('')
 .get(
@@ -54,79 +54,49 @@ router
         //internal server error
         res.sendStatus(500);
     })
-    /*let user = users2.getAllUsers()
-    res.json({user});*/
 });
 
-router.post("/asd", function(req, res, next) {
-    res.send("API is working properly");
-});
-
+//Get-method for checking a user
 router
-.route('/checkuser/:username')
-.get(
-    (req, res) => {
-    db.query('SELECT * FROM users WHERE username = ?;',[req.params.username]).then(results => 
-    {
-        //show all users
-        res.json({ user: results});
-    })
-    .catch(() => 
-    {
-        //internal server error
-        res.sendStatus(500);
-    })
-    /*let user = users2.getAllUsers()
-    res.json({user});*/
-});
-
-router
-.route('/checkuser2/')
+.route('/checkuser/')
 .post(
     (req, res) => {
     db.query('SELECT * FROM users WHERE username = ?;',[req.body.username]).then(results => 
     {
-        var username = req.body.username;
-        var password = req.body.password;
-
-        console.log(results[0].password);
-
-        //results.body.password
-
-        //have to get for-loop for checking password.
-
-        if(!bcrypt.compareSync(password,results[0].password)) 
+        if(!results.length)
         {
-            // Password does not match
-            console.log("HTTP Basic password not matching username");
-            //return done(null, false, { message: "HTTP Basic password not found" });
-            res.json("404");
-        }else
-        {
-            //console.log("___________");
-            //var token = server.login(results);
-
-            //console.log("PÖÖÖ:::"+ token);
-
-            res.json({ user: results});
+            res.status(404).json({message: "Username not found: error 404"});
         }
+        else
+        {
+            var password = req.body.password;
+            console.log(results[0].password);
 
-    })
-    .catch(() => 
+            if(!bcrypt.compareSync(password,results[0].password)) 
+            {
+                // Password does not match
+                console.log("HTTP Basic password not matching username");
+                res.status(400).json({message: "Password not matching username: error 400"});
+            }
+            else
+            {
+                res.status(200).json({ user: results });
+            }
+        }
+    }).catch(() => 
     {
         //internal server error
-        res.sendStatus(500);
+        res.status(500).json({message: "Internal server error: 500"});
     })
-    /*let user = users2.getAllUsers()
-    res.json({user});*/
 });
  
-//create a new user
+//POST-method for creating a new user
 router
 .route('/createuser')
 .post(
     (req, res) => 
     {
+        //check if all data is there:
         if(!req.body.username || !req.body.password || !req.body.email || !req.body.name)
         {
             //bad request, required fields not filled!!!
@@ -171,7 +141,7 @@ router
         }
     });
 
-//delete a user based on id(only logged in users should be able to do that)
+//DELETE-method for deleting a user based on id(only logged in users should be able to do that)
 router
 .route('/delete/:userId')
 .delete(

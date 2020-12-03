@@ -11,7 +11,7 @@ const pubnub = new PubNub({
 });
 
 
-const channels = ['awesomeChannel'];
+const channels = ['awesomeChannel','123'];
 
 const Chat = (props) => {
     const pubnub = usePubNub();

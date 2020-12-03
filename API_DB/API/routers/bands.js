@@ -8,7 +8,8 @@ const passport = require('passport');
 const { render } = require('ejs');
 const BasicStrategy = require('passport-http').BasicStrategy;
 
-/*let BandsData = [
+//Array of Bands Example:
+let BandsData = [
     {
         bandId: "0",
         nsfw: true,
@@ -16,18 +17,18 @@ const BasicStrategy = require('passport-http').BasicStrategy;
         country: "USA",
         bandlogo: "Slayer.png"
     }
-  ];*/
+];
   
-  /*
-  let BandObject = {
-        "bandId": "0",
-        "nsfw": true,
-        "bandName": "Slayer",
-        "country": "USA",
-        "bandLogo": "Slayer.png"
-  };*/
+//Object of band Example:
+let BandObject = {
+    "bandId": "0",
+    "nsfw": true,
+    "bandName": "Slayer",
+    "country": "USA",
+    "bandLogo": "Slayer.png"
+};
 
-
+//GET-method for getting all bands:
 router
 .route('')
 .get(
@@ -39,27 +40,25 @@ router
     .catch(() => {
         res.sendStatus(500);
     })
-      /*let user = users2.getAllUsers()
-      res.json({user});*/
 });
 
+//GET-method for getting band by bandId:
 router
-.route(':bandId')
+.route('/:bandId')
 .get(
     //passport.authenticate('basic', { session: false }),
     (req, res) => {
     db.query('SELECT * FROM bands where bandId = ?;',[req.params.bandId]).then(results => 
     {
-        res.json({ band: results})
+        res.json(results);
     })
     .catch(() => 
     {
         res.sendStatus(500);
     })
-      /*let user = users2.getAllUsers()
-      res.json({user});*/
 });
 
+//GET-method for search by bandName:
 router
 .route('/searchByName/:bandName')
 .get(
@@ -73,10 +72,9 @@ router
     {
         res.sendStatus(500);
     })
-      /*let user = users2.getAllUsers()
-      res.json({user});*/
 });
 
+//POST-method for creating a new band:
 router
   .route('/createband2')
   .post(
@@ -85,7 +83,7 @@ router
       (req, res) => 
       {
         //check field filling
-        if(!req.body.nsfw || !req.body.bandName || !req.body.bandLogo || !req.body.country)
+        if(!req.body.userId || !req.body.nsfw == null || !req.body.bandName || !req.body.bandLogo || !req.body.country)
         {
             //fields not filled, bad request
             res.sendStatus(400);
@@ -93,12 +91,12 @@ router
         else
         {
             //create band if all fields are filled
-            db.query('INSERT INTO bands (nsfw,bandName,bandLogo,country)VALUES(?,?,?,?);',[req.body.nsfw, req.body.bandName, req.body.bandLogo, req.body.country]);
+            db.query('INSERT INTO bands(userId,nsfw,bandName,bandLogo,country)VALUES(?,?,?,?,?);',[req.body.userId,req.body.nsfw, req.body.bandName, req.body.bandLogo, req.body.country]);
             res.sendStatus(201);
         }
       });
 
-
+//POST-method for creating a new band by userId:
 router
     .route('/createband/:userId')
     .post(
@@ -140,7 +138,7 @@ router
             }
         });
 
-//modify a band's information based on id
+//PUT-method for modifying a band's information by bandId:
 router
 .route('/modify/:bandId')
 .put(
@@ -177,6 +175,7 @@ router
         });
     });
 
+//DELETE-method for deleting band by BandId:
 router
 .route('/delete/:bandId')
 .delete(

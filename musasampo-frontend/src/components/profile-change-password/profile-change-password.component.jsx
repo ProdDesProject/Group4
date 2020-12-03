@@ -1,8 +1,11 @@
 import React from 'react';
 
-import FormInput from '../../components/form-input/form-input.component';
-import SignInButton from '../../components/sign-in-button/sign-in-button.component';
+import FormInput from '../form-input/form-input.component';
+import SubmitButton from '../submit-button/submit-button.component';
 import { stringify } from 'querystring';
+import CustomButton from '../custom-button/custom-button.component';
+
+import { Link } from 'react-router-dom';
 
 import './profile-change-password.styles.scss';
 
@@ -126,9 +129,13 @@ class ChangePassword extends React.Component {
             label='Confirm New Password'
             required
           />
-          <div className='buttons2'>
-          <SignInButton type='submit' onClick = {this.onClickHandler}> Save Changes </SignInButton>
-            </div>
+          <div className='buttons'>
+                <Link to = "/profile" className='button'>
+                  <CustomButton> Cancel </CustomButton>
+                </Link>
+
+              <SubmitButton type='submit' onClick = {this.onClickHandler}> Save Changes </SubmitButton>
+          </div>
         </form>
       </div>
       </div>
