@@ -7,7 +7,7 @@ import './shop-page.styles.scss';
 import band from '../../components/data/band';
 import album from '../../components/data/album';
 import { stringify } from 'querystring';
-import fetchAlbums from '../../services/albums-in-service'
+import fetchAlbums from '../../services/album/albums-in-service'
 
 class ShopPage extends React.Component {
   constructor(props) {

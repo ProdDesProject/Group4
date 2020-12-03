@@ -4,6 +4,8 @@ import FormInput from '../form-input/form-input.component';
 import SubmitButton from '../submit-button/submit-button.component';
 import { stringify } from 'querystring';
 import CustomButton from '../custom-button/custom-button.component';
+//import SignInServices from '../services/sign-in-services.js';
+import createAlbum from '../../services/album/create-albums-service.js';
 
 import { Link } from 'react-router-dom';
 
@@ -39,12 +41,16 @@ class ChangePassword extends React.Component {
 
     /**
      * 
-     *  NEED two methods here from services/sign-in and /create-album:
+     *  NEED two methods here from services/sign-in
      * 1.check current password or token authentication
      * 2.Metthod for uploadtin information-> Dd
      * 
      * 
      */
+
+    
+    //SignInServices.SignIn();
+    
 
      alert(password);
      alert(newPassword);
