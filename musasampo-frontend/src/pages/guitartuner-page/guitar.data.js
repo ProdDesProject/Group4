@@ -1,6 +1,6 @@
 //import self recorded notes that I put into the notes-folder
-import note1 from '../notes/A.mp3'; //Is actually A#, # is not allowed in the filename
-import note2 from '../notes/F.mp3';
+import note1 from '../../assets/notes/A.mp3'; //Is actually A#, # is not allowed in the filename
+import note2 from '../../assets/notes/F.mp3';
 
 //Tuners in order, named with titles. Strings go from thinnest to the thickest from up to down.
 const GUITAR_DATA = [
