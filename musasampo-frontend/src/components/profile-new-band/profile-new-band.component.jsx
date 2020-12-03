@@ -7,6 +7,7 @@ import { stringify } from 'querystring';
 import { Link } from 'react-router-dom';
 
 import './profile-new-band.styles.scss';
+import band from '../data/band';
 
 var req = <p className="req">*</p>;
 
@@ -14,70 +15,47 @@ class NewBand extends React.Component {
   constructor() {
     super();
 
+    //local state variables
     this.state = {
      bandName: "",
      country: "",
      bandLogo: "",
-     Nsfw: "",
-
-     chkbox: false
+     nsfw: false,
     };
   }
 
+  //handles submit when clicked button ADD BAND:
   handleSubmit = async event => {
     event.preventDefault();
 
-    const { username, email,name, phoneNumber, password, confirmPassword, formedIn } = this.state;
+    const { bandName, country, bandLogo, nsfw } = this.state;
+    alert("Create a band:");
+    alert(bandName);
+    alert(country);
+    alert(bandLogo);
+    alert("nsfw:"+nsfw);
 
-    if (password !== confirmPassword) {
-      alert("Passwords don't match");
-      return;
-    }
-    if(!username || !email || !name)
-    {
-      alert("Neccessary fields not filled!");
-      return;
-    }
-    try {
-
-      // SIGN UP CODE GOES HERE
-
-      this.setState({
-        username: '',
-        email: '',
-        name: '',
-        phoneNumber: '',
-        password: '',
-        confirmPassword: '',
-        formedIn: ''
-      });
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  handleChange = event => {
-    const {bandName, country, bandLogo, nsfw} = event.target;
-
-    if (nsfw == true)
-    {
-      this.setState({ bandName:bandName,country:country,bandLogo:bandLogo, nsfw:false });
-    }else
-    {
-      this.setState({ bandName:bandName,country:country,bandLogo:bandLogo, nsfw:true });
-    }
-   
-  };
-
-  onClickHandler = () =>
-  {
-    const {bandName, country, bandLogo, nsfw} = this.state;
-    //upload stuff to create a band.
-   
+    //component connection for creating band:->
+    
   }
 
+  //handles user input from render: 
+  handleChange = event => {
+    const { value, name, defaultChecked } = event.target;
+    this.setState({ [name]: value });
+    
+  };
+
+  //if user change checkbox, state update:
+  toggleChange = () => {
+      this.setState({
+        nsfw: !this.state.nsfw,
+      });
+  };
+
+  //Render:
   render() {
-    const {bandName, country, bandLogo, nsfw} = this.state;
+    const {bandName, country, bandLogo, chkbox, nsfw} = this.state;
     return (
       <div className='container'>
         <div className='new-band'>
@@ -115,25 +93,26 @@ class NewBand extends React.Component {
 
 
               <div className='right-side'>
-                  <label for="Band logo">Band Logo: {req}</label>
+                  <label for="Bandlogo">Band Logo: {req}</label>
                   <FormInput
                     type='text'
-                    name='bandlogo'
-                    id='Bandlogo'
+                    name='bandLogo'
+                    id='bandLogo'
                     value={bandLogo}
                     onChange={this.handleChange}
-                    placeholder='Upload a picture for the band logo'
+                    placeholder=''
                     required
                   />
                   <form>
                     <p>NSFW:{req}</p>
                     <div class="switch">	
                         <input type="checkbox" 
-                        defaultChecked={this.state.chkbox}
-                        value="None" 
-                        id="switch" 
-                        name="check" 
-                        onChange={this.handleChange}/>
+                        name="nsfw" 
+                        id="switch"
+                        value={nsfw} 
+                        defaultChecked={nsfw}
+                        checked={nsfw}
+                        onChange={this.toggleChange}/>
                         <label for="switch"></label>
                     </div>
                   </form>
@@ -141,7 +120,7 @@ class NewBand extends React.Component {
                       <Link to = "/profile" className='button'>
                         <CustomButton> Cancel </CustomButton>
                       </Link>
-                      <SubmitButton type='submit' onClick = {this.onClickHandler}> Add Band </SubmitButton>
+                      <SubmitButton type='submit' > Add Band </SubmitButton>
                   </div>
                 </div>
               </div>
