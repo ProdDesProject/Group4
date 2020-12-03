@@ -5,7 +5,7 @@ import CustomButton from '../../components/custom-button/custom-button.component
 import ReactPlayer from "react-player";
 
 import checkUploadData from '../../services/check-upload-data-service';
-import uploadData from '../../services/upload-mp3-jpg-service' 
+import uploadData from '../../services/pictures-mp3/upload-mp3-jpg-service' 
 import createFolders from '../../services/create-folders-for-upload-servise'
 
 import './mp3.styles.scss';
@@ -52,23 +52,6 @@ class Mp3_upload extends Component {
   //Clickhandler:
   onClickHandler = async () => 
   {
-
-    async function postmethod(data)
-    {
-      var FormData = data;
-
-      const requestOptions = 
-      {
-        method: 'POST',
-        //headers: { 'Content-Type': '' },
-        body: FormData
-      }
-  
-      const response =  await fetch('http://localhost:9000/upload/mp3byfile',requestOptions)
-      const data2 = await response;
-      
-    }
-
     //checkResult can be 200 or 400
     var checkResult = await checkUploadData(this.state.selectedFileName);
 
@@ -78,7 +61,6 @@ class Mp3_upload extends Component {
     {
       const data = new FormData();
       data.append('testFile', this.state.selectedFile);
-      //postmethod(data);
       alert("toimii");
 
       //need these here!:

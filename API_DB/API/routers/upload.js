@@ -14,7 +14,7 @@ const router = express.Router();
 const { checkServerIdentity } = require('tls');
 
 var musicpath = '../uploads/music/';
-var imagepath = '../uploads/pictures/';
+var imagePathBands = '../uploads/bands/';
 
 var musicpath2 = '../uploads/music/Pyry Viirret - Classics covered';
 var imagepath2 = '../uploads/pictures/Pyry Viirret - Classics covered pictures';
@@ -70,7 +70,9 @@ router.get('/', (req, res) => {
 
 //works
 router.get('/imagepath.png/:band/:image', function (req, res) {
-  res.sendFile(path.join(__dirname, imagepath, req.params.band, req.params.image));
+  console.log(req.params.band);
+  console.log(req.params.image);
+  res.sendFile(path.join(__dirname, imagePathBands,req.params.band,req.params.image));
 });
 
 router.get('/mp3path.mp3/:band/:song', function (req, res) {
