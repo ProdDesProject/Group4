@@ -15,13 +15,12 @@ class NewBand extends React.Component {
     super();
 
     this.state = {
-      username: '',
-      email: '',
-      name: '',
-      phoneNumber: '',
-      password: '',
-      confirmPassword: '',
-      formedIn: ''
+     bandName: "",
+     country: "",
+     bandLogo: "",
+     Nsfw: "",
+
+     chkbox: false
     };
   }
 
@@ -58,63 +57,27 @@ class NewBand extends React.Component {
   };
 
   handleChange = event => {
-    const { name, value } = event.target;
+    const {bandName, country, bandLogo, nsfw} = event.target;
 
-    this.setState({ [name]: value });
+    if (nsfw == true)
+    {
+      this.setState({ bandName:bandName,country:country,bandLogo:bandLogo, nsfw:false });
+    }else
+    {
+      this.setState({ bandName:bandName,country:country,bandLogo:bandLogo, nsfw:true });
+    }
+   
   };
 
   onClickHandler = () =>
   {
-
-    async function postmethod(data)
-    {
-      var FormData = data;
-
-      const requestOptions = 
-      {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(FormData)
-      }
-  
-      const response =  await fetch('http://localhost:9000/users/createuser',requestOptions)
-      const data2 = await response.json();
-      
-      //useless stuff that doesn't run
-
-      alert(stringify(data2));
-
-      this.setState(data2);
-
-      switch (data2)
-      {
-          case '404': alert('not found'); break;
-          case '400': alert('bad request'); break;
-          case '200': alert('done'); break;
-          default: alert('something went wrong');
-      }
-      
-    }
-
-    const data = new FormData();
-    var object = 
-    {
-      "username": this.state.username, 
-      "password": this.state.password,
-      "name": this.state.name, 
-      "email": this.state.email, 
-      "phoneNumber": this.state.phoneNumber,
-      "usersToken": null
-    };
-
-    postmethod(object);
-
-    //alert object
-    //alert(stringify(object));
+    const {bandName, country, bandLogo, nsfw} = this.state;
+    //upload stuff to create a band.
+   
   }
 
   render() {
-    const { username, email,name, phoneNumber, password, confirmPassword, formedIn } = this.state;
+    const {bandName, country, bandLogo, nsfw} = this.state;
     return (
       <div className='container'>
         <div className='new-band'>
@@ -128,9 +91,9 @@ class NewBand extends React.Component {
                     <label for="bandName">Band Name: {req}</label>
                     <FormInput
                       type='text'
-                      name='username'
+                      name='bandName'
                       id='bandName'
-                      value={username}
+                      value={bandName}
                       onChange={this.handleChange}
                       placeholder=""
                       maxLength='30'
@@ -138,10 +101,10 @@ class NewBand extends React.Component {
                     />
                     <label for="country">Country of Origin: {req}</label>
                     <FormInput
-                      type='email'
-                      name='email'
+                      type='text'
+                      name='country'
                       id='country'
-                      value={email}
+                      value={country}
                       onChange={this.handleChange}
                       placeholder=""
                       maxLength='30'
@@ -152,20 +115,21 @@ class NewBand extends React.Component {
 
 
               <div className='right-side'>
-                  <label for="AlbumLogo">Band Logo: {req}</label>
+                  <label for="Band logo">Band Logo: {req}</label>
                   <FormInput
                     type='text'
-                    name='albumLogo'
-                    id='AlbumLogo'
-                    value={formedIn}
+                    name='bandlogo'
+                    id='Bandlogo'
+                    value={bandLogo}
                     onChange={this.handleChange}
-                    placeholder='Upload a picture for the album logo'
+                    placeholder='Upload a picture for the band logo'
                     required
                   />
                   <form>
-                    <p>NSFW: {req}</p>
+                    <p>NSFW:{req}</p>
                     <div class="switch">	
                         <input type="checkbox" 
+                        defaultChecked={this.state.chkbox}
                         value="None" 
                         id="switch" 
                         name="check" 

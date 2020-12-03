@@ -10,6 +10,7 @@
     "@testing-library/user-event": "^12.2.2",
     "axios": "^0.21.0",
     "base-64": "^1.0.0",
+    "bootstrap": "^4.5.3",
     "chat-engine": "^0.9.21",
     "chat-engine-open-graph": "0.0.4",
     "collection-visit": "^1.0.0",

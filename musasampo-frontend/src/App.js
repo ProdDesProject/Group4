@@ -3,7 +3,7 @@ import { Switch, Route } from 'react-router-dom';
 import HomePage from './pages/home-page/home-page.component';
 import ShopPage from './pages/shop-page/shop-page.component';
 
-import Mp3 from './pages/mp3-upload/mp3.component';
+import Mp3 from './components/mp3-upload/mp3.component';
 
 import ChatPage from './pages/chat/chat.component';
 import GuitarOverview from './pages/guitartuner-page/guitartuner-page.component';

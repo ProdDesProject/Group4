@@ -5,7 +5,6 @@ import { withRouter } from 'react-router-dom';
 import './home-page.styles.scss';
 import { stringify } from 'querystring';
 import Header from '../../components/header/header.component';
-import Mp3 from '../mp3-upload/mp3.component';
 import logo from '../../assets/logo.png';
 
 import Data from '../../components/data/data.jsx';
