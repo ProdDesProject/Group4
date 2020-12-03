@@ -36,7 +36,10 @@ class NewBand extends React.Component {
     alert("nsfw:"+nsfw);
 
     //component connection for creating band:->
-    
+
+     //Back to profile-page:
+     this.props.history.push('/profile');
+
   }
 
   //handles user input from render: 
