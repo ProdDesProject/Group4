@@ -1,12 +1,17 @@
 
 import React from 'react';
 
-import ALBUMS from '../../data/albums';
-import BANDS from '../../data/bands';
+//import ALBUMS from '../../data/albums';
+//import BANDS from '../../data/bands';
 
 import SearchBox from '../../components/search-box/search-box.component';
 import AlbumItem from '../../components/album-item/album-item.component';
 import BandItem from '../../components/band-item/band-item.component';
+
+import getAlbums from '../../services/album/albums-in-service.js';
+import getBands from '../../services/band/get-band-service.js';
+
+import { stringify } from 'querystring';
 
 import './search.styles.scss';
 
@@ -24,9 +29,19 @@ class Search extends React.Component {
     }
 
     /* add all albums from data to array  */
-    componentDidMount() {
-        this.setState({ albums: ALBUMS });
-        this.setState({ bands: BANDS })
+    async componentDidMount() {
+
+        let ALBUMS = await getAlbums();
+        ALBUMS = await ALBUMS.json();
+
+        let BANDS = await getBands();
+        BANDS = await BANDS.json();
+
+        this.setState({ albums: ALBUMS.albums });
+        this.setState({ bands: BANDS.bands });
+
+        //alert(BANDS.bands[0].bandName);
+        //alert(ALBUMS.albums);
     }
 
     /* change search field state to search field input  */

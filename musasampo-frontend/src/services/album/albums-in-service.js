@@ -1,5 +1,5 @@
 //fetch bands from backend
-export async function fetchBands()
+export default async function fetchBands()
 {
     //fetch for checkuser2 and get a response
     const albumsResponse = await fetch('http://localhost:9000/albums')
