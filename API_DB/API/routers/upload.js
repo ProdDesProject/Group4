@@ -68,11 +68,19 @@ router.get('/', (req, res) => {
     res.send("Only POST method accepted with multipart file");
 })
 
-//works
+//BANDS
 router.get('/imagepath.png/:band/:image', function (req, res) {
   console.log(req.params.band);
   console.log(req.params.image);
   res.sendFile(path.join(__dirname, imagePathBands,req.params.band,req.params.image));
+});
+
+//BANDS/ALBUM/
+router.get('/imagepath.png/album/:band/albums/:image', function (req, res) {
+  console.log(req.params.band);
+  console.log(req.params.image);
+  var bands = "albums";
+  res.sendFile(path.join(__dirname, imagePathBands,req.params.band,bands,req.params.image));
 });
 
 router.get('/mp3path.mp3/:band/:song', function (req, res) {
