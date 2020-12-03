@@ -1,22 +1,16 @@
 const express = require('express');
-var bodyParser = require('body-parser')
-const bcrypt = require('bcryptjs');
 let router = express.Router();
-
 const db = require('./db');
-
-const passport = require('passport');
-const BasicStrategy = require('passport-http').BasicStrategy;
 
 /**
  * USERS-search methods
  * 
  */
 
+ //GET-method for searching user by userId:
 router
 .route('/users/userId/:userId')
 .get((req,res) => {
-    
     db.query('SELECT * FROM users WHERE userId =?',[req.params.userId]).then(results => {
         res.json({results});
         console.log(results);
@@ -24,13 +18,9 @@ router
         .catch(() => {
             res.sendStatus(500);
         })
-    /*let dateofposting2 = req.params;
-    console.log(dateofposting2.dateofposting)
-    var result = ItemsData.filter(obj => obj.dateofposting === parseInt(dateofposting2.dateofposting))
-    console.log(result)
-    res.json({result});*/
 })
 
+//GET-method for searching user by username:
 router
 .route('/users/username/:username')
 .get((req,res) => {
@@ -42,13 +32,12 @@ router
         .catch(() => {
             res.sendStatus(500);
         })
-    /*let dateofposting2 = req.params;
-    console.log(dateofposting2.dateofposting)
-    var result = ItemsData.filter(obj => obj.dateofposting === parseInt(dateofposting2.dateofposting))
-    console.log(result)
-    res.json({result});*/
 })
 
+//GET-method for searching user by password:
+
+//Password is hashed so doesnt work without hashing req.params.password too
+//NOTWORKING
 router
 .route('/users/password/:password')
 .get((req,res) => {
@@ -60,14 +49,9 @@ router
         .catch(() => {
             res.sendStatus(500);
         })
-    /*let dateofposting2 = req.params;
-    console.log(dateofposting2.dateofposting)
-    var result = ItemsData.filter(obj => obj.dateofposting === parseInt(dateofposting2.dateofposting))
-    console.log(result)
-    res.json({result});*/
 })
 
-
+//GET-method for searching user by name:
 router
 .route('/users/name/:name')
 .get((req,res) => {
@@ -79,13 +63,9 @@ router
         .catch(() => {
             res.sendStatus(500);
         })
-    /*let dateofposting2 = req.params;
-    console.log(dateofposting2.dateofposting)
-    var result = ItemsData.filter(obj => obj.dateofposting === parseInt(dateofposting2.dateofposting))
-    console.log(result)
-    res.json({result});*/
 })
 
+//GET-method for searching user by email:
 router
 .route('/users/email/:email')
 .get((req,res) => {
@@ -97,13 +77,9 @@ router
         .catch(() => {
             res.sendStatus(500);
         })
-    /*let dateofposting2 = req.params;
-    console.log(dateofposting2.dateofposting)
-    var result = ItemsData.filter(obj => obj.dateofposting === parseInt(dateofposting2.dateofposting))
-    console.log(result)
-    res.json({result});*/
 })
 
+//GET-method for searhing user by phoneNumber:
 router
 .route('/users/phoneNumber/:phoneNumber')
 .get((req,res) => {
@@ -115,13 +91,10 @@ router
         .catch(() => {
             res.sendStatus(500);
         })
-    /*let dateofposting2 = req.params;
-    console.log(dateofposting2.dateofposting)
-    var result = ItemsData.filter(obj => obj.dateofposting === parseInt(dateofposting2.dateofposting))
-    console.log(result)
-    res.json({result});*/
 })
 
+//GET-method for searching by category,searchOption and searchValue:
+//NEEDMOREWORK
 router
 .route('/fromAll/:category/:searchOption/:searchValue')
 .get((req, res) => 
@@ -134,15 +107,14 @@ router
     {
         if(searchOption == 'name')
         {
-            if (searchValue == 'Taneli')
-            {
-                db.query('SELECT * FROM users WHERE name = ?' ,[req.params.searchValue]).then(results => {
-                    res.json({results});
-                    console.log(results);
-                    })
-                    .catch(() => {
-                        res.sendStatus(500);
-                    })
+            
+            db.query('SELECT * FROM users WHERE name = ?' ,[req.params.searchValue]).then(results => {
+                res.json({results});
+                console.log(results);
+                })
+                .catch(() => {
+                    res.sendStatus(500);
+                });
 
                 /*db.query('SELECT * FROM '+ category +' WHERE '+ searchOption +'= ?' ,[req.params.searchValue]).then(results => {
                     res.json({results});
@@ -151,7 +123,7 @@ router
                     .catch(() => {
                         res.sendStatus(500);
                     })*/
-            }
+            
         }
     }
 });
