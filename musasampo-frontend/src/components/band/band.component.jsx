@@ -11,111 +11,109 @@ import './band.styles.scss';
 import BANDS from '../../data/bands';
 
 function TabPanel(props) {
-    const { children, value, index, ...other } = props;
-  
-    return (
-      <div
-        role="tabpanel"
-        hidden={value !== index}
-        id={`simple-tabpanel-${index}`}
-        aria-labelledby={`simple-tab-${index}`}
-        {...other}
-      >
-        {value === index && (
-          <Box p={3}>
-            <Typography>{children}</Typography>
-          </Box>
-        )}
-      </div>
-    );
-  }
-  
-  TabPanel.propTypes = {
-    children: PropTypes.node,
-    index: PropTypes.any.isRequired,
-    value: PropTypes.any.isRequired,
+  const { children, value, index, ...other } = props;
+
+  return (
+    <div
+      role="tabpanel"
+      hidden={value !== index}
+      id={`simple-tabpanel-${index}`}
+      aria-labelledby={`simple-tab-${index}`}
+      {...other}
+    >
+      {value === index && (
+        <Box p={3}>
+          <Typography>{children}</Typography>
+        </Box>
+      )}
+    </div>
+  );
+}
+
+TabPanel.propTypes = {
+  children: PropTypes.node,
+  index: PropTypes.any.isRequired,
+  value: PropTypes.any.isRequired,
+};
+
+function a11yProps(index) {
+  return {
+    id: `simple-tab-${index}`,
+    'aria-controls': `simple-tabpanel-${index}`,
   };
-  
-  function a11yProps(index) {
-    return {
-      id: `simple-tab-${index}`,
-      'aria-controls': `simple-tabpanel-${index}`,
-    };
-  }
+}
 
-  export default function SimpleTabs(props) {
+export default function SimpleTabs(props) {
 
-    const bandId = props.match.params.bandId;
-    //console.log(bandId);
-    const bands = BANDS;
-    const bands2 = bands
-      .filter(band => band.bandId == bandId)
-      
-  
-      console.log(JSON.stringify(bands2[0].bandName));
-  
-  
+  const bandId = props.match.params.bandId;
+  //console.log(bandId);
+  const bands = BANDS;
+  const bands2 = bands
+    .filter(band => band.bandId == bandId)
+
+
+  console.log(JSON.stringify(bands2[0].bandName));
 
 
 
-    //const classes = useStyles();
-    const [value, setValue] = React.useState(0);
-  
-    const handleChange = (event, newValue) => {
-      setValue(newValue);
-    };
-  
-    return (
-        <div className='band-page'>
 
-            <div className='title'>
-              {bands2[0].bandName}
-            </div>
 
-        <div className='description'>
-             <div className='descriptor'>
-                <dt>Country of origin:</dt>
-                {/*<dt>Location:</dt>
+  //const classes = useStyles();
+  const [value, setValue] = React.useState(0);
+
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
+  };
+
+  return (
+    <div className='band-page'>
+
+      <div className='title'>
+        {bands2[0].bandName}
+      </div>
+
+      <div className='description'>
+        <div className='descriptor'>
+          <dt>Country of origin:</dt>
+          {/*<dt>Location:</dt>
                 <dt>Status:</dt>*/}
-                <dt>Formed in:</dt>
-                {/*<dt>Years active:</dt>
+          <dt>Formed in:</dt>
+          {/*<dt>Years active:</dt>
                 <dt>Genres:</dt>
                 <dt>Lyrical themes:</dt>
                 <dt>Current label</dt>*/}
-            </div>
+        </div>
 
-            <div className='infotext'>
-                <dt>{bands2[0].countryOfOrigin}</dt>
-                {/*<dt>{bands2[0].bandLocation}</dt>
+        <div className='infotext'>
+          <dt>{bands2[0].countryOfOrigin}</dt>
+          {/*<dt>{bands2[0].bandLocation}</dt>
                 <dt>{bands2[0].bandStatus}</dt>*/}
-                <dt>{bands2[0].formedIn}</dt>
-                {/*<dt>{bands2[0].yearsActive}</dt>
+          <dt>{bands2[0].formedIn}</dt>
+          {/*<dt>{bands2[0].yearsActive}</dt>
                 <dt>{bands2[0].bandGenres}</dt>
                 <dt>{bands2[0].lyricalThemes}</dt>
                 <dt>{bands2[0].currentLabel}</dt>*/}
-            </div>
         </div>
+      </div>
 
-        <div className='bandLogo'>
-              <img className='img' src={bands2[0].bandLogo} />
-            </div>
-            {/*<div className='bandImage'>
+      <div className='container10'>
+        {/*<div className='bandImage'>
               <img className='img' src={bands2[0].bandImage} />
             </div>*/}
 
-            <div className='tabpanel1'>
-                <AppBar position="static">
-                <Tabs className='tabs' value={value} onChange={handleChange}
-                TabIndicatorProps={{style: { background: "#32e0c4", background: "#32e0c4", height: "4px"}}}>
-                    <Tab className='tab-name' label="Discography" {...a11yProps(0)} />
-                    {/*<Tab className='tab-name' label="Members" {...a11yProps(1)} />
+        <div className='tabpanel1'>
+          <AppBar position="static">
+            <Tabs className='tabs' value={value} onChange={handleChange}
+              TabIndicatorProps={{ style: { background: "#32e0c4", background: "#32e0c4", height: "4px" } }}>
+              <Tab className='tab-name' label="Discography" {...a11yProps(0)} />
+              {/*<Tab className='tab-name' label="Members" {...a11yProps(1)} />
                     <Tab className='tab-name' label="Description" {...a11yProps(2)} />*/}
-                </Tabs>
-                </AppBar>
-                <TabPanel className='panel-content' value={value} index={0}>
-                  {bands2[0].albums}
-                </TabPanel>
-                {/*<TabPanel className='panel-content' value={value} index={1}>
+            </Tabs>
+          </AppBar>
+          <TabPanel className='panel-content' value={value} index={0}>
+            {bands2[0].albums}
+          </TabPanel>
+          {/*<TabPanel className='panel-content' value={value} index={1}>
                   {bands2[0].members}
                 </TabPanel>
                 <TabPanel className='panel-content' value={value} index={2}>
@@ -136,7 +134,13 @@ function TabPanel(props) {
                 Donec id dolor porta, sollicitudin tortor vitae, cursus nisl. Curabitur maximus nibh eget finibus suscipit. Praesent quis tempor turpis, sit amet cursus diam. Praesent faucibus purus non ante elementum venenatis. 
                 Donec lorem metus, ornare ut nibh et, cursus faucibus nulla. Morbi mauris magna, eleifend eget eleifend in, elementum at turpis. Donec nec dapibus sem, in scelerisque urna.
                 </TabPanel>*/}
-            </div>
+        </div>
+
+        <div className='bandLogo'>
+          <img className='img' src={bands2[0].bandLogo} />
+        </div>
+        
       </div>
-    );
-  }
+    </div>
+  );
+}

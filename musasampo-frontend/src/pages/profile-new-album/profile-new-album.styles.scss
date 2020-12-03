@@ -9,12 +9,9 @@ $main-light-color: #393e46;
 
 .container {
     width: 95%;
-    input[type=checkbox] {
-        visibility: hidden;
-    }
 
     .new-album {
-        width: 450px;
+        width: 400px;
         display: flex;
         flex-direction: column;
         margin: auto;

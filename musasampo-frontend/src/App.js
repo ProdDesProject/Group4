@@ -16,7 +16,7 @@ import AlbumComponent from './components/album/album.component';
 import Header from './components/header/header.component';
 import LoginPage from './pages/sign-in-and-sign-up/sign-in-and-sign-up.component';
 
-import Profile from './pages/profile/profile.component';
+import ProfilePage from './pages/profile/profile.component';
 import ProfileEdit from './pages/profile-edit/profile-edit.component';
 import ProfileChangePassword from './pages/profile-change-password/profile-change-password.component';
 import NewBand from './pages/profile-new-band/profile-new-band.component';
@@ -57,7 +57,7 @@ class App extends React.Component {
                       <Route exact path='/shop' component={ShopPage} />
                       <Route exact path='/search' component={SearchPage} />
 
-                      <Route exact path='/profile' component={Profile} />
+                      <Route exact path='/profile' component={ProfilePage} />
                       <Route exact path='/profile/edit' component={ProfileEdit} />
                       <Route exact path='/profile/password' component={ProfileChangePassword} />
                       <Route exact path='/profile/newband' component={NewBand} />
