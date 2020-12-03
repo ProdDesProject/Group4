@@ -1,27 +1,22 @@
 import React , { Component,Fragment, useState } from 'react';
 
-import axios from 'axios';
-
 import FormInput from '../../components/form-input/form-input.component';
 import CustomButton from '../../components/custom-button/custom-button.component';
 import ReactPlayer from "react-player";
-
-import HomePage from '../home-page/home-page.component';
 
 import checkUploadData from '../../services/check-upload-data-service';
 import uploadData from '../../services/upload-mp3-jpg-service' 
 import createFolders from '../../services/create-folders-for-upload-servise'
 
-import { withRouter} from 'react-router-dom';
 import './mp3.styles.scss';
 import { saveAs } from 'file-saver';
-import logo from '../../assets/bandpic1.png';
 import { stringify } from 'querystring';
 
 var fs = require('fs'),
 request = require('request');
 
 var base64 = require('base-64');
+
 
 class Mp3_upload extends Component {
   constructor(props) {
@@ -37,6 +32,8 @@ class Mp3_upload extends Component {
 
   //Handles changes on upload realtime:
   handleChange = event => {
+
+    const fileUploaded = event.target.files[0];
     
     //save file
     this.setState({ selectedFile: event.target.files[0],
@@ -56,7 +53,7 @@ class Mp3_upload extends Component {
   onClickHandler = async () => 
   {
 
-    /*async function postmethod(data)
+    async function postmethod(data)
     {
       var FormData = data;
 
@@ -70,7 +67,7 @@ class Mp3_upload extends Component {
       const response =  await fetch('http://localhost:9000/upload/mp3byfile',requestOptions)
       const data2 = await response;
       
-    }*/
+    }
 
     //checkResult can be 200 or 400
     var checkResult = await checkUploadData(this.state.selectedFileName);
@@ -98,36 +95,15 @@ class Mp3_upload extends Component {
     
   }
 
-  /**
-   * RENDER
-   * 
-   *      
-    </div >
-       
-        <img src="http://localhost:9000/upload/imagepath.png/bandpic1.png" alt="bandpic1" width="200" height="200"></img>
-        <div>
-
-        <div>
-          <ReactPlayer
-            url="http://localhost:9000/upload/mp3path.mp3/Hurt.mp3"
-            width="400px"
-            height="50px"
-            playing={false}
-            controls={true}
-          />
-        </div>
-   */
-
   render() {
     return (
-      <div className="App">
-      <header className="App-header">
+      <div className="btn btn-secondary btn-sm">
+      <header className="">
         < div >
-   
 
         <form enctype="multipart/form-data">
-          <input type = "file" name="file" id="file" accept = ".mp3" onChange={this.handleChange}/>
-          <input type = "button" value = "Click to upload!" name = "button" onClick = {this.onClickHandler}/>
+          <input type = "file"  name="file" id="file" accept = ".mp3" onChange={this.handleChange} />
+          <input type = "button" value = "Click to upload!" name = "button" onClick = {this.onClickHandler} className="btn btn-primary btn-sm"/>
         </form>
 
         </div>
@@ -138,5 +114,6 @@ class Mp3_upload extends Component {
   }
 }
 
-//export default withRouter(Mp3_upload);
 export default Mp3_upload;
+
+
