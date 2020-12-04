@@ -11,10 +11,6 @@ import BandItem from '../../components/band-item/band-item.component';
 import getAlbums from '../../services/album/albums-in-service.js';
 import getBands from '../../services/band/get-band-service.js';
 
-import getPictures from '../../services/pictures-mp3/get-pictures-service.js';
-
-import { stringify } from 'querystring';
-
 import './search.styles.scss';
 
 {/* Search page */ }
@@ -46,44 +42,35 @@ class Search extends React.Component {
         var BandsAndPictures = [];
         BandsAndPictures = BANDS.bands;
 
+        var AlbumsAndPictures = [];
+        AlbumsAndPictures = ALBUMS.albums;
+
         //Get url for getting picture for bands
         for (var i=0;i<BANDS.bands.length;i++)
         {
             var url = 'http://localhost:9000/upload/imagepath.png/'+BANDS.bands[i].bandName+'/'+ BANDS.bands[i].bandLogo;
             //Save url to array:
             BandsAndPictures[i].bandLogo = url;
-
         };
-        //update this.state.bands
-        this.setState({ bands: BandsAndPictures });
-
-        var AlbumsAndPictures = [];
-        AlbumsAndPictures = ALBUMS.albums;
 
          //Get url for getting picture for albums
         for (var i=0;i<ALBUMS.albums.length;i++)
         {
             ///imagepath.png/album/:band/albums/:image
-            var url = 'http://localhost:9000/upload/imagepath.png/album/'+ BANDS.bands[i].bandName+'/albums/'+ ALBUMS.albums[i].albumPicture;
+            var url = 'http://localhost:9000/upload/imagepath.png/'+ BANDS.bands[i].bandName+'/albums/'+ALBUMS.albums[i].albumPicture;
             //Save url to array:
             AlbumsAndPictures[i].albumPicture = url;
-
         };
-        //update this.state.bands
-        this.setState({ albums: AlbumsAndPictures });
-        
-        /*alert(this.state.bands[0].bandLogo);
-        alert(this.state.bands[1].bandLogo);
-        alert(this.state.bands[2].bandLogo);
-        alert(this.state.bands[3].bandLogo);
-        alert(this.state.bands[4].bandLogo);*/
 
-        alert(this.state.albums[0].albumPicture);
-        alert(this.state.albums[1].albumPicture);
-        alert(this.state.albums[2].albumPicture);
-        alert(this.state.albums[3].albumPicture);
-        alert(this.state.albums[4].albumPicture);
-    
+        //change albumName and bandName for page (%20 changes to spaces)
+        for (var i=0;i<ALBUMS.albums.length;i++)
+        {
+            AlbumsAndPictures[i].albumName = decodeURIComponent(AlbumsAndPictures[i].albumName);
+            BandsAndPictures[i].bandName = decodeURIComponent(BandsAndPictures[i].bandName);
+        };
+
+        this.setState({ bands: BandsAndPictures });
+        this.setState({ albums: AlbumsAndPictures });
     }
 
     /* change search field state to search field input  */
