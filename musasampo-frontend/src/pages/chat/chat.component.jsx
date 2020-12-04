@@ -13,6 +13,8 @@ import USERS_DATA from './users.data.js';
 
 import './chat.styles.scss';
 
+const functions = require('./script.js');
+
 class ChatPage extends React.Component {
     constructor() {
         super();
@@ -29,6 +31,7 @@ class ChatPage extends React.Component {
     /* add all albums from data to array  */
     componentDidMount() {
         this.setState({ users: USERS_DATA });
+        functions.userExists(this.state.userName);
     }
 
     /* change search field state to search field input  */
