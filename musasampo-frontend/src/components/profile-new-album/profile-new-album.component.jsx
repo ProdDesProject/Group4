@@ -53,7 +53,7 @@ class NewAlbum extends React.Component {
                         maxLength='30'
                         required
                         />
-                      <label for="postingDate">Release Date(dd/mm/yyyy): {req}</label>
+                      <label for="postingDate">Release Date (dd/mm/yyyy): {req}</label>
                       <FormInput
                         type='text'
                         name='postingDate'
