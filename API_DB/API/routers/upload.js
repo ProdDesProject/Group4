@@ -11,6 +11,7 @@ const multerUpload2 = multer({ dest: 'uploads/pictures/' });
 const multerUploadBands = multer({ dest: 'uploads/bands/' });
 
 
+
 var mkdirp = require('mkdirp');
 
 const router = express.Router();
@@ -104,6 +105,7 @@ router.get('/imagepath.png/:band/albums/:image', function (req, res)
 });
 
 //POST-method for checking uploading information and filenametesting
+//TESTED AND WORKS ON POSTMAN:
 router.post('/checkData', function (req, res) {
 
   var data = req.body.data;
@@ -124,6 +126,7 @@ router.post('/checkData', function (req, res) {
 });
 
 //POST-method for creating folders for uploading images and music, Needs to make routing and folders ready before upload!!:
+//TESTED AND WORKD ON POSTMAN
 router.post('/createFoldersForUpload', function (req, res) {
 
   async function createFolders(name)
@@ -131,21 +134,23 @@ router.post('/createFoldersForUpload', function (req, res) {
       if (name === "bands")
       {
          //Paths for creating folders:
-        let path = "./uploads/bands/"+req.body.bandName;
-        let path2 = "./uploads/bands/"+req.body.bandName+"/albums"
+        var path = "./uploads/bands/"+req.body.bandName;
+        var path2 = "./uploads/bands/"+req.body.bandName+"/albums"
       
         //Create folder by bandName and inside music and pictures:
-        await fs.mkdirSync(path, { recursive: true });
-        await fs.mkdirSync(path2, { recursive: true });
+        fs.mkdirSync(path, { recursive: true });
+        fs.mkdirSync(path2, { recursive: true });
       }
 
       if (name === "albums")
       {
+        console.log("albums");
+        console.log(req.body.bandName+req.body.albumName);
         //Paths for creating folders:
-        let path = "./uploads/bands/"+req.body.bandName+"/albums/"+req.body.albumName;
+        var path = "./uploads/bands/"+req.body.bandName+"/albums/"+req.body.albumName;
 
         //Create folder by bandName and inside music and pictures:
-        await fs.mkdirSync(path, { recursive: true });
+        fs.mkdirSync(path, { recursive: true });
       }
      
     }
@@ -160,24 +165,25 @@ router.post('/createFoldersForUpload', function (req, res) {
     albumName: req.body.albumName,
   };
 
-  if (bandObj.bandName != undefined)
+  if (req.body.bandName != undefined && req.body.albumName == undefined)
   {
     console.log("bandObj");
     createFolders("bands");
-    res.sendStatus(200);
+    res.send("200");
   }
 
-  if (albumObj.albumName != undefined)
+  if (req.body.bandName != undefined && req.body.albumName != undefined)
   {
     console.log("albumObj");
     createFolders("albums");
-    res.sendStatus(200);  
+    res.send("200");
   }
  
 });
 
 //Add a new mp3-file for music in albums, need params for bandName and AlbumName:
-router.post('/mp3byfile/:bandName/:albumName', multerUpload1.single('testFile'), (req, res) => {
+//WORKS ON POSTMAN:
+router.post('/mp3byfile/:bandName/:albumName', multerUploadBands.single('testFile'), (req, res) => {
   console.log("req.file:"+ req.file);
   
   var bandName = req.params.bandName;
@@ -192,7 +198,8 @@ router.post('/mp3byfile/:bandName/:albumName', multerUpload1.single('testFile'),
 });
 
 //Add a new picture for Band, need params for bandname:
-router.post('/addBandPicture/:bandName/', multerUpload2.single('testFile'), (req, res) => {
+//WORKS ON POSTMAN:
+router.post('/addBandPicture/:bandName/', multerUploadBands.single('testFile'), (req, res) => {
   console.log("req.file:"+ req.file);
 
   var bandName = req.params.bandName;
@@ -207,14 +214,15 @@ router.post('/addBandPicture/:bandName/', multerUpload2.single('testFile'), (req
 });
 
 //Add a new picture for album, need params for bandName and albumname:
-router.post('/addAlbumPicture/:bandName/:albumName', multerUpload2.single('testFile'), (req, res) => {
+//WORKS ON POSTMAN
+router.post('/addAlbumPicture/:bandName/:albumName', multerUploadBands.single('testFile'), (req, res) => {
   console.log("req.file:"+ req.file);
 
   var bandName = req.params.bandName;
   var albumName = req.params.albumName;
 
      //if albumPicture
-  fs.rename(req.file.path, './uploads/bands/'+ bandName+ '/' + albumName + '/' + req.file.originalname, function (err) {
+  fs.rename(req.file.path, './uploads/bands/'+ bandName+ '/albums/' + albumName + '/' + req.file.originalname, function (err) {
     if (err) throw err;
     console.log('renamed complete');
     res.send("Test");

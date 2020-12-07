@@ -9,11 +9,7 @@ import uploadData from '../../services/pictures-mp3/upload-mp3-jpg-service'
 import createFolders from '../../services/create-folders-for-upload-servise'
 
 import './mp3.styles.scss';
-import { saveAs } from 'file-saver';
 import { stringify } from 'querystring';
-
-var fs = require('fs'),
-request = require('request');
 
 var base64 = require('base-64');
 
@@ -22,9 +18,11 @@ class Mp3_upload extends Component {
   constructor(props) {
     super(props);
 
+    //this.state contains info for creating folders and uploading stuff. Stefan?
     this.state = {
       bandName: "Hiipparit",
       albumName: "Hiirialbum",
+      filetype: "mp3",
       selectedFile: null,
       selectedFileName: ""
     };
@@ -44,34 +42,39 @@ class Mp3_upload extends Component {
       loaded: 0,
       });
 
-    //alert(event.target.files[0]);
-    //alert(event.target.files[0].name);
   };
 
 
   //Clickhandler:
   onClickHandler = async () => 
   {
-    //checkResult can be 200 or 400
+    //checkResult for file name and datatype:
     var checkResult = await checkUploadData(this.state.selectedFileName);
 
-    alert("checkResult:"+checkResult);
-
+    //if 200:
     if (checkResult == "200")
     {
+      //append testFile and uploadData:
       const data = new FormData();
       data.append('testFile', this.state.selectedFile);
-      alert("toimii");
+      
+      //Create folders for upload:
+      var createFoldersresult = await createFolders(this.state.bandName,this.state.albumName);
 
-      //need these here!:
-      var bandName,albumName;
-
-      //now local state variables: need to get them from token
-      createFolders(this.state.bandName,this.state.albumName);
-      //uploadData(data,bandName,albumName);
+      //createFolders.result:
+      if (createFoldersresult == "200" && this.state.filetype == "mp3")
+      {
+        //Upload MP3-Data:
+        alert("uploadData:");
+        var result = await uploadData(data,this.state.bandName,this.state.albumName);
+        //alert(result);
+      }else
+      {
+        alert("Upload failed");
+      }
     }else
     {
-      alert("CheckResults went wrong, try again");
+      alert("CheckResults went wrong, try again!");
     }
    
     
