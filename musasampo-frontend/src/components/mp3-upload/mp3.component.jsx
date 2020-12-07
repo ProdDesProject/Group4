@@ -8,6 +8,7 @@ import createFolders from '../../services/create-folders-for-upload-servise'
 import './mp3.styles.scss';
 import { stringify } from 'querystring';
 import Music_player from '../music-player/music-player.component';
+import User_information from '../user-information/user-information.component';
 
 var base64 = require('base-64');
 
@@ -28,7 +29,6 @@ class Mp3_upload extends Component {
   //Handles changes on upload realtime:
   handleChange = event => 
   {
-    const fileUploaded = event.target.files[0];
     //save file
     this.setState({ selectedFile: event.target.files[0],
     loaded: 0,
@@ -60,7 +60,6 @@ class Mp3_upload extends Component {
       if (createFoldersresult == "200" && this.state.filetype == "mp3")
       {
         //Upload MP3-Data:
-        alert("uploadData:");
         var result = await uploadData(data,this.state.bandName,this.state.albumName);
       }else
       {
@@ -74,17 +73,19 @@ class Mp3_upload extends Component {
 
   render() {
     return (
-      <div className="btn btn-secondary btn-sm">
-      <header className="">
+      <div className="Main">
+      <header className="btn btn-secondary btn-sm">
         < div >
         <form enctype="multipart/form-data">
           <input type = "file"  name="file" id="file" accept = ".mp3" onChange={this.handleChange} />
           <input type = "button" value = "Click to upload!" name = "button" onClick = {this.onClickHandler} className="btn btn-primary btn-sm"/>
         </form>
         </div>
-
       </header>
+
+      <User_information/>
       </div>
+      
 
     
 
