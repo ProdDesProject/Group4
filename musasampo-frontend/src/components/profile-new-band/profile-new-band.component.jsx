@@ -3,6 +3,7 @@ import React from 'react';
 import FormInput from '../../components/form-input/form-input.component';
 import CustomButton from '../../components/custom-button/custom-button.component';
 import SubmitButton from '../../components/submit-button/submit-button.component';
+import Switch from '../../components/switch/switch.component';
 import { stringify } from 'querystring';
 import { Link } from 'react-router-dom';
 
@@ -66,67 +67,60 @@ class NewBand extends React.Component {
           <span className='subtitle'>Fill in information for your band</span>
           <br></br><br></br>
           <form className='sign-up-form' onSubmit={this.handleSubmit}>
-          <div className='sides'>
+            <div className='sides'>
 
-                <div className='left-side'>
-                    <label for="bandName">Band Name: {req}</label>
-                    <FormInput
-                      type='text'
-                      name='bandName'
-                      id='bandName'
-                      value={bandName}
-                      onChange={this.handleChange}
-                      placeholder=""
-                      maxLength='30'
-                      required
-                    />
-                    <label for="country">Country of Origin: {req}</label>
-                    <FormInput
-                      type='text'
-                      name='country'
-                      id='country'
-                      value={country}
-                      onChange={this.handleChange}
-                      placeholder=""
-                      maxLength='30'
-                      required
-                    />
-                </div>
-
-
+              <div className='left-side'>
+                <label for="bandName">Band Name: {req}</label>
+                <FormInput
+                  type='text'
+                  name='bandName'
+                  id='bandName'
+                  value={bandName}
+                  onChange={this.handleChange}
+                  placeholder=""
+                  maxLength='30'
+                  required
+                />
+                <label for="country">Country of Origin: {req}</label>
+                <FormInput
+                  type='text'
+                  name='country'
+                  id='country'
+                  value={country}
+                  onChange={this.handleChange}
+                  placeholder=""
+                  maxLength='30'
+                  required
+                />
+              </div>
 
               <div className='right-side'>
-                  <label for="Bandlogo">Band Logo: {req}</label>
-                  <FormInput
-                    type='text'
-                    name='bandLogo'
-                    id='bandLogo'
-                    value={bandLogo}
-                    onChange={this.handleChange}
-                    placeholder=''
-                    required
+                <label for="Band logo">Band Logo: {req}</label>
+                <FormInput
+                  type='text'
+                  name='bandlogo'
+                  id='Bandlogo'
+                  value={bandLogo}
+                  onChange={this.handleChange}
+                  placeholder='Upload a picture for the band logo'
+                  required
+                />
+                <form>
+                  <p>NSFW: {req}</p>
+                  <Switch
+                    value="None"
+                    id="switch"
+                    name="check"
                   />
-                  <form>
-                    <p>NSFW:{req}</p>
-                    <div class="switch">	
-                        <input type="checkbox" 
-                        name="nsfw" 
-                        id="switch"
-                        value={nsfw} 
-                        defaultChecked={nsfw}
-                        checked={nsfw}
-                        onChange={this.toggleChange}/>
-                        <label for="switch"></label>
-                    </div>
-                  </form>
-                  <div className='buttons'>
-                      <Link to = "/profile" className='button'>
-                        <CustomButton> Cancel </CustomButton>
-                      </Link>
-                      <SubmitButton type='submit' > Add Band </SubmitButton>
-                  </div>
+                </form>
+                <div className='buttons5'>
+                  <Link to="/profile" className='button'>
+                    <CustomButton> Cancel </CustomButton>
+                  </Link>
+                  <SubmitButton type='submit' onClick={this.onClickHandler}> Add Band </SubmitButton>
                 </div>
               </div>
+            </div>
           </form>
         </div>
       </div>
