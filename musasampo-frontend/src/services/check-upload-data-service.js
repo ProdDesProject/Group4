@@ -1,6 +1,9 @@
-//Check uploading data
 import { stringify } from 'querystring';
-//bandName,bandLogo,albumName,albumPicture,songName,MP3
+
+/** 
+ * Check uploading data for Image or Mp3. Needs to be check before uploading!:
+*/
+
 export default async function checkUploadData(data2)
 {   
     //req.body for fetch:

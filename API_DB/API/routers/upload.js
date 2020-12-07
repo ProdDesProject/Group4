@@ -17,7 +17,8 @@ var mkdirp = require('mkdirp');
 const router = express.Router();
 const { checkServerIdentity } = require('tls');
 
-var musicpath = '../uploads/music/';
+var basicPath = '../uploads/bands/';
+var musicpath = '../uploads/bands/';
 var imagePathBands = '../uploads/bands/';
 
 var musicpath2 = '../uploads/music/Pyry Viirret - Classics covered';
@@ -72,36 +73,24 @@ router.get('/', (req, res) => {
     res.send("Only POST method accepted with multipart file");
 })
 
-//GET-method: MP3
-router.get('/mp3path.mp3/:band/:song', function (req, res) {
-  res.sendFile(path.join(__dirname, musicpath, req.params.band, req.params.song));
+//GET-method: MP3 UPDATED:
+router.get('/mp3path.mp3/:bandName/:albumName/:song', function (req, res) {
+  res.sendFile(path.join(__dirname, basicPath, req.params.bandName,'albums',req.params.albumName, req.params.song));
   console.log();
 });
 
-router.get('/imagepath.png/:image', function (req, res) {
-  res.sendFile(path.join(__dirname, imagepath2, req.params.image));
+//GET-method for BandPicture:
+router.get('/imagepath.png/:bandName/:image', function (req, res) {
+  res.sendFile(path.join(__dirname, basicPath, req.params.bandName, req.params.image));
 });
 
-router.get('/mp3path.mp3/:song', function (req, res) {
-  res.sendFile(path.join(__dirname, musicpath2, req.params.song));
-  console.log();
-});
-
-//GET-method: BANDS route to bandImage:
-router.get('/imagepath.png/:band/:image', function (req, res) 
-{
-  console.log(req.params.band);
-  console.log(req.params.image);
-  res.sendFile(path.join(__dirname, imagePathBands,req.params.band,req.params.image));
-});
-
+//USED in search and shop-pages:
 //GET-method: BANDS/ALBUM/ route to albumImage;
 router.get('/imagepath.png/:band/albums/:image', function (req, res) 
 {
   console.log(req.params.band);
   console.log(req.params.image);
-  var bands = "albums";
-  res.sendFile(path.join(__dirname, imagePathBands,req.params.band,bands,req.params.image));
+  res.sendFile(path.join(__dirname, basicPath,req.params.band,"albums",req.params.image));
 });
 
 //POST-method for checking uploading information and filenametesting

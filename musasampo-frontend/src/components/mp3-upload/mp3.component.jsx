@@ -1,18 +1,15 @@
 import React , { Component,Fragment, useState } from 'react';
-
 import FormInput from '../../components/form-input/form-input.component';
 import CustomButton from '../../components/custom-button/custom-button.component';
 import ReactPlayer from "react-player";
-
 import checkUploadData from '../../services/check-upload-data-service';
-import uploadData from '../../services/pictures-mp3/upload-mp3-jpg-service' 
+import uploadData from '../../services/upload-mp3-service' 
 import createFolders from '../../services/create-folders-for-upload-servise'
-
 import './mp3.styles.scss';
 import { stringify } from 'querystring';
+import Music_player from '../music-player/music-player.component';
 
 var base64 = require('base-64');
-
 
 class Mp3_upload extends Component {
   constructor(props) {
@@ -29,10 +26,9 @@ class Mp3_upload extends Component {
   }
 
   //Handles changes on upload realtime:
-  handleChange = event => {
-
+  handleChange = event => 
+  {
     const fileUploaded = event.target.files[0];
-    
     //save file
     this.setState({ selectedFile: event.target.files[0],
     loaded: 0,
@@ -41,7 +37,6 @@ class Mp3_upload extends Component {
     this.setState({ selectedFileName: event.target.files[0].name,
       loaded: 0,
       });
-
   };
 
 
@@ -67,7 +62,6 @@ class Mp3_upload extends Component {
         //Upload MP3-Data:
         alert("uploadData:");
         var result = await uploadData(data,this.state.bandName,this.state.albumName);
-        //alert(result);
       }else
       {
         alert("Upload failed");
@@ -76,8 +70,6 @@ class Mp3_upload extends Component {
     {
       alert("CheckResults went wrong, try again!");
     }
-   
-    
   }
 
   render() {
@@ -85,15 +77,23 @@ class Mp3_upload extends Component {
       <div className="btn btn-secondary btn-sm">
       <header className="">
         < div >
-
         <form enctype="multipart/form-data">
           <input type = "file"  name="file" id="file" accept = ".mp3" onChange={this.handleChange} />
           <input type = "button" value = "Click to upload!" name = "button" onClick = {this.onClickHandler} className="btn btn-primary btn-sm"/>
         </form>
-
         </div>
+
       </header>
-    </div>
+      <Music_player/>
+      <Music_player/>
+      <Music_player/>
+      <Music_player/>
+      <Music_player/>
+      </div>
+
+    
+
+    
 
     );
   }
