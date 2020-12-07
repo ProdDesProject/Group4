@@ -18,7 +18,8 @@ const router = express.Router();
 const { checkServerIdentity } = require('tls');
 
 var basicPath = '../uploads/bands/';
-var musicpath = '../uploads/bands/';
+var userPath = '../uploads/Users/';
+
 var imagePathBands = '../uploads/bands/';
 
 var musicpath2 = '../uploads/music/Pyry Viirret - Classics covered';
@@ -72,6 +73,12 @@ function fileNameTesting(fileName, fileExtension)
 router.get('/', (req, res) => {
     res.send("Only POST method accepted with multipart file");
 })
+
+//GET-method: User-picture:
+router.get('/userpicture/:username/:pic', function (req, res) {
+  res.sendFile(path.join(__dirname, userPath, req.params.username, req.params.pic));
+  console.log();
+});
 
 //GET-method: MP3 UPDATED:
 router.get('/mp3path.mp3/:bandName/:albumName/:song', function (req, res) {

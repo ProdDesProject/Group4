@@ -8,7 +8,6 @@ import createFolders from '../../services/create-folders-for-upload-servise'
 import './mp3.styles.scss';
 import { stringify } from 'querystring';
 import Music_player from '../music-player/music-player.component';
-import User_information from '../user-information/user-information.component';
 
 var base64 = require('base-64');
 
@@ -82,8 +81,6 @@ class Mp3_upload extends Component {
         </form>
         </div>
       </header>
-
-      <User_information/>
       </div>
       
 
