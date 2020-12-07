@@ -84,11 +84,6 @@ class Mp3_upload extends Component {
         </div>
 
       </header>
-      <Music_player/>
-      <Music_player/>
-      <Music_player/>
-      <Music_player/>
-      <Music_player/>
       </div>
 
     
