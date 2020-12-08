@@ -20,7 +20,7 @@ class DeleteButton extends React.Component
         .then(status =>
             {
                 console.log(status)
-                if(status === 204)
+                if(status.status === 204)
                 {
                     //logout (delete from local storage) -> automatocally reroutes to login page
                     alert("Your account has been deleted!");

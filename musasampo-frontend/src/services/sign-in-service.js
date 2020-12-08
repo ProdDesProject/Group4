@@ -74,4 +74,5 @@ function Signout()
     localStorage.removeItem('currentToken');
     localStorage.removeItem('currentUser');
     currentTokenSubject.next(null); 
+    window.location.reload(false);
 }

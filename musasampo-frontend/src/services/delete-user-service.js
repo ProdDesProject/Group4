@@ -1,9 +1,10 @@
 
-
 export async function DeleteUserService()
 {
     //get the userId from the local storage
     var user = localStorage.getItem('currentUser');
+    //get the token from the local storage
+    var token = localStorage.getItem('currentToken');
     //check if user is in local storage
     if(user !== undefined)
     {
@@ -12,17 +13,20 @@ export async function DeleteUserService()
         //getting the userID
         const userId = foundUser[0].userId;
 
-        console.log(foundUser[0].usersToken);
+        //parsing the found token JSON
+        const foundToken = JSON.parse(token);
+        
+        //building the header
+        var myHeaders = new Headers();
+        myHeaders.append("Authorization",  "Bearer " + foundToken.token.token);
 
         //Parameter for delete method
         const requestOptions = 
         {
             method: 'DELETE',
             mode: 'cors',
-            headers: 
-            {
-                'Authorization': `Bearer ${foundUser[0].usersToken}`
-            }
+            headers: myHeaders,
+            redirect: 'follow'
         }
 
         //creating the fetch url
