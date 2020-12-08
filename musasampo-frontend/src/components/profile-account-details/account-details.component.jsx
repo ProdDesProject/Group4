@@ -8,13 +8,15 @@ import getUserInfo from '../../services/user/get-user-info-service';
 import '../custom-button/custom-button.component';
 import './account-details.styles.scss';
 
+import { stringify } from 'querystring';
+
 class AccountDetails extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      username:"Kilpikalevi25",
-      password:"salis12",
+      username:"",
+      password:"",
       userId:"",
       username2:"",
       name:"",
@@ -24,20 +26,6 @@ class AccountDetails extends React.Component {
 
     };
   }
-
-  async componentDidMount()
-  {
-    var result2 = [];
-    result2 = await getUserInfo(this.state.username,this.state.password);
-
-    this.setState({userId:result2.user[0].userId});
-    this.setState({username:result2.user[0].username});
-    this.setState({name:result2.user[0].name});
-    this.setState({email:result2.user[0].email});
-    this.setState({phoneNumber:result2.user[0].phoneNumber});
-    //save result to this.state
-  }
-
 
   /**
    * RENDER

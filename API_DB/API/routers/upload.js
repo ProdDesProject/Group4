@@ -28,6 +28,16 @@ var multerdes;
 
 const fileTypes = ["jpg", "jpeg", "bmp", "png", "mp3"];
 
+//
+const passport = require('passport');
+const BasicStrategy = require('passport-http').BasicStrategy;
+//JWT authentication
+const jwt = require('jsonwebtoken');
+const JwtStrategy = require('passport-jwt').Strategy,
+      ExtractJwt = require('passport-jwt').ExtractJwt;
+const jwtSecretKey = require('../jwt-key.json');
+//
+
 //filename testing function
 function fileNameTesting(fileName, fileExtension)
 {
@@ -75,7 +85,7 @@ router.get('/', (req, res) => {
 })
 
 //GET-method: User-picture:
-router.get('/userpicture/:username/:pic', function (req, res) {
+router.get('/userpicture/:username/:pic',passport.authenticate('jwt', { session: false }), function (req, res) {
   res.sendFile(path.join(__dirname, userPath, req.params.username, req.params.pic));
   console.log();
 });

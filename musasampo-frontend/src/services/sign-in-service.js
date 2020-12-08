@@ -59,7 +59,7 @@ async function Signin(username2,password2)
             };
 
              //send user credentials to localStorage
-             localStorage.setItem('currentToken', obj.token);
+             localStorage.setItem('currentToken', obj.token.token);
              currentTokenSubject.next(obj.token);
         }
         return obj;  
