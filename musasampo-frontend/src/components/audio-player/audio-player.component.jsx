@@ -51,7 +51,15 @@ const useMultiAudio = urls => {
     {/* start and stop the actual audio */ }
     useEffect(() => {
         sources.forEach((source, i) => {
-            players[i].playing ? source.audio.play() : source.audio.pause();
+            //check if the audio is starting to play - if you press play, it will always start the note from the beginning, even after pausing it
+            if (players[i].playing){
+                source.audio.play();
+                source.audio.currentTime = 0;
+            } else {
+                source.audio.pause();
+            }
+            
+
             //players[i].addEventListener("ended", () => {
             //    players[i].playing = false;
             // });
