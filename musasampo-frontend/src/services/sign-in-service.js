@@ -1,7 +1,7 @@
 import { BehaviorSubject } from 'rxjs';
 var base64 = require('base-64');
 
-const currentTokenSubject = new BehaviorSubject(localStorage.getItem('currentToken'));
+const currentTokenSubject = new BehaviorSubject(JSON.parse(localStorage.getItem('currentToken')));
 
 export const SignInServices =
 {
@@ -31,7 +31,8 @@ async function Signin(username2,password2)
     var obj = 
     {
         result: false,
-        token: ""
+        token: '',
+        username: ''
     };
 
     //alert(data);
@@ -55,11 +56,12 @@ async function Signin(username2,password2)
             obj = 
             {
                 result: true,
-                token: await loginResponse.json()
+                token: await loginResponse.json(),
+                username: username2
             };
 
              //send user credentials to localStorage
-             localStorage.setItem('currentToken', obj.token);
+             localStorage.setItem('currentToken', JSON.stringify(obj));
              currentTokenSubject.next(obj.token);
         }
         return obj;  
@@ -70,5 +72,7 @@ async function Signin(username2,password2)
 function Signout()
 {
     localStorage.removeItem('currentToken');
+    localStorage.removeItem('currentUser');
     currentTokenSubject.next(null); 
+    window.location.reload(false);
 }

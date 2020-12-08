@@ -20,6 +20,7 @@
     "pubnub": "^4.29.9",
     "pubnub-react": "^2.0.0-rc.0",
     "react": "^17.0.1",
+    "react-addons-update": "^15.6.2",
     "react-audio-player": "^0.14.0",
     "react-dom": "^17.0.1",
     "react-player": "^2.7.0",
