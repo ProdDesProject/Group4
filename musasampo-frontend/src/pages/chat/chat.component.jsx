@@ -13,7 +13,7 @@ import USERS_DATA from './users.data.js';
 
 import './chat.styles.scss';
 
-const functions = require('./script.js');
+import functions from './functions.js'
 
 class ChatPage extends React.Component {
     constructor() {
@@ -31,7 +31,18 @@ class ChatPage extends React.Component {
     /* add all albums from data to array  */
     componentDidMount() {
         this.setState({ users: USERS_DATA });
-        functions.userExists(this.state.userName);
+
+        const jsonData = functions.getChannels();
+        for (var i = 0; i < jsonData.length; i++)
+            this.setState({
+                channels: [
+                    ...this.state.channels,
+                    jsonData[i].channelname
+                ]
+            })
+
+        functions.getUserByUsername(this.state.userName);
+
     }
 
     /* change search field state to search field input  */
