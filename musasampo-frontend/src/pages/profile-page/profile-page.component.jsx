@@ -5,8 +5,11 @@ import CustomButton from '../../components/custom-button/custom-button.component
 import { Link, withRouter } from 'react-router-dom';
 
 import '../../components/custom-button/custom-button.component';
+import '../../components/profile-user-info/profile-user-info.component';
 
 import './profile-page.styles.scss';
+import ProfileUserInfo from '../../components/profile-user-info/profile-user-info.component';
+import DeleteButton from '../../components/profile-delete/profile-delete.component';
 
 var base64 = require('base-64');
 
@@ -15,7 +18,9 @@ class ProfilePage extends React.Component
   constructor(props)
   {
     super(props);
+
   }
+
   //render the html
   render() {
     return (
@@ -31,22 +36,9 @@ class ProfilePage extends React.Component
               Account details:
             </div>
 
-            <div className='user-info'>
+           <ProfileUserInfo></ProfileUserInfo>
 
-                <div className='descriptor'>
-                    <dt>Username:</dt>
-                    <dt>Email:</dt>
-                    <dt>Name:</dt>
-                    <dt>Phone number:</dt>
-                </div>
-
-                <div className='infotext'>
-                    <dt>coolPeter88</dt>
-                    <dt>peter.peter@mail.com</dt>
-                    <dt>Peter Peter</dt>
-                    <dt>123 90++</dt>
-                </div>
-            </div>
+            <DeleteButton className = 'button'></DeleteButton>
 
             <Link to = "/profile/edit" className='button'>
                 <CustomButton> Edit </CustomButton>
@@ -55,19 +47,18 @@ class ProfilePage extends React.Component
             <Link to = "/profile/password" className='button'>
                 <CustomButton> Change Password </CustomButton>
             </Link>
-        </div>
 
-        <div className='band-stuff'>
-          <Link to ="/profile/newband" className='button'>
-                  <CustomButton> Add Your Band </CustomButton>
-          </Link>
-          
-          <Link to="/profile/newalbum" className='button'>
-                  <CustomButton> Add an Album for Your Band </CustomButton>
-          </Link>
+          <div className='band-stuff'>
+            <Link to ="/profile/newband" className='button'>
+                    <CustomButton> Add Your Band </CustomButton>
+            </Link>
+            
+            <Link to="/profile/newalbum" className='button'>
+                    <CustomButton> Add an Album for Your Band </CustomButton>
+            </Link>
+          </div>
+          </div>
         </div>
-
-      </div>
     </div>
     );
   }

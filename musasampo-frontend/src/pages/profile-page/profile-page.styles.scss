@@ -1,7 +1,6 @@
 .profile-item {
   margin-left: 40px;
   margin-top: 40px;
-
 .test {
   height: 260px;
   width: 50%;
@@ -32,31 +31,6 @@
     margin-left: 30px;
   }
 
-  .user-info {
-    font-size: 16px;
-    font-family: 'Lucida Sans Unicode';
-    letter-spacing: -0.3px;
-    padding-top: 10px;
-    display: block;
-
-    .descriptor {
-      height: 100%;
-      width: auto;
-      display: table-cell;
-      text-align: left;
-      font-weight: bold;
-      padding-right: 10px;
-      padding-left: 30px;
-    }
-  
-    .infotext {
-        height: 100%;
-        display: table-cell;
-        white-space: nowrap;
-        text-align: left;
-        margin: auto;
-    }
-  }
   .button {
     float: right;
     margin-right: 30px;
