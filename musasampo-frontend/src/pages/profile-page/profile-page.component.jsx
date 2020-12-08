@@ -5,8 +5,6 @@ import ProfileContent from '../../components/profile-content/profile-content.com
 import { withRouter } from 'react-router-dom';
 
 import './profile-page.styles.scss';
-import ProfileUserInfo from '../../components/profile-user-info/profile-user-info.component';
-import DeleteButton from '../../components/profile-delete/profile-delete.component';
 
 //<Profile />
 

@@ -1,7 +1,7 @@
 import React from 'react';
 
 import './profile-user-info.styles.scss';
-import {UserSearchService} from '../../services/user-search-service';
+import { UserSearchService } from '../../services/user-search-service';
 import { stringify } from 'querystring';
 
 class ProfileUserInfo extends React.Component
