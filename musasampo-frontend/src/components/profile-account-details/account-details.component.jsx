@@ -8,7 +8,8 @@ import getUserInfo from '../../services/user/get-user-info-service';
 import '../custom-button/custom-button.component';
 import './account-details.styles.scss';
 
-import { stringify } from 'querystring';
+import DeleteButton from '../profile-delete/profile-delete.component';
+import ProfileUserInfo from '../profile-user-info/profile-user-info.component';
 
 class AccountDetails extends React.Component {
   constructor(props) {
@@ -41,21 +42,8 @@ class AccountDetails extends React.Component {
           <div className='titleText'>
             Account details:
         </div>
-          <div className='user-info'>
-            <div className='descriptor'>
-              <dt>Username:</dt>
-              <dt>Email:</dt>
-              <dt>Name:</dt>
-              <dt>Phone number:</dt>
-            </div>
-
-            <div className='infotext'>
-              <dt>{this.state.username}</dt>
-              <dt>{this.state.email}</dt>
-              <dt>{this.state.name}</dt>
-              <dt>{this.state.phoneNumber}</dt>
-            </div>
-          </div>
+          <ProfileUserInfo></ProfileUserInfo>
+          <DeleteButton></DeleteButton>
           <Link to="/profile/edit" className='button'>
             <CustomButton> Edit </CustomButton>
           </Link>

@@ -12,31 +12,38 @@ import band from '../data/band';
 
 var req = <p className="req">*</p>;
 
-class NewBand extends React.Component {
+class NewBand extends React.Component 
+{
   constructor() {
     super();
 
     //local state variables
     this.state = {
-     bandName: "",
-     country: "",
-     bandLogo: "",
-     nsfw: false,
+      bandName: "",
+      country: "",
+      bandLogo: "",
+      Nsfw: "",
+
+      chkbox: false
     };
   }
 
   //handles submit when clicked button ADD BAND:
-  handleSubmit = async event => {
+  handleSubmit = async event => 
+  {
     event.preventDefault();
 
-    const { bandName, country, bandLogo, nsfw } = this.state;
-    alert("Create a band:");
-    alert(bandName);
-    alert(country);
-    alert(bandLogo);
-    alert("nsfw:"+nsfw);
+    const { username, email, name, phoneNumber, password, confirmPassword, formedIn } = this.state;
 
-    //component connection for creating band:->
+    if (password !== confirmPassword) 
+    {
+      alert("Passwords don't match");
+      return;
+    }
+    if (!username || !email || !name) {
+      alert("Neccessary fields not filled!");
+      return;
+    }
 
      //Back to profile-page:
      this.props.history.push('/profile');
@@ -44,22 +51,30 @@ class NewBand extends React.Component {
   }
 
   //handles user input from render: 
-  handleChange = event => {
-    const { value, name, defaultChecked } = event.target;
-    this.setState({ [name]: value });
-    
+  handleChange = event => 
+  {
+    const { bandName, country, bandLogo, nsfw } = event.target;
+
+    if (nsfw == true) 
+    {
+      this.setState({ bandName: bandName, country: country, bandLogo: bandLogo, nsfw: false });
+    } else 
+    {
+      this.setState({ bandName: bandName, country: country, bandLogo: bandLogo, nsfw: true });
+    }
+
   };
 
-  //if user change checkbox, state update:
-  toggleChange = () => {
-      this.setState({
-        nsfw: !this.state.nsfw,
-      });
-  };
+  onClickHandler = () => {
+    const { bandName, country, bandLogo, nsfw } = this.state;
+    //upload stuff to create a band.
+
+  }
 
   //Render:
-  render() {
-    const {bandName, country, bandLogo, chkbox, nsfw} = this.state;
+  render() 
+  {
+    const { bandName, country, bandLogo, nsfw } = this.state;
     return (
       <div className='container'>
         <div className='new-band'>
