@@ -1,0 +1,60 @@
+$highlight-color:#32e0c4;
+$main-dark-color:  #222831;
+$main-light-color: #393e46;
+
+/* switch that replaces checkbox */
+.switch {
+	width: 80px;
+	height: 27px;
+	background: $main-dark-color;
+	margin-top: -10px;
+	border-radius: 50px;
+	position: relative;
+
+	input[type=checkbox] {
+        visibility: hidden;
+    }
+}
+
+.switch:before {
+	content: 'ON';
+	font: 12px/26px Arial, sans-serif;
+	color: $highlight-color;
+	position: absolute;
+    left: 10px;
+    top: 1px;
+	z-index: 0;
+    font-weight: bold;
+    text-shadow: 1px 1px 0px black;
+}
+
+.switch:after {
+	content: 'OFF';
+	font: 12px/26px Arial, sans-serif;
+	color: #d6d6d6;
+	position: absolute;
+    right: 10px;
+    top: 1px;
+	z-index: 0;
+	font-weight: bold;
+	text-shadow: 1px 1px 0px black;
+}
+
+.switch label {
+	display: block;
+	width: 32px;
+    height: 19px;
+    background: #f4fffe;
+	border-radius: 50px;
+	-webkit-transition: .3s;
+	transition: .3s;
+	cursor: pointer;
+	position: absolute;
+	top: 4px;
+	left: 4px;
+	z-index: 1;
+}
+
+.switch input[type=checkbox]:checked + label {
+	left: 43px;
+}
