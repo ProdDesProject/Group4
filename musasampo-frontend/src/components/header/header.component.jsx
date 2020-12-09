@@ -112,6 +112,11 @@ class Header extends React.Component
   }
 
   //render render stuff
+
+  //SHOP:
+  /* {this.state.login &&<Link className='option' onClick={this.Shop}>
+              SHOP
+            </Link>}*/
   render() 
   {
     return (
@@ -142,10 +147,6 @@ class Header extends React.Component
             <div className='option'>
               |
             </div>
-
-            {this.state.login &&<Link className='option' onClick={this.Shop}>
-              SHOP
-            </Link>}
 
             {this.state.login && <Link className='option' onClick={this.Profile}>
               PROFILE
