@@ -7,7 +7,7 @@ import SearchBox from '../search-box/search-box.component';
 import AlbumsItem from '../albums-item/albums-item.component';
 import BandItem from '../band-item/band-item.component';
 
-import fetchData from '../../services/band/get-band-by-userid-service';
+import getBandsBandId from '../../services/band/get-band-by-bandId-servise';
 
 import fetchAlbumsByBandName from '../../services/album/albums-by-albumid-service';
 import getUserID from '../../services/user/get-userid-by-username.service';
@@ -49,11 +49,16 @@ class Albums extends React.Component {
       var AlbumId = await fetchAlbumId(bandId);
       //AlbumId = AlbumId.albums.albumId;
 
-      //fetch Bands by userId:
-      let BANDS = await fetchData(userId);
+      //fetch Bands by bandId:
+      let BANDS = await getBandsBandId(bandId);
 
+      //alert(AlbumId.albums[0].albumId);
       //fetch Albums by bandId <= comes from click:
       let ALBUMS = await fetchAlbumsByalbumId(AlbumId.albums[0].albumId);
+
+      var url = 'http://localhost:9000/upload/imagepath.png/'+ BANDS[0].bandName +'/albums/'+ ALBUMS.albums[0].albumPicture ;
+
+      ALBUMS.albums[0].albumPicture = url;
 
       this.setState({ bands: BANDS.bands });
       this.setState({ albums: ALBUMS.albums });
@@ -63,6 +68,8 @@ class Albums extends React.Component {
 
       var BandsAndPictures = [];
       BandsAndPictures = ALBUMS.albums;
+
+      //alert(url);
 
       //change albumName and bandName for page (%20 changes to spaces)
       for (var i=0;i<ALBUMS.albums.length;i++)
