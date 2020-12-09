@@ -6,6 +6,7 @@ import './home-page.styles.scss';
 import { stringify } from 'querystring';
 import Header from '../../components/header/header.component';
 import logo from '../../assets/logo.png';
+import ProfileContent from '../../components/profile-content/profile-content.component';
 
 import Data from '../../components/data/data.jsx';
 
@@ -45,7 +46,9 @@ class Mainpage extends React.Component
             <div className='infoText'>
                 MUSASAMPO is a website dedicated to all your music needs. We offer a multitude of services for bands and fans alike. Please edit this text.
             </div>
-
+            <div>
+            <ProfileContent />
+            </div>
           </div>
           </div>
         </header>

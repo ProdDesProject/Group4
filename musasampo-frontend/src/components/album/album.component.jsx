@@ -93,13 +93,13 @@ export default function SimpleTabs(props) {
   };
 
   return (
-    <div>
+    <div className='album-page'>
 
-      <div className='titles'>
-        <div className='title'>
+      <div className='titles12'>
+        <div className='title12'>
           {albums2[0].albumName}
         </div>
-        <div className='subtitle'>
+        <div className='subtitle12'>
           {albums2[0].bandName}
         </div>
       </div>
@@ -120,25 +120,22 @@ export default function SimpleTabs(props) {
           {/*<dt>{albums2[0].albumLabel}</dt>
           <dt>{albums2[0].albumFormat}</dt>*/}
         </div>
-
-        <div className='albumImage'>
-          <img className='img' src={albums2[0].albumCover} />
-        </div>
       </div>
 
-      <div className='tabpanel1'>
-        <AppBar position="static">
-          <Tabs className='tabs' value={value} onChange={handleChange}
-            TabIndicatorProps={{ style: { background: "#32e0c4", background: "#32e0c4", height: "4px" } }}>
-            <Tab className='tab-name' label="Songs" {...a11yProps(0)} />
-            {/*<Tab className='tab-name' label="Lineup" {...a11yProps(1)} />
+      <div className='container12'>
+        <div className='tabpanel12'>
+          <AppBar position="static">
+            <Tabs className='tabs' value={value} onChange={handleChange}
+              TabIndicatorProps={{ style: { background: "#32e0c4", background: "#32e0c4", height: "4px" } }}>
+              <Tab className='tab-name' label="Songs" {...a11yProps(0)} />
+              {/*<Tab className='tab-name' label="Lineup" {...a11yProps(1)} />
             <Tab className='tab-name' label="Description" {...a11yProps(2)} />*/}
-          </Tabs>
-        </AppBar>
-        <TabPanel className='panel-content' value={value} index={0}>
-          {albums2[0].trackList}
-        </TabPanel>
-        {/*<TabPanel className='panel-content' value={value} index={1}>
+            </Tabs>
+          </AppBar>
+          <TabPanel className='panel-content' value={value} index={0}>
+            {albums2[0].trackList}
+          </TabPanel>
+          {/*<TabPanel className='panel-content' value={value} index={1}>
           {albums2[0].lineup}
                 </TabPanel>
         <TabPanel className='panel-content' value={value} index={2}>
@@ -160,6 +157,10 @@ export default function SimpleTabs(props) {
                 Donec lorem metus, ornare ut nibh et, cursus faucibus nulla. Morbi mauris magna, eleifend eget eleifend in, elementum at turpis. Donec nec dapibus sem, in scelerisque urna.
                 </TabPanel>
   */}
+        </div>
+        <div className='albumImage'>
+          <img className='img2' src={albums2[0].albumCover} />
+        </div>
       </div>
     </div>
   );

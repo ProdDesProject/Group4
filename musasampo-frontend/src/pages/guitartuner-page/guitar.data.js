@@ -1,13 +1,16 @@
 //import self recorded notes that I put into the notes-folder
 import note1 from '../notes/A.mp3'; //Is actually A#, # is not allowed in the filename
 import note2 from '../notes/F.mp3';
+import guitarStandard from '../../assets/guitarStandard.png';
+import guitarSeven from '../../assets/guitarSeven.png';
+import guitarUkulele from '../../assets/guitarUkulele.png';
 
 //Tuners in order, named with titles. Strings go from thinnest to the thickest from up to down.
 const GUITAR_DATA = [
     {
         guitarId: 0,
         title: 'Standard Tune',
-        imageUrl: 'https://static.thenounproject.com/png/154990-200.png',
+        imageUrl: guitarStandard,
         routeName: 'acoustic',
         strings: [{
             id: 0,
@@ -45,7 +48,7 @@ const GUITAR_DATA = [
     {
         guitarId: 5,
         title: 'Drop D',
-        imageUrl: 'https://static.thenounproject.com/png/154990-200.png',
+        imageUrl: guitarStandard,
         routeName: 'acousticuff',
         strings: [{
             id: 0,
@@ -83,7 +86,7 @@ const GUITAR_DATA = [
     {
         guitarId: 1,
         title: 'Drop C',
-        imageUrl: 'https://static.thenounproject.com/png/154990-200.png',
+        imageUrl: guitarStandard,
         routeName: 'electric',
         strings: [{
             id: 0,
@@ -121,7 +124,7 @@ const GUITAR_DATA = [
     {
         guitarId: 6,
         title: 'D-standard',
-        imageUrl: 'https://static.thenounproject.com/png/154990-200.png',
+        imageUrl: guitarStandard,
         routeName: 'electric',
         strings: [{
             id: 0,
@@ -159,7 +162,7 @@ const GUITAR_DATA = [
     {
         guitarId: 7,
         title: 'C-standard',
-        imageUrl: 'https://static.thenounproject.com/png/154990-200.png',
+        imageUrl: guitarStandard,
         routeName: 'electric',
         strings: [{
             id: 0,
@@ -192,11 +195,10 @@ const GUITAR_DATA = [
             soundUrl: 'https://tuner-online.com/audio/c2.mp3',
         }]
     },
-    //7-stringed still have images of a 6-stringed, could be changed but not necessary
     {
         guitarId: 8,
         title: '7-String standard',
-        imageUrl: 'https://static.thenounproject.com/png/154990-200.png',
+        imageUrl: guitarSeven,
         routeName: 'electric',
         strings: [{
             id: 0,
@@ -239,7 +241,7 @@ const GUITAR_DATA = [
     {
         guitarId: 9,
         title: '7-String drop A',
-        imageUrl: 'https://static.thenounproject.com/png/154990-200.png',
+        imageUrl: guitarSeven,
         routeName: 'electric',
         strings: [{
             id: 0,
@@ -308,7 +310,7 @@ const GUITAR_DATA = [
     {
         guitarId: 3,
         title: 'Ukulele Tuner',
-        imageUrl: 'https://static.thenounproject.com/png/171499-200.png',
+        imageUrl: guitarUkulele,
         routeName: 'ukulele',
         strings: [{
             id: 0,
