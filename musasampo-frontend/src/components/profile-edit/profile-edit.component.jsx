@@ -3,7 +3,7 @@ import React from 'react';
 import FormInput from '../form-input/form-input.component';
 import CustomButton from '../custom-button/custom-button.component';
 import SubmitButton from '../submit-button/submit-button.component';
-import Switch from '../../components/switch/switch.component';
+import EditUser from '../../services/edit-user-service';
 
 import './profile-edit.styles.scss';
 
@@ -22,20 +22,28 @@ class EditProfile extends React.Component {
   }
 
    //handles submit when clicked button ADD ALBUM:
-   handleSubmit = async event => {
+   handleSubmit = async event => 
+   {
     event.preventDefault();
-
+    console.log(this.state);
     const { username, email, name, phoneNumber } = this.state;
-    alert("edit user info:");
-    alert(username);
-    alert(email);
-    alert(name);
-    alert(phoneNumber);
-    
-    //component connection for creating album:->
 
-     //Back to profile-page:
-     this.props.history.push('/profile');
+    //call service that modifies user with authorization
+    await EditUser(username, email, name, phoneNumber)
+    .then(status =>
+      {
+        console.log(status);
+        if(status.status === 204)
+        {
+          alert("Your profile has been edited successfully!");
+          //Back to profile-page:
+          this.props.history.push('/profile');
+        }
+        else
+        {
+          alert("Error at editing the profile!");
+        }
+      });   
   }
 
   //Handles changes when user input is coming:
@@ -45,7 +53,8 @@ class EditProfile extends React.Component {
   };
 
 
-  render() {
+  render() 
+  {
     const { username, email, name, phoneNumber } = this.state;
     return (
       <div className='container'>
@@ -83,14 +92,6 @@ class EditProfile extends React.Component {
               onChange={this.handleChange}
               label='Phone Number'
             />
-            <form>
-              <p>Show NSFW content?</p>
-              <Switch
-                value="None"
-                id="switch"
-                name="check"
-              />
-            </form>
             <div className='buttons'>
               <Link to="/profile" className='button'>
                 <CustomButton> Cancel </CustomButton>

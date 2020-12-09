@@ -158,6 +158,44 @@ router
         }
     });
 
+//PUT-method for modifying a user based on id(only logged in users should be able to do that)
+router
+.route('/modify/:userId')
+.put(
+    //authentication required
+    passport.authenticate('jwt', { session: false }),
+    (req, res) => 
+    {
+        console.log(req.body);
+        //check fields filling
+        if(req.body.username && req.body.email && req.body.name && req.body.phoneNumber)
+        {
+            //check if the id exists in the database first
+            //we need to send not found response if id is not found
+            db.query('SELECT userId FROM users WHERE userId = ?;', [req.params.userId]).then(results => 
+            {
+                //check for results
+                if (results.length)
+                {
+                        //modify user credentials from the databse
+                        db.query('UPDATE users SET username = ?, email = ?, name = ?, phoneNumber = ? WHERE userId = ?', [req.body.username, req.body.email, req.body.name, req.body.phoneNumber, req.params.userId]);
+                        //send success status
+                        res.sendStatus(204);
+                }
+                else
+                {
+                    //user id not found, cannot be deleted
+                    res.sendStatus(404);
+                }
+            });
+        }
+        else
+        {
+            //bad request, not all fields are filled
+            res.sendStatus(400);
+        }
+    });
+
 //DELETE-method for deleting a user based on id(only logged in users should be able to do that)
 router
 .route('/delete/:userId')

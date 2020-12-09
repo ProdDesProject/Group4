@@ -27,7 +27,7 @@ class ProfileContent extends React.Component {
 
   render() {
     return (
-      <div className='profile-item2'>
+      <div className='profile-item'>
         <div className='band-stuff'>
 
           <Link to="/profile/newband" className='button'>
