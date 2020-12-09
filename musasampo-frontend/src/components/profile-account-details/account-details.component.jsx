@@ -29,7 +29,12 @@ class AccountDetails extends React.Component {
   }
 
   /**
-   * RENDER
+   * RENDER 
+   * 
+   * <DeleteButton></DeleteButton>
+          <Link to="/profile/edit" className='button'>
+            <CustomButton> Edit </CustomButton>
+          </Link>
    */
 
   render() {
@@ -43,10 +48,7 @@ class AccountDetails extends React.Component {
             Account details:
         </div>
           <ProfileUserInfo></ProfileUserInfo>
-          <DeleteButton></DeleteButton>
-          <Link to="/profile/edit" className='button'>
-            <CustomButton> Edit </CustomButton>
-          </Link>
+          
         </div>
       </div>
     );

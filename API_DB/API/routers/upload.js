@@ -85,7 +85,7 @@ router.get('/', (req, res) => {
 })
 
 //GET-method: User-picture:
-router.get('/userpicture/:username/:pic',passport.authenticate('jwt', { session: false }), function (req, res) {
+router.get('/userpicture/:username/:pic', function (req, res) {
   res.sendFile(path.join(__dirname, userPath, req.params.username, req.params.pic));
   console.log();
 });

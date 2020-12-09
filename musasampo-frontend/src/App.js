@@ -11,6 +11,8 @@ import GuitarTuner from './components/guitar-tuner/guitar-tuner.component';
 import SearchPage from './pages/search/search.component';
 import GenrePage from './pages/genre-page/genre-page.component';
 import BandPage from './components/band/band.component';
+import BandsPage from './components/bands/bands.component';
+
 import AlbumComponent from './components/album/album.component';
 import Header from './components/header/header.component';
 import LoginPage from './pages/sign-in-and-sign-up/sign-in-and-sign-up.component';
@@ -65,9 +67,10 @@ class App extends Component {
                         <PrivateRoute exact path='/profile/password' component={ProfileChangePasswordPage} />
                         <PrivateRoute exact path='/profile/newband' component={NewBandPage} />
                         <PrivateRoute exact path='/profile/newalbum' component={NewAlbumPage} />
+                        <PrivateRoute exact path='/bands/' component={BandsPage} /> 
                         <PrivateRoute exact path='/bands/:bandId' component={BandPage} /> 
-                        <PrivateRoute exact path='/shop/albums/genre/:genre' component={GenrePage} />          
-                        <PrivateRoute exact path='/shop/albums/:albumId' component={AlbumComponent} />
+                        <PrivateRoute exact path='/albums/genre/:genre' component={GenrePage} />          
+                        <PrivateRoute exact path='/albums/:albumId' component={AlbumComponent} />
                         <PrivateRoute exact path='/guitartuner' component={GuitarOverview} />    
                         <PrivateRoute exact path='/guitartuner/:guitarId' component={GuitarTuner} />  
                     </Switch>  

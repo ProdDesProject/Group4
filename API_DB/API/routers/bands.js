@@ -58,6 +58,22 @@ router
     })
 });
 
+//GET-method for search by userId:
+router
+.route('/searchByUserId/:userId')
+.get(
+    //passport.authenticate('basic', { session: false }),
+    (req, res) => {
+    db.query('SELECT * FROM bands where userId = ?;',[req.params.userId]).then(results => 
+    {
+        res.json({ bands: results})
+    })
+    .catch(() => 
+    {
+        res.sendStatus(500);
+    })
+});
+
 //GET-method for search by bandName:
 router
 .route('/searchByName/:bandName')

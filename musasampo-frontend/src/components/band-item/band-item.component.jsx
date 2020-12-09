@@ -25,13 +25,22 @@ const BandItem = ({ band, history }, props) => {
             </div>
             <div className='band-footer'>
                 <span className='name'> Artist</span>
+                
             </div>
-            {/*Button in the band cover, onClick opens path /shop/bands/:bandId*/}
+            {/*Button in the band cover, onClick opens path /bands/:bandId*/}
+            
             <CustomButton onClick={() => {
-                history.push(`/shop/bands/${bandId}`)
+                history.push(`/bands/${bandId}`)
             }} inverted>
                 BAND INFORMATION
-      </CustomButton>
+            </CustomButton>
+
+        <button onClick={() => {
+                history.push(`/albums/${bandId}`)
+            }} inverted>
+                GET ALBUMS</button>
+
+            
 
         </div>
     );

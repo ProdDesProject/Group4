@@ -1,4 +1,4 @@
-export default async function getBands()
+export default async function getBandsByUsername()
 {
     //fetch for bands and get a response
     const response1 = await fetch('http://localhost:9000/bands/');

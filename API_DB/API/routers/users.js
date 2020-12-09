@@ -56,6 +56,23 @@ router
     })
 });
 
+router
+.route('/getIdByUsername/:username')
+.get(
+    //passport.authenticate('basic', { session: false }),
+    (req, res) => {
+    db.query('SELECT userId FROM users where username = ?;', [req.params.username]).then(results => 
+    {
+        //show all users
+        res.json({result:results});
+    })
+    .catch(() => 
+    {
+        //internal server error
+        res.sendStatus(500);
+    })
+});
+
 //Get-method for checking a user
 router
 .route('/checkuser/')
