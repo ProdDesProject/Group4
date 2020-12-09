@@ -4,7 +4,6 @@ import { withRouter } from 'react-router-dom';
 
 import CustomButton from '../custom-button/custom-button.component';
 
-
 import './albums-item.styles.scss';
 
 {/*filter the band from the data with the bandId from props*/ }
@@ -32,13 +31,13 @@ const AlbumsItem = ({ album, history }, props) => {
             <CustomButton onClick={() => {
                 history.push(`/bands/${bandId}`)
             }} inverted>
-                BAND INFORMATION
+                ALBUM INFORMATION
             </CustomButton>
 
         <button onClick={() => {
                 history.push(`/albums/${bandId}`)
             }} inverted>
-                GET ALBUMS</button>
+                GET SONGS</button>
 
             
 

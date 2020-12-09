@@ -35,13 +35,12 @@ class Albums extends React.Component {
 
       //Token from localStorage:
       var loggedInUser = [];
+      var loggedInUser2;
       loggedInUser = JSON.parse(localStorage.getItem("currentToken"));
-      
-      let username = loggedInUser.username;
+      loggedInUser2 = JSON.parse(localStorage.getItem("currentUser"));
 
       //userId:
-      var userId = await getUserID(username);
-      var userId = userId.result[0].userId;
+      var userId = loggedInUser2[0].userId;
 
       //bandId:
       var bandId = this.props.location.state.detail;
@@ -64,31 +63,6 @@ class Albums extends React.Component {
 
       var BandsAndPictures = [];
       BandsAndPictures = ALBUMS.albums;
-
-      var url2 = [];
-      
-      //http://localhost:9000/upload/imagepath.png/Mayhem/albums/mysteriis.png
-      //http://localhost:9000/upload/imagepath.png/Kaunis%20Kuolematon/albums/Vapaus.PNG
-
-      //Get url for getting picture for bands
-      for (var i=0;i<Bandsnames.length;i++)
-      {
-        var bandName = Bandsnames[i].bandName;
-        //alert(bandName);
-        //alert(BandsAndPictures[i].albumPicture);
-        var url = 'http://localhost:9000/upload/imagepath.png/' + bandName;
-        //Save url to array:
-        url2[i] = url;
-      };
-
-      for (var i=0;i<BandsAndPictures.length;i++)
-      {
-        var albumname = BandsAndPictures[i].albumName;
-        //alert(BandsAndPictures[i].albumPicture);
-        //var url = 'http://localhost:9000/upload/imagepath.png/' + bandName;
-        //Save url to array:
-        //url2[i] = url;
-      };
 
       //change albumName and bandName for page (%20 changes to spaces)
       for (var i=0;i<ALBUMS.albums.length;i++)
