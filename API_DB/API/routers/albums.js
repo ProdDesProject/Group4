@@ -52,7 +52,7 @@ router
 });
 
 router
-.route(':albumId')
+.route('/:albumId')
 .get(
     //passport.authenticate('basic', { session: false }),
     (req, res) => {
