@@ -4,6 +4,7 @@ import FormInput from '../form-input/form-input.component';
 import CustomButton from '../custom-button/custom-button.component';
 import SubmitButton from '../submit-button/submit-button.component';
 import EditUser from '../../services/edit-user-service';
+import {SignInServices} from '../../services/sign-in-service'
 
 import './profile-edit.styles.scss';
 
@@ -26,18 +27,24 @@ class EditProfile extends React.Component {
    {
     event.preventDefault();
     console.log(this.state);
-    const { username, email, name, phoneNumber } = this.state;
+    const updatedUser = 
+    {
+      username: this.state.username,
+      email: this.state.email,
+      name: this.state.name,
+      phoneNumber: this.state.phoneNumber
+    }
 
     //call service that modifies user with authorization
-    await EditUser(username, email, name, phoneNumber)
+    await EditUser(updatedUser.username, updatedUser.email, updatedUser.name, updatedUser.phoneNumber)
     .then(status =>
       {
         console.log(status);
         if(status.status === 204)
         {
-          alert("Your profile has been edited successfully!");
-          //Back to profile-page:
-          this.props.history.push('/profile');
+          //sign out user for the changes to take effect (only in the case of changing username it's required in fact)
+          alert("Your profile has been edited successfully, you're being logged out and you have to login for the changes to have effect!");
+          SignInServices.Signout();
         }
         else
         {
