@@ -5,23 +5,23 @@ import { withRouter } from 'react-router-dom';
 import CustomButton from '../custom-button/custom-button.component';
 
 
-import './band-item.styles.scss';
+import './albums-item.styles.scss';
 
 {/*filter the band from the data with the bandId from props*/ }
-const BandItem = ({ band, history }, props) => {
-    const { bandId, nsfw, bandName, bandLogo } = band;
+const AlbumsItem = ({ album, history }, props) => {
+    const { bandId, albumId, albumName, albumLaunchDate, albumPicture, albumGenre } = album;
 
     return (
         <div className='band-item'>
             <div
                 className='image'
                 style={{
-                    backgroundImage: `url(${bandLogo})`
+                    backgroundImage: `url(${albumPicture})`
                 }}
             />
             {/* Band information */}
             <div className='band-footer'>
-                <span className='bandInformation'>{bandName}</span>
+                <span className='bandInformation'>{albumName}</span>
             </div>
             <div className='band-footer'>
                 <span className='name'> Artist</span>
@@ -35,8 +35,8 @@ const BandItem = ({ band, history }, props) => {
                 BAND INFORMATION
             </CustomButton>
 
-            <button onClick={() => {
-            history.push({pathname: `/albums/`, search: '?query=abc', state: { detail: bandId}})
+        <button onClick={() => {
+                history.push(`/albums/${bandId}`)
             }} inverted>
                 GET ALBUMS</button>
 
@@ -46,4 +46,4 @@ const BandItem = ({ band, history }, props) => {
     );
 };
 
-export default withRouter(BandItem);
+export default withRouter(AlbumsItem);
