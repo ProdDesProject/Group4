@@ -67,6 +67,21 @@ router
 });
 
 router
+.route('/returnAlbumId/:bandId')
+.get(
+    //passport.authenticate('basic', { session: false }),
+    (req, res) => {
+    db.query('SELECT albumId FROM albums where bandId = ?;',[req.params.bandId]).then(results => {
+        res.json({ albums: results})
+    })
+    .catch(() => {
+        res.sendStatus(500);
+    })
+      /*let user = users2.getAllUsers()
+      res.json({user});*/
+});
+
+router
 .route('/searchByName/:albumName')
 .get(
     //passport.authenticate('basic', { session: false }),

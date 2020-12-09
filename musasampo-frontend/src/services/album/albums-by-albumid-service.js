@@ -1,10 +1,10 @@
 //fetch bands from backend
-export default async function fetchAlbumsByBandId(albumId)
+export default async function fetchAlbumsByalbumId(albumId)
 {
     //fetch for checkuser2 and get a response
     const albumsResponse = await fetch('http://localhost:9000/albums/' + albumId);
     //get the status response
-    const data = albumsResponse;
+    const data = await albumsResponse.json();
 
     //alert(data);
 

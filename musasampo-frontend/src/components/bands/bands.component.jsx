@@ -38,7 +38,6 @@ class Bands extends React.Component {
         loggedInUser = JSON.parse(localStorage.getItem("currentToken"));
         let username = loggedInUser.username;
 
-
         var userId = await getUserID(username);
 
         //alert(userId.result[0].userId);
@@ -48,7 +47,7 @@ class Bands extends React.Component {
         var userId = userId.result[0].userId;
 
         let BANDS = await fetchData(userId);
-        BANDS = await BANDS.json();
+        //BANDS = await BANDS.json();
 
         this.setState({ bands: BANDS.bands });
         
