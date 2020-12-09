@@ -45,34 +45,6 @@ function a11yProps(index) {
 }
 
 
-/*export class ShopPage extends React.Component {
-constructor(props) {
-  super(props);
-
-  this.state = {
-    albums: SHOP_DATA
-  };
-}
-
-render() {
-  const { albums } = this.state;
-  return (
-    <div className='shop-page'>
-      {albums.map(({ id, ...otherAlbumProps }) => (
-        <AlbumPreview key={id} {...otherAlbumProps} />
-      ))}
-    </div>
-  );
-}
-}*/
-
-/*const useStyles = makeStyles((theme) => ({
-  root: {
-    flexGrow: 1,
-    backgroundColor: "white",
-  },
-}));*/
-
 export default function SimpleTabs(props) {
 
   const albumId = props.match.params.albumId;
