@@ -19,7 +19,6 @@ import LoginPage from './pages/sign-in-and-sign-up/sign-in-and-sign-up.component
 import ProfilePage from './pages/profile-page/profile-page.component';
 
 import ProfileEditPage from './components/profile-edit/profile-edit.component';
-import ProfileChangePasswordPage from './components/profile-change-password/profile-change-password.component';
 import NewBandPage from './components/profile-new-band/profile-new-band.component';
 import NewAlbumPage from './components/profile-new-album/profile-new-album.component';
 import AlbumsPage from './components/albums/albums.component';
@@ -66,7 +65,6 @@ class App extends Component {
                         <Route exact path='/search' component={SearchPage}/>
                         <PrivateRoute exact path='/profile' component={ProfilePage} />
                         <PrivateRoute exact path='/profile/edit' component={ProfileEditPage} />
-                        <PrivateRoute exact path='/profile/password' component={ProfileChangePasswordPage} />
                         <PrivateRoute exact path='/profile/newband' component={NewBandPage} />
                         <PrivateRoute exact path='/profile/newalbum' component={NewAlbumPage} />
                         <PrivateRoute exact path='/bands/' component={BandsPage} /> 
