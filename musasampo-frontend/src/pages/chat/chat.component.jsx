@@ -1,7 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import PubNub from 'pubnub';
-import { PubNubProvider, usePubNub } from 'pubnub-react';
 import Chat from '../../components/chat/chat.component';
+import ChatMessage from '../../components/chat-message/chat-message.component';
 import SearchBox from '../../components/search-box/search-box.component';
 import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
@@ -13,7 +12,11 @@ import './chat.styles.scss';
 
 import functions from './functions.js'
 
+const URL = 'ws://localhost:3030';
+
 const ChatPage = () => {
+
+    const ws = new WebSocket(URL)
 
     const user_id = '16';
 
@@ -22,6 +25,7 @@ const ChatPage = () => {
     const [channels, setChannels] = useState([]);
     const [selectedChannels, setSelectedChannels] = useState([]);
     const [searchField, setSearchField] = useState('');
+    const [messages, setMessages] = useState([]);
 
     const getChannels = async () => {
         try {
@@ -79,7 +83,45 @@ const ChatPage = () => {
     };
 
 
+    const addMessage = message => {
+
+        setMessages([...messages, message])
+        console.log(JSON.stringify(messages))
+    }
+
+
+    const submitMessage = messageString => {
+        // on submitting the ChatInput form, send the message, add it to the list and reset the input
+        const message = { name: userName, message: messageString }
+        ws.send(JSON.stringify(message))
+        addMessage(message)
+    }
+
     useEffect(() => {
+        ws.onopen = () => {
+            // on connecting, do nothing but log it to the console
+            console.log('connected')
+        }
+
+        ws.onmessage = evt => {
+            // on receiving a message, add it to the list of messages
+            const message = JSON.parse(evt.data)
+            if (message.name != userName) {
+                addMessage(message)
+            } else {
+                console.log('already added')
+            }
+
+        }
+
+        ws.onclose = () => {
+            console.log('disconnected')
+            // automatically try to reconnect on connection loss
+            // setState({
+            //ws: new WebSocket(URL),
+            // })
+        }
+
         getChannels();
         getUserChannels(user_id);
 
@@ -118,10 +160,6 @@ const ChatPage = () => {
                 } */
     };
 
-    const pubnub = new PubNub({
-        publishKey: 'pub-c-ace1075f-a7ff-421a-a32f-ba5059ee6858',
-        subscribeKey: 'sub-c-716579b0-2e2f-11eb-9713-12bae088af96',
-    });
 
     return (
         <div>
@@ -162,9 +200,22 @@ const ChatPage = () => {
                     );
                 })}
             </Paper>
-            <PubNubProvider client={pubnub}>
-                <Chat userName={userName} user_id={user_id} channels={channels} />
-            </PubNubProvider>
+            <div>
+                <label htmlFor="name">
+                    Name: userName;
+            </label>
+                <Chat
+                    ws={ws}
+                    onSubmitMessage={messageString => submitMessage(messageString)}
+                />
+                {messages.map((message, index) =>
+                    <ChatMessage
+                        key={index}
+                        message={message.message}
+                        name={message.name}
+                    />,
+                )}
+            </div>
         </div >
     );
 
