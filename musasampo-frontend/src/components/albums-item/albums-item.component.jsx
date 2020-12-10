@@ -35,7 +35,7 @@ const AlbumsItem = ({ album, history }, props) => {
             </CustomButton>
 
         <button onClick={() => {
-                history.push(`/albums/${bandId}`)
+                history.push(`/songs/`)
             }} inverted>
                 GET SONGS</button>
 
