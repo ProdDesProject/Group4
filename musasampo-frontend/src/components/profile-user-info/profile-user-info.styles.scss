@@ -1,0 +1,25 @@
+.user-info {
+    font-size: 16px;
+    font-family: 'Lucida Sans Unicode';
+    letter-spacing: -0.3px;
+    padding-top: 10px;
+    display: block;
+
+    .descriptor {
+      height: 100%;
+      width: auto;
+      display: table-cell;
+      text-align: left;
+      font-weight: bold;
+      padding-right: 10px;
+      padding-left: 30px;
+    }
+  
+    .infotext {
+        height: 100%;
+        display: table-cell;
+        white-space: nowrap;
+        text-align: left;
+        margin: auto;
+    }
+  }

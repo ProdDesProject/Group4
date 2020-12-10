@@ -10,6 +10,13 @@ import './profile-new-album.styles.scss';
 
 var req = <p className="req">*</p>;
 
+/**
+ * This should be inside of bands, where We need bandInfo for creating album for it.
+ * Ex. User clicks Band->Can add album inside of band.->need info which band is for album 
+ * 
+ * 
+ */
+
 class NewAlbum extends React.Component {
   constructor(props) 
   {
@@ -20,20 +27,36 @@ class NewAlbum extends React.Component {
       postingDate: '',
       albumCover: '',
       albumGenre: '',
-      songs: ''
     };
   }
 
+   //handles submit when clicked button ADD ALBUM:
+   handleSubmit = async event => {
+    event.preventDefault();
+
+    const { albumName, postingDate, albumCover, albumGenre,songs } = this.state;
+    alert("Create a album:");
+    alert(albumName);
+    alert(postingDate);
+    alert(albumCover);
+    alert(albumGenre);
+    
+    //component connection for creating album:->
+
+     //Back to profile-page:
+     this.props.history.push('/profile');
+    
+  }
+
+  //Handles changes when user input is coming:
   handleChange = event => {
     const { name, value } = event.target;
-
     this.setState({ [name]: value });
   };
 
   render() 
   {
-    //songs should not be there
-    const { albumName, postingDate, albumCover, albumGenre, songs } = this.state;
+    const { albumName, postingDate, albumCover, albumGenre} = this.state;
     return (
       <div className='container'>
           <div className='new-album'>
@@ -85,19 +108,7 @@ class NewAlbum extends React.Component {
                       maxLength='30'
                       required
                     />
-                    <form> {/*later to implement the mp3 upload here*/}
-                      <label for="songs">Songs: {req}</label>
-                        <FormInput
-                          type='text'
-                          name='songs'
-                          value={songs}
-                          onChange={this.handleChange}
-                          id='songs'
-                          placeholder = 'Upload songs for the album'
-                          maxLength='30'
-                          required
-                        />
-                    </form>
+                   
                     <div className='buttons'>
                       <Link to = "/profile" className='button'>
                         <CustomButton> Cancel </CustomButton>

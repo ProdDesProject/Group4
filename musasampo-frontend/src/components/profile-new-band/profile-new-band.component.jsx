@@ -8,13 +8,16 @@ import { stringify } from 'querystring';
 import { Link } from 'react-router-dom';
 
 import './profile-new-band.styles.scss';
+import band from '../data/band';
 
 var req = <p className="req">*</p>;
 
-class NewBand extends React.Component {
+class NewBand extends React.Component 
+{
   constructor() {
     super();
 
+    //local state variables
     this.state = {
       bandName: "",
       country: "",
@@ -25,12 +28,15 @@ class NewBand extends React.Component {
     };
   }
 
-  handleSubmit = async event => {
+  //handles submit when clicked button ADD BAND:
+  handleSubmit = async event => 
+  {
     event.preventDefault();
 
     const { username, email, name, phoneNumber, password, confirmPassword, formedIn } = this.state;
 
-    if (password !== confirmPassword) {
+    if (password !== confirmPassword) 
+    {
       alert("Passwords don't match");
       return;
     }
@@ -38,30 +44,22 @@ class NewBand extends React.Component {
       alert("Neccessary fields not filled!");
       return;
     }
-    try {
 
-      // SIGN UP CODE GOES HERE
+     //Back to profile-page:
+     this.props.history.push('/profile');
 
-      this.setState({
-        username: '',
-        email: '',
-        name: '',
-        phoneNumber: '',
-        password: '',
-        confirmPassword: '',
-        formedIn: ''
-      });
-    } catch (error) {
-      console.error(error);
-    }
-  };
+  }
 
-  handleChange = event => {
+  //handles user input from render: 
+  handleChange = event => 
+  {
     const { bandName, country, bandLogo, nsfw } = event.target;
 
-    if (nsfw == true) {
+    if (nsfw == true) 
+    {
       this.setState({ bandName: bandName, country: country, bandLogo: bandLogo, nsfw: false });
-    } else {
+    } else 
+    {
       this.setState({ bandName: bandName, country: country, bandLogo: bandLogo, nsfw: true });
     }
 
@@ -73,7 +71,9 @@ class NewBand extends React.Component {
 
   }
 
-  render() {
+  //Render:
+  render() 
+  {
     const { bandName, country, bandLogo, nsfw } = this.state;
     return (
       <div className='container'>

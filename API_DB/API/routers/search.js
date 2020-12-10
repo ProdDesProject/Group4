@@ -25,13 +25,25 @@ router
 .route('/users/username/:username')
 .get((req,res) => {
     
-    db.query('SELECT * FROM users WHERE username =?',[req.params.username]).then(results => {
-        res.json({results});
-        console.log(results);
-        })
-        .catch(() => {
-            res.sendStatus(500);
-        })
+    db.query('SELECT * FROM users WHERE username = ?',[req.params.username])
+    .then(results => 
+    {
+        if(!results.length)
+        {
+            //no users found
+            res.sendStatus(404);
+        }
+        else
+        {
+            //console.log(results);
+            res.status(200).json(results);
+        }
+    })
+    .catch(() => 
+    {
+        //internal server error
+        res.sendStatus(500);
+    })
 })
 
 //GET-method for searching user by password:
