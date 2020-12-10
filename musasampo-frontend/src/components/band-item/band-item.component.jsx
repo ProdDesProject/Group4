@@ -24,7 +24,7 @@ const BandItem = ({ band, history }, props) => {
                 <span className='bandInformation'>{bandName}</span>
             </div>
             <div className='band-footer'>
-                <span className='name'> Artist</span>
+                <span className='name'></span>
                 
             </div>
             {/*Button in the band cover, onClick opens path /bands/:bandId*/}

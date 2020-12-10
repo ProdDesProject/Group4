@@ -102,7 +102,7 @@ class Bands extends React.Component {
                     </h2>
                     <div className='items'>
                         {filteredBands
-                            .filter((band, idx) => idx < 5)
+                            .filter((band, idx) => idx < bands.length)
                             .map(band => (
                                 <BandItem key={band.bandId} band={band} />
                             ))}
