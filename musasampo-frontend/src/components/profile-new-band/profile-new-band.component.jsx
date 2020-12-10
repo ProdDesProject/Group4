@@ -1,13 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import FormInput from '../../components/form-input/form-input.component';
 import CustomButton from '../../components/custom-button/custom-button.component';
 import SubmitButton from '../../components/submit-button/submit-button.component';
-import Switch from '../../components/switch/switch.component';
 import { Link } from 'react-router-dom';
 
 import './profile-new-band.styles.scss';
 import createBand from '../../services/band/create-band-service'
+import Switch from '../switch/switch.component';
 
 var req = <p className="req">*</p>;
 
@@ -26,10 +26,10 @@ class NewBand extends React.Component
       bandName: '',
       country: '',
       bandLogo: '',
-      nsfw: '',
-
-      chkbox: false
+      nsfw: false
     };
+
+    this.handleToggle = this.handleToggle.bind(this);
   }
 
   //handles submit when clicked button ADD BAND:
@@ -54,9 +54,7 @@ class NewBand extends React.Component
           bandName: '',
           country: '',
           bandLogo: '',
-          nsfw: false,
-
-          chkbox: false
+          nsfw: false
         }
       )
     }
@@ -71,7 +69,15 @@ class NewBand extends React.Component
     const { name, value } = event.target;
 
     this.setState({ [name]: value });
+  
   };
+
+  //switch toggle
+  handleToggle(checked)
+  {
+    this.setState({nsfw: checked});
+    console.log(this.state.nsfw);
+  }
 
   onClickHandler = async event => 
   {
@@ -117,6 +123,7 @@ class NewBand extends React.Component
   //Render:
   render() 
   {
+    var value = false
     const { bandName, country, bandLogo, nsfw } = this.state;
     return (
       <div className='container'>
@@ -166,9 +173,11 @@ class NewBand extends React.Component
                 <form>
                   <p>NSFW: {req}</p>
                   <Switch
-                    value="None"
-                    id="switch"
-                    name="check"
+                      value="None"
+                      id="switch"
+                      name="check"
+                      checked = {this.state.nsfw}
+                      onChange = {this.handleToggle}
                   />
                 </form>
                 <div className='buttons'>
