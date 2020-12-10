@@ -126,21 +126,55 @@ app.get("/messages", async (req, res) => {
   }
 });
 
+// create user channel connection
 
-
-//delete 
-
-/* app.delete("/channel/:channelid", async (req, res) => {
+app.post("/userchannels", async (req, res) => {
   try {
-    const { channel_id } = req.params;
-    const deleteChannel = await pool.query("DELETE FROM channels WHERE channel_id = $1", [
-      channel_id
+    const {user_id, channel_id } = req.body;
+    const newConnection = await pool.query(
+      "INSERT INTO user_channels (user_id, channel_id) VALUES($1,$2) ON CONFLICT(user_id, channel_id) DO NOTHING RETURNING * ",
+      [user_id, channel_id]
+    );
+
+    res.json(newConnection.rows[0]);
+  } catch (err) {
+    console.error(err.message);
+  }
+});
+
+//get all channels by user
+
+app.get("/userchannels/:user_id", async (req, res) => {
+  try {
+    const { user_id } = req.params;
+    const allUsers = await pool.query("SELECT * FROM channels WHERE channel_id IN (SELECT channel_id FROM user_channels WHERE user_id = $1)",
+    [user_id]
+    );
+
+
+    res.json(allUsers.rows);
+  } catch (err) {
+    console.error(err.message);
+  }
+});
+
+
+//delete user channel connection
+
+app.delete("/userchannels", async (req, res) => {
+  try {
+    const { user_id, channel_id } = req.body;
+    const deleteConnection = await pool.query("DELETE FROM user_channels WHERE user_id = $1 AND channel_id = $2 ", [
+      user_id, channel_id
     ]);
-    res.json("Channel was deleted!");
+
+    res.json("Channel was deleted: " + deleteConnection);
   } catch (err) {
     console.log(err.message);
   }
-}); */
+});
+
+
 
 app.listen(5000, () => {
   console.log("server has started on port 5000");

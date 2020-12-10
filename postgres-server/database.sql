@@ -15,7 +15,8 @@ CREATE TABLE channels
 create table user_channels
 (
   user_id integer not null references users(user_id),
-  channel_id integer not null references channels(channel_id)
+  channel_id integer not null references channels(channel_id),
+  CONSTRAINT pk_user_channels_user_id_channel_id PRIMARY KEY (user_id, channel_id)
 );
 
 CREATE TABLE messages

@@ -3,14 +3,8 @@
         try {
             const response = await fetch("http://localhost:5000/channels");
             const jsonData = await response.json();
-            for (var i = 0; i < jsonData.length; i++)
-                this.setState({
-                    channels: [
-                        ...this.state.channels,
-                        jsonData[i].channelname
-                    ]
-                })
-            console.log("Channels: " + jsonData)
+
+            console.log("Channels: " + JSON.stringify(jsonData));
         } catch (err) {
             console.error(err.message);
         }
@@ -22,7 +16,7 @@
                 method: "GET"
             });
             const jsonData = await response.json();
-            console.log("User already exists: " + jsonData.username)
+            console.log("User already exists: " + JSON.stringify(jsonData.username))
         } catch (err) {
             createUser(username);
             console.error(err.message);
@@ -45,8 +39,19 @@
         }
     };
 
+    const getUsers = async () => {
+        try {
+            const response = await fetch("http://localhost:5000/users");
+            const jsonData = await response.json();
+            console.log("Users: " + JSON.stringify(jsonData))
+        } catch (err) {
+            console.error(err.message);
+        }
+    };
+
     export default {
         getChannels,
         getUserByUsername,
-        createUser
+        createUser,
+        getUsers,
 };
