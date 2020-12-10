@@ -9,8 +9,13 @@
         background: #e2e2e2;
         border: solid 5px #393e46;
     
-        .button {
-        margin: 80px;
+        a.button 
+        {
+            display: block;
+            margin-top: 35px;
+            margin-bottom: 35px;
+            width: 165px;
+            text-decoration: none;
         }
     }
   }
