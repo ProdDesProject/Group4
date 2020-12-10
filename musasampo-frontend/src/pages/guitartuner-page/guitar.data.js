@@ -3,6 +3,7 @@ import note1 from '../notes/A.mp3'; //Is actually A#, # is not allowed in the fi
 import note2 from '../notes/F.mp3';
 import guitarStandard from '../../assets/guitarStandard.png';
 import guitarSeven from '../../assets/guitarSeven.png';
+import guitarBass from '../../assets/guitarBass.png';
 import guitarUkulele from '../../assets/guitarUkulele.png';
 
 //Tuners in order, named with titles. Strings go from thinnest to the thickest from up to down.
@@ -284,7 +285,7 @@ const GUITAR_DATA = [
     {
         guitarId: 2,
         title: 'Bass Guitar Tuner',
-        imageUrl: 'https://static.thenounproject.com/png/154989-200.png',
+        imageUrl: guitarBass,
         routeName: 'bass',
         strings: [{
             id: 0,

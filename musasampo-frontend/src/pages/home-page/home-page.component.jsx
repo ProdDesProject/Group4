@@ -6,14 +6,14 @@ import './home-page.styles.scss';
 import { stringify } from 'querystring';
 import Header from '../../components/header/header.component';
 import logo from '../../assets/logo.png';
-import ProfileContent from '../../components/profile-content/profile-content.component';
+import HomeNew from '../../components/home-new/home-new.component';
+import HomeChat from '../../components/home-chat/home-chat.component';
+import HomeGuitarTuner from '../../components/home-guitar-tuner/home-guitar-tuner.component';
 
 import Data from '../../components/data/data.jsx';
 
-class Mainpage extends React.Component 
-{
-  constructor(props) 
-  {
+class Mainpage extends React.Component {
+  constructor(props) {
     super(props);
 
   }
@@ -24,8 +24,7 @@ class Mainpage extends React.Component
 
   }
 
-  componentDidMount()
-  {
+  componentDidMount() {
     //this is how you can access props on different components
     var login1 = this.props.history.location.login;
     var token = this.props.history.location.token;
@@ -37,19 +36,24 @@ class Mainpage extends React.Component
       <div className="homepage">
         <header className="homepage-header">
           <div className='homepage'>
-          <div className='introduction'>
-            
-            <div className='logo-area'>
-            <img src={logo} alt="logo" />
+            <div className='home-content'>
+              <div className='logo-row'>
+                <div className='logo-area'>
+                  <img src={logo} alt="logo" />
+                </div>
+                <div className='infoText'>
+                  MUSASAMPO - Fulfilling all your music needs with a single website
+                  <br></br> We offer services for bands and fans alike
             </div>
-
-            <div className='infoText'>
-                MUSASAMPO is a website dedicated to all your music needs. We offer a multitude of services for bands and fans alike. Please edit this text.
+              </div>
             </div>
-            <div>
-            <ProfileContent />
+            <div className='top-row'>
+            <HomeNew />
             </div>
-          </div>
+            <div className='bottom-row'>
+              <HomeChat />
+              <HomeGuitarTuner />
+            </div>
           </div>
         </header>
       </div>
