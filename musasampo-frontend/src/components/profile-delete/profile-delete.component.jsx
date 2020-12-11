@@ -13,10 +13,10 @@ class DeleteButton extends React.Component
     }
 
     //handle the delete button click
-    onClickHandler()
+    onClickHandler = async event =>
     {
         //call delete service, deletes from database
-        DeleteUserService()
+        await DeleteUserService()
         .then(status =>
             {
                 console.log(status)

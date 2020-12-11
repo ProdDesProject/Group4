@@ -11,7 +11,8 @@ export default async function createBand(bandName, country, bandLogo, nsfw)
         //parsing the found JSON
         const foundUser = JSON.parse(user);
         //getting the userID
-        const userId = foundUser[0].userId;
+        //console.log(foundUser);
+        const userId = foundUser.results[0].userId;
         
         //parsing the found token JSON
         const foundToken = JSON.parse(token);

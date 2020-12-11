@@ -215,7 +215,7 @@ router
                 //deincrement the user id field
                 db.query('ALTER TABLE bands AUTO_INCREMENT = ?',[(req.params.userId - 1)]); 
                 //send ok status
-                res.sendStatus(200);
+                res.sendStatus(204);
             }
             else
             {
