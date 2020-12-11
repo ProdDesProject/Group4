@@ -1,4 +1,4 @@
-.page-title {
+page-title {
     margin-left: 40px;
     font-size: 38px;
     margin-top: 40px;
@@ -21,11 +21,12 @@
         width: 30%;
 
         .headstock {
-            width: 100%;
-            height: auto;
+            width: 70%;
+            height: 70%;
         }
 
         .caption {
+            margin-top: 20px;
             display: block;
         }
     }
