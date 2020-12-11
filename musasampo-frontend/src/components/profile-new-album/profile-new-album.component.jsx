@@ -3,6 +3,7 @@ import React from 'react';
 import FormInput from '../../components/form-input/form-input.component';
 import CustomButton from '../../components/custom-button/custom-button.component';
 import SubmitButton from '../submit-button/submit-button.component';
+import createAlbum from '../../services/album/create-albums-service'
 
 import { Link } from 'react-router-dom';
 
@@ -22,7 +23,13 @@ class NewAlbum extends React.Component {
   {
     super(props);
 
-    this.state = {
+    this.state = 
+    {
+      status: true,
+      submitting: false,
+      submittingMessage: '',
+
+      bandName : '',
       albumName: '',
       postingDate: '',
       albumCover: '',
@@ -34,29 +41,84 @@ class NewAlbum extends React.Component {
    handleSubmit = async event => {
     event.preventDefault();
 
-    const { albumName, postingDate, albumCover, albumGenre,songs } = this.state;
-    alert("Create a album:");
-    alert(albumName);
-    alert(postingDate);
-    alert(albumCover);
-    alert(albumGenre);
+    //reset state
+    try
+    {
+      this.setState(
+        {
+          status: true,
+          submitting: false,
+          submittingMessage: '',
     
-    //component connection for creating album:->
-
-     //Back to profile-page:
-     this.props.history.push('/profile');
-    
+          bandName : '',
+          albumName: '',
+          postingDate: '',
+          albumCover: '',
+          albumGenre: '',
+        }
+      )
+    }
+    catch(error)
+    {
+      console.log(error);
+    }
   }
 
   //Handles changes when user input is coming:
-  handleChange = event => {
+  handleChange = event => 
+  {
     const { name, value } = event.target;
     this.setState({ [name]: value });
   };
 
+  onClickHandler = async event => 
+  {
+    event.preventDefault();
+
+    const { bandName, albumName, postingDate, albumCover, albumGenre} = this.state;
+
+    if (!bandName || !albumName || !postingDate || !albumCover || !albumGenre) 
+    {
+      this.setState({status: false, submittingMessage: "Neccessary fields not filled!"});
+      return;
+    }
+    else if(postingDate.match(/^([0-2][0-9]|(3)[0-1])(\/)(((0)[0-9])|((1)[0-2]))(\/)\d{4}$/) === null)
+    {
+      this.setState({status: false, submittingMessage: "Date format invalid!"});
+      return;
+    }
+    else
+    {
+      //album registration procedure
+      //submitting data
+      this.setState({submitting: true});
+
+      await createAlbum(bandName, albumName, postingDate, albumCover, albumGenre)
+      .then(status =>
+        {
+          //album successfully created
+          if(status !== undefined && status === 201)
+          {
+            //change submission status
+            this.setState({submitting: false, status: true});
+            //redirect to profile page to show the album
+            this.props.history.push(
+              {
+                pathname: '/profile'
+              }
+            );
+          }
+          else
+          {
+            this.setState({submitting: false, status: false, submittingMessage: 'Band does not exist!'});
+          }
+        })
+    }
+  }
+
   render() 
   {
-    const { albumName, postingDate, albumCover, albumGenre} = this.state;
+    const { bandName, albumName, postingDate, albumCover, albumGenre} = this.state;
     return (
       <div className='container'>
           <div className='new-album'>
@@ -66,6 +128,16 @@ class NewAlbum extends React.Component {
             <form className='new-album-form' onSubmit={this.handleSubmit}>
               <div className='sides'>
                   <div className='left-side'>
+                      <label for="bandName">Band Name: {req}</label>
+                          <FormInput
+                            type='text'
+                            name='bandName'
+                            id='bandName'
+                            value={bandName}
+                            onChange={this.handleChange}
+                            maxLength='30'
+                            required
+                            />
                       <label for="albumName">Album Name: {req}</label>
                       <FormInput
                         type='text'
@@ -85,19 +157,18 @@ class NewAlbum extends React.Component {
                         onChange={this.handleChange}
                         maxLength='10'
                       />
-                      <label for="albumCover">Album Cover: {req}</label>
+                </div>
+
+                <div className='right-side'>
+                    <label for="albumCover">Album Cover: {req}</label>
                       <FormInput
                         type='text'
                         name='albumCover'
                         id='albumCover'
                         value={albumCover}
                         onChange={this.handleChange}
-                        placeholder='Upload a picture for the album cover'
                         required
                       />
-                </div>
-
-                <div className='right-side'>
                     <label for="albumGenre">Genre: {req}</label>
                     <FormInput
                       type='text'
@@ -113,8 +184,10 @@ class NewAlbum extends React.Component {
                       <Link to = "/profile" className='button'>
                         <CustomButton> Cancel </CustomButton>
                       </Link>
-                      <SubmitButton type='submit' onClick = {this.onClickHandler}> Add Album </SubmitButton>
+                      <SubmitButton type='submit' onClick = {this.onClickHandler} disable = {this.state.submitting}> Add Album </SubmitButton>
+                      {this.state.submitting && <img src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />}
                     </div>
+                    {!this.state.status && <h3>{this.state.submittingMessage}</h3>}
                   </div>
                 </div>
             </form>

@@ -145,7 +145,7 @@ router
 //implementing the search for non-logged in users
 //THE SEARCH WORKS IF IN THE DATABASE NO SPACES ARE USED FOR STRINGS (the strings are decoded correctly from the URL tho)
 router
-.route('/search2/:category/:searchOption/:searchValue')
+.route('/:category/:searchOption/:searchValue')
 .get((req, res) => 
 {
   //array of bands or albums

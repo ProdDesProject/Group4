@@ -37,15 +37,6 @@ class NewBand extends React.Component
   {
     event.preventDefault();
 
-    const { bandName, country, bandLogo, nsfw } = this.state;
-
-    if (!bandName || !country || !bandLogo || nsfw === null) 
-    {
-      alert("Neccessary fields not filled!");
-      this.setState({status: false, submittingMessage: "Neccessary fields not filled!"});
-      return;
-    }
-
     //reset state
     try
     {
