@@ -20,7 +20,7 @@ const { checkServerIdentity } = require('tls');
 var basicPath = '../uploads/bands/';
 var userPath = '../uploads/Users/';
 
-var imagePathBands = '../uploads/bands/';
+var errorPath = '../uploads/pictures/nopic.png';
 
 var musicpath2 = '../uploads/music/Pyry Viirret - Classics covered';
 var imagepath2 = '../uploads/pictures/Pyry Viirret - Classics covered pictures';
@@ -90,6 +90,12 @@ router.get('/userpicture/:username/:pic', function (req, res) {
   console.log();
 });
 
+//GET-method: User-picture:
+router.get('/errorpicture', function (req, res) {
+  res.sendFile(path.join(__dirname, errorPath));
+  console.log();
+});
+
 //GET-method: MP3 UPDATED:
 router.get('/mp3path.mp3/:bandName/:albumName/:song', function (req, res) {
   res.sendFile(path.join(__dirname, basicPath, req.params.bandName,'albums',req.params.albumName, req.params.song));
@@ -98,7 +104,19 @@ router.get('/mp3path.mp3/:bandName/:albumName/:song', function (req, res) {
 
 //GET-method for BandPicture:
 router.get('/imagepath.png/:bandName/:image', function (req, res) {
-  res.sendFile(path.join(__dirname, basicPath, req.params.bandName, req.params.image));
+  console.log(req.params.bandName);
+  //console.log(req.params.albumName);
+  console.log(req.params.image);
+  
+  res.sendFile(path.join(__dirname, basicPath, req.params.bandName, req.params.image),function err(){
+    if (err) {
+      console.log(err);
+      res.sendFile(path.join(__dirname, errorPath));
+    }
+    else {
+      console.log('Sent:', fileName);
+    }
+  });
 });
 
 //USED in search and shop-pages:
@@ -108,8 +126,18 @@ router.get('/imagepath.png/:band/albums/:albumName/:image', function (req, res)
   console.log(req.params.band);
   console.log(req.params.albumName);
   console.log(req.params.image);
+ 
+  res.sendFile(path.join(__dirname, basicPath,req.params.band,"albums",req.params.albumName,req.params.image),function err(){
+    if (err) {
+      console.log(err);
+      res.sendFile(path.join(__dirname, errorPath));
+    }
+    else {
+      console.log('Sent:', fileName);
+    }
+  });
   
-  res.sendFile(path.join(__dirname, basicPath,req.params.band,"albums",req.params.albumName,req.params.image));
+  
 });
 
 //POST-method for checking uploading information and filenametesting
