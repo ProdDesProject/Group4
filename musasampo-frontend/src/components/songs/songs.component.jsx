@@ -45,7 +45,7 @@ class SongsPage extends React.Component {
       loggedInUser2 = JSON.parse(localStorage.getItem("currentUser"));
 
       //userId:
-      var userId = loggedInUser2[0].userId;
+      var userId = loggedInUser2.results[0].userId;
       //bandId:
       var bandId = this.props.location.state.bandId;
       var AlbumId = this.props.location.state.albumId;

@@ -40,8 +40,9 @@ class Albums extends React.Component {
       loggedInUser = JSON.parse(localStorage.getItem("currentToken"));
       loggedInUser2 = JSON.parse(localStorage.getItem("currentUser"));
 
+      //console.log(loggedInUser2);
       //userId:
-      var userId = loggedInUser2[0].userId;
+      var userId = loggedInUser2.results[0].userId;
 
       //bandId:
       var bandId = this.props.location.state.detail;
@@ -67,7 +68,7 @@ class Albums extends React.Component {
       for (var i in ALBUMS.albums)
         {
             ///imagepath.png/album/:band/albums/:image
-            var url = 'http://localhost:9000/upload/imagepath.png/'+ BANDS[0].bandName +'/albums/'+ALBUMS.albums[i].albumPicture;
+            var url = 'http://localhost:9000/upload/imagepath.png/'+ BANDS[0].bandName +'/albums/'+ALBUMS.albums[i].albumName+'/'+ALBUMS.albums[i].albumPicture;
             //Save url to array:
             BandsAndPictures[i].albumPicture = url;
            

@@ -10,6 +10,7 @@ import './albums-item.styles.scss';
 const AlbumsItem = ({ album,bandName, history }, props) => {
     const { bandId, albumId, albumName, albumLaunchDate, albumPicture, albumGenre } = album;
 
+    alert(albumPicture);
     return (
         <div className='band-item'>
             <div
