@@ -159,8 +159,8 @@ router
                 db.query('DELETE FROM users WHERE userId = ?',[req.params.userId]);
                 //deincrement the user id field
                 db.query('ALTER TABLE bands AUTO_INCREMENT = ?',[(req.params.userId - 1)]); 
-                //send success status
-                res.sendStatus(204);
+                //send ok status
+                res.sendStatus(200);
             }
             else
             {

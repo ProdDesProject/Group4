@@ -1,9 +1,9 @@
-const express = require('express');
-var bodyParser = require('body-parser');
+const express = require('express')
+var bodyParser = require('body-parser')
 const fs = require('fs');
 const bcrypt = require('bcryptjs');
-const app = express();
-const port = 9000;
+const app = express()
+const port = 9000
 var cors = require("cors");
 const users = require('./routers/users.js');
 const bands = require('./routers/bands.js');
@@ -14,10 +14,8 @@ const search = require('./routers/search.js');
 const db = require('./routers/db.js');
 const upload = require('./routers/upload');
 
-//app.use(bodyParser.urlencoded({extended: false}));
-app.use(bodyParser.urlencoded({limit: '50mb', extended: true, parameterLimit: 1000000}));
-app.use(bodyParser.json({limit: '50mb'}));
-
+app.use(bodyParser.urlencoded({extended: false}));
+app.use(bodyParser.json());
 app.use(cors());
 
 app.use('/users', users);

@@ -7,7 +7,7 @@ import { stringify } from 'querystring';
 
 export default async function createFolders(bandName,albumName)
 {   
-    async function createBand(bandName)
+    async function createBand()
     {
         //request info for creating a band:
         const requestForBand = {
@@ -30,41 +30,37 @@ export default async function createFolders(bandName,albumName)
      }
     }
 
-    async function createAlbum(bandName2,albumName2)
+    async function createAlbum()
     {
-        alert("createAlbum:"+bandName2+albumName2);
         //request info for creating a album:
-        const createFolders = {
+        const requestForAlbum = {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ bandName: bandName2,albumName: albumName2})
+            body: JSON.stringify({ bandName: bandName,albumName: albumName})
             
         };
 
-         //create Folders:
-        var checkData= await fetch('http://localhost:9000/upload/createFoldersForUpload', createFolders);
+         //Fetch which checks Data which is uploading:
+        var checkData= await fetch('http://localhost:9000/upload/createFolders', requestForAlbum)
         const result = await checkData.json();
 
-        alert("result2:"+result);
-
-        return result;
          //result check:
+        if (result == "200")
+        {
+            return "200";
+        }else
+        {
+            return "400";
+        }
     };
-
-    var result;
 
     if (bandName != undefined && albumName == undefined)
     {
-        //alert("create band:");
-        result =  await createBand(bandName);
+        createBand(bandName);
     }
     if (bandName != undefined && albumName != undefined)
     {
-        //alert("create album:" + bandName+albumName);
-        result = await createAlbum(bandName,albumName);
+        createAlbum(bandName,albumName);
     }
-
-    return result;
-
 
 }
