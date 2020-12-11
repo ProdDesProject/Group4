@@ -4,10 +4,11 @@ import React from 'react';
 //import BANDS from '../../data/bands';
 
 import SearchBox from '../search-box/search-box.component';
-import AlbumsItem from '../albums-item/albums-item.component';
+import SongsItem from '../songs-item/songs-item.component';
 import BandItem from '../band-item/band-item.component';
 
 import getBandsBandId from '../../services/band/get-band-by-bandId-servise';
+
 
 import fetchAlbumsByBandName from '../../services/album/albums-by-albumid-service';
 import getUserID from '../../services/user/get-userid-by-username.service';
@@ -16,6 +17,8 @@ import { stringify } from 'querystring';
 import './songs.styles.scss';
 import fetchAlbumsBybandId from '../../services/album/album-get-albumid-from-bandid-service';
 import fetchAlbumId from '../../services/album/album-get-albumid-from-bandid-service';
+
+import getSongsAlbumId from '../../services/songs/get-songs-by-albumid-service'
 
 {/* Albums.component*/ }
 
@@ -27,7 +30,8 @@ class SongsPage extends React.Component {
             bands:[],
             albums: [],
             pictures: [],
-            searchField: ''
+            searchField: '',
+            songs:[]
         };
     }
 
@@ -42,49 +46,58 @@ class SongsPage extends React.Component {
 
       //userId:
       var userId = loggedInUser2[0].userId;
-
       //bandId:
-      var bandId = this.props.location.state.detail;
-
-      //AlbumId fetch by:
-      var AlbumId = await fetchAlbumId(bandId);
-      //AlbumId = AlbumId.albums.albumId;
-
-      //fetch Bands by bandId:
-      let BANDS = await getBandsBandId(bandId);
-
-      //fetch Albums by bandId <= comes from click:
-      let ALBUMS = await fetchAlbumsBybandId(bandId);
-
-      var Bandsnames = [];
-      Bandsnames = BANDS.bands;
-  
-      var BandsAndPictures = [];
-      BandsAndPictures = ALBUMS.albums;
+      var bandId = this.props.location.state.bandId;
+      var AlbumId = this.props.location.state.albumId;
+    
+      //alert(albumName);
+      let SONGS = await getSongsAlbumId(AlbumId);
+    
+      var Songs = [];
+      Songs = SONGS.songs;
       
+      
+      var albumName= this.props.location.state.albumName;
+
+      //alert(bandId);
+
+      var bandInfo = await getBandsBandId(bandId);
+      var bandName = bandInfo[0].bandName;
+      
+
+
+      //alert(albumName);
+      //alert(SONGS.songs[0].MP3);
+
+      var mp3 = SONGS.songs[0].MP3;
+
       //ALBUMS.albums[0].albumPicture = url;
 
-      for (var i in ALBUMS.albums)
+      for (var i in SONGS.songs)
         {
             ///imagepath.png/album/:band/albums/:image
-            var url = 'http://localhost:9000/upload/imagepath.png/'+ BANDS[0].bandName +'/albums/'+ALBUMS.albums[i].albumPicture;
+            var url = 'http://localhost:9000/upload/mp3path.mp3/'+bandName+'/'+albumName+'/'+mp3;
             //Save url to array:
-            BandsAndPictures[i].albumPicture = url;
+            Songs[i].MP3 = url;
+            console.log(url);
            
         };
 
-      this.setState({ bands: BANDS.bands });
-      this.setState({ albums: ALBUMS.albums });
+      this.setState({ songs: SONGS.songs });
+
+      console.log("1"+this.state.songs);
+      
         
    
 
     //change albumName and bandName for page (%20 changes to spaces)
-    for (var i=0;i<ALBUMS.albums.length;i++)
+    for (var i=0;i<SONGS.songs.length;i++)
     {
-        BandsAndPictures[i].albumName = decodeURIComponent(BandsAndPictures[i].albumName);
+        Songs[i].songName = decodeURIComponent(Songs[i].songName);
     };
 
-      this.setState({ albums: BandsAndPictures });
+      this.setState({ songs: Songs });
+      //alert(this.state.songs);
     }
 
     /* change search field state to search field input  */
@@ -96,11 +109,11 @@ class SongsPage extends React.Component {
     //<SearchBox onSearchChange={this.onSearchChange} />
 
     render() {
-        const { albums, searchField } = this.state;
+        const { songs, searchField } = this.state;
 
         {/* filter bands with search field value  */ }
-        const filteredAlbums = albums.filter(album =>
-            album.albumName.toLowerCase().includes(searchField.toLowerCase())
+        const filteredSongs = songs.filter(song =>
+            song.songName.toLowerCase().includes(searchField.toLowerCase())
         );
 
 
@@ -113,12 +126,12 @@ class SongsPage extends React.Component {
                 {/* display filtered bands  */}
                 <div className="search-preview">
                     <h2 className='title'>
-                        BANDS
+                        SONGS
                     </h2>
                     <div className='items'>
-                        {filteredAlbums
-                            .map(album => (
-                                <AlbumsItem key={album.albumId} album={album} />
+                        {filteredSongs
+                            .map(song => (
+                                <SongsItem key={song.songId} song={song} />
                             ))}
                     </div>
                 </div>

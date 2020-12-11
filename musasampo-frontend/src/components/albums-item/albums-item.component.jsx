@@ -7,7 +7,7 @@ import CustomButton from '../custom-button/custom-button.component';
 import './albums-item.styles.scss';
 
 {/*filter the band from the data with the bandId from props*/ }
-const AlbumsItem = ({ album, history }, props) => {
+const AlbumsItem = ({ album,bandName, history }, props) => {
     const { bandId, albumId, albumName, albumLaunchDate, albumPicture, albumGenre } = album;
 
     return (
@@ -34,8 +34,10 @@ const AlbumsItem = ({ album, history }, props) => {
                 ALBUM INFORMATION
             </CustomButton>
 
-        <button onClick={() => {
-                history.push(`/songs/`)
+        
+
+            <button onClick={() => {
+                history.push({pathname: `/songs/`, search: '?query=abc', state: { bandId:bandId, albumId: albumId, albumName: albumName}})
             }} inverted>
                 GET SONGS</button>
 
