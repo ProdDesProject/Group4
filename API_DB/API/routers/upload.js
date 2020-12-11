@@ -103,11 +103,13 @@ router.get('/imagepath.png/:bandName/:image', function (req, res) {
 
 //USED in search and shop-pages:
 //GET-method: BANDS/ALBUM/ route to albumImage;
-router.get('/imagepath.png/:band/albums/:image', function (req, res) 
+router.get('/imagepath.png/:band/albums/:albumName/:image', function (req, res) 
 {
   console.log(req.params.band);
+  console.log(req.params.albumName);
   console.log(req.params.image);
-  res.sendFile(path.join(__dirname, basicPath,req.params.band,"albums",req.params.image));
+  
+  res.sendFile(path.join(__dirname, basicPath,req.params.band,"albums",req.params.albumName,req.params.image));
 });
 
 //POST-method for checking uploading information and filenametesting

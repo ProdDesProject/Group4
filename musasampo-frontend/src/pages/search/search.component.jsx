@@ -68,7 +68,7 @@ class Search extends React.Component {
             var result = await getBandsBandId(ALBUMS.albums[i].bandId);
             result = result[0].bandName
             ///imagepath.png/album/:band/albums/:image
-            var url = 'http://localhost:9000/upload/imagepath.png/'+ result +'/albums/'+ALBUMS.albums[i].albumPicture;
+            var url = 'http://localhost:9000/upload/imagepath.png/'+ result +'/albums/'+ ALBUMS.albums[i].albumName+ '/' +ALBUMS.albums[i].albumPicture;
             //Save url to array:
             AlbumsAndPictures[i].albumPicture = url;
             //console.log(i);
