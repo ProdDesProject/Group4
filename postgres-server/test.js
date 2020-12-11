@@ -1,13 +1,5 @@
 
-  const { Pool } = require('pg')
-  const pool = new Pool({
-    user: 'postgres',
-    host: '193.196.53.33',
-    database: 'messenger',
-    password: 'admin',    
-    port: 5416,
-    
-  })
+ const pool = require("./db");
 
   pool.query('SELECT NOW()', (err, res) => {
     console.log(err, res)
