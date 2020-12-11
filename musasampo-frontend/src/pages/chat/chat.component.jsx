@@ -52,6 +52,19 @@ const ChatPage = () => {
         }
     };
 
+    const getUserById = async (user_id) => {
+        try {
+            const response = await fetch(`http://localhost:5000/users/${user_id}`, {
+                method: "GET"
+            });
+            const jsonData = await response.json();
+            // DO SOMETHING
+            console.log(jsonData)
+        } catch (err) {
+            console.error(err.message);
+        }
+    };
+
     const getUserChannels = async (user_id) => {
         try {
             const response = await fetch(`http://localhost:5000/userchannels/${user_id}`, {
@@ -82,6 +95,34 @@ const ChatPage = () => {
         }
     };
 
+    const createMessage = async (messagecontent, user_id, channel_id) => {
+        try {
+            const body = { messagecontent, user_id, channel_id };
+            const response = await fetch("http://localhost:5000/messages", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(body)
+            });
+            const jsonData = await response.json();
+            console.log("Message added: " + JSON.stringify(jsonData));
+        } catch (err) {
+            console.error(err.message);
+        }
+    };
+
+    const getMessages = async (channel_id) => {
+        try {
+            const response = await fetch(`http://localhost:5000/messages/${channel_id}`, {
+                method: "GET"
+            });
+            const jsonData = await response.json();
+            setMessages(jsonData);
+            console.log(jsonData)
+        } catch (err) {
+            console.error(err.message);
+        }
+    };
+
 
     const addMessage = message => {
 
@@ -90,10 +131,11 @@ const ChatPage = () => {
     }
 
 
-    const submitMessage = messageString => {
+    const submitMessage = (messageString, channel_id) => {
         // on submitting the ChatInput form, send the message, add it to the list and reset the input
-        const message = { name: userName, message: messageString }
+        const message = { name: userName, message: messageString, user_id: user_id, channel_id: channel_id }
         ws.send(JSON.stringify(message))
+        createMessage(messageString, user_id, channel_id)
         addMessage(message)
     }
 

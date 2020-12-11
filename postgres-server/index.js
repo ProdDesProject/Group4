@@ -96,13 +96,27 @@ app.get("/users/:username", async (req, res) => {
   }
 });
 
+//get user by user_id
+
+app.get("/users/:user_id", async (req, res) => {
+  try {
+    const { user_id } = req.params;
+    const user = await pool.query("SELECT * FROM users WHERE user_id = $1", [
+      user_id
+    ]);
+    res.json(user.rows[0]);
+  } catch (err) {
+    console.error(err.message);
+  }
+});
+
 //create a message
 
 app.post("/messages", async (req, res) => {
   try {
     const { messagecontent, user_id, channel_id } = req.body;
     const newMessage = await pool.query(
-      "INSERT INTO messages (messagecontent, user_id, channel_id) VALUES($1) RETURNING *",
+      "INSERT INTO messages (messagecontent, user_id, channel_id) VALUES($1,$2,$3) RETURNING *",
       [messagecontent, user_id, channel_id]
     );
 
@@ -114,7 +128,7 @@ app.post("/messages", async (req, res) => {
 
 //get all messages by channel
 
-app.get("/messages", async (req, res) => {
+app.get("/messages/channel_id", async (req, res) => {
   try {
     const { channel_id } = req.params;
     const allUsers = await pool.query("SELECT * FROM messages WHERE channel_id = $1",
