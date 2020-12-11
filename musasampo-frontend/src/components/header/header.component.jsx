@@ -14,7 +14,7 @@ class Header extends React.Component
   {
     super(props);
 
-    if(SignInServices.currentTokenValue)
+    if(SignInServices.currentTokenValue !== null)
     {
       this.state = 
       {
@@ -105,7 +105,7 @@ class Header extends React.Component
   {
     //if user logged in then change the header 
     //(this.state.login is the previous status and if we have token it means that the header needs a change)
-    if(SignInServices.currentTokenValue && !this.state.login)
+    if(SignInServices.currentTokenValue !== null && !this.state.login)
     {
       this.setState({login: true, SignInOutText: 'SIGN OUT'});
     }

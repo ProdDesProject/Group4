@@ -11,7 +11,8 @@ import Switch from '../switch/switch.component';
 
 var req = <p className="req">*</p>;
 
-class NewBand extends React.Component {
+class NewBand extends React.Component 
+{
   constructor() {
     super();
 
@@ -31,7 +32,9 @@ class NewBand extends React.Component {
     this.handleToggle = this.handleToggle.bind(this);
   }
 
-  handleSubmit = async event => {
+  //handles submit when clicked button ADD BAND:
+  handleSubmit = async event => 
+  {
     event.preventDefault();
 
     const { bandName, country, bandLogo, nsfw } = this.state;
@@ -42,23 +45,25 @@ class NewBand extends React.Component {
       this.setState({status: false, submittingMessage: "Neccessary fields not filled!"});
       return;
     }
-    try {
 
-      // SIGN UP CODE GOES HERE
-
-      this.setState({
-        username: '',
-        email: '',
-        name: '',
-        phoneNumber: '',
-        password: '',
-        confirmPassword: '',
-        formedIn: ''
-      });
-    } catch (error) {
-      console.error(error);
+    //reset state
+    try
+    {
+      this.setState(
+        {
+          bandName: '',
+          country: '',
+          bandLogo: '',
+          nsfw: false
+        }
+      )
     }
-  };
+    catch(error)
+    {
+      console.log(error);
+    }
+
+  }
 
   handleChange = event => {
     const { name, value } = event.target;

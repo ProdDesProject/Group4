@@ -9,7 +9,7 @@ import './band-item.styles.scss';
 
 {/*filter the band from the data with the bandId from props*/ }
 const BandItem = ({ band, history }, props) => {
-    const { bandId, nsfw, bandName, bandLogo, bandImage } = band;
+    const { bandId, nsfw, bandName, bandLogo } = band;
 
     return (
         <div className='band-item'>
