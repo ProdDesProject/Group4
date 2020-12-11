@@ -6,9 +6,6 @@ import { Link, withRouter } from 'react-router-dom';
 import '../custom-button/custom-button.component';
 import './account-details.styles.scss';
 
-import DeleteButton from '../profile-delete/profile-delete.component';
-import ProfileUserInfo from '../profile-user-info/profile-user-info.component';
-
 class AccountDetails extends React.Component {
   constructor(props) {
     super(props);
@@ -33,8 +30,21 @@ class AccountDetails extends React.Component {
           <div className='titleText'>
             Account details:
         </div>
-          <ProfileUserInfo></ProfileUserInfo>
-          <DeleteButton></DeleteButton>
+          <div className='user-info'>
+            <div className='descriptor'>
+              <dt>Username:</dt>
+              <dt>Email:</dt>
+              <dt>Name:</dt>
+              <dt>Phone number:</dt>
+            </div>
+
+            <div className='infotext'>
+              <dt>coolPeter88</dt>
+              <dt>peter.peter@mail.com</dt>
+              <dt>Peter Peter</dt>
+              <dt>123 90++</dt>
+            </div>
+          </div>
           <Link to="/profile/edit" className='button'>
             <CustomButton> Edit </CustomButton>
           </Link>

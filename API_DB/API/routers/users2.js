@@ -8,24 +8,23 @@ module.exports = {
   getUserByName: async function(username)
   {
     var results2;
-    //var username2;
+    var username2;
     
-    await db.query('SELECT * FROM users;').then(results => 
+    var results = await db.query('SELECT * FROM users;');
+    
+    results2= results.find(u => u.username == username)
+    username2 = results2.username;
+
+    if (username2 == username)
     {
-      results2 = results.find(u => u.username === username)
-      //username2 = results2.username;
-  
-      if (results2 !== -1 && results2.username === username)
-      {
-        console.log("going back");
-        console.log(results2);
-        return results2;
-      }
-      else
-      {
-        return undefined;
-      }
-    });
+      console.log("going back");
+      console.log(results2);
+      return results2;
+    }
+    else
+    {
+      return undefined;
+    }
   },
 
 

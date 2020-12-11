@@ -4,8 +4,6 @@ import FormInput from '../form-input/form-input.component';
 import SubmitButton from '../submit-button/submit-button.component';
 import { stringify } from 'querystring';
 import CustomButton from '../custom-button/custom-button.component';
-//import SignInServices from '../services/sign-in-services.js';
-import createAlbum from '../../services/album/create-albums-service.js';
 
 import { Link } from 'react-router-dom';
 
@@ -24,41 +22,22 @@ class ChangePassword extends React.Component {
 
   handleSubmit = async event => {
     event.preventDefault();
-    //variables from this.state:
+
     const { password, newPassword, confirmNewPassword } = this.state;
 
-    //check new password and confirmedpassword match:
     if (newPassword !== confirmNewPassword) {
       alert("Passwords don't match");
       return;
     }
-    //check that all is included in userinput: 
     if(!password || !newPassword || !confirmNewPassword)
     {
       alert("Neccessary fields not filled!");
       return;
     }
-
-    /**
-     * 
-     *  NEED two methods here from services/sign-in
-     * 1.check current password or token authentication
-     * 2.Metthod for uploadtin information-> Dd
-     * 
-     * 
-     */
-
-    
-    //SignInServices.SignIn();
-    
-
-     alert(password);
-     alert(newPassword);
-     alert(confirmNewPassword);
-   
-    
-    //Delete values from local state variables because safety:
     try {
+
+      // SIGN UP CODE GOES HERE
+
       this.setState({
         password: '',
         newPassword: '',
@@ -67,9 +46,6 @@ class ChangePassword extends React.Component {
     } catch (error) {
       console.error(error);
     }
-
-    //Back to profile-page:
-    this.props.history.push('/profile');
   };
 
   handleChange = event => {
@@ -81,6 +57,45 @@ class ChangePassword extends React.Component {
   onClickHandler = () =>
   {
 
+    async function postmethod(data)
+    {
+      var FormData = data;
+
+      const requestOptions = 
+      {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(FormData)
+      }
+  
+      const response =  await fetch('http://localhost:9000/users/createuser',requestOptions)
+      const data2 = await response.json();
+      
+      //useless stuff that doesn't run
+
+      alert(stringify(data2));
+
+      this.setState(data2);
+
+      switch (data2)
+      {
+          case '404': alert('not found'); break;
+          case '400': alert('bad request'); break;
+          case '200': alert('done'); break;
+          default: alert('something went wrong');
+      }
+    }
+
+    const data = new FormData();
+    var object = 
+    { 
+      "newPassword": this.state.newPassword
+    };
+
+    postmethod(object);
+
+    //alert object
+    //alert(stringify(object));
   }
 
   render() {

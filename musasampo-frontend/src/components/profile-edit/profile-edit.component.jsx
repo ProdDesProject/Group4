@@ -21,30 +21,6 @@ class EditProfile extends React.Component {
     };
   }
 
-   //handles submit when clicked button ADD ALBUM:
-   handleSubmit = async event => {
-    event.preventDefault();
-
-    const { username, email, name, phoneNumber } = this.state;
-    alert("edit user info:");
-    alert(username);
-    alert(email);
-    alert(name);
-    alert(phoneNumber);
-    
-    //component connection for creating album:->
-
-     //Back to profile-page:
-     this.props.history.push('/profile');
-  }
-
-  //Handles changes when user input is coming:
-  handleChange = event => {
-    const { name, value } = event.target;
-    this.setState({ [name]: value });
-  };
-
-
   render() {
     const { username, email, name, phoneNumber } = this.state;
     return (
