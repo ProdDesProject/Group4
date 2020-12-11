@@ -45,9 +45,6 @@ class SignIn extends React.Component
         
         this.setState({status: true, submitting: false});
 
-        //remember some user info for the profile data fetching
-        //alert(result.username);
-
         //reroute to main with authorization
         this.props.history.push({
           pathname: '/'

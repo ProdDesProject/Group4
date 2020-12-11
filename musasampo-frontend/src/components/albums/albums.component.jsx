@@ -67,7 +67,7 @@ class Albums extends React.Component {
       for (var i in ALBUMS.albums)
         {
             ///imagepath.png/album/:band/albums/:image
-            var url = 'http://localhost:9000/upload/imagepath.png/'+ BANDS[0].bandName +'/albums/'+ALBUMS.albums[i].albumPicture;
+            var url = 'http://localhost:9000/upload/imagepath.png/'+ BANDS[0].bandName +'/albums/'+ ALBUMS.albums[i].albumName+ '/' +ALBUMS.albums[i].albumPicture;
             //Save url to array:
             BandsAndPictures[i].albumPicture = url;
            

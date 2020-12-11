@@ -1,8 +1,8 @@
 
 import React from 'react';
 
-//import ALBUMS from '../../data/albums';
-//import BANDS from '../../data/bands';
+import ALBUMS from '../../data/albums';
+import BANDS from '../../data/bands';
 
 import SearchBox from '../../components/search-box/search-box.component';
 import AlbumItem from '../../components/album-item/album-item.component';
@@ -25,7 +25,6 @@ class Search extends React.Component {
         this.state = {
             albums: [],
             bands: [],
-            pictures: [],
             searchField: ''
         };
     }
