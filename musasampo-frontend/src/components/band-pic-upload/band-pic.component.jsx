@@ -64,7 +64,7 @@ class BandPic extends Component {
         //Upload MP3-Data:
         alert("Upload");
         var fileInfo = "png-band";
-        var result = await uploadData(data,this.state.bandName,this.state.albumName,fileInfo);
+        var result = await uploadData(data,this.state.bandName,fileInfo);
       }else
       {
         alert("Upload failed");
