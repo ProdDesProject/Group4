@@ -64,12 +64,12 @@ class SongsPage extends React.Component {
       var bandInfo = await getBandsBandId(bandId);
       var bandName = bandInfo[0].bandName;
       
-
-
-      //alert(albumName);
-      //alert(SONGS.songs[0].MP3);
-
-      var mp3 = SONGS.songs[0].MP3;
+      try{
+        var mp3 = SONGS.songs[0].MP3;
+      }
+      catch{
+          console.log("there is no mp3-data in db");
+      };
 
       //ALBUMS.albums[0].albumPicture = url;
 
