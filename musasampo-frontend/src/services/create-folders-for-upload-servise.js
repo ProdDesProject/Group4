@@ -32,7 +32,7 @@ export default async function createFolders(bandName,albumName)
 
     async function createAlbum(bandName2,albumName2)
     {
-        alert("createAlbum:"+bandName2+albumName2);
+        //alert("createAlbum:"+bandName2+albumName2);
         //request info for creating a album:
         const createFolders = {
             method: 'POST',
@@ -45,7 +45,7 @@ export default async function createFolders(bandName,albumName)
         var checkData= await fetch('http://localhost:9000/upload/createFoldersForUpload', createFolders);
         const result = await checkData.json();
 
-        alert("result2:"+result);
+        //alert("result2:"+result);
 
         return result;
          //result check:
@@ -55,15 +55,16 @@ export default async function createFolders(bandName,albumName)
 
     if (bandName != undefined && albumName == undefined)
     {
-        //alert("create band:");
+        console.log("create band:");
         result =  await createBand(bandName);
     }
     if (bandName != undefined && albumName != undefined)
     {
-        //alert("create album:" + bandName+albumName);
+        console.log("create album:" + bandName+albumName);
         result = await createAlbum(bandName,albumName);
+        
     }
-
+    alert("result"+result);
     return result;
 
 

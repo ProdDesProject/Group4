@@ -4,9 +4,11 @@ const fs = require('fs');
 const express = require('express');
 const multer  = require('multer');
 
-const multerUpload = multer({ dest: 'uploads/pictures/' });
+const multerUpload = multer({ dest: './uploads/' });
 const multerUpload1 = multer({ dest: 'uploads/music/' });
 const multerUpload2 = multer({ dest: 'uploads/pictures/' });
+
+
 
 var mkdirp = require('mkdirp');
 
@@ -164,20 +166,20 @@ router.post('/createFoldersForUpload', function (req, res) {
       if (name === "bands")
       {
          //Paths for creating folders:
-        let path = "./uploads/"+req.body.bandName;
-        let path1 = "./uploads/"+req.body.bandName+"/music"
-        let path2 = "./uploads/"+req.body.bandName+"/pictures"
+        let path = "./uploads/bands/"+req.body.bandName+"/albums";
+        //let path1 = "./uploads/"+req.body.bandName+"/music"
+        //let path2 = "./uploads/"+req.body.bandName+"/pictures"
       
         //Create folder by bandName and inside music and pictures:
         await fs.mkdirSync(path, { recursive: true });
-        await fs.mkdirSync(path1, { recursive: true });
-        await fs.mkdirSync(path2, { recursive: true });
+        //await fs.mkdirSync(path1, { recursive: true });
+        //await fs.mkdirSync(path2, { recursive: true });
       }
 
       if (name === "albums")
       {
         //Paths for creating folders:
-        let path = "./uploads/"+req.body.bandName+"/music/"+req.body.albumName;
+        let path = "./uploads/bands/"+req.body.bandName+"/albums/"+req.body.albumName;
 
         //Create folder by bandName and inside music and pictures:
         await fs.mkdirSync(path, { recursive: true });
@@ -195,31 +197,35 @@ router.post('/createFoldersForUpload', function (req, res) {
     albumName: req.body.albumName,
   };
 
-  if (bandObj.bandName != undefined)
+  if (bandObj.bandName != undefined && albumObj.albumName == undefined)
   {
     console.log("bandObj");
     createFolders("bands");
-    res.sendStatus(200);
+    res.send("200");
   }
 
-  if (albumObj.albumName != undefined)
+  if (albumObj.albumName != undefined && bandObj.bandName != undefined)
   {
     console.log("albumObj");
     createFolders("albums");
-    res.sendStatus(200);  
+    res.send("200");
   }
  
 });
 
 
 //works
-router.post('/mp3byfile/:bandName/:albumName', multerUpload1.single('testFile'), (req, res) => {
+router.post('/uploadmp3/:bandName/:albumName', multerUpload.single('testFile'), (req, res) => {
   console.log("req.file:"+ req.file);
   
   var bandName = req.params.bandName;
   var albumName = req.params.albumName;
 
-  fs.rename(req.file.path, './uploads/' + bandName +'/music/'+ albumName +'/'+ req.file.originalname, function (err) {
+  console.log("router.post('/uploadmp3/:bandName/:albumName")
+  console.log("bandName:"+bandName);
+  console.log("albumName"+albumName);
+
+  fs.rename(req.file.path, './uploads/bands/' + bandName +'/albums/'+ albumName +'/'+ req.file.originalname, function (err) {
     if (err) throw err;
     console.log('renamed complete');
     res.send("Test");
@@ -229,14 +235,17 @@ router.post('/mp3byfile/:bandName/:albumName', multerUpload1.single('testFile'),
 
 
 //works
-router.post('/picturebyfile', multerUpload2.single('testFile'), (req, res) => {
+router.post('/uploadbandpic/:bandName', multerUpload.single('testFile'), (req, res) => {
   console.log("req.file:"+ req.file);
 
-  /**
-   * Need to get bandName and albumname here as an object and get it down below for fs.rename!!!
-   **/
+  var bandName = req.params.bandName;
 
-  fs.rename(req.file.path, './uploads/pictures/' + req.file.originalname, function (err) {
+  console.log("/uploadbandpic/:bandName")
+  console.log("bandName:"+bandName);
+
+  console.log("req.file.path:"+req.file.path);
+
+  fs.rename(req.file.path, './uploads/bands/'+ bandName + '/albums/' + req.file.originalname, function (err) {
     if (err) throw err;
     console.log('renamed complete');
     res.send("Test");

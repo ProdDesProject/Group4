@@ -16,6 +16,8 @@ export default async function checkUploadData(data2)
     //Fetch which checks Data which is uploading:
     var checkData= await fetch('http://localhost:9000/upload/checkData', requestOptions1)
     const result = await checkData.json();
+
+    //alert("result"+result);
     
     //result check:
     if (result == "200")
