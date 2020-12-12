@@ -30,7 +30,7 @@ class Search extends React.Component {
     }
 
     /* add all albums from data to array  */
-    async componentDidMount() {
+    async componentWillMount() {
 
         let ALBUMS = await getAlbums();
         ALBUMS = await ALBUMS.json();
