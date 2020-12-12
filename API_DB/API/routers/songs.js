@@ -70,6 +70,21 @@ router
     })
 });
 
+
+//GET-method for search by songname in params:
+router
+.route('/searchByAlbumId/:albumId')
+.get(
+    //passport.authenticate('basic', { session: false }),
+    (req, res) => {
+    db.query('SELECT * FROM songs where albumId = ?;',[req.params.albumId]).then(results => {
+        res.json({ songs: results})
+    })
+    .catch(() => {
+        res.sendStatus(500);
+    })
+});
+
 //POST-method for creating a new song:
 router
   .route('/:albumId/createsong')

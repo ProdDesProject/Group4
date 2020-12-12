@@ -58,6 +58,22 @@ router
     })
 });
 
+//GET-method for search by userId:
+router
+.route('/searchByUserId/:userId')
+.get(
+    //passport.authenticate('basic', { session: false }),
+    (req, res) => {
+    db.query('SELECT * FROM bands where userId = ?;',[req.params.userId]).then(results => 
+    {
+        res.json({ bands: results})
+    })
+    .catch(() => 
+    {
+        res.sendStatus(500);
+    })
+});
+
 //GET-method for search by bandName:
 router
 .route('/searchByName/:bandName')
@@ -104,25 +120,8 @@ router
         passport.authenticate('jwt', { session: false }),
         (req, res) => 
         {
-            async function getUser(req)
-            {
-                var req2 = req;
-                var UserId = req2.params.userId;
-
-                await db.query('INSERT INTO bands(nsfw,bandName,bandLogo,country)VALUES(?,?,?,?);',[req2.body.nsfw, req2.body.bandName, req2.body.bandLogo, req2.body.country]);
-    
-                console.log("req2:" + req2.body.nsfw, req2.body.bandName, req2.body.bandLogo, req2.body.country);
-                
-                var bandId = await db.query('SELECT bandId FROM bands WHERE bandName = ?;',[req2.body.bandName]);
-                console.log(bandId[0].bandId);
-
-                db.query('INSERT INTO users_bands(bandId, userId)VALUES(?,?);',[bandId[0].bandId, UserId]);
-            }
-
-            console.log("userid:" + req.params.userId);
-
             //check field filling
-            if(!req.body.nsfw || !req.body.bandName || !req.body.bandLogo || !req.body.country)
+            if(req.body.nsfw === undefined || !req.body.bandName || !req.body.bandLogo || !req.body.country)
             {
                 //fields not filled, bad request
                 res.sendStatus(400);
@@ -130,10 +129,8 @@ router
             else
             {
                 //create band if all fields are filled
-                getUser(req);
-
-               
-
+                db.query("INSERT INTO bands (userId, nsfw, bandName, bandLogo, country) VALUES (?,?,?,?,?);" ,[req.params.userId, req.body.nsfw, req.body.bandName, req.body.bandLogo, req.body.country]);
+                //send status created
                 res.sendStatus(201);
             }
         });

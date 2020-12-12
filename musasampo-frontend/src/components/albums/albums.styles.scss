@@ -1,0 +1,88 @@
+.band-page {
+    .title {
+        margin-left: 165px;
+        margin-top: 30px;
+        margin-bottom: 15px;
+        font-size: 40px;
+        font-weight: bold;
+    }
+
+    .description {
+        font-size: 16px;
+        margin-left: 155px;
+        font-family: 'Lucida Sans Unicode';
+        letter-spacing: -0.3px;
+
+        .descriptor {
+            height: 100%;
+            width: auto;
+            font-weight: bold;
+            display: table-cell;
+            text-align: right;
+            padding-right: 10px;
+        }
+        
+        .infotext {
+            height: 100%;
+            display: table-cell;
+            white-space: nowrap;
+            text-align: left;
+        }
+    }
+
+    .container10 {
+        display: flex;
+        flex-direction: row;
+        
+
+    .tabpanel1 {
+        width: 50%;
+        margin-left: 150px;
+        margin-top: 25px;
+        margin-bottom: 20px;
+
+        .tabs {
+            background: #393e46;
+            /*border-top-left-radius: 8px;
+            border-top-right-radius: 8px;
+            width: 57%;*/
+        }
+
+        .tab-name {
+            color: white;
+        }
+
+        .panel-content {
+            overflow-y: auto;
+            max-height: 370px;
+            border: 1px solid  #393e46;
+            border-top: 0px solid;
+            background: white;
+        }
+    }
+
+    .bandLogo {
+        margin-left: 70px;
+        width: auto;
+        height: auto;
+
+        .img {
+            max-width: 350px;
+            max-height: 350px;
+        }
+    }
+}
+
+    .bandImage {
+        position: absolute;
+        left: 1120px;
+        top: 330px;
+        width: auto;
+        height: auto;
+
+        .img {
+            max-width: 380px;
+            max-height: 380px;
+        }
+    }
+}

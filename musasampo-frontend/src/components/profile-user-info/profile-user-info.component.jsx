@@ -43,10 +43,10 @@ class ProfileUserInfo extends React.Component
                     {
                         //results are returned as an array of user and then we can access the fields
                         loading: false,
-                        username: results[0].username,
-                        email: results[0].email,
-                        name: results[0].name,
-                        phoneNumber: results[0].phoneNumber
+                        username: results.results[0].username,
+                        email: results.results[0].email,
+                        name: results.results[0].name,
+                        phoneNumber: results.results[0].phoneNumber
                     });
                 }
             })

@@ -52,11 +52,41 @@ router
 });
 
 router
-.route(':albumId')
+.route('/bandId/:bandId')
+.get(
+    //passport.authenticate('basic', { session: false }),
+    (req, res) => {
+    db.query('SELECT * FROM albums where bandId = ?;',[req.params.bandId]).then(results => {
+        res.json({ albums: results})
+    })
+    .catch(() => {
+        res.sendStatus(500);
+    })
+      /*let user = users2.getAllUsers()
+      res.json({user});*/
+});
+
+router
+.route('/:albumId')
 .get(
     //passport.authenticate('basic', { session: false }),
     (req, res) => {
     db.query('SELECT * FROM albums where albumId = ?;',[req.params.albumId]).then(results => {
+        res.json({ albums: results})
+    })
+    .catch(() => {
+        res.sendStatus(500);
+    })
+      /*let user = users2.getAllUsers()
+      res.json({user});*/
+});
+
+router
+.route('/returnAlbumId/:bandId')
+.get(
+    //passport.authenticate('basic', { session: false }),
+    (req, res) => {
+    db.query('SELECT albumId FROM albums where bandId = ?;',[req.params.bandId]).then(results => {
         res.json({ albums: results})
     })
     .catch(() => {
@@ -97,7 +127,7 @@ router
             res.sendStatus(201);
         }
         else
-        {
+        {  
             //bad request
             res.sendStatus(400);
         }

@@ -2,7 +2,7 @@
 export default async function fetchAlbums()
 {
     //fetch for checkuser2 and get a response
-    const albumsResponse = await fetch('http://localhost:9000/albums')
+    const albumsResponse = await fetch('http://localhost:9000/albums');
     //get the status response
     const data = albumsResponse;
 

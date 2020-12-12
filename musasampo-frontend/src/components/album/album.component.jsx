@@ -45,34 +45,6 @@ function a11yProps(index) {
 }
 
 
-/*export class ShopPage extends React.Component {
-constructor(props) {
-  super(props);
-
-  this.state = {
-    albums: SHOP_DATA
-  };
-}
-
-render() {
-  const { albums } = this.state;
-  return (
-    <div className='shop-page'>
-      {albums.map(({ id, ...otherAlbumProps }) => (
-        <AlbumPreview key={id} {...otherAlbumProps} />
-      ))}
-    </div>
-  );
-}
-}*/
-
-/*const useStyles = makeStyles((theme) => ({
-  root: {
-    flexGrow: 1,
-    backgroundColor: "white",
-  },
-}));*/
-
 export default function SimpleTabs(props) {
 
   const albumId = props.match.params.albumId;
@@ -93,13 +65,13 @@ export default function SimpleTabs(props) {
   };
 
   return (
-    <div className='album-page'>
+    <div>
 
-      <div className='titles12'>
-        <div className='title12'>
+      <div className='titles'>
+        <div className='title'>
           {albums2[0].albumName}
         </div>
-        <div className='subtitle12'>
+        <div className='subtitle'>
           {albums2[0].bandName}
         </div>
       </div>
@@ -120,22 +92,25 @@ export default function SimpleTabs(props) {
           {/*<dt>{albums2[0].albumLabel}</dt>
           <dt>{albums2[0].albumFormat}</dt>*/}
         </div>
+
+        <div className='albumImage'>
+          <img className='img' src={albums2[0].albumCover} />
+        </div>
       </div>
 
-      <div className='container12'>
-        <div className='tabpanel12'>
-          <AppBar position="static">
-            <Tabs className='tabs' value={value} onChange={handleChange}
-              TabIndicatorProps={{ style: { background: "#32e0c4", background: "#32e0c4", height: "4px" } }}>
-              <Tab className='tab-name' label="Songs" {...a11yProps(0)} />
-              {/*<Tab className='tab-name' label="Lineup" {...a11yProps(1)} />
+      <div className='tabpanel1'>
+        <AppBar position="static">
+          <Tabs className='tabs' value={value} onChange={handleChange}
+            TabIndicatorProps={{ style: { background: "#32e0c4", background: "#32e0c4", height: "4px" } }}>
+            <Tab className='tab-name' label="Songs" {...a11yProps(0)} />
+            {/*<Tab className='tab-name' label="Lineup" {...a11yProps(1)} />
             <Tab className='tab-name' label="Description" {...a11yProps(2)} />*/}
-            </Tabs>
-          </AppBar>
-          <TabPanel className='panel-content' value={value} index={0}>
-            {albums2[0].trackList}
-          </TabPanel>
-          {/*<TabPanel className='panel-content' value={value} index={1}>
+          </Tabs>
+        </AppBar>
+        <TabPanel className='panel-content' value={value} index={0}>
+          {albums2[0].trackList}
+        </TabPanel>
+        {/*<TabPanel className='panel-content' value={value} index={1}>
           {albums2[0].lineup}
                 </TabPanel>
         <TabPanel className='panel-content' value={value} index={2}>
@@ -157,10 +132,6 @@ export default function SimpleTabs(props) {
                 Donec lorem metus, ornare ut nibh et, cursus faucibus nulla. Morbi mauris magna, eleifend eget eleifend in, elementum at turpis. Donec nec dapibus sem, in scelerisque urna.
                 </TabPanel>
   */}
-        </div>
-        <div className='albumImage'>
-          <img className='img2' src={albums2[0].albumCover} />
-        </div>
       </div>
     </div>
   );
