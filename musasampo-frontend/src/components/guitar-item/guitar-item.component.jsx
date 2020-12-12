@@ -5,7 +5,7 @@ import CustomButton from '../custom-button/custom-button.component';
 
 import './guitar-item.styles.scss';
 
-{/* props from  guitartuner-page.component.jsx*/ }
+/* props from  guitartuner-page.component.jsx*/ 
 const GuitarItem = ({ guitar, history, match }) => {
     const { guitarId, title, imageUrl } = guitar;
     return (

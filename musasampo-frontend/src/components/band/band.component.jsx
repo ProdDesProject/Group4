@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
@@ -49,7 +48,7 @@ export default function SimpleTabs(props) {
   //console.log(bandId);
   const bands = BANDS;
   const bands2 = bands
-    .filter(band => band.bandId == bandId)
+    .filter(band => band.bandId === bandId)
 
 
   console.log(JSON.stringify(bands2[0].bandName));
@@ -104,7 +103,7 @@ export default function SimpleTabs(props) {
         <div className='tabpanel1'>
           <AppBar position="static">
             <Tabs className='tabs' value={value} onChange={handleChange}
-              TabIndicatorProps={{ style: { background: "#32e0c4", background: "#32e0c4", height: "4px" } }}>
+              TabIndicatorProps={{ style: { background: "#32e0c4", height: "4px" } }}>
               <Tab className='tab-name' label="Discography" {...a11yProps(0)} />
               {/*<Tab className='tab-name' label="Members" {...a11yProps(1)} />
                     <Tab className='tab-name' label="Description" {...a11yProps(2)} />*/}

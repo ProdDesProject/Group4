@@ -3,7 +3,7 @@ import React from 'react';
 import './custom-button.styles.scss';
 
 
-{/*reusable button component */ }
+/*reusable button component */ 
 const CustomButton = ({
   children,
   inverted,

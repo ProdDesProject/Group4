@@ -12,7 +12,7 @@ import './album-item.styles.scss';
 const AlbumItem = ({ album, history, match }) => {
   const { bandId, albumId, albumName, bandName, albumPicture, albumGenre, albumInfo, lineup, trackList } = album;
 
-  {/*filter the band from the data with the bandId from props*/ }
+  /*filter the band from the data with the bandId from props*/ 
   //const band = BANDS.filter(band => band.bandId == bandId);
 
   return (

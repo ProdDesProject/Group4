@@ -3,8 +3,6 @@ import React from 'react';
 //import ALBUMS from '../../data/albums';
 //import BANDS from '../../data/bands';
 
-import SearchBox from '../../components/search-box/search-box.component';
-import AlbumItem from '../../components/album-item/album-item.component';
 import BandItem from '../../components/band-item/band-item.component';
 
 import fetchData from '../../services/band/get-band-by-userid-service';
@@ -12,12 +10,12 @@ import getUserID from '../../services/user/get-userid-by-username.service';
 
 import './bands.styles.scss';
 
-{/* Search page */ }
+/* Search page */ 
 
 class Bands extends React.Component {
     constructor() {
         super();
-        {/* Empty array for filtered albums and bands + searchfield input  */ }
+        /* Empty array for filtered albums and bands + searchfield input  */ 
         this.state = {
             bands: [],
             pictures: [],
@@ -83,7 +81,7 @@ class Bands extends React.Component {
     render() {
         const { bands, searchField } = this.state;
 
-        {/* filter bands with search field value  */ }
+        /* filter bands with search field value  */ 
         const filteredBands = bands.filter(band =>
             band.bandName.toLowerCase().includes(searchField.toLowerCase())
         );

@@ -3,26 +3,20 @@ import React from 'react';
 //import ALBUMS from '../../data/albums';
 //import BANDS from '../../data/bands';
 
-import SearchBox from '../search-box/search-box.component';
 import AlbumsItem from '../albums-item/albums-item.component';
-import BandItem from '../band-item/band-item.component';
 
 import getBandsBandId from '../../services/band/get-band-by-bandId-servise';
-
-import fetchAlbumsByBandName from '../../services/album/albums-by-albumid-service';
-import getUserID from '../../services/user/get-userid-by-username.service';
-import { stringify } from 'querystring';
 
 import './albums.styles.scss';
 import fetchAlbumsBybandId from '../../services/album/album-get-albumid-from-bandid-service';
 import fetchAlbumId from '../../services/album/album-get-albumid-from-bandid-service';
 
-{/* Albums.component*/ }
+/* Albums.component*/ 
 
 class Albums extends React.Component {
     constructor() {
         super();
-        {/* Empty array for filtered albums and bands + searchfield input  */ }
+        /* Empty array for filtered albums and bands + searchfield input  */ 
         this.state = {
             bands:[],
             albums: [],
@@ -99,7 +93,7 @@ class Albums extends React.Component {
     render() {
         const { albums, searchField } = this.state;
 
-        {/* filter bands with search field value  */ }
+        /* filter bands with search field value  */ 
         const filteredAlbums = albums.filter(album =>
             album.albumName.toLowerCase().includes(searchField.toLowerCase())
         );

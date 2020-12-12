@@ -7,7 +7,7 @@ import CustomButton from '../custom-button/custom-button.component';
 
 import './band-item.styles.scss';
 
-{/*filter the band from the data with the bandId from props*/ }
+/*filter the band from the data with the bandId from props*/ 
 const BandItem = ({ band, history }, props) => {
     const { bandId, nsfw, bandName, bandLogo } = band;
 

@@ -7,7 +7,7 @@ import './audio-player.styles.scss'
 // Last access 13.11.2020
 
 
-{/* make audio object from of every url we are receiving from props */ }
+/* make audio object from of every url we are receiving from props */ 
 const useMultiAudio = urls => {
     const [sources] = useState(
 
@@ -19,7 +19,7 @@ const useMultiAudio = urls => {
         })
     );
 
-    {/* handle state of every audio player in players array */ }
+    /* handle state of every audio player in players array */ 
     const [players, setPlayers] = useState(
         urls.map(soundUrl => {
             return {
@@ -29,18 +29,18 @@ const useMultiAudio = urls => {
         })
     );
 
-    {/* updates  state of every audio player in players array*/ }
+    /* updates  state of every audio player in players array*/ 
     const toggle = targetIndex => () => {
         const newPlayers = [...players];
         const currentIndex = players.findIndex(p => p.playing === true);
-        {/* other player is playing, so set this one to false and the targeted player to true */ }
+        /* other player is playing, so set this one to false and the targeted player to true */ 
         if (currentIndex !== -1 && currentIndex !== targetIndex) {
             newPlayers[currentIndex].playing = false;
             newPlayers[targetIndex].playing = true;
-            {/* targeted player is current active player so set state to false */ }
+            /* targeted player is current active player so set state to false */ 
         } else if (currentIndex !== -1) {
             newPlayers[targetIndex].playing = false;
-            {/* no active player currently */ }
+            /* no active player currently */ 
         } else {
             newPlayers[targetIndex].playing = true;
         }
@@ -48,7 +48,7 @@ const useMultiAudio = urls => {
     };
 
 
-    {/* start and stop the actual audio */ }
+    /* start and stop the actual audio */ 
     useEffect(() => {
         sources.forEach((source, i) => {
             //check if the audio is starting to play - if you press play, it will always start the note from the beginning, even after pausing it
@@ -68,7 +68,7 @@ const useMultiAudio = urls => {
         });
     }, [sources, players]);
 
-    {/* set state to false when audio has ended */ }
+    /* set state to false when audio has ended */ 
     useEffect(() => {
         sources.forEach((source, i) => {
             source.audio.addEventListener("ended", () => {
@@ -131,7 +131,7 @@ const MultiPlayer = (props) => {
     );
 };
 
-{/* pause button shape */ }
+/* pause button shape */ 
 const Pause = (props) => {
     return (
         <div>
@@ -143,7 +143,7 @@ const Pause = (props) => {
     );
 };
 
-{/* play button shape */ }
+/* play button shape */ 
 const Play = (props) => {
     return (
         <div>
@@ -154,7 +154,7 @@ const Play = (props) => {
     );
 };
 
-{/* one single player button, that switches between "playing" and "pause" */ }
+/* one single player button, that switches between "playing" and "pause" */ 
 const Player = ({ player, toggle }) => (
 
     <div>

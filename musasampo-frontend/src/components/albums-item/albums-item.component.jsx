@@ -6,7 +6,7 @@ import CustomButton from '../custom-button/custom-button.component';
 
 import './albums-item.styles.scss';
 
-{/*filter the band from the data with the bandId from props*/ }
+/*filter the band from the data with the bandId from props*/ 
 const AlbumsItem = ({ album,bandName, history }, props) => {
     const { bandId, albumId, albumName, albumLaunchDate, albumPicture, albumGenre } = album;
 

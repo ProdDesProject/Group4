@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
@@ -9,7 +8,6 @@ import Box from '@material-ui/core/Box';
 
 import './album.styles.scss';
 import ALBUMS from '../../data/albums';
-import { Divider } from '@material-ui/core';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -51,7 +49,7 @@ export default function SimpleTabs(props) {
   //console.log(albumId);
   const albums = ALBUMS;
   const albums2 = albums
-    .filter(album => album.albumId == albumId)
+    .filter(album => album.albumId === albumId)
 
 
   console.log(JSON.stringify(albums2[0].albumName));
@@ -101,7 +99,7 @@ export default function SimpleTabs(props) {
       <div className='tabpanel1'>
         <AppBar position="static">
           <Tabs className='tabs' value={value} onChange={handleChange}
-            TabIndicatorProps={{ style: { background: "#32e0c4", background: "#32e0c4", height: "4px" } }}>
+            TabIndicatorProps={{ style: { background: "#32e0c4",  height: "4px" } }}>
             <Tab className='tab-name' label="Songs" {...a11yProps(0)} />
             {/*<Tab className='tab-name' label="Lineup" {...a11yProps(1)} />
             <Tab className='tab-name' label="Description" {...a11yProps(2)} />*/}

@@ -8,7 +8,7 @@ import GUITAR_DATA from '../../pages/guitartuner-page/guitar.data';
 
 function GuitarTuner(props) {
 
-    {/* get guitarId of current guitar and get guitar data of the specific guitar */ }
+    /* get guitarId of current guitar and get guitar data of the specific guitar */ 
     const guitarId = props.match.params.guitarId;
     const guitar = GUITAR_DATA
         .filter(guitar => (

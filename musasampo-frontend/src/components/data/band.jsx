@@ -1,20 +1,6 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { makeStyles } from '@material-ui/core/styles';
-import AppBar from '@material-ui/core/AppBar';
-import Tabs from '@material-ui/core/Tabs';
-import Tab from '@material-ui/core/Tab';
-import Typography from '@material-ui/core/Typography';
-import Box from '@material-ui/core/Box';
+import React from 'react';
 
-import { withRouter} from 'react-router-dom';
-import { stringify } from 'querystring';
-import ReactPlayer from "react-player";
-import Signin2 from '../../components/sign-in/sign-in.component.jsx'
 
-var base64 = require('base-64');
-
-var token2 = "";
 
 
 class Bands extends React.Component 
