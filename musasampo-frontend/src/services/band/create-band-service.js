@@ -40,6 +40,8 @@ export default async function createBand(bandName, country, bandLogo, nsfw)
             body: JSON.stringify(bodyObject)
           }
 
+        console.log(bodyObject);
+
         //creating the fetch url
         const url = new URL('http://localhost:9000/bands/createband/' + userId);
 
