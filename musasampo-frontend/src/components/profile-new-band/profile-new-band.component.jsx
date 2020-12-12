@@ -174,6 +174,7 @@ class NewBand extends React.Component
                   />
 
                   <BandPic/>
+
                 </form>
                 <div className='buttons'>
                   <Link to="/profile" className='button'>
