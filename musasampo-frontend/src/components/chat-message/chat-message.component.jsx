@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default ({ name, message }) =>
+export default ({ username, channelname, message }) =>
     <p>
-        <strong>{name}</strong> <em>{message}</em>
+        <strong>{username} in {channelname} </strong> <em>{message}</em>
     </p>

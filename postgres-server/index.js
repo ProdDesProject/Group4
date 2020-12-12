@@ -40,13 +40,13 @@ app.get("/channels", async (req, res) => {
   }
 });
 
-//get a channel
+//get a channel by name
 
 app.get("/channels/:channelid", async (req, res) => {
   try {
-    const { channel_id } = req.params;
-    const channel = await pool.query("SELECT * FROM channels WHERE channel_id = $1", [
-      channel_id
+    const { channelname } = req.params;
+    const channel = await pool.query("SELECT * FROM channels WHERE channelname = $1", [
+      channelname
     ]);
 
     res.json(channel.rows[0]);
@@ -96,13 +96,13 @@ app.get("/users/:username", async (req, res) => {
   }
 });
 
-//get user by user_id
+//get user by username
 
-app.get("/users/:user_id", async (req, res) => {
+app.get("/users/:username", async (req, res) => {
   try {
-    const { user_id } = req.params;
-    const user = await pool.query("SELECT * FROM users WHERE user_id = $1", [
-      user_id
+    const { username } = req.params;
+    const user = await pool.query("SELECT * FROM users WHERE username = $1", [
+      username
     ]);
     res.json(user.rows[0]);
   } catch (err) {
@@ -114,10 +114,10 @@ app.get("/users/:user_id", async (req, res) => {
 
 app.post("/messages", async (req, res) => {
   try {
-    const { messagecontent, user_id, channel_id } = req.body;
+    const { messagecontent, username, channelname } = req.body;
     const newMessage = await pool.query(
-      "INSERT INTO messages (messagecontent, user_id, channel_id) VALUES($1,$2,$3) RETURNING *",
-      [messagecontent, user_id, channel_id]
+      "INSERT INTO messages (messagecontent, username, channelname) VALUES($1,$2,$3) RETURNING *",
+      [messagecontent, username, channelname]
     );
 
     res.json(newMessage.rows[0]);
@@ -126,13 +126,14 @@ app.post("/messages", async (req, res) => {
   }
 });
 
-//get all messages by channel
+//get messages by up to 5 channels
 
-app.get("/messages/channel_id", async (req, res) => {
+app.get("/messages/:username", async (req, res) => {
   try {
-    const { channel_id } = req.params;
-    const allUsers = await pool.query("SELECT * FROM messages WHERE channel_id = $1",
-    [channel_id]
+    const { username} = req.params;
+
+    const allUsers = await pool.query("SELECT * FROM messages WHERE channelname IN (SELECT channelname FROM user_channels WHERE username = $1)",
+    [username]
     );
     res.json(allUsers.rows);
   } catch (err) {
@@ -144,10 +145,10 @@ app.get("/messages/channel_id", async (req, res) => {
 
 app.post("/userchannels", async (req, res) => {
   try {
-    const {user_id, channel_id } = req.body;
+    const {username, channelname } = req.body;
     const newConnection = await pool.query(
-      "INSERT INTO user_channels (user_id, channel_id) VALUES($1,$2) ON CONFLICT(user_id, channel_id) DO NOTHING RETURNING * ",
-      [user_id, channel_id]
+      "INSERT INTO user_channels (username, channelname) VALUES($1,$2) ON CONFLICT(username, channelname) DO NOTHING RETURNING * ",
+      [username, channelname]
     );
 
     res.json(newConnection.rows[0]);
@@ -158,11 +159,11 @@ app.post("/userchannels", async (req, res) => {
 
 //get all channels by user
 
-app.get("/userchannels/:user_id", async (req, res) => {
+app.get("/userchannels/:username", async (req, res) => {
   try {
-    const { user_id } = req.params;
-    const allUsers = await pool.query("SELECT * FROM channels WHERE channel_id IN (SELECT channel_id FROM user_channels WHERE user_id = $1)",
-    [user_id]
+    const { username } = req.params;
+    const allUsers = await pool.query("SELECT * FROM channels WHERE channelname IN (SELECT channelname FROM user_channels WHERE username = $1)",
+    [username]
     );
 
 
@@ -177,9 +178,9 @@ app.get("/userchannels/:user_id", async (req, res) => {
 
 app.delete("/userchannels", async (req, res) => {
   try {
-    const { user_id, channel_id } = req.body;
-    const deleteConnection = await pool.query("DELETE FROM user_channels WHERE user_id = $1 AND channel_id = $2 ", [
-      user_id, channel_id
+    const { username, channelname } = req.body;
+    const deleteConnection = await pool.query("DELETE FROM user_channels WHERE username = $1 AND channelname = $2 ", [
+      username, channelname
     ]);
 
     res.json("Channel was deleted: " + deleteConnection);

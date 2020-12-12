@@ -18,14 +18,17 @@ const ChatPage = () => {
 
     const ws = new WebSocket(URL)
 
-    const user_id = '16';
-
     const userName = 'username2';
 
     const [channels, setChannels] = useState([]);
     const [selectedChannels, setSelectedChannels] = useState([]);
     const [searchField, setSearchField] = useState('');
     const [messages, setMessages] = useState([]);
+    const [selectedChannel, setSelectedChannel] = useState('');
+
+    const handleChange = (event) => {
+        setSelectedChannel(event.target.value);
+    };
 
     const getChannels = async () => {
         try {
@@ -37,9 +40,9 @@ const ChatPage = () => {
         }
     };
 
-    const createUserChannels = async (user_id, channel_id) => {
+    const createUserChannels = async (username, channelname) => {
         try {
-            const body = { user_id, channel_id };
+            const body = { username, channelname };
             const response = await fetch("http://localhost:5000/userchannels", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
@@ -52,9 +55,9 @@ const ChatPage = () => {
         }
     };
 
-    const getUserById = async (user_id) => {
+    const getUserByUsername = async (username) => {
         try {
-            const response = await fetch(`http://localhost:5000/users/${user_id}`, {
+            const response = await fetch(`http://localhost:5000/users/${username}`, {
                 method: "GET"
             });
             const jsonData = await response.json();
@@ -65,9 +68,9 @@ const ChatPage = () => {
         }
     };
 
-    const getUserChannels = async (user_id) => {
+    const getUserChannels = async (username) => {
         try {
-            const response = await fetch(`http://localhost:5000/userchannels/${user_id}`, {
+            const response = await fetch(`http://localhost:5000/userchannels/${username}`, {
                 method: "GET"
             });
             const jsonData = await response.json();
@@ -80,24 +83,24 @@ const ChatPage = () => {
 
     //delete function
 
-    const deleteUserChannels = async (user_id, channel_id) => {
+    const deleteUserChannels = async (username, channelname) => {
         try {
-            const body = { user_id, channel_id };
+            const body = { username, channelname };
             const deleteConnection = await fetch(`http://localhost:5000/userchannels`, {
                 method: "DELETE",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(body)
             });
 
-            setSelectedChannels(selectedChannels.filter(channel => channel.channel_id !== channel_id));
+            setSelectedChannels(selectedChannels.filter(channel => channel.channelname !== channelname));
         } catch (err) {
             console.error(err.message);
         }
     };
 
-    const createMessage = async (messagecontent, user_id, channel_id) => {
+    const createMessage = async (messagecontent, username, channelname) => {
         try {
-            const body = { messagecontent, user_id, channel_id };
+            const body = { messagecontent, username, channelname };
             const response = await fetch("http://localhost:5000/messages", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
@@ -110,14 +113,14 @@ const ChatPage = () => {
         }
     };
 
-    const getMessages = async (channel_id) => {
+    const getMessages = async (channelname) => {
         try {
-            const response = await fetch(`http://localhost:5000/messages/${channel_id}`, {
+            const response = await fetch(`http://localhost:5000/messages/${channelname}`, {
                 method: "GET"
             });
             const jsonData = await response.json();
+
             setMessages(jsonData);
-            console.log(jsonData)
         } catch (err) {
             console.error(err.message);
         }
@@ -125,17 +128,15 @@ const ChatPage = () => {
 
 
     const addMessage = message => {
-
         setMessages([...messages, message])
-        console.log(JSON.stringify(messages))
     }
 
 
-    const submitMessage = (messageString, channel_id) => {
+    const submitMessage = (messageString, selectedChannel) => {
         // on submitting the ChatInput form, send the message, add it to the list and reset the input
-        const message = { name: userName, message: messageString, user_id: user_id, channel_id: channel_id }
+        const message = { message: messageString, username: userName, channelname: selectedChannel }
+        createMessage(messageString, userName, selectedChannel)
         ws.send(JSON.stringify(message))
-        createMessage(messageString, user_id, channel_id)
         addMessage(message)
     }
 
@@ -163,9 +164,9 @@ const ChatPage = () => {
             //ws: new WebSocket(URL),
             // })
         }
-
+        getMessages(userName)
         getChannels();
-        getUserChannels(user_id);
+        getUserChannels(userName);
 
         functions.getUserByUsername(userName);
     }, []);
@@ -179,7 +180,7 @@ const ChatPage = () => {
         const channel = channels.filter(channel =>
             channel.channelname.toLowerCase().includes(event.target.value.toLowerCase())
         );
-        createUserChannels(user_id, channel[0].channel_id)
+        createUserChannels(userName, channel[0].channelname)
 
         setSelectedChannels([...selectedChannels, channel[0]])
     }
@@ -191,8 +192,8 @@ const ChatPage = () => {
 
     const handleDelete = (chipToDelete) => () => {
 
-        const channel_id = chipToDelete.channel_id;
-        deleteUserChannels(user_id, channel_id)
+        const channelname = chipToDelete.channelname;
+        deleteUserChannels(userName, channelname)
 
         /*         const array = selectedChannels; // make a separate copy of the array
                 var index = array.indexOf(chipToDelete)
@@ -222,7 +223,7 @@ const ChatPage = () => {
                 >
                     {
                         filteredChannels.map((channel) => (
-                            <option key={channel.channel_id} value={channel.channelname}>
+                            <option key={channel.channelname} value={channel.channelname}>
                                 {channel.channelname}
                             </option>
                         ))
@@ -232,7 +233,7 @@ const ChatPage = () => {
             <Paper component="ul" className="paper">
                 {selectedChannels.map((channel) => {
                     return (
-                        <li key={channel.channel_id}>
+                        <li key={channel.channelname}>
                             <Chip
                                 label={channel.channelname}
                                 onDelete={handleDelete(channel)}
@@ -248,13 +249,34 @@ const ChatPage = () => {
             </label>
                 <Chat
                     ws={ws}
-                    onSubmitMessage={messageString => submitMessage(messageString)}
+                    onSubmitMessage={messageString => submitMessage(messageString, selectedChannel)}
                 />
+
+                <FormControl variant="outlined" className="select" >
+                    <InputLabel htmlFor="outlined-age-native-simple">Age</InputLabel>
+                    <Select
+                        native
+                        value={selectedChannel}
+                        onChange={handleChange}
+                        label="Channel"
+                        inputProps={{
+                            name: 'channelname',
+                        }}
+                    >
+                        <option aria-label="None" value="" />
+                        {selectedChannels.map(channel => <option value={channel.channelname}>{channel.channelname}</option>)
+
+                        }
+
+                    </Select>
+                </FormControl>
+
                 {messages.map((message, index) =>
                     <ChatMessage
                         key={index}
-                        message={message.message}
-                        name={message.name}
+                        message={message.messagecontent}
+                        username={message.username}
+                        channelname={message.channelname}
                     />,
                 )}
             </div>
