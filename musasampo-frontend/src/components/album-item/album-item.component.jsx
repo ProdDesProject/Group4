@@ -52,10 +52,11 @@ const AlbumItem = ({ album, history, match }) => {
       </CustomButton>
 
       <CustomButton style={style2} onClick={() => {
-                history.push({pathname: `/albums/`, search: '?query=abc', state: { detail: bandId}})
-                }} inverted>
-                    ALBUMS
+                history.push({pathname: `/songs/`, search: '?query=abc', state: { bandId:bandId, albumId: albumId, albumName: albumName}})
+              }} inverted>
+                  SONGS
       </CustomButton>
+
     </div>
   );
 };

@@ -10,7 +10,14 @@ import './albums-item.styles.scss';
 const AlbumsItem = ({ album,bandName, history }, props) => {
     const { bandId, albumId, albumName, albumLaunchDate, albumPicture, albumGenre } = album;
 
-    alert(albumPicture);
+    //alert(albumPicture);
+
+    const style2 = {
+        margin:50,
+        width: 50,
+        height: 50,
+       };
+
     return (
         <div className='band-item'>
             <div
@@ -36,11 +43,11 @@ const AlbumsItem = ({ album,bandName, history }, props) => {
             </CustomButton>
 
         
-
-            <button onClick={() => {
+            <CustomButton style={style2} onClick={() => {
                 history.push({pathname: `/songs/`, search: '?query=abc', state: { bandId:bandId, albumId: albumId, albumName: albumName}})
-            }} inverted>
-                GET SONGS</button>
+              }} inverted>
+                  SONGS
+            </CustomButton>
 
             
 
