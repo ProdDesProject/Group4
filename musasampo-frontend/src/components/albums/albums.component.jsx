@@ -114,7 +114,7 @@ class Albums extends React.Component {
                 {/* display filtered bands  */}
                 <div className="search-preview">
                     <h2 className='title'>
-                        BANDS
+                        ALBUMS
                     </h2>
                     <div className='items'>
                         {filteredAlbums
