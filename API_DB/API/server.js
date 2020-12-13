@@ -1,10 +1,9 @@
-const express = require('express')
-var bodyParser = require('body-parser')
+const express = require('express');
+var bodyParser = require('body-parser');
 const fs = require('fs');
 const bcrypt = require('bcryptjs');
-const fetch = require("node-fetch");
-const app = express()
-const port = 9000
+const app = express();
+const port = 9000;
 var cors = require("cors");
 const users = require('./routers/users.js');
 const bands = require('./routers/bands.js');
@@ -15,8 +14,10 @@ const search = require('./routers/search.js');
 const db = require('./routers/db.js');
 const upload = require('./routers/upload');
 
-app.use(bodyParser.urlencoded({extended: false}));
-app.use(bodyParser.json());
+//app.use(bodyParser.urlencoded({extended: false}));
+app.use(bodyParser.urlencoded({limit: '50mb', extended: true, parameterLimit: 1000000}));
+app.use(bodyParser.json({limit: '50mb'}));
+
 app.use(cors());
 
 app.use('/users', users);
@@ -26,11 +27,6 @@ app.use('/songs', songs);
 app.use('/search', search);
 app.use('/upload', upload);
 
-/*********************************************
- * HTTP Basic Authentication
- * Passport module used
- * http://www.passportjs.org/packages/passport-http/
- ********************************************/
 const passport = require('passport');
 const BasicStrategy = require('passport-http').BasicStrategy;
 
@@ -84,12 +80,7 @@ app.get('/httpBasicProtectedResource',
   res.json({ yourProtectedResource: "profit" });
 });
 
-/*********************************************
- * JWT authentication
- * Passport module is used, see documentation
- * http://www.passportjs.org/packages/passport-jwt/
- ********************************************/
-
+//JWT authentication
 const jwt = require('jsonwebtoken');
 const JwtStrategy = require('passport-jwt').Strategy,
       ExtractJwt = require('passport-jwt').ExtractJwt;
@@ -102,15 +93,7 @@ options.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken();
 options.secretOrKey = jwtSecretKey.secret;
 
 passport.use(new JwtStrategy(options, function(jwt_payload, done) 
-{
-  //display jwt confirmation
-  //console.log("Processing JWT payload for token content:");
-  //console.log(jwt_payload);
-
-
-  /* Here you could do some processing based on the JWT payload.
-  For example check if the key is still valid based on expires property.
-  */
+{ 
   const now = Date.now() / 1000;
   if(jwt_payload.exp > now) 
   {
@@ -127,21 +110,6 @@ passport.use(new JwtStrategy(options, function(jwt_payload, done)
 app.get('',(req, res) => 
 {
   res.send("/Welcome, go to /main Login:{tester,testerpassword}");
-});
-
-app.route('/main').get(function(req, res)
-{
-    fs.readFile(__dirname + '/mainpage.html', 'utf8', function(err, html)
-    {
-        if(err)
-        {
-            console.log(err);
-        }
-        else
-        {
-            res.send(html);
-        }
-    });
 });
 
 //login function return token
@@ -178,6 +146,8 @@ app.post(
     return res.status(200).json({ token });
 })
 
+//need updated index.html from Stefan 
+//https://app.swaggerhub.com/apis-docs/OAMK81/MusasampoAPI/2.2#/
 
 app.route('/documents').get( function(req, res) 
 {

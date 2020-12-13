@@ -80,9 +80,9 @@ export default function SimpleTabs(props) {
   const albums = ALBUMS;
   const albums2 = albums
     .filter(album => album.albumId == albumId)
-    
 
-    console.log(JSON.stringify(albums2[0].albumName));
+
+  console.log(JSON.stringify(albums2[0].albumName));
 
 
   //const classes = useStyles();
@@ -98,10 +98,10 @@ export default function SimpleTabs(props) {
       <div className='titles'>
         <div className='title'>
           {albums2[0].albumName}
-                    </div>
+        </div>
         <div className='subtitle'>
           {albums2[0].bandName}
-                    </div>
+        </div>
       </div>
 
       <div className='description'>
@@ -136,8 +136,8 @@ export default function SimpleTabs(props) {
           </Tabs>
         </AppBar>
         <TabPanel className='panel-content' value={value} index={0}>
-        {albums2[0].trackList}
-                </TabPanel>
+          {albums2[0].trackList}
+        </TabPanel>
         {/*<TabPanel className='panel-content' value={value} index={1}>
           {albums2[0].lineup}
                 </TabPanel>

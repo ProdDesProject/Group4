@@ -1,13 +1,10 @@
 const express = require('express');
 const parseobj = require('xml2js');
 
-
 let router = express.Router();
 const db = require('./db.js');
 
 const passport = require('passport');
-const { render } = require('ejs');
-const BasicStrategy = require('passport-http').BasicStrategy;
 
 /*let AlbumsData = [
     {

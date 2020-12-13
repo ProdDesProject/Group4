@@ -1,0 +1,51 @@
+.req {
+    display: inline;
+    color: red;
+}
+
+.container {
+    width: 95%;
+
+    .new-band {
+        width: 400px;
+        display: flex;
+        flex-direction: column;
+        margin: auto;
+    
+        .title {
+        font-size: 34px;
+        margin-top: 0px;
+        margin-bottom: 5px;
+        }
+    
+        .subtitle {
+        font-size: 26px;
+        }
+    }
+}
+
+.sides {
+    display: flex;
+    flex-direction: row;
+    width: 860px;
+    margin-left: -220px;
+
+    .left-side {
+        float: left;
+        margin-right: 50px;
+        width: 50%;
+    }
+    
+    .right-side {
+        float: right;
+        margin-left: 50px;
+        width: 50%;
+
+        .buttons5 {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 50px;
+            width: 100%;
+        }
+    }
+}

@@ -1,87 +1,73 @@
 import React from 'react';
 
 import FormInput from '../form-input/form-input.component';
-import SignInButton from '../sign-in-button/sign-in-button.component';
+import SubmitButton from '../submit-button/submit-button.component';
 import { withRouter} from 'react-router-dom';
-
-
 import './sign-in.styles.scss';
+import {SignInServices} from '../../services/sign-in-service'
 
-var base64 = require('base-64');
 
-class SignIn extends React.Component {
-  constructor(props) {
+class SignIn extends React.Component 
+{
+  constructor(props) 
+  {
     super(props);
 
-    this.state = {
+    //check for already existing token in the browser(user already logged in)
+    if(SignInServices.currentTokenValue)
+    {
+      //reroute to main with authorization
+      this.props.history.push({
+        pathname: '/',
+      });
+    }
+
+    //state for current username, password, status of the login and submission awaiting
+    this.state = 
+    {
       username: '',
-      password: ''
+      password: '',
+      status: true,
+      submitting: false
     };
   }
 
-  
-
-  handleSubmit = async event => {
+  //when clicket sign in button: post-login and returns token if succeeded.
+  handleSubmit = async event => 
+  {
     event.preventDefault();
-
-    const { username, password } = this.state;
-
-    try {
-
-      const requestOptions = {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ username:username,password:password })
-      }
-
-      const response = await fetch('http://localhost:9000/users/checkuser2/',requestOptions)
-      const data = await response.json();
-      this.setState({ data: data });
-
-      if (data == "404")
+    this.setState({submitting: true});
+    await SignInServices.Signin(this.state.username,this.state.password)
+    .then(result =>
+    {
+      if (result !== undefined && result.result === true)
       {
-        alert("404");  
+        
+        this.setState({status: true, submitting: false});
+
+        //remember some user info for the profile data fetching
+        //alert(result.username);
+
+        //reroute to main with authorization
+        this.props.history.push({
+          pathname: '/'
+        });
       }
       else
       {
-        //route to main page
-        //alert(data.user[0].username);
-        //---->MAINPAGE
-        
-         /* const requestOptions = {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ username:username,password:password })
-        };*/
-
-        let headers = new Headers();
-        headers.set('Authorization', 'Basic ' + base64.encode(username + ":" + password));
-
-        const response2 = await fetch("http://localhost:9000/login", {method:'POST',headers: headers,})
-        const token = await response2.json();
-
-        alert(JSON.stringify(token));
-       
-        //this.props.history.push('/');
-
-        this.props.history.push({
-          pathname: '/',
-          state: { detail: token }
-        })
+        this.setState({status: false, submitting: false});
+        //alert("Wrong credentials!");
       }
-    
-      this.setState({ username: '', password: '' });
-      this.props.history.push('/');
-    } catch (error) {
-      console.log(error);
-    }
+    });
   };
 
+  //handles changes on user input 
   handleChange = event => {
     const { value, name } = event.target;
     this.setState({ [name]: value });
   };
   
+  //render render stuff
   render() {
     return (
       <div className='sign-in'>
@@ -105,13 +91,18 @@ class SignIn extends React.Component {
             label='Password'
             required
           />
+
           <div className='buttons'>
-            <SignInButton type='submit'> Sign in </SignInButton>
+            <SubmitButton type='submit' disabled = {this.state.submitting}> Sign in </SubmitButton>
+            {this.state.submitting && <img src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />}
           </div>
+
+          {!this.state.status && <p>Username or password incorrect!</p>}
+
         </form>
       </div>
     );
   }
 }
-
 export default withRouter(SignIn);
+
