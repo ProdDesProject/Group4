@@ -17,7 +17,7 @@ class AlbumPage extends React.Component {
 
   render() {
     const { albums } = this.state;
-    {/* get genre name from url */ }
+    /* get genre name from url */ 
     const genreName = this.props.match.params.genre;
 
     return (

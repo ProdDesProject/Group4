@@ -2,7 +2,7 @@
 import React from 'react';
 import './switch.styles.scss';
 
-{/*reusable component for the switch that replaces the checkbox*/ }
+/*reusable component for the switch that replaces the checkbox*/ 
 const Switch = ({ checked, onChange, label, ...otherProps }) => 
 {
 

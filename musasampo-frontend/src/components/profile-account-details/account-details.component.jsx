@@ -1,14 +1,10 @@
-import React, { Fragment, useState } from 'react';
+import React from 'react';
 
-import CustomButton from '../custom-button/custom-button.component';
-import { Link, withRouter } from 'react-router-dom';
-
-import getUserInfo from '../../services/user/get-user-info-service';
+import { withRouter } from 'react-router-dom';
 
 import '../custom-button/custom-button.component';
 import './account-details.styles.scss';
 
-import DeleteButton from '../profile-delete/profile-delete.component';
 import ProfileUserInfo from '../profile-user-info/profile-user-info.component';
 
 class AccountDetails extends React.Component {

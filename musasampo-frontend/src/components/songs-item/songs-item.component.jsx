@@ -2,11 +2,10 @@ import React from 'react';
 
 import { withRouter } from 'react-router-dom';
 
-import CustomButton from '../custom-button/custom-button.component';
 
 import './songs-item.styles.scss';
 
-{/*filter the band from the data with the bandId from props*/ }
+/*filter the band from the data with the bandId from props*/ 
 const AlbumsItem = ({ song, history }, props) => {
     const { albumId, songId,songName,MP3,MP4 } = song;
 

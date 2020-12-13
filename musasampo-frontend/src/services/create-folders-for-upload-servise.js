@@ -1,5 +1,4 @@
 //Check uploading data
-import { stringify } from 'querystring';
 
 /**
  * createFolder-function takes needed information to back-end and creates a new folders for uploading images and music

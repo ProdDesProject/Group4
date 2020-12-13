@@ -1,15 +1,8 @@
-import React , { Component,Fragment, useState } from 'react';
-import FormInput from '../../components/form-input/form-input.component';
-import CustomButton from '../../components/custom-button/custom-button.component';
-import ReactPlayer from "react-player";
+import React , { Component} from 'react';
 import checkUploadData from '../../services/check-upload-data-service';
 import uploadData from '../../services/upload-mp3-service' 
 import createFolders from '../../services/create-folders-for-upload-servise'
 import './mp3.styles.scss';
-import { stringify } from 'querystring';
-import Music_player from '../music-player/music-player.component';
-
-var base64 = require('base-64');
 
 class Mp3_upload extends Component {
   constructor(props) {
@@ -46,7 +39,7 @@ class Mp3_upload extends Component {
     var checkResult = await checkUploadData(this.state.selectedFileName);
 
     //if 200:
-    if (checkResult == "200")
+    if (checkResult === "200")
     {
       //append testFile and uploadData:
       const data = new FormData();
@@ -56,7 +49,7 @@ class Mp3_upload extends Component {
       var createFoldersresult = await createFolders(this.state.bandName,this.state.albumName);
 
       //createFolders.result:
-      if (createFoldersresult == "200" && this.state.filetype == "mp3")
+      if (createFoldersresult === "200" && this.state.filetype === "mp3")
       {
         //Upload MP3-Data:
         var fileInfo = "mp3-upload";

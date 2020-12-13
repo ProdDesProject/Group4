@@ -1,15 +1,12 @@
-import React, { Fragment, useState } from 'react';
+import React from 'react';
 
 import CustomButton from '../custom-button/custom-button.component';
-import SignInButton from '../custom-button/custom-button.component';
 
 import DeleteButton from '../profile-delete/profile-delete.component';
 import { Link, withRouter } from 'react-router-dom';
 import '../custom-button/custom-button.component';
 
 import './profile-content.styles.scss';
-
-var base64 = require('base-64');
 
 class ProfileContent extends React.Component {
   constructor(props) {

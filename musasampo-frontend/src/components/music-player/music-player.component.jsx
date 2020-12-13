@@ -1,14 +1,6 @@
-import React , { Component,Fragment, useState } from 'react';
-import FormInput from '../form-input/form-input.component';
-import CustomButton from '../custom-button/custom-button.component';
-import ReactPlayer from "react-player";
-import checkUploadData from '../../services/check-upload-data-service';
-import uploadData from '../../services/upload-mp3-service' 
-import createFolders from '../../services/create-folders-for-upload-servise'
+import React , { Component} from 'react';
 import './music-player.styles.scss';
-import { stringify } from 'querystring';
 
-var base64 = require('base-64');
 
 class Music_player extends Component {
   constructor(props) {

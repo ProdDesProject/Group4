@@ -1,5 +1,4 @@
 //upload Data to server
-import { stringify } from 'querystring';
 
 export default async function uploadData(FormData,bandName,albumName)
 {

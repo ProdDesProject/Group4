@@ -1,14 +1,8 @@
-import React, { Fragment, useState } from 'react';
-
-import CustomButton from '../custom-button/custom-button.component';
-import SignInButton from '../custom-button/custom-button.component';
-import { Link, withRouter } from 'react-router-dom';
+import React from 'react';
+import { withRouter } from 'react-router-dom';
 import '../custom-button/custom-button.component';
-import AlbumItem from '../album-item/album-item.component';
 
 import './home-new.styles.scss';
-
-var base64 = require('base-64');
 
 class HomeNew extends React.Component {
   constructor(props) {

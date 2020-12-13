@@ -7,7 +7,7 @@ import './guitartuner-page.styles.scss';
 
 import GUITAR_DATA from './guitar.data.js';
 
-{/* Overview of tunable guitars  */ }
+/* Overview of tunable guitars  */ 
 
 export const GuitarOverview = (props) => (
     <div className='tuner-page'>

@@ -1,7 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import logo from '../../assets/logo2.png';
-import Homepage from '../../pages/home-page/home-page.component';
 import { withRouter} from 'react-router-dom';
 import './header.styles.scss';
 

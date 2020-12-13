@@ -1,8 +1,6 @@
 
 import React from 'react';
 
-import ALBUMS from '../../data/albums';
-import BANDS from '../../data/bands';
 
 import SearchBox from '../../components/search-box/search-box.component';
 import AlbumItem from '../../components/album-item/album-item.component';
@@ -16,12 +14,12 @@ import getBandsBandId from '../../services/band/get-band-by-bandId-servise';
 
 import './search.styles.scss';
 
-{/* Search page */ }
+/* Search page */ 
 
 class Search extends React.Component {
     constructor() {
         super();
-        {/* Empty array for filtered albums and bands + searchfield input  */ }
+        /* Empty array for filtered albums and bands + searchfield input  */ 
         this.state = {
             albums: [],
             bands: [],
@@ -100,7 +98,7 @@ class Search extends React.Component {
     render() {
         const { albums, bands, searchField } = this.state;
 
-        {/* filter albums and bands with search field value  */ }
+        /* filter albums and bands with search field value  */ 
         const filteredAlbums = albums.filter(album =>
             album.albumName.toLowerCase().includes(searchField.toLowerCase())
         );

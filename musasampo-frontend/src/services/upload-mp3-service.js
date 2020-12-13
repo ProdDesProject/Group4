@@ -1,5 +1,4 @@
 //upload Data to server
-import { stringify } from 'querystring';
 
 //need file data and bandName,albumName for routing to right folder in server:
 export default async function uploadData(FormData,bandName,albumName,fileInfo)
