@@ -1,19 +1,22 @@
 export default async function getBandsBandId(bandId)
 {
-    //fetch for bands and get a response
-    const response1 = await fetch('http://localhost:9000/bands/'+bandId);
-    //get the status response
-    const data = await response1.json();
+    //fetch the band with this id
+    //building the header
+    var myHeaders = new Headers();
+    myHeaders.append('Content-Type', 'application/json');
 
-    //alert(data);
-
-    if (data === 404 || data === 400 || data === 500)
+    //Parameter for get method
+    const requestOptions = 
     {
-       alert("Error");
-    }
-    else
-    {
-        return data;  
+        method: 'GET',
+        headers: myHeaders ,
     }
 
+    //creating the fetch url
+    const url = new URL('http://localhost:9000/search/bands/bandId/' + bandId);
+
+    //calling the API get method
+    var bandResponse = await fetch(url, requestOptions);
+
+    return bandResponse;
 };

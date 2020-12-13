@@ -15,6 +15,17 @@ const AlbumItem = ({ album, history, match }) => {
   {/*filter the band from the data with the bandId from props*/ }
   //const band = BANDS.filter(band => band.bandId == bandId);
 
+  const style1 = {
+    width: 50,
+    height: 50,
+  };
+
+  const style2 = {
+    margin:50,
+    width: 50,
+    height: 50,
+   };
+
   return (
     <div className='album-item'>
       <div
@@ -39,6 +50,13 @@ const AlbumItem = ({ album, history, match }) => {
       }} inverted>
         ALBUM INFORMATION
       </CustomButton>
+
+      <CustomButton style={style2} onClick={() => {
+                history.push({pathname: `/songs/`, search: '?query=abc', state: { bandId:bandId, albumId: albumId, albumName: albumName}})
+              }} inverted>
+                  SONGS
+      </CustomButton>
+
     </div>
   );
 };

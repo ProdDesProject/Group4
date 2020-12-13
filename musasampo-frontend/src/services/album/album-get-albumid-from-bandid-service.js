@@ -1,19 +1,23 @@
-//fetch bands from backend
-export default async function fetchAlbumId(bandId)
+//fetch albums by bandId from backend
+export default async function getAlbumsBybandId(bandId)
 {
-    //fetch for checkuser2 and get a response
-    const albumsResponse = await fetch('http://localhost:9000/albums/bandId/'+bandId);
-    //get the status response
-    const data = await albumsResponse.json();
+    //fetch the band with this id
+    //building the header
+    var myHeaders = new Headers();
+    myHeaders.append('Content-Type', 'application/json');
 
-    //alert("INSIDE FETCH:"+data);
+    //Parameter for get method
+    const requestOptions = 
+    {
+        method: 'GET',
+        headers: myHeaders ,
+    }
 
-    if (data === 404 || data === 400 || data === 500)
-    {
-       alert("Error");
-    }
-    else
-    {
-        return data;  
-    }
+    //creating the fetch url
+    const url = new URL('http://localhost:9000/search/albums/bandId/' + bandId);
+
+    //calling the API get method
+    var albumResponse = await fetch(url, requestOptions);
+
+    return albumResponse;
 };

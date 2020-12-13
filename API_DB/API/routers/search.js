@@ -185,13 +185,13 @@ router
                     }
                 }
             });
-      } //search for bands by country
-      else if (req.params.searchOption === "country") 
+      } //search for bands by bandId
+      else if (req.params.searchOption === "bandId") 
       {
         // call function to get all requested bands from the database
         var  getInformationFromDB = function(callback) 
         {
-            db.query('SELECT * FROM bands WHERE country = ?;',[decodeURIComponent(req.params.searchValue)], function(err, res, fields)
+            db.query('SELECT * FROM bands WHERE bandId = ?;',[decodeURIComponent(req.params.searchValue)], function(err, res, fields)
             {
                 if (err)  return callback(err);
                 if(res.length)
@@ -223,7 +223,7 @@ router
                 {
                     //nothing is found
                     return res.status(404).json({
-                        "message": "There are no bands from this country."
+                        "message": "There are no bands with this id."
                     });
                 }
             }
@@ -233,7 +233,7 @@ router
       {
           //bad request
           return res.status(400).json({
-          "message": "Search only by name or country!"
+          "message": "Search only by name or bandId!"
         });
       }
   }
@@ -282,13 +282,13 @@ router
                 }
             }
         });
-      } //search for albums by genre
-      else if (req.params.searchOption === "genre") 
+      } //search for albums by bandId
+      else if (req.params.searchOption === "bandId") 
       {
         // call function to get all requested albums from the database
         var  getInformationFromDB = function(callback) 
         {
-            db.query('SELECT * FROM albums WHERE albumGenre = ?;',[decodeURIComponent(req.params.searchValue)], function(err, res, fields)
+            db.query('SELECT * FROM albums WHERE bandId = ?;',[decodeURIComponent(req.params.searchValue)], function(err, res, fields)
             {
                 if (err)  return callback(err);
                 if(res.length)
@@ -320,7 +320,7 @@ router
                 {
                     //nothing is found
                     return res.status(404).json({
-                        "message": "There are no albums within this genre."
+                        "message": "There are no albums from this band."
                     });
                 }
             }
@@ -334,11 +334,108 @@ router
         });
       }
   }
+  else if(req.params.category === 'songs')
+  {
+        // search for songs by albumId
+        if (req.params.searchOption === "albumId") 
+        {
+            // call function to get all requested songs from the database
+            var  getInformationFromDB = function(callback) 
+            {
+                db.query('SELECT * FROM songs WHERE albumId = ?;',[decodeURIComponent(req.params.searchValue)], function(err, res, fields)
+                {
+                    if (err)  return callback(err);
+                    if(res.length)
+                    {
+                        for(var i = 0; i < res.length; i++)
+                        {     
+                            results.push(res[i]);
+                        }
+                    }
+                    callback(null, results);
+                });
+            };
+        
+            getInformationFromDB(function (err, result) 
+            {
+                if (err) 
+                {
+                    console.log("Internal server error!");
+                    return res.status(500).json ({"message": "Internal server error!"});
+                }
+                else 
+                {
+                    //if something is found
+                    if (result.length) 
+                    {
+                        return res.status(200).json(result);
+                    } 
+                    else 
+                    {
+                        //nothing is found
+                        return res.status(404).json({
+                            "message": "There are no songs from this album."
+                        });
+                    }
+                }
+            });
+        } //search for songs by songName
+        else if (req.params.searchOption === "songName") 
+        {
+            // call function to get all requested albums from the database
+            var  getInformationFromDB = function(callback) 
+            {
+                db.query('SELECT * FROM songs WHERE songName = ?;',[decodeURIComponent(req.params.searchValue)], function(err, res, fields)
+                {
+                    if (err)  return callback(err);
+                    if(res.length)
+                    {
+                        for(var i = 0; i < res.length; i++)
+                        {     
+                            results.push(res[i]);
+                        }
+                    }
+                    callback(null, results);
+                });
+            };
+        
+            getInformationFromDB(function (err, result) 
+            {
+                if (err) 
+                {
+                    console.log("Internal server error!");
+                    return res.status(500).json ({"message": "Internal server error!"});
+                }
+                else 
+                {
+                    //if something is found
+                    if (result.length) 
+                    {
+                        return res.status(200).json(result);
+                    } 
+                    else 
+                    {
+                        //nothing is found
+                        return res.status(404).json({
+                            "message": "There are no songs with this name."
+                        });
+                    }
+                }
+            });
+        }
+        else
+        {
+            //bad request
+            return res.status(400).json({
+            "message": "Search only by albumId or songName!"
+        });
+        }
+  }
   else
   {
     //bad request
     return res.status(400).json({
-      "message": "Search only for bands or albums!"
+      "message": "Search only for bands or albums or songs!"
     });
   }
 });
