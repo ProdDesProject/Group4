@@ -16,14 +16,18 @@ export default async function createBand(bandName, country, bandLogo, nsfw)
         
         //parsing the found token JSON
         const foundToken = JSON.parse(token);
+
+        //spaces to %20
+        let bandName2 = encodeURIComponent(bandName.trim());
+        let bandLogo2 = encodeURIComponent(bandLogo.trim());
         
         //building the body to be sent
         var bodyObject = 
         {
             userId: userId,
-            bandName: bandName,
+            bandName: bandName2,
             country: country,
-            bandLogo: bandLogo,
+            bandLogo: bandLogo2,
             nsfw: nsfw
         };
 

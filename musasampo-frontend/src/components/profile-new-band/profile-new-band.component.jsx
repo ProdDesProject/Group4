@@ -110,6 +110,7 @@ class NewBand extends React.Component
             this.setState({submitting: false, status: false});
           }
         })
+      
     }
   }
 
@@ -172,9 +173,7 @@ class NewBand extends React.Component
                       checked = {this.state.nsfw}
                       onChange = {this.handleToggle}
                   />
-
-                  <BandPic/>
-
+                
                 </form>
                 <div className='buttons'>
                   <Link to="/profile" className='button'>
