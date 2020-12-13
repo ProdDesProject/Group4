@@ -1,0 +1,11 @@
+.paper {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    list-style: none;
+    padding: spacing(30.5);
+    margin: 0;
+
+    .chip {
+    }
+}
