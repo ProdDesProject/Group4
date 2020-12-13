@@ -13,3 +13,5 @@ wss.on('connection', function connection(ws) {
     });
   });
 });
+
+console.log("Socket running on port 3030")
