@@ -211,7 +211,7 @@ router
             if (results.length)
             {
                 //user id found, delete user from the database
-                db.query('DELETE FROM users WHERE userId = ?',[req.params.userId]);
+                db.query('DELETE  FROM users WHERE userId = ?',[req.params.userId]);
                 //deincrement the user id field
                 db.query('ALTER TABLE bands AUTO_INCREMENT = ?',[(req.params.userId - 1)]); 
                 //send ok status

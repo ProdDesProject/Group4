@@ -125,20 +125,20 @@ class NewAlbum extends React.Component {
   {
       //bandId:
       var bandId = this.props.location.state.detail;
-      alert(bandId);
 
       //Getting a band:
-      var result = await getBandsBandId(bandId);
-      console.log(result);
+      var result = await (await getBandsBandId(bandId)).json();
 
-      var bandName2 = result[0].bandName;
+      //get the bandName
+      var bandName = result[0].bandName;
 
-      this.setState({bandName : bandName2});
+      //mark the state
+      this.setState({bandName : bandName});
   }
 
   render() 
   {
-    const { bandName, albumName, postingDate, albumCover, albumGenre} = this.state;
+    const { albumName, postingDate, albumCover, albumGenre} = this.state;
     return (
       <div className='container'>
           <div className='new-album'>
@@ -148,7 +148,6 @@ class NewAlbum extends React.Component {
             <form className='new-album-form' onSubmit={this.handleSubmit}>
               <div className='sides'>
                   <div className='left-side'>
-                      <label for="bandName">Band Name: {req}</label>
                          
                       <label for="albumName">Album Name: {req}</label>
                       <FormInput
