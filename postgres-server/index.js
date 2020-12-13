@@ -114,10 +114,10 @@ app.get("/users/:username", async (req, res) => {
 
 app.post("/messages", async (req, res) => {
   try {
-    const { messagecontent, username, channelname } = req.body;
+    const {message_id, messagecontent, username, channelname } = req.body;
     const newMessage = await pool.query(
-      "INSERT INTO messages (messagecontent, username, channelname) VALUES($1,$2,$3) RETURNING *",
-      [messagecontent, username, channelname]
+      "INSERT INTO messages (message_id, messagecontent, username, channelname) VALUES($1,$2,$3,$4) RETURNING *",
+      [message_id, messagecontent, username, channelname]
     );
 
     res.json(newMessage.rows[0]);

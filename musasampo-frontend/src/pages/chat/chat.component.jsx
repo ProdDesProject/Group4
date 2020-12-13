@@ -7,6 +7,7 @@ import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import Chip from '@material-ui/core/Chip';
 import Paper from '@material-ui/core/Paper';
+import { v4 as uuidv4 } from 'uuid';
 
 import './chat.styles.scss';
 
@@ -98,9 +99,10 @@ const ChatPage = () => {
         }
     };
 
-    const createMessage = async (messagecontent, username, channelname) => {
+    const createMessage = async (message) => {
         try {
-            const body = { messagecontent, username, channelname };
+            const body = message;
+            console.log(JSON.stringify(body));
             const response = await fetch("http://localhost:5000/messages", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
@@ -119,8 +121,11 @@ const ChatPage = () => {
                 method: "GET"
             });
             const jsonData = await response.json();
-
+            console.log(jsonData)
             setMessages(jsonData);
+
+
+            console.log(messages)
         } catch (err) {
             console.error(err.message);
         }
@@ -128,16 +133,16 @@ const ChatPage = () => {
 
 
     const addMessage = message => {
-        setMessages([...messages, message])
+        setMessages(messages => [message, ...messages])
     }
 
 
     const submitMessage = (messageString, selectedChannel) => {
         // on submitting the ChatInput form, send the message, add it to the list and reset the input
-        const message = { message: messageString, username: userName, channelname: selectedChannel }
-        createMessage(messageString, userName, selectedChannel)
+        const message = { message_id: uuidv4(), messagecontent: messageString, username: userName, channelname: selectedChannel }
+        createMessage(message)
         ws.send(JSON.stringify(message))
-        addMessage(message)
+
     }
 
     useEffect(() => {
@@ -149,11 +154,9 @@ const ChatPage = () => {
         ws.onmessage = evt => {
             // on receiving a message, add it to the list of messages
             const message = JSON.parse(evt.data)
-            if (message.name != userName) {
-                addMessage(message)
-            } else {
-                console.log('already added')
-            }
+            setMessages(messages => [...messages, message])
+            //addMessage(message)
+            console.log('already added')
 
         }
 
@@ -167,7 +170,6 @@ const ChatPage = () => {
         getMessages(userName)
         getChannels();
         getUserChannels(userName);
-
         functions.getUserByUsername(userName);
     }, []);
 
@@ -194,13 +196,6 @@ const ChatPage = () => {
 
         const channelname = chipToDelete.channelname;
         deleteUserChannels(userName, channelname)
-
-        /*         const array = selectedChannels; // make a separate copy of the array
-                var index = array.indexOf(chipToDelete)
-                if (index !== -1) {
-                    array.splice(index, 1);
-                    setSelectedChannels([...array]);
-                } */
     };
 
 
@@ -253,7 +248,7 @@ const ChatPage = () => {
                 />
 
                 <FormControl variant="outlined" className="select" >
-                    <InputLabel htmlFor="outlined-age-native-simple">Age</InputLabel>
+                    <InputLabel htmlFor="outlined-age-native-simple">Channel</InputLabel>
                     <Select
                         native
                         value={selectedChannel}
