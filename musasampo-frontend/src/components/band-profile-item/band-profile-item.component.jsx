@@ -5,7 +5,7 @@ import { Link,withRouter } from 'react-router-dom';
 import CustomButton from '../custom-button/custom-button.component';
 
 
-import './band-item.styles.scss';
+import './band-profile-item.styles.scss';
 
 {/*filter the band from the data with the bandId from props*/ }
 const BandItem = ({ band, history }, props) => {
@@ -60,6 +60,12 @@ const BandItem = ({ band, history }, props) => {
             </CustomButton>
 
             <CustomButton style={style2} onClick={() => {
+                history.push({pathname:`/profile/newalbum`, state:{detail: bandId}})
+            }} inverted>
+                Add an Album
+            </CustomButton>
+
+            <CustomButton style={style3} onClick={() => {
                 history.push({pathname: `/albums/`, search: '?query=abc', state: { detail: bandId}})
                 }} inverted>
                     ALBUMS

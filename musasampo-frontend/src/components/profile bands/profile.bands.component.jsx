@@ -3,15 +3,15 @@ import React from 'react';
 //import ALBUMS from '../../data/albums';
 //import BANDS from '../../data/bands';
 
-import SearchBox from '../../components/search-box/search-box.component';
-import AlbumItem from '../../components/album-item/album-item.component';
-import BandItem from '../../components/band-item/band-item.component';
+import SearchBox from '../search-box/search-box.component';
+import AlbumItem from '../album-item/album-item.component';
+import BandItem from '../band-profile-item/band-profile-item.component';
 import fetchData from '../../services/band/get-band-by-userid-service';
 import getUserID from '../../services/user/get-userid-by-username.service';
 
 import CustomButton from '../custom-button/custom-button.component';
 
-import './bands.styles.scss';
+import './profile.bands.styles.scss';
 
 {/* Search page */ }
 

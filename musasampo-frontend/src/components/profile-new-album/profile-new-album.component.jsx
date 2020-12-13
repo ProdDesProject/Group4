@@ -75,6 +75,10 @@ class NewAlbum extends React.Component {
   {
     event.preventDefault();
 
+    //bandId:
+    var bandId = this.props.location.state.detail;
+
+
     const { bandName, albumName, postingDate, albumCover, albumGenre} = this.state;
 
     if (!bandName || !albumName || !postingDate || !albumCover || !albumGenre) 
@@ -114,6 +118,13 @@ class NewAlbum extends React.Component {
           }
         })
     }
+  }
+
+  componentDidMount()
+  {
+      //bandId:
+      var bandId = this.props.location.state.detail;
+      alert(bandId);
   }
 
   render() 
