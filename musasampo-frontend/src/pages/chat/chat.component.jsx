@@ -13,7 +13,7 @@ import './chat.styles.scss';
 
 import functions from './functions.js'
 
-const URL = 'ws://localhost:3030';
+const URL = 'ws://193.196.53.33:3030';
 
 const ChatPage = () => {
 
@@ -33,7 +33,7 @@ const ChatPage = () => {
 
     const getChannels = async () => {
         try {
-            const response = await fetch("http://localhost:5000/channels");
+            const response = await fetch("http://193.196.53.33:3000/channels");
             const jsonData = await response.json();
             setChannels(jsonData);
         } catch (err) {
@@ -44,7 +44,7 @@ const ChatPage = () => {
     const createUserChannels = async (username, channelname) => {
         try {
             const body = { username, channelname };
-            const response = await fetch("http://localhost:5000/userchannels", {
+            const response = await fetch("http://193.196.53.33:3000/userchannels", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(body)
@@ -58,7 +58,7 @@ const ChatPage = () => {
 
     const getUserByUsername = async (username) => {
         try {
-            const response = await fetch(`http://localhost:5000/users/${username}`, {
+            const response = await fetch(`http://193.196.53.33:3000/users/${username}`, {
                 method: "GET"
             });
             const jsonData = await response.json();
@@ -71,7 +71,7 @@ const ChatPage = () => {
 
     const getUserChannels = async (username) => {
         try {
-            const response = await fetch(`http://localhost:5000/userchannels/${username}`, {
+            const response = await fetch(`http://193.196.53.33:3000/userchannels/${username}`, {
                 method: "GET"
             });
             const jsonData = await response.json();
@@ -87,7 +87,7 @@ const ChatPage = () => {
     const deleteUserChannels = async (username, channelname) => {
         try {
             const body = { username, channelname };
-            const deleteConnection = await fetch(`http://localhost:5000/userchannels`, {
+            const deleteConnection = await fetch(`http://193.196.53.33:3000/userchannels`, {
                 method: "DELETE",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(body)
@@ -103,7 +103,7 @@ const ChatPage = () => {
         try {
             const body = message;
             console.log(JSON.stringify(body));
-            const response = await fetch("http://localhost:5000/messages", {
+            const response = await fetch("http://193.196.53.33:3000/messages", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(body)
@@ -117,7 +117,7 @@ const ChatPage = () => {
 
     const getMessages = async (channelname) => {
         try {
-            const response = await fetch(`http://localhost:5000/messages/${channelname}`, {
+            const response = await fetch(`http://193.196.53.33:3000/messages/${channelname}`, {
                 method: "GET"
             });
             const jsonData = await response.json();
@@ -130,12 +130,6 @@ const ChatPage = () => {
             console.error(err.message);
         }
     };
-
-
-    const addMessage = message => {
-        setMessages(messages => [message, ...messages])
-    }
-
 
     const submitMessage = (messageString, selectedChannel) => {
         // on submitting the ChatInput form, send the message, add it to the list and reset the input
@@ -155,7 +149,6 @@ const ChatPage = () => {
             // on receiving a message, add it to the list of messages
             const message = JSON.parse(evt.data)
             setMessages(messages => [...messages, message])
-            //addMessage(message)
             console.log('already added')
 
         }

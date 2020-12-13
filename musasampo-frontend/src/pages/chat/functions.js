@@ -1,7 +1,7 @@
 
     const getChannels = async () => {
         try {
-            const response = await fetch("http://localhost:5000/channels");
+            const response = await fetch("http://193.196.53.33:3000/channels");
             const jsonData = await response.json();
 
             console.log("Channels: " + JSON.stringify(jsonData));
@@ -12,7 +12,7 @@
 
     const getUserByUsername = async (username) => {
         try {
-            const response = await fetch(`http://localhost:5000/users/${username}`, {
+            const response = await fetch(`http://193.196.53.33:3000/users/${username}`, {
                 method: "GET"
             });
             const jsonData = await response.json();
@@ -27,7 +27,7 @@
 
         try {
             const body = { username };
-            const response = await fetch("http://localhost:5000/users", {
+            const response = await fetch("http://193.196.53.33:3000/users", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(body)
@@ -41,7 +41,7 @@
 
     const getUsers = async () => {
         try {
-            const response = await fetch("http://localhost:5000/users");
+            const response = await fetch("http://193.196.53.33:3000/users");
             const jsonData = await response.json();
             console.log("Users: " + JSON.stringify(jsonData))
         } catch (err) {
