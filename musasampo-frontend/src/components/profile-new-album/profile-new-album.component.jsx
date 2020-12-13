@@ -4,6 +4,7 @@ import FormInput from '../../components/form-input/form-input.component';
 import CustomButton from '../../components/custom-button/custom-button.component';
 import SubmitButton from '../submit-button/submit-button.component';
 import createAlbum from '../../services/album/create-albums-service'
+import getBandsBandId from '../../services/band/get-band-by-bandId-servise';
 
 import { Link } from 'react-router-dom';
 
@@ -120,11 +121,19 @@ class NewAlbum extends React.Component {
     }
   }
 
-  componentDidMount()
+  async componentDidMount()
   {
       //bandId:
       var bandId = this.props.location.state.detail;
       alert(bandId);
+
+      //Getting a band:
+      var result = await getBandsBandId(bandId);
+      console.log(result);
+
+      var bandName2 = result[0].bandName;
+
+      this.setState({bandName : bandName2});
   }
 
   render() 
@@ -140,15 +149,7 @@ class NewAlbum extends React.Component {
               <div className='sides'>
                   <div className='left-side'>
                       <label for="bandName">Band Name: {req}</label>
-                          <FormInput
-                            type='text'
-                            name='bandName'
-                            id='bandName'
-                            value={bandName}
-                            onChange={this.handleChange}
-                            maxLength='30'
-                            required
-                            />
+                         
                       <label for="albumName">Album Name: {req}</label>
                       <FormInput
                         type='text'
