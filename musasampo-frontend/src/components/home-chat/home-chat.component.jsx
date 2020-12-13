@@ -1,11 +1,9 @@
-import React, { Fragment, useState } from 'react';
+import React from 'react';
 
 import { Link, withRouter } from 'react-router-dom';
 import '../custom-button/custom-button.component';
 
 import './home-chat.styles.scss';
-
-var base64 = require('base-64');
 
 class HomeChat extends React.Component {
   constructor(props) {
