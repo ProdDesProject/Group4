@@ -28,9 +28,8 @@ export default async function uploadData(FormData,bandName,albumName,fileInfo)
     
         var url = 'http://localhost:9000/upload/uploadbandpic/'+bandName;
         const response =  await fetch(url,requestOptions2);
-        const data2 = await response.json();
 
-        return data2;
+        return response;
     }
    
     /**
@@ -39,18 +38,15 @@ export default async function uploadData(FormData,bandName,albumName,fileInfo)
 
     if (fileInfo === "mp3-upload")
     {
-        alert("mp3")
+        //alert("mp3")
         var result = await UploadMp3(FormData,bandName,albumName);
         return result;
     }
     else if (fileInfo === "png-band")
     {
-        alert("png")
+        //alert("png")
         var result = await UploadBandPic(FormData,bandName);
         return result;
     };
-
-
-
 
 };

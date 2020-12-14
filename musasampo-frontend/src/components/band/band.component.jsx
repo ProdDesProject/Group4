@@ -8,18 +8,21 @@ export default class SimpleTabs extends Component
   constructor(props)
   {
     super(props);
-    this.state = {band : {}};
+    this.state = {band : {}, logoPath: ''};
   }
 
   async componentDidMount()
   {
     const bandId = this.props.match.params.bandId;
+    console.log(this.props.match.params.bandId)
     const result = await getBandsBandId(bandId)
     if(result.status === 200)
     {
       //get the json result
       const band = await result.json();
       this.setState({band: band[0]});
+      this.setState({logoPath: "http://localhost:9000/upload/imagepath.png/" + band[0].bandName + "/" + band[0].bandLogo})
+      console.log(band, this.state.logoPath);
     }
     else
     {
@@ -48,7 +51,7 @@ export default class SimpleTabs extends Component
           <div className='container10'>
 
             <div className='bandLogo'>
-              <img className='img' src={decodeURIComponent(this.state.band.bandLogo)} />
+              <img className='img' src={decodeURIComponent(this.state.logoPath)} />
             </div>
             
           </div>
