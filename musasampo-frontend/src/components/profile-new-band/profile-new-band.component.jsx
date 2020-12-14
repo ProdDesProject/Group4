@@ -5,11 +5,13 @@ import CustomButton from '../../components/custom-button/custom-button.component
 import SubmitButton from '../../components/submit-button/submit-button.component';
 import { Link } from 'react-router-dom';
 
-import BandPic from '../band-pic-upload/band-pic.component'
-
 import './profile-new-band.styles.scss';
 import createBand from '../../services/band/create-band-service'
 import Switch from '../switch/switch.component';
+
+import checkUploadData from '../../services/check-upload-data-service';
+import uploadData from '../../services/upload-mp3-service' 
+import createFolders from '../../services/create-folders-for-upload-servise'
 
 var req = <p className="req">*</p>;
 
@@ -27,11 +29,17 @@ class NewBand extends React.Component
 
       bandName: '',
       country: '',
-      bandLogo: '',
-      nsfw: false
+      nsfw: false,
+
+      filetype: "png",
+      selectedFile: null,
+      selectedFileName: "",
+
+      showing: false
     };
 
     this.handleToggle = this.handleToggle.bind(this);
+    this.handleUpload = this.handleUpload.bind(this);
   }
 
   //handles submit when clicked button ADD BAND:
@@ -47,7 +55,6 @@ class NewBand extends React.Component
         {
           bandName: '',
           country: '',
-          bandLogo: '',
           nsfw: false
         }
       )
@@ -63,23 +70,89 @@ class NewBand extends React.Component
     const { name, value } = event.target;
 
     this.setState({ [name]: value });
-  
   };
 
   //switch toggle
   handleToggle(checked)
   {
     this.setState({nsfw: checked});
-    console.log(this.state.nsfw);
+  }
+
+  handleUpload = event =>
+  {
+    //save file
+    this.setState({ selectedFile: event.target.files[0],
+      loaded: 0,
+      });
+      //save filename
+    this.setState({ selectedFileName: event.target.files[0].name,
+        loaded: 0,
+        });
+  
+    if (this.state.selectedFile != null)
+    {
+      this.setState({showing:true});
+    }
+    else
+    {
+      this.setState({showing:false});
+    }
   }
 
   onClickHandler = async event => 
   {
     event.preventDefault();
-
-    const { bandName, country, bandLogo, nsfw } = this.state;
     
-    if (!bandName || !country || !bandLogo || nsfw === null) 
+    const { bandName, country, nsfw } = this.state;
+    //checkResult for file name and datatype:
+    //alert("checkdata" + this.state.selectedFileName );
+    var checkResult = await checkUploadData(this.state.selectedFileName);
+
+    //if 200:
+    if (checkResult == "200")
+    {
+      //append testFile and uploadData:
+      const data = new FormData();
+      data.append('testFile', this.state.selectedFile);
+      
+      //Create folders for upload:
+      //alert("createFolder");
+      var createFoldersresult = await createFolders(bandName,this.state.albumName);
+
+      //createFolders.result:
+      if (createFoldersresult == "200" && this.state.filetype == "png")
+      {
+        //Upload MP3-Data:
+        var fileInfo = "png-band";
+
+        if (fileInfo === "png-band")
+        {
+          await uploadData(data,this.state.bandName,"",fileInfo)
+          .then(result =>
+            {
+              if(result.status === 204)
+              {
+                alert("Upload successful")
+              }
+              else
+              {
+                alert("Upload failed");
+              }
+            });
+        }
+        
+      }else
+      {
+        alert("Upload failed");
+      }
+    }
+    else
+    {
+      alert("CheckResults went wrong, try again!");
+    }
+
+    //create band
+    if (!bandName || !country || !this.state.selectedFileName || nsfw === null) 
     {
       //alert("Neccessary fields not filled!");
       this.setState({status: false, submittingMessage: "Neccessary fields not filled!"});
@@ -91,7 +164,7 @@ class NewBand extends React.Component
       //submitting data
       this.setState({submitting: true});
 
-      await createBand(bandName, country, bandLogo, nsfw)
+      await createBand(bandName, country, this.state.selectedFileName, nsfw)
       .then(status =>
         {
           //band successfully created
@@ -102,8 +175,7 @@ class NewBand extends React.Component
             //redirect to profile page to show the band
             this.props.history.push(
               {
-                pathname: '/band-pic-upload',
-                state : {bandname:bandName, bandlogo:bandLogo}
+                pathname: '/profile'
               }
             );
           }
@@ -120,7 +192,7 @@ class NewBand extends React.Component
   render() 
   {
     var value = false
-    const { bandName, country, bandLogo, nsfw } = this.state;
+    const { bandName, country, nsfw } = this.state;
     return (
       <div className='container'>
         <div className='new-band'>
@@ -156,16 +228,22 @@ class NewBand extends React.Component
               </div>
 
               <div className='right-side'>
-                <label for="Band logo">Band Logo: {req}</label>
-                <FormInput
-                  type='text'
-                  name='bandLogo'
-                  id='bandLogo'
-                  value={bandLogo}
-                  onChange={this.handleChange}
-                  placeholder=''
-                  required
-                />
+
+                    <div className="Main">
+                      <header className="btn btn-secondary btn-sm">
+                        <div>
+                          <form enctype="multipart/form-data">
+                            <input type = "file"  name="file" id="file" accept = ".png" onChange = {this.handleUpload}></input>
+                                {this.state.selectedFile
+                                    ? <input type = "button"  value = "Click to upload!" name = "button" onClick = {this.onClickHandler} className="btn btn-primary btn-sm"/>
+                                    : null
+                                }
+
+                          </form>
+                        </div>
+                      </header>
+                    </div>
+
                 <form>
                   <p>NSFW: {req}</p>
                   <Switch

@@ -41,7 +41,10 @@ class BandPic extends Component {
     if (this.state.selectedFile != null)
     {
       await this.setState({showing:true});
-    }else{
+      console.log(this.state.selectedFileName);
+    }
+    else
+    {
       await this.setState({showing:false});
     }
 
@@ -50,6 +53,7 @@ class BandPic extends Component {
   //Clickhandler:
   onClickHandler = async () => 
   {
+    console.log(this.state.selectedFileName);
     try
     {
       var bandName = await this.props.location.state.bandname;
@@ -61,14 +65,15 @@ class BandPic extends Component {
   
       await this.setState({bandName:bandName});
       await this.setState({bandLogo:bandLogo});
-    }catch
+    }
+    catch
     {
       alert("something went Wrong");
     }
     
 
     //checkResult for file name and datatype:
-    alert("checkdata" + this.state.selectedFileName );
+    //alert("checkdata" + this.state.selectedFileName );
     var checkResult = await checkUploadData(this.state.selectedFileName);
 
     //if 200:
@@ -90,7 +95,20 @@ class BandPic extends Component {
 
         if (fileInfo === "png-band")
         {
-          var result = await uploadData(data,this.state.bandName,"",fileInfo);
+          await uploadData(data,this.state.bandName,"",fileInfo)
+          .then(result =>
+            {
+              if(result.status === 204)
+              {
+                this.props.history.push({
+                  pathname: '/profile'
+                });
+              }
+              else
+              {
+                alert("Upload failed");
+              }
+            });
         }
         
       }else

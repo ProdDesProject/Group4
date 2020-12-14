@@ -245,10 +245,13 @@ router.post('/uploadbandpic/:bandName', multerUpload.single('testFile'), (req, r
 
   console.log("req.file.path:"+req.file.path);
 
-  fs.rename(req.file.path, './uploads/bands/'+ bandName + '/' + req.file.originalname, function (err) {
-    if (err) throw err;
+  fs.rename(req.file.path, './uploads/bands/'+ bandName + '/' + req.file.originalname, function (err) 
+  {
+    if (err) 
+      throw err;
     console.log('renamed complete');
-    res.send("Test");
+    //successful
+    res.sendStatus(204);
   });
   
 });
