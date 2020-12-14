@@ -20,6 +20,7 @@ const GUITAR2_DATA = [
             tuneType: 1,
             guitarId: 0,
             title: 'Standard Tune',
+            titleSS: 'Standaune',
             routeName: 'acoustic',
             strings: [{
                 id: 0,

@@ -39,6 +39,7 @@ const useMultiAudio = urls => {
 
     {/* updates  state of every audio player in players array*/ }
     const toggle = targetIndex => () => {
+        setSourceUrl();
         const newPlayers = [...players];
         const currentIndex = players.findIndex(p => p.playing === true);
         {/* other player is playing, so set this one to false and the targeted player to true */ }
@@ -62,6 +63,7 @@ const useMultiAudio = urls => {
             //check if the audio is starting to play - if you press play, it will always start the note from the beginning, even after pausing it
             if (players[i].playing) {
                 if (urlRefresh === false) {
+                    //setSourceUrl();
                     urlRefresh = true;
                 }
                 //setSourceUrl();
@@ -86,7 +88,7 @@ const useMultiAudio = urls => {
     useEffect(() => {
         sources.forEach((source, i) => {
             source.audio.addEventListener("ended", () => {
-                setSourceUrl();
+                //setSourceUrl();
                 const newPlayers = [...players];
                 newPlayers[i].playing = false;
                 setPlayers(newPlayers);
@@ -162,7 +164,7 @@ const Pause = (props) => {
 const Play = (props) => {
     return (
         <div>
-            <svg fill={props.fill} className="play-component" viewBox="0 0 60 60">
+            <svg fill={props.fill} className="play-component" viewBox="0 0 60 60" >
                 <polygon points="0,0 50,30 0,60" />
             </svg>
         </div>

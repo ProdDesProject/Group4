@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 import MultiPlayer from "../audio-player/audio-player.component";
+import setSourceUrl from "../audio-player/audio-player.component";
 
 import './guitar-tuner.styles.scss';
 
@@ -10,7 +11,7 @@ function GuitarTuner(props) {
 
     {/* get guitarId of current guitar and get guitar data of the specific guitar */ }
     const guitarType = props.match.params.guitarType;
-    const guitar = GUITAR2_DATA
+    var guitar = GUITAR2_DATA
         .filter(guitar => (
             guitar.guitarType === Number(guitarType)),
         );
@@ -33,6 +34,7 @@ function GuitarTuner(props) {
 
     console.log((handleTuneChange));
     console.log((handleTuneChange4));
+    console.log((setSourceUrl));
 
     return (
 
@@ -46,7 +48,7 @@ function GuitarTuner(props) {
                 </div>
                 {/* Add all the sound buttons */}
                 <div className="container-64">
-                    <div className="buttons"><MultiPlayer key={guitarType} strings={strings} />
+                    <div className="buttons"><MultiPlayer key={guitarType} strings={strings}/>
                         <div className="right">
 
                             <span className="caption">
