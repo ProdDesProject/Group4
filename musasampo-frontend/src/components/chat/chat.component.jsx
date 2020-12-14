@@ -2,8 +2,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 
-import SendIcon from '@material-ui/icons/Send';
-
 import './chat.styles.scss'
 
 class Chat extends Component {
@@ -14,8 +12,12 @@ class Chat extends Component {
         message: '',
     }
 
+
+
     render() {
         return (
+
+
             <form
                 action="."
                 onSubmit={e => {
@@ -24,13 +26,15 @@ class Chat extends Component {
                     this.setState({ message: '' })
                 }}
             >
-                <input
+
+                <input className="input-field"
                     type="text"
                     placeholder={'Enter message...'}
                     value={this.state.message}
                     onChange={e => this.setState({ message: e.target.value })}
                 />
-                <input type="submit" value={'Send'} />
+
+                <input className="send-button" type="submit" value={'Send'} />
             </form>
         )
     }

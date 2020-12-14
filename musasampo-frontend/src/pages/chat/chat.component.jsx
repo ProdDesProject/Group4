@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState, useRef } from 'react';
 import Chat from '../../components/chat/chat.component';
 import ChatMessage from '../../components/chat-message/chat-message.component';
 import SearchBox from '../../components/search-box/search-box.component';
@@ -26,8 +26,7 @@ const ChatPage = () => {
     const [selectedChannels, setSelectedChannels] = useState([]);
     const [searchField, setSearchField] = useState('');
     const [messages, setMessages] = useState([]);
-    const [selectedChannel, setSelectedChannel] = useState('');
-
+    const [selectedChannel, setSelectedChannel] = useState('channel1');
 
 
     // get all channels
@@ -99,6 +98,18 @@ const ChatPage = () => {
 
     }
 
+    // functionality to always scroll to the bottom of the chat if message comes in
+
+    const messagesEndRef = useRef(null)
+
+    const scrollToBottom = () => {
+        messagesEndRef.current.scrollIntoView({ behavior: "smooth" })
+    }
+
+    useEffect(scrollToBottom, [messages]);
+
+    //
+
     useEffect(() => {
         ws.onopen = () => {
             // on connecting, do nothing but log it to the console
@@ -119,6 +130,7 @@ const ChatPage = () => {
         getChannels();
         getUserChannels(userName);
         functions.getUserByUsername(userName);
+
     }, []);
 
     // change search field state to search field input 
@@ -152,80 +164,114 @@ const ChatPage = () => {
 
     return (
         <div>
-            <div>{userName}</div>
-            <SearchBox onSearchChange={onSearchChange} />
-            <FormControl className="form-control">
-                <InputLabel shrink htmlFor="select-multiple-native">
-                    Select a Channel
-        </InputLabel>
-                <Select
-                    multiple
-                    native
-                    // value={userName}
-                    onChange={handleChangeMultiple}
-                    inputProps={{
-                        id: 'select-multiple-native',
-                    }}
-                >
-                    {
-                        filteredChannels.map((channel) => (
-                            <option key={channel.channelname} value={channel.channelname}>
-                                {channel.channelname}
-                            </option>
-                        ))
-                    }
-                </Select>
-            </FormControl>
-            <Paper component="ul" className="paper">
-                {selectedChannels.map((channel) => {
-                    return (
-                        <li key={channel.channelname}>
-                            <Chip
-                                label={channel.channelname}
-                                onDelete={handleDelete(channel)}
-                                className="chip"
-                            />
-                        </li>
-                    );
-                })}
-            </Paper>
-            <div>
-                <label htmlFor="name">
-                    Name: userName;
-            </label>
-                <Chat
-                    ws={ws}
-                    onSubmitMessage={messageString => submitMessage(messageString, selectedChannel)}
-                />
 
-                <FormControl variant="outlined" className="select" >
-                    <InputLabel htmlFor="outlined-age-native-simple">Channel</InputLabel>
-                    <Select
-                        native
-                        value={selectedChannel}
-                        onChange={handleChange}
-                        label="Channel"
-                        inputProps={{
-                            name: 'channelname',
-                        }}
-                    >
-                        <option aria-label="None" value="" />
-                        {selectedChannels.map(channel => <option value={channel.channelname}>{channel.channelname}</option>)
+            <div class="navigation">
 
-                        }
+                {/* left side */}
+                <li>
 
-                    </Select>
-                </FormControl>
+                    <div className="left-side">
 
-                {messages.map((message, index) =>
-                    <ChatMessage
-                        key={index}
-                        message={message.messagecontent}
-                        username={message.username}
-                        channelname={message.channelname}
-                    />,
-                )}
+                        <h2>Chat with other Musasampo Users!</h2>
+
+                        <div className="search">
+                            1. Find your favorite channels with the search
+                            <SearchBox onSearchChange={onSearchChange} />
+                        </div>
+
+                        <div className="subscribe">
+                            2. Subscribe to your favorite channels
+                        <FormControl className="form-control">
+                                <InputLabel shrink htmlFor="select-multiple-native">
+                                    Select a Channel
+</InputLabel>
+                                <Select
+                                    multiple
+                                    native
+                                    // value={userName}
+                                    onChange={handleChangeMultiple}
+                                >
+                                    {
+                                        filteredChannels.map((channel) => (
+                                            <option key={channel.channelname} value={channel.channelname}>
+                                                {channel.channelname}
+                                            </option>
+                                        ))
+                                    }
+                                </Select>
+                            </FormControl>
+                        </div>
+
+                        <div className="subscriptions">
+                            3. See the list of the subscribed channels where you are getting messages from!
+                        <Paper component="ul" className="paper">
+
+                                {selectedChannels.map((channel) => {
+                                    return (
+                                        <li key={channel.channelname}>
+                                            <Chip
+                                                label={channel.channelname}
+                                                onDelete={handleDelete(channel)}
+                                                className="chip"
+                                            />
+                                        </li>
+                                    );
+                                })}
+                            </Paper>
+                        </div>
+
+                    </div>
+
+                </li>
+
+
+                {/* right side */}
+                <li>
+
+                    <div className="username">
+                        Your Username: {userName}
+                    </div>
+
+                    <div className="messages" id="messages">
+                        {messages.map((message, index) =>
+                            <ChatMessage
+                                key={index}
+                                message={message.messagecontent}
+                                username={message.username}
+                                channelname={message.channelname}
+                            />,
+                        )}
+                        <div ref={messagesEndRef} />
+                    </div>
+
+                    <div className="send-bar">
+                        <FormControl variant="outlined" className="select-wrapper" >
+                            <Select
+                                className="select"
+                                native
+                                value={selectedChannel}
+                                onChange={handleChange}
+                            >
+                                {selectedChannels.map(channel => <option value={channel.channelname}>{channel.channelname}</option>)}
+
+                            </Select>
+                        </FormControl>
+
+                        <Chat
+                            ws={ws}
+                            onSubmitMessage={messageString => submitMessage(messageString, selectedChannel)}
+                        />
+                    </div>
+
+
+                </li>
+
             </div>
+
+
+
+
+
         </div >
     );
 
