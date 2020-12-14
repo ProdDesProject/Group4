@@ -2,7 +2,7 @@
 
 MUSASAMPO - Fulfilling all your music needs with a single website. We offer services for bands and fans alike.
 
-Musasampo contains of 4 Parts:
+Musasampo contains of 6 Parts:
 
 * PostgreSQL
 * MySQL
