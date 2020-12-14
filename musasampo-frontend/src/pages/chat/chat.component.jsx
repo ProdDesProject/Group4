@@ -26,7 +26,8 @@ const ChatPage = () => {
     const [selectedChannels, setSelectedChannels] = useState([]);
     const [searchField, setSearchField] = useState('');
     const [messages, setMessages] = useState([]);
-    const [selectedChannel, setSelectedChannel] = useState('channel1');
+    const [selectedChannel, setSelectedChannel] = useState('');
+
 
 
     // get all channels
@@ -50,6 +51,7 @@ const ChatPage = () => {
             });
             const jsonData = await response.json();
             setSelectedChannels(jsonData);
+            setSelectedChannel(jsonData[0].channelname)
         } catch (err) {
             console.error(err.message);
         }
@@ -111,6 +113,8 @@ const ChatPage = () => {
     //
 
     useEffect(() => {
+
+
         ws.onopen = () => {
             // on connecting, do nothing but log it to the console
             console.log('connected')
