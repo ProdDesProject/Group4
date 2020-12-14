@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState, useRef } from 'react';
 import Chat from '../../components/chat/chat.component';
 import ChatMessage from '../../components/chat-message/chat-message.component';
 import SearchBox from '../../components/search-box/search-box.component';
@@ -13,6 +13,7 @@ import './chat.styles.scss';
 
 import functions from './functions.js'
 
+// address of the websocket
 const URL = 'ws://193.196.53.33:3030';
 
 const ChatPage = () => {
@@ -27,9 +28,9 @@ const ChatPage = () => {
     const [messages, setMessages] = useState([]);
     const [selectedChannel, setSelectedChannel] = useState('');
 
-    const handleChange = (event) => {
-        setSelectedChannel(event.target.value);
-    };
+
+
+    // get all channels
 
     const getChannels = async () => {
         try {
@@ -41,33 +42,7 @@ const ChatPage = () => {
         }
     };
 
-    const createUserChannels = async (username, channelname) => {
-        try {
-            const body = { username, channelname };
-            const response = await fetch("http://193.196.53.33:3000/userchannels", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(body)
-            });
-            const jsonData = await response.json();
-            console.log("User channel connection created: " + JSON.stringify(jsonData));
-        } catch (err) {
-            console.error(err.message);
-        }
-    };
-
-    const getUserByUsername = async (username) => {
-        try {
-            const response = await fetch(`http://193.196.53.33:3000/users/${username}`, {
-                method: "GET"
-            });
-            const jsonData = await response.json();
-            // DO SOMETHING
-            console.log(jsonData)
-        } catch (err) {
-            console.error(err.message);
-        }
-    };
+    // get channels by username
 
     const getUserChannels = async (username) => {
         try {
@@ -76,13 +51,13 @@ const ChatPage = () => {
             });
             const jsonData = await response.json();
             setSelectedChannels(jsonData);
-            console.log(jsonData)
+            setSelectedChannel(jsonData[0].channelname)
         } catch (err) {
             console.error(err.message);
         }
     };
 
-    //delete function
+    // delete user-channel connection
 
     const deleteUserChannels = async (username, channelname) => {
         try {
@@ -99,21 +74,7 @@ const ChatPage = () => {
         }
     };
 
-    const createMessage = async (message) => {
-        try {
-            const body = message;
-            console.log(JSON.stringify(body));
-            const response = await fetch("http://193.196.53.33:3000/messages", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(body)
-            });
-            const jsonData = await response.json();
-            console.log("Message added: " + JSON.stringify(jsonData));
-        } catch (err) {
-            console.error(err.message);
-        }
-    };
+    // get all messages by channel
 
     const getMessages = async (channelname) => {
         try {
@@ -121,25 +82,39 @@ const ChatPage = () => {
                 method: "GET"
             });
             const jsonData = await response.json();
-            console.log(jsonData)
             setMessages(jsonData);
-
-
-            console.log(messages)
         } catch (err) {
             console.error(err.message);
         }
     };
 
+    const handleChange = (event) => {
+        setSelectedChannel(event.target.value);
+    };
+
     const submitMessage = (messageString, selectedChannel) => {
         // on submitting the ChatInput form, send the message, add it to the list and reset the input
         const message = { message_id: uuidv4(), messagecontent: messageString, username: userName, channelname: selectedChannel }
-        createMessage(message)
+        functions.createMessage(message)
         ws.send(JSON.stringify(message))
 
     }
 
+    // functionality to always scroll to the bottom of the chat if message comes in
+
+    const messagesEndRef = useRef(null)
+
+    const scrollToBottom = () => {
+        messagesEndRef.current.scrollIntoView({ behavior: "smooth" })
+    }
+
+    useEffect(scrollToBottom, [messages]);
+
+    //
+
     useEffect(() => {
+
+
         ws.onopen = () => {
             // on connecting, do nothing but log it to the console
             console.log('connected')
@@ -149,33 +124,31 @@ const ChatPage = () => {
             // on receiving a message, add it to the list of messages
             const message = JSON.parse(evt.data)
             setMessages(messages => [...messages, message])
-            console.log('already added')
 
         }
 
         ws.onclose = () => {
             console.log('disconnected')
-            // automatically try to reconnect on connection loss
-            // setState({
-            //ws: new WebSocket(URL),
-            // })
         }
         getMessages(userName)
         getChannels();
         getUserChannels(userName);
         functions.getUserByUsername(userName);
+
     }, []);
 
-    /* change search field state to search field input  */
+    // change search field state to search field input 
     const onSearchChange = event => {
         setSearchField(event.target.value);
     };
 
+
+    // add user-channel connections
     const handleChangeMultiple = (event) => {
         const channel = channels.filter(channel =>
             channel.channelname.toLowerCase().includes(event.target.value.toLowerCase())
         );
-        createUserChannels(userName, channel[0].channelname)
+        functions.createUserChannels(userName, channel[0].channelname)
 
         setSelectedChannels([...selectedChannels, channel[0]])
     }
@@ -185,8 +158,9 @@ const ChatPage = () => {
         channel.channelname.toLowerCase().includes(searchField.toLowerCase())
     );
 
-    const handleDelete = (chipToDelete) => () => {
+    // delete user-channel connections
 
+    const handleDelete = (chipToDelete) => () => {
         const channelname = chipToDelete.channelname;
         deleteUserChannels(userName, channelname)
     };
@@ -194,80 +168,114 @@ const ChatPage = () => {
 
     return (
         <div>
-            <div>{userName}</div>
-            <SearchBox onSearchChange={onSearchChange} />
-            <FormControl className="form-control">
-                <InputLabel shrink htmlFor="select-multiple-native">
-                    Select a Channel
-        </InputLabel>
-                <Select
-                    multiple
-                    native
-                    // value={userName}
-                    onChange={handleChangeMultiple}
-                    inputProps={{
-                        id: 'select-multiple-native',
-                    }}
-                >
-                    {
-                        filteredChannels.map((channel) => (
-                            <option key={channel.channelname} value={channel.channelname}>
-                                {channel.channelname}
-                            </option>
-                        ))
-                    }
-                </Select>
-            </FormControl>
-            <Paper component="ul" className="paper">
-                {selectedChannels.map((channel) => {
-                    return (
-                        <li key={channel.channelname}>
-                            <Chip
-                                label={channel.channelname}
-                                onDelete={handleDelete(channel)}
-                                className="chip"
-                            />
-                        </li>
-                    );
-                })}
-            </Paper>
-            <div>
-                <label htmlFor="name">
-                    Name: userName;
-            </label>
-                <Chat
-                    ws={ws}
-                    onSubmitMessage={messageString => submitMessage(messageString, selectedChannel)}
-                />
 
-                <FormControl variant="outlined" className="select" >
-                    <InputLabel htmlFor="outlined-age-native-simple">Channel</InputLabel>
-                    <Select
-                        native
-                        value={selectedChannel}
-                        onChange={handleChange}
-                        label="Channel"
-                        inputProps={{
-                            name: 'channelname',
-                        }}
-                    >
-                        <option aria-label="None" value="" />
-                        {selectedChannels.map(channel => <option value={channel.channelname}>{channel.channelname}</option>)
+            <div class="navigation">
 
-                        }
+                {/* left side */}
+                <li>
 
-                    </Select>
-                </FormControl>
+                    <div className="left-side">
 
-                {messages.map((message, index) =>
-                    <ChatMessage
-                        key={index}
-                        message={message.messagecontent}
-                        username={message.username}
-                        channelname={message.channelname}
-                    />,
-                )}
+                        <h2>Chat with other Musasampo Users!</h2>
+
+                        <div className="search">
+                            1. Find your favorite channels with the search
+                            <SearchBox onSearchChange={onSearchChange} />
+                        </div>
+
+                        <div className="subscribe">
+                            2. Subscribe to your favorite channels
+                        <FormControl className="form-control">
+                                <InputLabel shrink htmlFor="select-multiple-native">
+                                    Select a Channel
+</InputLabel>
+                                <Select
+                                    multiple
+                                    native
+                                    // value={userName}
+                                    onChange={handleChangeMultiple}
+                                >
+                                    {
+                                        filteredChannels.map((channel) => (
+                                            <option key={channel.channelname} value={channel.channelname}>
+                                                {channel.channelname}
+                                            </option>
+                                        ))
+                                    }
+                                </Select>
+                            </FormControl>
+                        </div>
+
+                        <div className="subscriptions">
+                            3. See the list of the subscribed channels where you are getting messages from!
+                        <Paper component="ul" className="paper">
+
+                                {selectedChannels.map((channel) => {
+                                    return (
+                                        <li key={channel.channelname}>
+                                            <Chip
+                                                label={channel.channelname}
+                                                onDelete={handleDelete(channel)}
+                                                className="chip"
+                                            />
+                                        </li>
+                                    );
+                                })}
+                            </Paper>
+                        </div>
+
+                    </div>
+
+                </li>
+
+
+                {/* right side */}
+                <li>
+
+                    <div className="username">
+                        Your Username: {userName}
+                    </div>
+
+                    <div className="messages" id="messages">
+                        {messages.map((message, index) =>
+                            <ChatMessage
+                                key={index}
+                                message={message.messagecontent}
+                                username={message.username}
+                                channelname={message.channelname}
+                            />,
+                        )}
+                        <div ref={messagesEndRef} />
+                    </div>
+
+                    <div className="send-bar">
+                        <FormControl variant="outlined" className="select-wrapper" >
+                            <Select
+                                className="select"
+                                native
+                                value={selectedChannel}
+                                onChange={handleChange}
+                            >
+                                {selectedChannels.map(channel => <option value={channel.channelname}>{channel.channelname}</option>)}
+
+                            </Select>
+                        </FormControl>
+
+                        <Chat
+                            ws={ws}
+                            onSubmitMessage={messageString => submitMessage(messageString, selectedChannel)}
+                        />
+                    </div>
+
+
+                </li>
+
             </div>
+
+
+
+
+
         </div >
     );
 
