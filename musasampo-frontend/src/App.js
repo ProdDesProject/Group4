@@ -4,7 +4,6 @@ import HomePage from './pages/home-page/home-page.component';
 import ShopPage from './pages/shop-page/shop-page.component';
 
 import Mp3 from './components/mp3-upload/mp3.component';
-import BandPic from './components/band-pic-upload/band-pic.component';
 
 import ChatPage from './pages/chat/chat.component';
 import GuitarOverview from './pages/guitartuner-page/guitartuner-page.component';
@@ -62,7 +61,6 @@ class App extends Component {
                         <PrivateRoute exact path='/chat' component={ChatPage} />
                         <Route exact path='/login' component={LoginPage} />
                         <PrivateRoute exact path='/mp3-upload' component={Mp3} />
-                        <PrivateRoute exact path='/band-pic-upload' component={BandPic} />
                         <PrivateRoute exact path='/shop' component={ShopPage} />
                         <Route exact path='/search' component={SearchPage}/>
                         <PrivateRoute exact path='/profile' component={ProfilePage} />
