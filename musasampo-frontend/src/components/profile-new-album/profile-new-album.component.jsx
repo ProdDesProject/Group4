@@ -30,7 +30,7 @@ class NewAlbum extends React.Component {
       submitting: false,
       submittingMessage: '',
 
-      bandName : '',
+      bandId : '',
       albumName: '',
       postingDate: '',
       albumCover: '',
@@ -80,9 +80,9 @@ class NewAlbum extends React.Component {
     var bandId = this.props.location.state.detail;
 
 
-    const { bandName, albumName, postingDate, albumCover, albumGenre} = this.state;
+    const {albumName, postingDate, albumCover, albumGenre} = this.state;
 
-    if (!bandName || !albumName || !postingDate || !albumCover || !albumGenre) 
+    if (!albumName || !postingDate || !albumCover || !albumGenre) 
     {
       this.setState({status: false, submittingMessage: "Neccessary fields not filled!"});
       return;
@@ -98,7 +98,7 @@ class NewAlbum extends React.Component {
       //submitting data
       this.setState({submitting: true});
 
-      await createAlbum(bandName, albumName, postingDate, albumCover, albumGenre)
+      await createAlbum(bandId, albumName, postingDate, albumCover, albumGenre)
       .then(status =>
         {
           //album successfully created
@@ -120,21 +120,6 @@ class NewAlbum extends React.Component {
           }
         })
     }
-  }
-
-  async componentDidMount()
-  {
-      //bandId:
-      var bandId = this.props.location.state.detail;
-
-      //Getting a band:
-      var result = await (await getBandsBandId(bandId)).json();
-
-      //get the bandName
-      var bandName = result[0].bandName;
-
-      //mark the state
-      this.setState({bandName : bandName});
   }
 
   render() 
