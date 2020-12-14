@@ -46,7 +46,7 @@ const AlbumItem = ({ album, history, match }) => {
 
       {/*Button in the album cover, onClick opens path /shop/albums/:albumId*/}
       <CustomButton onClick={() => {
-        history.push(`/shop/albums/${albumId}`)
+        history.push(`/albums/${albumId}`)
       }} inverted>
         ALBUM INFORMATION
       </CustomButton>
