@@ -38,6 +38,7 @@ class NewBand extends React.Component
   handleSubmit = async event => 
   {
     event.preventDefault();
+    
 
     //reset state
     try
@@ -76,6 +77,9 @@ class NewBand extends React.Component
   {
     event.preventDefault();
 
+    //bandId:
+    var bandId = this.props.location.state.detail;
+
     const { bandName, country, bandLogo, nsfw } = this.state;
     
     if (!bandName || !country || !bandLogo || nsfw === null) 
@@ -101,7 +105,8 @@ class NewBand extends React.Component
             //redirect to profile page to show the band
             this.props.history.push(
               {
-                pathname: '/profile'
+                pathname: '/profile',
+                state : {detail: bandId, bandname:bandName, bandlogo:bandLogo}
               }
             );
           }

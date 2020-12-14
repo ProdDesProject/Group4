@@ -55,7 +55,6 @@ class Bands extends React.Component {
         var BandsAndPictures = [];
         BandsAndPictures = BANDS.bands;
 
-
         //Get url for getting picture for bands
         for (var i=0;i<BANDS.bands.length;i++)
         {
@@ -90,7 +89,6 @@ class Bands extends React.Component {
         );
 
         return (
-          
             <div className="search-page">
                 <div className="search-preview">
                    

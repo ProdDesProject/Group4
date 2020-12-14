@@ -53,7 +53,20 @@ class BandPic extends Component {
 
     
   };
-
+  
+  componentDidMount()
+  {
+    //bandId:
+    try{
+      var bandId = this.props.location.state.detail;
+      var bandName = this.props.location.state.bandname;
+      var bandLogo = this.props.location.state.bandlogo;
+      alert(bandId);
+    }catch{
+      alert("bandId undefined");
+    }
+   
+  }
 
   //Clickhandler:
   onClickHandler = async () => 
