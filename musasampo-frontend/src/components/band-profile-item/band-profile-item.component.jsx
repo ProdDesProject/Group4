@@ -28,7 +28,6 @@ const BandItem = ({ band, history }, props) => {
         height: 50,
        };
 
-
     return (
         <div className='band-item'>
 

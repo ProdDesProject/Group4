@@ -1,5 +1,4 @@
-//upload Data to server
-import { stringify } from 'querystring';
+//upload Data to server:
 
 //need file data and bandName,albumName for routing to right folder in server:
 export default async function uploadData(FormData,bandName,albumName,fileInfo)
@@ -8,32 +7,30 @@ export default async function uploadData(FormData,bandName,albumName,fileInfo)
     async function UploadMp3(FormData,bandName,albumName)
     {
         const requestOptions2 = 
-    {
-        method: 'POST',
-        //headers: { 'Content-Type': 'application/json' },
-        body: FormData
-    }
-    let url = 'http://localhost:9000/upload/uploadmp3/'+bandName+'/'+ albumName;
-    const response =  await fetch(url,requestOptions2);
-    const data2 = await response.json();
+        {
+            method: 'POST',
+            body: FormData
+        }   
+        let url = 'http://localhost:9000/upload/uploadmp3/'+bandName+'/'+ albumName;
+        const response =  await fetch(url,requestOptions2);
+        const data2 = await response.json();
 
-    return data2;
+        return data2;
     }
 
     async function UploadBandPic(FormData,bandName)
     {
         const requestOptions2 = 
-    {
-        method: 'POST',
-        //headers: { 'Content-Type': 'application/json' },
-        body: FormData
-    }
+        {
+            method: 'POST',
+            body: FormData
+        }
     
-    var url = 'http://localhost:9000/upload/uploadbandpic/'+bandName;
-    const response =  await fetch(url,requestOptions2);
-    const data2 = await response.json();
+        var url = 'http://localhost:9000/upload/uploadbandpic/'+bandName;
+        const response =  await fetch(url,requestOptions2);
+        const data2 = await response.json();
 
-    return data2;
+        return data2;
     }
    
     /**

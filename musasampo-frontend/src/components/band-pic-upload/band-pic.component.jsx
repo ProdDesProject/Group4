@@ -7,7 +7,6 @@ import uploadData from '../../services/upload-mp3-service'
 import createFolders from '../../services/create-folders-for-upload-servise'
 import './band-pic.styles.scss';
 import { stringify } from 'querystring';
-import Music_player from '../music-player/music-player.component';
 
 var base64 = require('base-64');
 
@@ -17,8 +16,8 @@ class BandPic extends Component {
 
     //this.state contains info for creating folders and uploading stuff. Stefan?
     this.state = {
-      bandName: "Hiipparit",
-      albumName: "Hiirialbum",
+      bandName: "",
+      albumName: "",
       filetype: "png",
       selectedFile: null,
       selectedFileName: "",
@@ -28,51 +27,48 @@ class BandPic extends Component {
   }
 
   //Handles changes on upload realtime:
-  handleChange = event => 
+  handleChange = async event => 
   {
-    if (this.state.selectedFile != null)
-    {
-      this.setState({showing:true});
-    }else{
-      this.setState({showing:false});
-    }
-
     //save file
-    this.setState({ selectedFile: event.target.files[0],
+    await this.setState({ selectedFile: event.target.files[0],
     loaded: 0,
     });
     //save filename
-    this.setState({ selectedFileName: event.target.files[0].name,
+    await this.setState({ selectedFileName: event.target.files[0].name,
       loaded: 0,
       });
 
-    
-    
-
-      
-
-    
-  };
-  
-  componentDidMount()
-  {
-    //bandId:
-    try{
-      var bandId = this.props.location.state.detail;
-      var bandName = this.props.location.state.bandname;
-      var bandLogo = this.props.location.state.bandlogo;
-      alert(bandId);
-    }catch{
-      alert("bandId undefined");
+    if (this.state.selectedFile != null)
+    {
+      await this.setState({showing:true});
+    }else{
+      await this.setState({showing:false});
     }
-   
-  }
+
+  };
 
   //Clickhandler:
   onClickHandler = async () => 
   {
+    try
+    {
+      var bandName = await this.props.location.state.bandname;
+      var bandLogo = await this.props.location.state.bandlogo;
+  
+      console.log("bandName:"+bandName);
+      console.log("bandLogo"+bandLogo);
+  
+  
+      await this.setState({bandName:bandName});
+      await this.setState({bandLogo:bandLogo});
+    }catch
+    {
+      alert("something went Wrong");
+    }
+    
+
     //checkResult for file name and datatype:
-    //alert("checkdata" + this.state.selectedFileName );
+    alert("checkdata" + this.state.selectedFileName );
     var checkResult = await checkUploadData(this.state.selectedFileName);
 
     //if 200:
@@ -86,14 +82,17 @@ class BandPic extends Component {
       //alert("createFolder");
       var createFoldersresult = await createFolders(this.state.bandName,this.state.albumName);
 
-      //alert("createFoldersresult:"+createFoldersresult);
       //createFolders.result:
       if (createFoldersresult == "200" && this.state.filetype == "png")
       {
         //Upload MP3-Data:
-        alert("Upload");
         var fileInfo = "png-band";
-        var result = await uploadData(data,this.state.bandName,this.state.albumName,fileInfo);
+
+        if (fileInfo === "png-band")
+        {
+          var result = await uploadData(data,this.state.bandName,"",fileInfo);
+        }
+        
       }else
       {
         alert("Upload failed");
@@ -102,6 +101,7 @@ class BandPic extends Component {
     {
       alert("CheckResults went wrong, try again!");
     }
+
   }
   
 /**
@@ -111,8 +111,6 @@ class BandPic extends Component {
  * <input type = "button"  value = "Click to upload!" name = "button" onClick = {this.onClickHandler} className="btn btn-primary btn-sm"/>
  */
 
-   
-
   render() {
     const { showing } = this.state;
     return (
@@ -120,7 +118,7 @@ class BandPic extends Component {
       <header className="btn btn-secondary btn-sm">
         < div >
         <form enctype="multipart/form-data">
-          <input type = "file"  name="file" id="file" accept = ".png" onChange={this.handleChange, () => this.setState({ showing: !showing })}></input>
+          <input type = "file"  name="file" id="file" accept = ".png" onChange = {this.handleChange}></input>
           { showing 
                     ? <input type = "button"  value = "Click to upload!" name = "button" onClick = {this.onClickHandler} className="btn btn-primary btn-sm"/>
                     : null

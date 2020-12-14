@@ -109,8 +109,8 @@ class NewAlbum extends React.Component {
             //redirect to profile page to show the album
             this.props.history.push(
               {
-                pathname: '/band-pic-upload,',
-                state: {detail: bandId}
+                pathname: '/band-pic-upload',
+                state: {detail: bandId,albumName:albumName,albumCover:albumCover}
               }
             );
           }
@@ -121,7 +121,7 @@ class NewAlbum extends React.Component {
         })
     }
   }
-
+ 
   render() 
   {
     const { albumName, postingDate, albumCover, albumGenre} = this.state;

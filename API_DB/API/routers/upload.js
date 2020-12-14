@@ -245,7 +245,7 @@ router.post('/uploadbandpic/:bandName', multerUpload.single('testFile'), (req, r
 
   console.log("req.file.path:"+req.file.path);
 
-  fs.rename(req.file.path, './uploads/bands/'+ bandName + '/albums/' + req.file.originalname, function (err) {
+  fs.rename(req.file.path, './uploads/bands/'+ bandName + '/' + req.file.originalname, function (err) {
     if (err) throw err;
     console.log('renamed complete');
     res.send("Test");
