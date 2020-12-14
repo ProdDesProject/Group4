@@ -27,6 +27,7 @@ class Albums extends React.Component {
 
       //bandId from inherited props
       var bandId = this.props.location.state.detail;
+      var bandName = this.props.location.state.bandName;
 
       //fetch Bands by bandId:
       const BANDS = await (await getBandsBandId(bandId)).json();

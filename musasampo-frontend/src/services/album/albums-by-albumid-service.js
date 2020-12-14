@@ -6,8 +6,6 @@ export default async function fetchAlbumsByalbumId(albumId)
     //get the status response
     const data = await albumsResponse.json();
 
-    //alert(data);
-
     if (data === 404 || data === 400 || data === 500)
     {
        alert("Error");

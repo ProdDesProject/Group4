@@ -65,7 +65,8 @@ const BandItem = ({ band, history }, props) => {
             </CustomButton>
 
             <CustomButton style={style3} onClick={() => {
-                history.push({pathname: `/albums/`, search: '?query=abc', state: { detail: bandId}})
+                history.push({pathname: `/albums/`, search: '?query=abc', state: { detail: bandId, bandName
+                : bandName}})
                 }} inverted>
                     ALBUMS
             </CustomButton>
