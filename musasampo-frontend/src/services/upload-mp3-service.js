@@ -34,6 +34,20 @@ export default async function uploadData(FormData,bandName,albumName,fileInfo)
 
         return response;
     }
+
+    async function UploadAlbumPic(FormData,bandName,albumName)
+    {
+        const requestOptions2 = 
+        {
+            method: 'POST',
+            body: FormData
+        }
+    
+        var url = 'http://localhost:9000/upload/addAlbumPicture/'+bandName+'/'+albumName;
+        const response =  await fetch(url,requestOptions2);
+
+        return response;
+    }
    
     /**
      * STARTS HERE:
@@ -49,6 +63,12 @@ export default async function uploadData(FormData,bandName,albumName,fileInfo)
     {
         //alert("png")
         var result = await UploadBandPic(FormData,bandName);
+        return result;
+    }
+    else if (fileInfo === "png-album")
+    {
+        //alert("png")
+        var result = await UploadAlbumPic(FormData,bandName,albumName);
         return result;
     };
 

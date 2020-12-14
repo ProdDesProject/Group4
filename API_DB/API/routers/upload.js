@@ -240,7 +240,7 @@ router.post('/uploadbandpic/:bandName', multerUpload.single('testFile'), (req, r
 
   var bandName = req.params.bandName;
 
-  console.log("/uploadbandpic/:bandName")
+  console.log("/uploadbandpic/:bandName");
   console.log("bandName:"+bandName);
 
   console.log("req.file.path:"+req.file.path);
@@ -254,6 +254,22 @@ router.post('/uploadbandpic/:bandName', multerUpload.single('testFile'), (req, r
     res.sendStatus(204);
   });
   
+});
+
+//Add a new picture for album, need params for bandName and albumname:
+router.post('/addAlbumPicture/:bandName/:albumName', multerUpload.single('testFile'), (req, res) => {
+  console.log("req.file:"+ req.file);
+
+  var bandName = req.params.bandName;
+  var albumName = req.params.albumName;
+
+     //if albumPicture
+  fs.rename(req.file.path, './uploads/bands/'+ bandName+ '/albums/' + albumName + '/' + req.file.originalname, function (err) {
+    if (err) throw err;
+    console.log('renamed complete');
+    res.send("Test");
+  });
+
 });
 
 /**
