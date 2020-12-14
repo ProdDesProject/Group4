@@ -26,7 +26,6 @@ class EditProfile extends React.Component {
    handleSubmit = async event => 
    {
     event.preventDefault();
-    console.log(this.state);
     const updatedUser = 
     {
       username: this.state.username,
@@ -39,7 +38,6 @@ class EditProfile extends React.Component {
     await EditUser(updatedUser.username, updatedUser.email, updatedUser.name, updatedUser.phoneNumber)
     .then(status =>
       {
-        console.log(status);
         if(status.status === 204)
         {
           //sign out user for the changes to take effect (only in the case of changing username it's required in fact)

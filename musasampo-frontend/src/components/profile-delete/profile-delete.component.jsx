@@ -19,7 +19,6 @@ class DeleteButton extends React.Component
         await DeleteUserService()
         .then(status =>
             {
-                console.log(status)
                 if(status.status === 204)
                 {
                     //logout (delete from local storage) -> automatocally reroutes to login page

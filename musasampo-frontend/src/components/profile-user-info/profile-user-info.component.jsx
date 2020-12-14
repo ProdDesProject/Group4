@@ -33,6 +33,7 @@ class ProfileUserInfo extends React.Component
           await UserSearchService.usernameSearch(foundUser.username)
           .then(results =>
             {
+                console.log(results);
                 //treat results
                 if(results)
                 {    
