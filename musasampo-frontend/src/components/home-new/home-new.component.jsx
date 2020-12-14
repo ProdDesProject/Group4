@@ -5,6 +5,8 @@ import SignInButton from '../custom-button/custom-button.component';
 import { Link, withRouter } from 'react-router-dom';
 import '../custom-button/custom-button.component';
 import AlbumItem from '../album-item/album-item.component';
+import ALBUMS from '../../data/albums';
+import BANDS from '../../data/bands';
 
 import './home-new.styles.scss';
 

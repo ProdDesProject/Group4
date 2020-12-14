@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 
 import './audio-player.styles.scss'
 
@@ -6,10 +6,9 @@ import './audio-player.styles.scss'
 // https://stackoverflow.com/questions/47686345/playing-sound-in-reactjs
 // Last access 13.11.2020
 
-
 {/* make audio object from of every url we are receiving from props */ }
 const useMultiAudio = urls => {
-    const [sources] = useState(
+    const [sources, setSource] = useState(
 
         urls.map(soundUrl => {
             return {
@@ -18,6 +17,15 @@ const useMultiAudio = urls => {
             };
         })
     );
+
+    const setSourceUrl = (e) => setSource(urls.map(soundUrl => {
+        return {
+            soundUrl,
+            audio: new Audio(soundUrl)
+        };
+    }));
+
+    var urlRefresh = false;
 
     {/* handle state of every audio player in players array */ }
     const [players, setPlayers] = useState(
@@ -48,10 +56,24 @@ const useMultiAudio = urls => {
     };
 
 
-    {/* start and stop the actual audio */ }
+    /* start and stop the actual audio */ 
     useEffect(() => {
         sources.forEach((source, i) => {
-            players[i].playing ? source.audio.play() : source.audio.pause();
+            //check if the audio is starting to play - if you press play, it will always start the note from the beginning, even after pausing it
+            if (players[i].playing) {
+                if (urlRefresh === false) {
+                    urlRefresh = true;
+                }
+                //setSourceUrl();
+                source.audio.load();
+                source.audio.play();
+                source.audio.currentTime = 0;
+            } else {
+                source.audio.pause();
+                urlRefresh = false;
+            }
+
+
             //players[i].addEventListener("ended", () => {
             //    players[i].playing = false;
             // });
@@ -64,6 +86,7 @@ const useMultiAudio = urls => {
     useEffect(() => {
         sources.forEach((source, i) => {
             source.audio.addEventListener("ended", () => {
+                setSourceUrl();
                 const newPlayers = [...players];
                 newPlayers[i].playing = false;
                 setPlayers(newPlayers);
@@ -153,7 +176,5 @@ const Player = ({ player, toggle }) => (
         <div onClick={toggle} className={player.playing ? 'pause' : 'play'} >{player.playing ? <Pause className="pause-component" fill="black" /> : <Play fill="white" className="play-component" />} </div>
     </div>
 );
-
-
 
 export default MultiPlayer;

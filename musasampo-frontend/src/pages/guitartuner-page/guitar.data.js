@@ -9,6 +9,8 @@ import guitarUkulele from '../../assets/guitarUkulele.png';
 //Tuners in order, named with titles. Strings go from thinnest to the thickest from up to down.
 const GUITAR_DATA = [
     {
+        guitarType: 1,
+        tuneType: 1,
         guitarId: 0,
         title: 'Standard Tune',
         imageUrl: guitarStandard,
@@ -47,6 +49,8 @@ const GUITAR_DATA = [
         }]
     },
     {
+        guitarType: 1,
+        tuneType: 2,
         guitarId: 5,
         title: 'Drop D',
         imageUrl: guitarStandard,
@@ -85,6 +89,8 @@ const GUITAR_DATA = [
         }]
     },
     {
+        guitarType: 1,
+        tuneType: 3,
         guitarId: 1,
         title: 'Drop C',
         imageUrl: guitarStandard,
@@ -123,6 +129,8 @@ const GUITAR_DATA = [
         }]
     },
     {
+        guitarType: 1,
+        tuneType: 4,
         guitarId: 6,
         title: 'D-standard',
         imageUrl: guitarStandard,
@@ -161,6 +169,8 @@ const GUITAR_DATA = [
         }]
     },
     {
+        guitarType: 1,
+        tuneType: 5,
         guitarId: 7,
         title: 'C-standard',
         imageUrl: guitarStandard,
@@ -197,6 +207,8 @@ const GUITAR_DATA = [
         }]
     },
     {
+        guitarType: 2,
+        tuneType: 1,
         guitarId: 8,
         title: '7-String standard',
         imageUrl: guitarSeven,
@@ -240,6 +252,8 @@ const GUITAR_DATA = [
         }]
     },
     {
+        guitarType: 2,
+        tuneType: 2,
         guitarId: 9,
         title: '7-String drop A',
         imageUrl: guitarSeven,
@@ -283,6 +297,8 @@ const GUITAR_DATA = [
         }]
     },
     {
+        guitarType: 3,
+        tuneType: 1,
         guitarId: 2,
         title: 'Bass Guitar Tuner',
         imageUrl: guitarBass,
@@ -309,6 +325,8 @@ const GUITAR_DATA = [
         }]
     },
     {
+        guitarType: 4,
+        tuneType: 1,
         guitarId: 3,
         title: 'Ukulele Tuner',
         imageUrl: guitarUkulele,

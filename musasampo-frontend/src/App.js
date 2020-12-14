@@ -69,7 +69,7 @@ class App extends Component {
                         <PrivateRoute exact path='/shop/albums/genre/:genre' component={GenrePage} />          
                         <PrivateRoute exact path='/shop/albums/:albumId' component={AlbumComponent} />
                         <PrivateRoute exact path='/guitartuner' component={GuitarOverview} />    
-                        <PrivateRoute exact path='/guitartuner/:guitarId' component={GuitarTuner} />  
+                        <PrivateRoute exact path='/guitartuner/:guitarType' component={GuitarTuner} />  
                     </Switch>  
                 </body>
             </div>
