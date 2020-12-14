@@ -5,6 +5,8 @@ import CustomButton from '../../components/custom-button/custom-button.component
 import SubmitButton from '../../components/submit-button/submit-button.component';
 import { Link } from 'react-router-dom';
 
+import BandPic from '../band-pic-upload/band-pic.component'
+
 import './profile-new-band.styles.scss';
 import createBand from '../../services/band/create-band-service'
 import Switch from '../switch/switch.component';
@@ -108,6 +110,7 @@ class NewBand extends React.Component
             this.setState({submitting: false, status: false});
           }
         })
+      
     }
   }
 
@@ -170,6 +173,7 @@ class NewBand extends React.Component
                       checked = {this.state.nsfw}
                       onChange = {this.handleToggle}
                   />
+                
                 </form>
                 <div className='buttons'>
                   <Link to="/profile" className='button'>

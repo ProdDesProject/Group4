@@ -34,10 +34,6 @@ class ProfileContent extends React.Component {
             <CustomButton> Add a Band </CustomButton>
           </Link>
 
-          <Link to="/profile/newalbum" className='button'>
-            <CustomButton> Add an Album </CustomButton>
-          </Link>
-
           <Link to="/profile/edit" className='button'>
             <CustomButton> Edit </CustomButton>
           </Link>

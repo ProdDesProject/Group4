@@ -4,6 +4,7 @@ import FormInput from '../../components/form-input/form-input.component';
 import CustomButton from '../../components/custom-button/custom-button.component';
 import SubmitButton from '../submit-button/submit-button.component';
 import createAlbum from '../../services/album/create-albums-service'
+import getBandsBandId from '../../services/band/get-band-by-bandId-servise';
 
 import { Link } from 'react-router-dom';
 
@@ -75,6 +76,10 @@ class NewAlbum extends React.Component {
   {
     event.preventDefault();
 
+    //bandId:
+    var bandId = this.props.location.state.detail;
+
+
     const { bandName, albumName, postingDate, albumCover, albumGenre} = this.state;
 
     if (!bandName || !albumName || !postingDate || !albumCover || !albumGenre) 
@@ -116,9 +121,24 @@ class NewAlbum extends React.Component {
     }
   }
 
+  async componentDidMount()
+  {
+      //bandId:
+      var bandId = this.props.location.state.detail;
+
+      //Getting a band:
+      var result = await (await getBandsBandId(bandId)).json();
+
+      //get the bandName
+      var bandName = result[0].bandName;
+
+      //mark the state
+      this.setState({bandName : bandName});
+  }
+
   render() 
   {
-    const { bandName, albumName, postingDate, albumCover, albumGenre} = this.state;
+    const { albumName, postingDate, albumCover, albumGenre} = this.state;
     return (
       <div className='container'>
           <div className='new-album'>
@@ -128,16 +148,7 @@ class NewAlbum extends React.Component {
             <form className='new-album-form' onSubmit={this.handleSubmit}>
               <div className='sides'>
                   <div className='left-side'>
-                      <label for="bandName">Band Name: {req}</label>
-                          <FormInput
-                            type='text'
-                            name='bandName'
-                            id='bandName'
-                            value={bandName}
-                            onChange={this.handleChange}
-                            maxLength='30'
-                            required
-                            />
+                         
                       <label for="albumName">Album Name: {req}</label>
                       <FormInput
                         type='text'

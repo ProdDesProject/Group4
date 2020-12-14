@@ -1,9 +1,6 @@
 
 import React from 'react';
 
-import ALBUMS from '../../data/albums';
-import BANDS from '../../data/bands';
-
 import SearchBox from '../../components/search-box/search-box.component';
 import AlbumItem from '../../components/album-item/album-item.component';
 import BandItem from '../../components/band-item/band-item.component';
@@ -38,7 +35,7 @@ class Search extends React.Component {
         let BANDS = await getBands();
         BANDS = await BANDS.json();
 
-        console.log(BANDS);
+        //console.log(BANDS);
 
         this.setState({ albums: ALBUMS.albums });
         this.setState({ bands: BANDS.bands });
@@ -57,22 +54,18 @@ class Search extends React.Component {
             BandsAndPictures[i].bandLogo = url;
         };
 
-        //console.log(ALBUMS.albums.length);
-         //Get url for getting picture for albums
-
-         //var i=0;i<ALBUMS.albums.length;i++
 
         for (var i in ALBUMS.albums)
         {
+            //console.log(ALBUMS.albums[i].bandId)
             var result = await getBandsBandId(ALBUMS.albums[i].bandId);
-            result = result[0].bandName
+            await result.json();
+            const bandName = result.bandName
             ///imagepath.png/album/:band/albums/:image
-            var url = 'http://localhost:9000/upload/imagepath.png/'+ result +'/albums/'+ ALBUMS.albums[i].albumName+ '/' +ALBUMS.albums[i].albumPicture;
+            var url = 'http://localhost:9000/upload/imagepath.png/'+ bandName +'/albums/'+ ALBUMS.albums[i].albumName+ '/' +ALBUMS.albums[i].albumPicture;
             //Save url to array:
             AlbumsAndPictures[i].albumPicture = url;
-            //console.log(i);
 
-            //console.log(ALBUMS.albums);
         };
 
         //change albumName and bandName for page (%20 changes to spaces)
@@ -89,7 +82,7 @@ class Search extends React.Component {
         this.setState({ bands: BandsAndPictures });
         this.setState({ albums: AlbumsAndPictures });
 
-        console.log(this.state.albums);
+        //console.log(this.state.albums);
     }
 
     /* change search field state to search field input  */

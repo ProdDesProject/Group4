@@ -21,13 +21,22 @@ class BandPic extends Component {
       albumName: "Hiirialbum",
       filetype: "png",
       selectedFile: null,
-      selectedFileName: ""
+      selectedFileName: "",
+
+      showing: false
     };
   }
 
   //Handles changes on upload realtime:
   handleChange = event => 
   {
+    if (this.state.selectedFile != null)
+    {
+      this.setState({showing:true});
+    }else{
+      this.setState({showing:false});
+    }
+
     //save file
     this.setState({ selectedFile: event.target.files[0],
     loaded: 0,
@@ -36,6 +45,13 @@ class BandPic extends Component {
     this.setState({ selectedFileName: event.target.files[0].name,
       loaded: 0,
       });
+
+    
+    
+
+      
+
+    
   };
 
 
@@ -74,25 +90,35 @@ class BandPic extends Component {
       alert("CheckResults went wrong, try again!");
     }
   }
+  
+/**
+ * Upload-
+ * Button:
+ * 
+ * <input type = "button"  value = "Click to upload!" name = "button" onClick = {this.onClickHandler} className="btn btn-primary btn-sm"/>
+ */
+
+   
 
   render() {
+    const { showing } = this.state;
     return (
       <div className="Main">
       <header className="btn btn-secondary btn-sm">
         < div >
         <form enctype="multipart/form-data">
-          <input type = "file"  name="file" id="file" accept = ".png" onChange={this.handleChange} />
-          <input type = "button" value = "Click to upload!" name = "button" onClick = {this.onClickHandler} className="btn btn-primary btn-sm"/>
+          <input type = "file"  name="file" id="file" accept = ".png" onChange={this.handleChange, () => this.setState({ showing: !showing })}></input>
+          { showing 
+                    ? <input type = "button"  value = "Click to upload!" name = "button" onClick = {this.onClickHandler} className="btn btn-primary btn-sm"/>
+                    : null
+                }
+
         </form>
         </div>
       </header>
-      </div>
+
       
-
-    
-
-    
-
+      </div>
     );
   }
 }
