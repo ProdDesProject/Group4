@@ -228,7 +228,7 @@ router.post('/uploadmp3/:bandName/:albumName', multerUpload.single('testFile'), 
   fs.rename(req.file.path, './uploads/bands/' + bandName +'/albums/'+ albumName +'/'+ req.file.originalname, function (err) {
     if (err) throw err;
     console.log('renamed complete');
-    res.send("Test");
+    res.send("201");
   });
   
 });

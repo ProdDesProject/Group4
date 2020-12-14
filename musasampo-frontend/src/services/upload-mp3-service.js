@@ -15,6 +15,9 @@ export default async function uploadData(FormData,bandName,albumName,fileInfo)
         const response =  await fetch(url,requestOptions2);
         const data2 = await response.json();
 
+        //alert("response:"+data2);
+        //console.log("response:"+data2);
+
         return data2;
     }
 

@@ -109,11 +109,11 @@ class Mp3_upload extends Component {
       MP4: this.state.selectedFileName
     };
 
-    console.log(obj);
+    console.log("Song-obj:"+obj);
 
     //post-method:
     var result = await postSong(albumId,obj);
-    console.log(result);
+    console.log("postSong:"+result);
 
     //checkResult for file name and datatype:
     var checkResult = await checkUploadData(this.state.selectedFileName);
@@ -133,7 +133,28 @@ class Mp3_upload extends Component {
       {
         //Upload MP3-Data:
         var fileInfo = "mp3-upload";
-        var result = await uploadData(data,bandName,albumName,fileInfo);
+        var result = await uploadData(data,bandName,albumName,fileInfo)
+        .then(result =>
+          {
+            alert(result);
+
+            //band successfully created
+            if(result !== undefined && result === 201)
+            {
+              console.log("Uploaded!");
+              //redirect to profile page to show the band
+              this.props.history.push(
+                {
+                  pathname: '/profile'
+                }
+              );
+            }
+            else
+            {
+              alert("upload went wrong!");
+            }
+          });
+
       }else
       {
         alert("Upload failed");
