@@ -26,7 +26,7 @@ class HomeGuitarTuner extends React.Component {
       <Link to="/guitartuner" className='container-27'>
         <div className='contents'>
         <div className='text'>
-          Tune your string istuments
+          Tune your string instruments
           </div>
           <div className='tunerIcon'>
           </div>

@@ -12,22 +12,10 @@ import HomeGuitarTuner from '../../components/home-guitar-tuner/home-guitar-tune
 
 import Data from '../../components/data/data.jsx';
 
-class Mainpage extends React.Component {
+class Mainpage extends React.Component 
+{
   constructor(props) {
     super(props);
-
-  }
-
-  //handle event if needed
-  handleSubmit = async event => {
-    event.preventDefault();
-
-  }
-
-  componentDidMount() {
-    //this is how you can access props on different components
-    var login1 = this.props.history.location.login;
-    var token = this.props.history.location.token;
 
   }
 

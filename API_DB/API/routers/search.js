@@ -2,96 +2,6 @@ const express = require('express');
 let router = express.Router();
 const db = require('./db');
 
-/**
- * USERS-search methods
- * 
- */
-
- //GET-method for searching user by userId:
-router
-.route('/users/userId/:userId')
-.get((req,res) => {
-    db.query('SELECT * FROM users WHERE userId =?',[req.params.userId]).then(results => {
-        res.json({results});
-        console.log(results);
-        })
-        .catch(() => {
-            res.sendStatus(500);
-        })
-})
-
-//GET-method for searching user by username:
-router
-.route('/users/username/:username')
-.get((req,res) => {
-    
-    db.query('SELECT * FROM users WHERE username =?',[req.params.username]).then(results => {
-        res.json({results});
-        console.log(results);
-        })
-        .catch(() => {
-            res.sendStatus(500);
-        })
-})
-
-//GET-method for searching user by password:
-
-//Password is hashed so doesnt work without hashing req.params.password too
-//NOTWORKING
-router
-.route('/users/password/:password')
-.get((req,res) => {
-    
-    db.query('SELECT * FROM users WHERE password =?',[req.params.password]).then(results => {
-        res.json({results});
-        console.log(results);
-        })
-        .catch(() => {
-            res.sendStatus(500);
-        })
-})
-
-//GET-method for searching user by name:
-router
-.route('/users/name/:name')
-.get((req,res) => {
-    
-    db.query('SELECT * FROM users WHERE name =?',[req.params.name]).then(results => {
-        res.json({results});
-        console.log(results);
-        })
-        .catch(() => {
-            res.sendStatus(500);
-        })
-})
-
-//GET-method for searching user by email:
-router
-.route('/users/email/:email')
-.get((req,res) => {
-    
-    db.query('SELECT * FROM users WHERE email =?',[req.params.email]).then(results => {
-        res.json({results});
-        console.log(results);
-        })
-        .catch(() => {
-            res.sendStatus(500);
-        })
-})
-
-//GET-method for searhing user by phoneNumber:
-router
-.route('/users/phoneNumber/:phoneNumber')
-.get((req,res) => {
-    
-    db.query('SELECT * FROM users WHERE phoneNumber =?',[req.params.phoneNumber]).then(results => {
-        res.json({results});
-        console.log(results);
-        })
-        .catch(() => {
-            res.sendStatus(500);
-        })
-})
 
 //GET-method for searching by category,searchOption and searchValue:
 //NEEDMOREWORK
@@ -428,14 +338,111 @@ router
             //bad request
             return res.status(400).json({
             "message": "Search only by albumId or songName!"
-        });
+            });
         }
   }
+  else if(req.params.category === 'users')
+  {
+        // search for users by username
+        if (req.params.searchOption === "username") 
+        {
+            // call function to get all requested songs from the database
+            var  getInformationFromDB = function(callback) 
+            {
+                db.query('SELECT * FROM users WHERE username = ?;',[decodeURIComponent(req.params.searchValue)], function(err, res, fields)
+                {
+                    if (err)  return callback(err);
+                    if(res.length)
+                    {
+                        for(var i = 0; i < res.length; i++)
+                        {     
+                            results.push(res[i]);
+                        }
+                    }
+                    callback(null, results);
+                });
+            };
+        
+            getInformationFromDB(function (err, result) 
+            {
+                if (err) 
+                {
+                    console.log("Internal server error!");
+                    return res.status(500).json ({"message": "Internal server error!"});
+                }
+                else 
+                {
+                    //if something is found
+                    if (result.length) 
+                    {
+                        return res.status(200).json(result);
+                    } 
+                    else 
+                    {
+                        //nothing is found
+                        return res.status(404).json({
+                            "message": "There are no users with this username."
+                        });
+                    }
+                }
+            });
+        } //search for users by userId
+        else if (req.params.searchOption === "userId") 
+        {
+            // call function to get all requested albums from the database
+            var  getInformationFromDB = function(callback) 
+            {
+                db.query('SELECT * FROM users WHERE userId = ?;',[decodeURIComponent(req.params.searchValue)], function(err, res, fields)
+                {
+                    if (err)  return callback(err);
+                    if(res.length)
+                    {
+                        for(var i = 0; i < res.length; i++)
+                        {     
+                            results.push(res[i]);
+                        }
+                    }
+                    callback(null, results);
+                });
+            };
+        
+            getInformationFromDB(function (err, result) 
+            {
+                if (err) 
+                {
+                    console.log("Internal server error!");
+                    return res.status(500).json ({"message": "Internal server error!"});
+                }
+                else 
+                {
+                    //if something is found
+                    if (result.length) 
+                    {
+                        return res.status(200).json(result);
+                    } 
+                    else 
+                    {
+                        //nothing is found
+                        return res.status(404).json({
+                            "message": "There are no users with this userId."
+                        });
+                    }
+                }
+            });
+        }
+        else
+        {
+            //bad request
+            return res.status(400).json({
+            "message": "Search only by username or userId!"
+            });
+        }
+    }
   else
   {
     //bad request
     return res.status(400).json({
-      "message": "Search only for bands or albums or songs!"
+      "message": "Search only for bands, albums, songs or users!"
     });
   }
 });

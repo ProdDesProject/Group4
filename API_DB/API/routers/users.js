@@ -196,10 +196,10 @@ router
         }
     });
 
-//DELETE-method for deleting a user based on id(only logged in users should be able to do that)
+//PUT-method for disabling a user based on id (only logged in users should be able to do that)
 router
 .route('/delete/:userId')
-.delete(
+.put(
     //authentication required
     passport.authenticate('jwt', { session: false }),
     (req, res) => {
@@ -211,15 +211,13 @@ router
             if (results.length)
             {
                 //user id found, delete user from the database
-                db.query('DELETE  FROM users WHERE userId = ?',[req.params.userId]);
-                //deincrement the user id field
-                db.query('ALTER TABLE bands AUTO_INCREMENT = ?',[(req.params.userId - 1)]); 
+                db.query('UPDATE users SET usersToken = "disabled" WHERE userId = ?',[req.params.userId]);
                 //send ok status
                 res.sendStatus(204);
             }
             else
             {
-                //user id not found, cannot be deleted
+                //user id not found, cannot be modified
                 res.sendStatus(404);
             }
         });

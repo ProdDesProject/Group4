@@ -4,8 +4,8 @@ import FormInput from '../form-input/form-input.component';
 import SubmitButton from '../submit-button/submit-button.component';
 import { withRouter} from 'react-router-dom';
 import './sign-in.styles.scss';
-import {SignInServices} from '../../services/sign-in-service'
-
+import {SignInServices} from '../../services/sign-in-service';
+import {UserSearchService} from '../../services/user-search-service';
 
 class SignIn extends React.Component 
 {
@@ -37,28 +37,38 @@ class SignIn extends React.Component
   {
     event.preventDefault();
     this.setState({submitting: true});
-    await SignInServices.Signin(this.state.username,this.state.password)
-    .then(result =>
+    //check if user is allowed to sign in first(usersToken doesn't have the value "disabled")
+    const checkUser = await UserSearchService.usernameSearch(this.state.username);
+    if(checkUser[0].usersToken !== "disabled")
     {
-      if (result !== undefined && result.result === true)
-      {
-        
-        this.setState({status: true, submitting: false});
-
-        //remember some user info for the profile data fetching
-        //alert(result.username);
-
-        //reroute to main with authorization
-        this.props.history.push({
-          pathname: '/'
+        await SignInServices.Signin(this.state.username,this.state.password)
+        .then(result =>
+        {
+          if (result !== undefined && result.result === true)
+          {
+            
+            this.setState({status: true, submitting: false});
+    
+            //remember some user info for the profile data fetching
+            //alert(result.username);
+    
+            //reroute to main with authorization
+            this.props.history.push({
+              pathname: '/'
+            });
+          }
+          else
+          {
+            this.setState({status: false, submitting: false});
+            //alert("Wrong credentials!");
+          }
         });
-      }
-      else
-      {
-        this.setState({status: false, submitting: false});
-        //alert("Wrong credentials!");
-      }
-    });
+    }
+    else
+    {
+      this.setState({submitting: false});
+      alert("Your account has been disabled!");
+    }
   };
 
   //handles changes on user input 
