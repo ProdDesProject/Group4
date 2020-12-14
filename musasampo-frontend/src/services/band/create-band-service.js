@@ -11,8 +11,7 @@ export default async function createBand(bandName, country, bandLogo, nsfw)
         //parsing the found JSON
         const foundUser = JSON.parse(user);
         //getting the userID
-        //console.log(foundUser);
-        const userId = foundUser.results[0].userId;
+        const userId = foundUser.userId;
         
         //parsing the found token JSON
         const foundToken = JSON.parse(token);
@@ -43,8 +42,6 @@ export default async function createBand(bandName, country, bandLogo, nsfw)
             headers: myHeaders,
             body: JSON.stringify(bodyObject)
           }
-
-        console.log(bodyObject);
 
         //creating the fetch url
         const url = new URL('http://localhost:9000/bands/createband/' + userId);

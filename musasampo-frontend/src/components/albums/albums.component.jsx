@@ -34,6 +34,7 @@ class Albums extends React.Component {
       //fetch Albums by bandId <= comes from click:
       const ALBUMS = await (await getAlbumsBybandId(bandId)).json();
 
+      console.log(BANDS, ALBUMS);
       if(!ALBUMS.message)
       {
         for (var i in ALBUMS)
