@@ -115,7 +115,7 @@ router
   .route('/:bandId/createalbum')
   .post(
       //bands need to be authenticated in order to post albums
-      passport.authenticate('jwt', { session: false }),
+      //passport.authenticate('jwt', { session: false }),
       (req, res) => 
       {
         //check field filling

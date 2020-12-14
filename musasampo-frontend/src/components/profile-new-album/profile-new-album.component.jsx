@@ -70,7 +70,15 @@ class NewAlbum extends React.Component {
   {
     const { name, value } = event.target;
     this.setState({ [name]: value });
+    
   };
+
+  componentDidMount()
+  {
+    //bandId:
+    var bandId = this.props.location.state.detail;
+    console.log("bandId:"+bandId);
+  }
 
   onClickHandler = async event => 
   {
@@ -78,6 +86,7 @@ class NewAlbum extends React.Component {
 
     //bandId:
     var bandId = this.props.location.state.detail;
+    console.log("bandId"+bandId);
 
 
     const {albumName, postingDate, albumCover, albumGenre} = this.state;
@@ -109,13 +118,14 @@ class NewAlbum extends React.Component {
             //redirect to profile page to show the album
             this.props.history.push(
               {
-                pathname: '/band-pic-upload',
-                state: {detail: bandId,albumName:albumName,albumCover:albumCover}
+                pathname: '/profile',
+                
               }
             );
           }
           else
           {
+            alert(status);
             this.setState({submitting: false, status: false, submittingMessage: 'Band does not exist!'});
           }
         })
