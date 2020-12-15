@@ -5,11 +5,6 @@ const express = require('express');
 const multer  = require('multer');
 
 const multerUpload = multer({ dest: './uploads/' });
-const multerUpload1 = multer({ dest: 'uploads/music/' });
-const multerUpload2 = multer({ dest: 'uploads/pictures/' });
-
-
-
 var mkdirp = require('mkdirp');
 
 const router = express.Router();
@@ -17,12 +12,7 @@ const { checkServerIdentity } = require('tls');
 
 var basicPath = '../uploads/bands/';
 var userPath = '../uploads/Users/';
-
 var errorPath = '../uploads/pictures/nopic.png';
-
-var musicpath2 = '../uploads/music/Pyry Viirret - Classics covered';
-var imagepath2 = '../uploads/pictures/Pyry Viirret - Classics covered pictures';
-var multerdes;
 
 const fileTypes = ["jpg", "jpeg", "bmp", "png", "mp3"];
 
