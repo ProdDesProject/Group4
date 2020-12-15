@@ -1,6 +1,6 @@
 import React from 'react';
 import SearchBox from '../search-box/search-box.component';
-import AlbumsItem from '../albums-item/albums-item.component';
+import AlbumsItem from '../profile-albums-item/profile-albums-item.component';
 import BandItem from '../band-item/band-item.component';
 
 import getBandsBandId from '../../services/band/get-band-by-bandId-servise';

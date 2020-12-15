@@ -47,7 +47,7 @@ const AlbumsItem = ({ album, history }, props) => {
             {/*Button in the band cover, onClick opens path /bands/:bandId*/}
             
             <CustomButton style={style1} onClick={() => {
-                history.push({pathname: `/albums/${bandId}`, state: {albumId: albumId, albumName: albumName, albumLaunchDate: albumLaunchDate, albumPicture: albumPicture, albumGenre: albumGenre}})
+                history.push({pathname: `/albums/${albumId}`, state: {albumId: albumId, albumName: albumName, albumLaunchDate: albumLaunchDate, albumPicture: albumPicture, albumGenre: albumGenre}})
             }} inverted>
                 INFO
             </CustomButton>

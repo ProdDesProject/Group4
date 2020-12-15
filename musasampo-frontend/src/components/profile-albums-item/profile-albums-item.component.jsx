@@ -4,7 +4,7 @@ import { withRouter } from 'react-router-dom';
 
 import CustomButton from '../custom-button/custom-button.component';
 
-import './albums-item.styles.scss';
+import './profile-albums-item.styles.scss';
 
 {/*filter the band from the data with the bandId from props*/ }
 const AlbumsItem = ({ album, history }, props) => {
@@ -46,8 +46,15 @@ const AlbumsItem = ({ album, history }, props) => {
             }} inverted>
                 ALBUM INFORMATION
             </CustomButton>
-        
+
             <CustomButton style={style2} onClick={() => {
+                history.push({pathname: `/mp3-upload`, state: {albumId: albumId, albumName: albumName}})
+              }} inverted>
+                  ADD SONGS
+            </CustomButton>
+
+        
+            <CustomButton style={style3} onClick={() => {
                 history.push({pathname: `/songs/`, search: '?query=abc', state: { bandId:bandId, albumId: albumId, albumName: albumName}})
               }} inverted>
                   SONGS
