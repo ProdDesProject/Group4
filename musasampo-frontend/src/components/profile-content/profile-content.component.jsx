@@ -2,6 +2,8 @@ import React, { Fragment, useState } from 'react';
 
 import CustomButton from '../custom-button/custom-button.component';
 import SignInButton from '../custom-button/custom-button.component';
+
+import DeleteButton from '../profile-delete/profile-delete.component';
 import { Link, withRouter } from 'react-router-dom';
 import '../custom-button/custom-button.component';
 
@@ -25,19 +27,20 @@ class ProfileContent extends React.Component {
 
   render() {
     return (
-      <div className='profile-item2'>
+      <div className='profile-item'>
         <div className='band-stuff'>
+
           <Link to="/profile/newband" className='button'>
-            <CustomButton> Add Your Band </CustomButton>
+            <CustomButton> Add a Band </CustomButton>
           </Link>
 
-          <Link to="/profile/newalbum" className='button'>
-            <CustomButton> Add an Album for Your Band </CustomButton>
+          <Link to="/profile/edit" className='button'>
+            <CustomButton> Edit </CustomButton>
           </Link>
 
-          <Link to="/profile/password" className='button'>
-            <CustomButton> Change Password </CustomButton>
-          </Link>
+          <DeleteButton></DeleteButton>
+
+         
         </div>
       </div>
     );

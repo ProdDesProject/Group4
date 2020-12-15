@@ -1,7 +1,7 @@
 export default async function getBands()
 {
     //fetch for bands and get a response
-    const response1 = await fetch('http://localhost:9000/bands/')
+    const response1 = await fetch('http://localhost:9000/bands/');
     //get the status response
     const data = response1;
 

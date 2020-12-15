@@ -45,10 +45,14 @@ $main-light-color: #393e46;
         margin-left: 50px;
         width: 50%;
 
+        .Main 
+        {
+            padding-bottom: 40px;
+        }
+
         .buttons {
             display: flex;
             justify-content: space-between;
-            padding-top: 35px;
             width: 100%;
             }
     }

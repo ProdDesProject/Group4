@@ -7,7 +7,7 @@ import { stringify } from 'querystring';
 
 export default async function createFolders(bandName,albumName)
 {   
-    async function createBand()
+    async function createBand(bandName)
     {
         //request info for creating a band:
         const requestForBand = {
@@ -17,7 +17,7 @@ export default async function createFolders(bandName,albumName)
         };
 
         //Fetch which checks Data which is uploading:
-    var checkData= await fetch('http://localhost:9000/upload/createFolders', requestForBand)
+    var checkData= await fetch('http://localhost:9000/upload/createFoldersForUpload', requestForBand)
     const result = await checkData.json();
 
      //result check:
@@ -30,37 +30,38 @@ export default async function createFolders(bandName,albumName)
      }
     }
 
-    async function createAlbum()
+    async function createAlbum(bandName2,albumName2)
     {
+        //alert("createAlbum:"+bandName2+albumName2);
         //request info for creating a album:
-        const requestForAlbum = {
+        const createFolders = {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ bandName: bandName,albumName: albumName})
+            body: JSON.stringify({ bandName: bandName2,albumName: albumName2})
             
         };
 
-         //Fetch which checks Data which is uploading:
-        var checkData= await fetch('http://localhost:9000/upload/createFolders', requestForAlbum)
+         //create Folders:
+        var checkData= await fetch('http://localhost:9000/upload/createFoldersForUpload', createFolders);
         const result = await checkData.json();
 
+        //alert("result2:"+result);
+
+        return result;
          //result check:
-        if (result == "200")
-        {
-            return "200";
-        }else
-        {
-            return "400";
-        }
     };
 
-    if (bandName != undefined && albumName == undefined)
+    var result;
+
+    if (bandName !== undefined && albumName === undefined)
     {
-        createBand(bandName);
+        result =  await createBand(bandName);
     }
-    if (bandName != undefined && albumName != undefined)
+    if (bandName !== undefined && albumName !== undefined)
     {
-        createAlbum(bandName,albumName);
+        result = await createAlbum(bandName,albumName);
     }
+    return result;
+
 
 }

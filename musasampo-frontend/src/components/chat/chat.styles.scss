@@ -1,0 +1,21 @@
+form {
+    .input-field {
+        min-width: 300px;
+        padding: 12px 20px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+    }
+
+    .send-button {
+        padding: 12px 20px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        background-color: #222831;
+        color: white;
+
+        &:hover {
+            background-color: #393e46;
+            color: #32e0c4;
+        }
+    }
+}

@@ -24,7 +24,7 @@ class ShopPage extends React.Component {
   async getBands()
   {
     var bands = await band.getAllBands();
-    
+    console.log(bands);
     let counter = 0;
     //for loop to get all object in bands
     for (let i = 0; i < bands.bands.length; i++) 

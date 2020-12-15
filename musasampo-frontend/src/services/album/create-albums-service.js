@@ -1,38 +1,47 @@
 //fetch bands from backend
-export async function createAlbum(albumName, albumLaunchDate, albumPicture, albumGenre)
+export default async function createAlbum(bandId, albumName, albumLaunchDate, albumPicture, albumGenre)
 {
-    var object = 
+  //get the token from the local storage
+  var token = localStorage.getItem('currentToken');
+  //check if token is in local storage
+  if(token !== undefined)
   {
-    "albumName": albumName, 
-    "albumLaunchDate": albumLaunchDate,
-    "albumPicture": albumPicture, 
-    "albumGenre": albumGenre
-  };
+      //parsing the found token JSON
+      const foundToken = JSON.parse(token);
 
-  //Parameter for postmethod
-  const requestOptions = 
-  {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(object)
+      //building the body to be sent
+      var bodyObject = 
+      {
+          bandId: bandId,
+          albumName: encodeURIComponent(albumName.trim()), 
+          albumLaunchDate: albumLaunchDate,
+          albumPicture: encodeURIComponent(albumPicture.trim()), 
+          albumGenre: encodeURIComponent(albumGenre.trim())
+      };
+
+      //building the header
+      var myHeaders = new Headers();
+      myHeaders.append("Authorization",  "Bearer " + foundToken.token.token, 'Content-Type', 'application/json');
+      myHeaders.append('Content-Type', 'application/json');
+
+      //request options for the POST fetch
+      const requestOptionsPost = 
+      {
+          method: "POST",
+          headers: myHeaders,
+          body: JSON.stringify(bodyObject)
+      }
+      
+        //creating the fetch url
+        const createAlbumURL = new URL('http://localhost:9000/albums/' + bandId + '/createalbum');
+
+        //calling the API delete method
+        var createAlbumResponse = await fetch(createAlbumURL, requestOptionsPost);
+
+        console.log(createAlbumResponse);
+
+        //return status
+        return createAlbumResponse.status;
   }
-
-   //fetch for creating a new album and it sends response back if succeeded or not
-  const response =  await fetch('http://localhost:9000/albums/:bandId/createalbum',requestOptions)
-  const data2 = response.status;
-
-  //alert(data2);
-
-  var obj = 
-  {
-    result: false
-  };
-
-  if(data2 === 201)
-  {
-     obj.result = true;
-  }
-
-  //returns if all goes well to sign-up.component.jsx
-  return obj;
+  return null;
 }

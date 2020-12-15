@@ -56,6 +56,23 @@ router
     })
 });
 
+router
+.route('/getIdByUsername/:username')
+.get(
+    //passport.authenticate('basic', { session: false }),
+    (req, res) => {
+    db.query('SELECT userId FROM users where username = ?;', [req.params.username]).then(results => 
+    {
+        //show all users
+        res.json({result:results});
+    })
+    .catch(() => 
+    {
+        //internal server error
+        res.sendStatus(500);
+    })
+});
+
 //Get-method for checking a user
 router
 .route('/checkuser/')
@@ -141,10 +158,48 @@ router
         }
     });
 
-//DELETE-method for deleting a user based on id(only logged in users should be able to do that)
+//PUT-method for modifying a user based on id(only logged in users should be able to do that)
+router
+.route('/modify/:userId')
+.put(
+    //authentication required
+    passport.authenticate('jwt', { session: false }),
+    (req, res) => 
+    {
+        console.log(req.body);
+        //check fields filling
+        if(req.body.username && req.body.email && req.body.name && req.body.phoneNumber)
+        {
+            //check if the id exists in the database first
+            //we need to send not found response if id is not found
+            db.query('SELECT userId FROM users WHERE userId = ?;', [req.params.userId]).then(results => 
+            {
+                //check for results
+                if (results.length)
+                {
+                        //modify user credentials from the databse
+                        db.query('UPDATE users SET username = ?, email = ?, name = ?, phoneNumber = ? WHERE userId = ?', [req.body.username, req.body.email, req.body.name, req.body.phoneNumber, req.params.userId]);
+                        //send success status
+                        res.sendStatus(204);
+                }
+                else
+                {
+                    //user id not found, cannot be deleted
+                    res.sendStatus(404);
+                }
+            });
+        }
+        else
+        {
+            //bad request, not all fields are filled
+            res.sendStatus(400);
+        }
+    });
+
+//PUT-method for disabling a user based on id (only logged in users should be able to do that)
 router
 .route('/delete/:userId')
-.delete(
+.put(
     //authentication required
     passport.authenticate('jwt', { session: false }),
     (req, res) => {
@@ -156,15 +211,13 @@ router
             if (results.length)
             {
                 //user id found, delete user from the database
-                db.query('DELETE FROM users WHERE userId = ?',[req.params.userId]);
-                //deincrement the user id field
-                db.query('ALTER TABLE bands AUTO_INCREMENT = ?',[(req.params.userId - 1)]); 
+                db.query('UPDATE users SET usersToken = "disabled" WHERE userId = ?',[req.params.userId]);
                 //send ok status
-                res.sendStatus(200);
+                res.sendStatus(204);
             }
             else
             {
-                //user id not found, cannot be deleted
+                //user id not found, cannot be modified
                 res.sendStatus(404);
             }
         });
