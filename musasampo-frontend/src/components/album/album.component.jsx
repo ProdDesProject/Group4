@@ -12,32 +12,16 @@ export default class SimpleTabs extends Component
     super(props);
 
     this.state = {
-      album: {},
-      logoPath:""
+      album: {}
   };
 
   }
 
   async componentDidMount()
   {
-    var albumId = this.props.match.params.albumId;
-    console.log(albumId);
-
-    var album = await(await fetchAlbumsByalbumId(albumId)).json();
-    
+    var album = this.props.location.state;
     console.log(album);
-    //console.log(album[0].bandId);
-
-    var band = await(await getBandsBandId(album[0].bandId)).json();
-
-    console.log(band);
-    console.log(band[0].bandName);
-
-    this.setState({album:album[0]});
-
-    this.setState({logoPath: "http://localhost:9000/upload/imagepath.png/" + band[0].bandName + "/" + band[0].bandLogo});
-    
-    console.log(this.state.album.albumGenre);
+    this.setState({album: album});
   }
   
   render()
@@ -70,7 +54,7 @@ export default class SimpleTabs extends Component
             </div>
   
             <div className='albumImage' style={{
-                    backgroundImage: `url(${this.state.logoPath})`
+                    backgroundImage: `url(${this.state.album.albumPicture})`
                 }}>
               
             </div>

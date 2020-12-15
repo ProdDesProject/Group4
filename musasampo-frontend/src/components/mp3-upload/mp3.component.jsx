@@ -7,7 +7,6 @@ import uploadData from '../../services/upload-mp3-service'
 import createFolders from '../../services/create-folders-for-upload-servise'
 import './mp3.styles.scss';
 import { stringify } from 'querystring';
-import getAlbum from '../../services/album/albums-by-albumid-service';
 import getband from '../../services/band/get-band-by-bandId-servise';
 import postSong from '../../services/songs/post-song-by-albumid-service';
 
@@ -19,9 +18,9 @@ class Mp3_upload extends Component {
 
     //this.state contains info for creating folders and uploading stuff. Stefan?
     this.state = {
-      bandId:"",
       bandName: "",
-      albumName: "",
+      album: {},
+
       filetype: "mp3",
       selectedFile: null,
       selectedFileName: "",
@@ -35,65 +34,53 @@ class Mp3_upload extends Component {
   handleChange = async event => 
   {
      //save file
-     await this.setState({ selectedFile: event.target.files[0],
+    await this.setState({ selectedFile: event.target.files[0],
       loaded: 0,
       });
       //save filename
-      await this.setState({ selectedFileName: event.target.files[0].name,
+    await this.setState({ selectedFileName: event.target.files[0].name,
         loaded: 0,
         });
-
+  
     if (this.state.selectedFile != null)
     {
       this.setState({showing:true});
-    }else{
+    }
+    else
+    {
       this.setState({showing:false});
     }
 
-    console.log("selectedFilename:"+this.state.selectedFileName);
-
     var split = this.state.selectedFileName.split(/\.(?=[^\.]+$)/);
-    console.log(split[0]);
 
-    await this.setState({songName:split[0]});
+    this.setState({songName:split[0]});
    
   };
 
   async componentDidMount()
   {
-    var albumId = await this.props.location.state.albumId;
-    var albumName = await this.props.location.state.albumName;
-    //var bandName = await this.props.location.state.bandName;
-    
-    //console.log(bandName);
-    console.log(albumId);
-    console.log(albumName);
+    const album = this.props.location.state;
 
-    //Fetch album by albumId
-    var albumObj = await getAlbum(albumId);
-    
-    console.log(albumObj.albums[0].bandId);
-
-    //BandId to state:
-    await this.setState({bandId:albumObj.albums[0].bandId});
+    this.setState({album: album});
 
     //fetch bandName by bandId:
-    var bandObj = await (await getband(albumObj.albums[0].bandId)).json();
-    
-    //bandName to state:
-    await this.setState({bandName:bandObj[0].bandName});
-
-    
-
+    const result = await getband(album.bandId);
+   
+    if(result.status === 200)
+    {
+      const band = await result.json();
+      console.log(band);
+      this.setState({bandName: band[0].bandName});
+    }   
   }
 
 
   //Clickhandler:
   onClickHandler = async () => 
   {
-    var albumId = await this.props.location.state.albumId;
+    var albumId = await this.state.album.albumId;
     var bandName = await this.state.bandName;
-    var albumName = await this.props.location.state.albumName;
+    var albumName = await this.state.album.albumName;
     
     console.log("Clikced:");
     console.log("albumId:"+albumId);
@@ -136,10 +123,9 @@ class Mp3_upload extends Component {
         var result = await uploadData(data,bandName,albumName,fileInfo)
         .then(result =>
           {
-            alert(result);
-
-            //band successfully created
-            if(result !== undefined && result === 201)
+            console.log(result);
+            //mp3 successfully uploaded
+            if(result !== undefined && result.status === 204)
             {
               console.log("Uploaded!");
               //redirect to profile page to show the band
@@ -181,12 +167,6 @@ class Mp3_upload extends Component {
         </div>
       </header>
       </div>
-      
-
-    
-
-    
-
     );
   }
 }

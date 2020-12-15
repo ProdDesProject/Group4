@@ -11,7 +11,7 @@ import './album-item.styles.scss';
 
 const AlbumItem = ({ album, history, match }) => {
   console.log(album);
-  const { bandId, albumId, albumName, bandName, albumPicture, albumGenre, albumInfo, lineup, trackList } = album;
+  const { bandId, albumId, albumName, bandName, albumPicture, albumGenre, albumLaunchDate } = album;
 
   {/*filter the band from the data with the bandId from props*/ }
   //const band = BANDS.filter(band => band.bandId == bandId);
@@ -47,7 +47,7 @@ const AlbumItem = ({ album, history, match }) => {
 
       {/*Button in the album cover, onClick opens path /shop/albums/:albumId*/}
       <CustomButton style = {style1}  onClick={() => {
-        history.push({pathname:`/albums/${albumId}`})
+        history.push({pathname:`/albums/${albumId}`, state : {albumId: albumId, albumName: albumName, albumPicture: albumPicture, albumGenre: albumGenre, albumLaunchDate: albumLaunchDate}})
       }} inverted>
         INFO
       </CustomButton>
