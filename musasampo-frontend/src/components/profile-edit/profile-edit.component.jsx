@@ -64,7 +64,7 @@ class EditProfile extends React.Component {
     return (
       <div className='container'>
         <div className='edit'>
-          <h2 className='title'>Change account details</h2>
+          <h2 className='title92'>Change account details</h2>
           <form className='edit-form' onSubmit={this.handleSubmit}>
             <FormInput
               type='text'
@@ -97,7 +97,7 @@ class EditProfile extends React.Component {
               onChange={this.handleChange}
               label='Phone Number'
             />
-            <div className='buttons'>
+            <div className='buttons17'>
               <Link to="/profile" className='button'>
                 <CustomButton> Cancel </CustomButton>
               </Link>

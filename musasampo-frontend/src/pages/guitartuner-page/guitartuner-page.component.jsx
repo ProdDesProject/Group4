@@ -5,7 +5,7 @@ import GuitarItem from '../../components/guitar-item/guitar-item.component';
 
 import './guitartuner-page.styles.scss';
 
-import GUITAR2_DATA from './guitar2.data.js';
+import GUITAR_DATA from './guitar.data.js';
 
 {/* Overview of tunable guitars  */ }
 
@@ -17,12 +17,10 @@ export const GuitarOverview = (props) => (
             {guitars.map((guitar, index) => (
                 <GuitarItem key={guitar.guitarType} guitar={guitar} routeName={"guitartuner"} />
             ))}
-
         </div>
-
     </div>
 );
 
-const guitars = GUITAR2_DATA;
+const guitars = GUITAR_DATA;
 
 export default withRouter(GuitarOverview);

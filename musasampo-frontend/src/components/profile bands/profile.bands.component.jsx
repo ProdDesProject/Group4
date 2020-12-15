@@ -9,8 +9,6 @@ import BandItem from '../band-profile-item/band-profile-item.component';
 import fetchData from '../../services/band/get-band-by-userid-service';
 import getUserID from '../../services/user/get-userid-by-username.service';
 
-import CustomButton from '../custom-button/custom-button.component';
-
 import './profile.bands.styles.scss';
 
 {/* Search page */ }
@@ -98,7 +96,7 @@ class Bands extends React.Component {
                 {/* display filtered bands  */}
                 <div className="search-preview">
                     <h2 className='title'>
-                        BANDS
+                        YOUR BANDS
                     </h2>
 
                     <div className='items'>
