@@ -48,7 +48,7 @@ const AlbumsItem = ({ album, history }, props) => {
             </CustomButton>
 
             <CustomButton style={style2} onClick={() => {
-                history.push({pathname: `/mp3-upload`, state: {albumId: albumId, albumName: albumName}})
+                history.push({pathname: `/mp3-upload`, state: {bandId: bandId, albumId: albumId, albumName: albumName}})
               }} inverted>
                   ADD SONGS
             </CustomButton>
