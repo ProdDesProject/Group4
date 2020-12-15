@@ -52,10 +52,10 @@ const BandItem = ({ band, history }, props) => {
 
             {/*Button in the band cover, onClick opens path /bands/:bandId*/}
 
-            <CustomButton onClick={() => {
+            <CustomButton style = {style1} onClick={() => {
                 history.push(`/bands/${bandId}`)
             }} inverted>
-                BAND INFORMATION
+                INFO
             </CustomButton>
 
             <CustomButton style={style2} onClick={() => {
