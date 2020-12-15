@@ -15,7 +15,6 @@ const GUITAR2_DATA = [
       routeName: 'finnish',
       items: [
 
-
         {
             tuneType: 1,
             guitarId: 0,

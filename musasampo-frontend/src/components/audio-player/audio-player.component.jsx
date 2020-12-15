@@ -18,14 +18,20 @@ const useMultiAudio = urls => {
         })
     );
 
+
+
+
+    var urlRefresh = false;
+
+
+
+
     const setSourceUrl = (e) => setSource(urls.map(soundUrl => {
         return {
             soundUrl,
             audio: new Audio(soundUrl)
         };
     }));
-
-    var urlRefresh = false;
 
     {/* handle state of every audio player in players array */ }
     const [players, setPlayers] = useState(
@@ -57,24 +63,20 @@ const useMultiAudio = urls => {
     };
 
 
-    /* start and stop the actual audio */ 
+    /* start and stop the actual audio */
     useEffect(() => {
         sources.forEach((source, i) => {
             //check if the audio is starting to play - if you press play, it will always start the note from the beginning, even after pausing it
             if (players[i].playing) {
                 if (urlRefresh === false) {
-                    //setSourceUrl();
                     urlRefresh = true;
                 }
-                //setSourceUrl();
                 source.audio.load();
                 source.audio.play();
                 source.audio.currentTime = 0;
             } else {
                 source.audio.pause();
-                urlRefresh = false;
             }
-
 
             //players[i].addEventListener("ended", () => {
             //    players[i].playing = false;
@@ -88,7 +90,6 @@ const useMultiAudio = urls => {
     useEffect(() => {
         sources.forEach((source, i) => {
             source.audio.addEventListener("ended", () => {
-                //setSourceUrl();
                 const newPlayers = [...players];
                 newPlayers[i].playing = false;
                 setPlayers(newPlayers);
@@ -109,11 +110,7 @@ const useMultiAudio = urls => {
     return [players, toggle];
 };
 
-
-
 const MultiPlayer = (props) => {
-
-
     const soundUrls = [];
 
     // map soundUrls from props and push them to soundUrls array
@@ -122,9 +119,7 @@ const MultiPlayer = (props) => {
     const [players, toggle] = useMultiAudio(soundUrls);
 
     return (
-
         <div className="player">
-
             <div className="player-item">
                 <ul className="list">
                     {/* map all audio players */}
@@ -140,10 +135,7 @@ const MultiPlayer = (props) => {
                         <li className="list-item">{item.title}</li>
                     )}
                 </ul>
-
             </div>
-
-
         </div>
     );
 };
@@ -173,7 +165,6 @@ const Play = (props) => {
 
 {/* one single player button, that switches between "playing" and "pause" */ }
 const Player = ({ player, toggle }) => (
-
     <div>
         <div onClick={toggle} className={player.playing ? 'pause' : 'play'} >{player.playing ? <Pause className="pause-component" fill="black" /> : <Play fill="white" className="play-component" />} </div>
     </div>
