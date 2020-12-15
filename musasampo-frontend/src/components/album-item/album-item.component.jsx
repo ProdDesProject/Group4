@@ -10,6 +10,7 @@ import './album-item.styles.scss';
 
 
 const AlbumItem = ({ album, history, match }) => {
+  console.log(album);
   const { bandId, albumId, albumName, bandName, albumPicture, albumGenre, albumInfo, lineup, trackList } = album;
 
   {/*filter the band from the data with the bandId from props*/ }

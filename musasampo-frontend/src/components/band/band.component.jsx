@@ -14,7 +14,7 @@ export default class SimpleTabs extends Component
   async componentDidMount()
   {
     const bandId = this.props.match.params.bandId;
-    console.log(this.props.match.params.bandId)
+    //console.log(this.props.match.params.bandId)
     const result = await getBandsBandId(bandId)
     if(result.status === 200)
     {
@@ -22,7 +22,7 @@ export default class SimpleTabs extends Component
       const band = await result.json();
       this.setState({band: band[0]});
       this.setState({logoPath: "http://localhost:9000/upload/imagepath.png/" + band[0].bandName + "/" + band[0].bandLogo})
-      console.log(band, this.state.logoPath);
+      //console.log(band, this.state.logoPath);
     }
     else
     {

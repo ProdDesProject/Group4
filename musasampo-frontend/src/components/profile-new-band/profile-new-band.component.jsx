@@ -105,7 +105,6 @@ class NewBand extends React.Component
     
     const { bandName, country, nsfw } = this.state;
     //checkResult for file name and datatype:
-    //alert("checkdata" + this.state.selectedFileName );
     var checkResult = await checkUploadData(this.state.selectedFileName);
 
     //if 200:

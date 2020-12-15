@@ -150,12 +150,12 @@ router
   else if (req.params.category === "albums")
   {
       // search for albums by name
-      if (req.params.searchOption === "name") 
+      if (req.params.searchOption === "albumId") 
       {
         // call function to get all requested albums from the database
         var  getInformationFromDB = function(callback) 
         {
-            db.query('SELECT * FROM albums WHERE albumName = ?;',[decodeURIComponent(req.params.searchValue)], function(err, res, fields)
+            db.query('SELECT * FROM albums WHERE albumId = ?;',[decodeURIComponent(req.params.searchValue)], function(err, res, fields)
             {
                 if (err)  return callback(err);
                 if(res.length)
@@ -187,7 +187,7 @@ router
                 {
                     //nothing is found
                     return res.status(404).json({
-                        "message": "There are no albums with this name."
+                        "message": "There are no albums with this albumId."
                     });
                 }
             }
@@ -240,7 +240,7 @@ router
       {
           //bad request
           return res.status(400).json({
-          "message": "Search only by name or genre!"
+          "message": "Search only by albumId or bandId!"
         });
       }
   }
