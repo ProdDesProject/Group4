@@ -11,8 +11,8 @@ export async function DeleteUserService()
         //parsing the found JSON
         const foundUser = JSON.parse(user);
         //getting the userID
-        console.log(foundUser.results[0].userId);
-        const userId = foundUser.results[0].userId;
+        console.log(foundUser.userId);
+        const userId = foundUser.userId;
 
         //parsing the found token JSON
         const foundToken = JSON.parse(token);
@@ -21,10 +21,10 @@ export async function DeleteUserService()
         var myHeaders = new Headers();
         myHeaders.append("Authorization",  "Bearer " + foundToken.token.token);
 
-        //Parameter for delete method
+        //Parameter for the put method
         const requestOptions = 
         {
-            method: 'DELETE',
+            method: 'PUT',
             mode: 'cors',
             headers: myHeaders,
             redirect: 'follow'

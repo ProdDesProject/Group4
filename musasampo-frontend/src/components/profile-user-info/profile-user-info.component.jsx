@@ -33,20 +33,21 @@ class ProfileUserInfo extends React.Component
           await UserSearchService.usernameSearch(foundUser.username)
           .then(results =>
             {
+                //console.log(results);
                 //treat results
                 if(results)
                 {    
                     //save the user credentials in the local storage
-                    localStorage.setItem('currentUser', JSON.stringify(results));
+                    localStorage.setItem('currentUser', JSON.stringify(results[0]));
                     //set the state
                     this.setState(
                     {
                         //results are returned as an array of user and then we can access the fields
                         loading: false,
-                        username: results.results[0].username,
-                        email: results.results[0].email,
-                        name: results.results[0].name,
-                        phoneNumber: results.results[0].phoneNumber
+                        username: results[0].username,
+                        email: results[0].email,
+                        name: results[0].name,
+                        phoneNumber: results[0].phoneNumber
                     });
                 }
             })

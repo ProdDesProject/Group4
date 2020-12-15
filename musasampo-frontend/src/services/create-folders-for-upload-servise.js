@@ -17,7 +17,7 @@ export default async function createFolders(bandName,albumName)
         };
 
         //Fetch which checks Data which is uploading:
-    var checkData= await fetch('http://localhost:9000/upload/createFolders', requestForBand)
+    var checkData= await fetch('http://localhost:9000/upload/createFoldersForUpload', requestForBand)
     const result = await checkData.json();
 
      //result check:
@@ -53,18 +53,14 @@ export default async function createFolders(bandName,albumName)
 
     var result;
 
-    if (bandName != undefined && albumName == undefined)
+    if (bandName !== undefined && albumName === undefined)
     {
-        console.log("create band:");
         result =  await createBand(bandName);
     }
-    if (bandName != undefined && albumName != undefined)
+    if (bandName !== undefined && albumName !== undefined)
     {
-        console.log("create album:" + bandName+albumName);
         result = await createAlbum(bandName,albumName);
-        
     }
-    alert("result"+result);
     return result;
 
 

@@ -5,11 +5,6 @@ const express = require('express');
 const multer  = require('multer');
 
 const multerUpload = multer({ dest: './uploads/' });
-const multerUpload1 = multer({ dest: 'uploads/music/' });
-const multerUpload2 = multer({ dest: 'uploads/pictures/' });
-
-
-
 var mkdirp = require('mkdirp');
 
 const router = express.Router();
@@ -17,12 +12,7 @@ const { checkServerIdentity } = require('tls');
 
 var basicPath = '../uploads/bands/';
 var userPath = '../uploads/Users/';
-
 var errorPath = '../uploads/pictures/nopic.png';
-
-var musicpath2 = '../uploads/music/Pyry Viirret - Classics covered';
-var imagepath2 = '../uploads/pictures/Pyry Viirret - Classics covered pictures';
-var multerdes;
 
 const fileTypes = ["jpg", "jpeg", "bmp", "png", "mp3"];
 
@@ -181,7 +171,7 @@ router.post('/createFoldersForUpload', function (req, res) {
         //Paths for creating folders:
         let path = "./uploads/bands/"+req.body.bandName+"/albums/"+req.body.albumName;
 
-        //Create folder by bandName and inside music and pictures:
+        //Create folder by bandName and albumName and inside music and pictures:
         await fs.mkdirSync(path, { recursive: true });
       }
      
@@ -197,14 +187,14 @@ router.post('/createFoldersForUpload', function (req, res) {
     albumName: req.body.albumName,
   };
 
-  if (bandObj.bandName != undefined && albumObj.albumName == undefined)
+  if (bandObj.bandName !== undefined && albumObj.albumName === undefined)
   {
     console.log("bandObj");
     createFolders("bands");
     res.send("200");
   }
 
-  if (albumObj.albumName != undefined && bandObj.bandName != undefined)
+  if (albumObj.albumName !== undefined && bandObj.bandName !== undefined)
   {
     console.log("albumObj");
     createFolders("albums");
@@ -228,7 +218,7 @@ router.post('/uploadmp3/:bandName/:albumName', multerUpload.single('testFile'), 
   fs.rename(req.file.path, './uploads/bands/' + bandName +'/albums/'+ albumName +'/'+ req.file.originalname, function (err) {
     if (err) throw err;
     console.log('renamed complete');
-    res.send("Test");
+    res.send("201");
   });
   
 });
@@ -240,17 +230,37 @@ router.post('/uploadbandpic/:bandName', multerUpload.single('testFile'), (req, r
 
   var bandName = req.params.bandName;
 
-  console.log("/uploadbandpic/:bandName")
+  console.log("/uploadbandpic/:bandName");
   console.log("bandName:"+bandName);
 
   console.log("req.file.path:"+req.file.path);
 
-  fs.rename(req.file.path, './uploads/bands/'+ bandName + '/albums/' + req.file.originalname, function (err) {
-    if (err) throw err;
+  fs.rename(req.file.path, './uploads/bands/'+ bandName + '/' + req.file.originalname, function (err) 
+  {
+    if (err) 
+      throw err;
     console.log('renamed complete');
-    res.send("Test");
+    //successful
+    res.sendStatus(204);
   });
   
+});
+
+//Add a new picture for album, need params for bandName and albumname:
+router.post('/addAlbumPicture/:bandName/:albumName', multerUpload.single('testFile'), (req, res) => {
+  console.log("req.file:"+ req.file);
+
+  var bandName = req.params.bandName;
+  var albumName = req.params.albumName;
+
+     //if albumPicture
+  fs.rename(req.file.path, './uploads/bands/'+ bandName+ '/albums/' + albumName + '/' + req.file.originalname, function (err) {
+    if (err) throw err;
+    console.log('renamed complete');
+    //successful
+    res.sendStatus(204);
+  });
+
 });
 
 /**

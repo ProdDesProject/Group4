@@ -87,12 +87,15 @@ router
 
 //POST-method for creating a new song:
 router
-  .route('/:albumId/createsong')
+  .route('/createsong/:albumId')
   .post(
       //bands need to be authenticated in order to add songs
-      passport.authenticate('jwt', { session: false }),
+      //passport.authenticate('jwt', { session: false }),
       (req, res) => 
       {
+        console.log(req.body.songName);
+        console.log(req.body.MP3);
+        console.log(req.body.MP4);
         //check field filling
         if(req.body.songName && req.body.MP3 && req.body.MP4)
         {   

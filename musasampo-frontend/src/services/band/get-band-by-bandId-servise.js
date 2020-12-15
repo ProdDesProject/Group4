@@ -17,6 +17,7 @@ export default async function getBandsBandId(bandId)
 
     //calling the API get method
     var bandResponse = await fetch(url, requestOptions);
+    //bandResponse = await bandResponse.json();
 
     return bandResponse;
 };

@@ -28,7 +28,6 @@ const BandItem = ({ band, history }, props) => {
         height: 50,
        };
 
-
     return (
         <div className='band-item'>
 
@@ -53,14 +52,14 @@ const BandItem = ({ band, history }, props) => {
 
             {/*Button in the band cover, onClick opens path /bands/:bandId*/}
 
-            <CustomButton onClick={() => {
+            <CustomButton style={style1} onClick={() => {
                 history.push(`/bands/${bandId}`)
             }} inverted>
-                BAND INFORMATION
+                INFO
             </CustomButton>
 
             <CustomButton style={style2} onClick={() => {
-                history.push({pathname: `/albums/`, search: '?query=abc', state: { detail: bandId}})
+                history.push({pathname: `/albums/`, search: '?query=abc', state: { detail: bandId,bandName: bandName}})
                 }} inverted>
                     ALBUMS
             </CustomButton>

@@ -23,7 +23,8 @@ export default async function checkUploadData(data2)
     if (result == "200")
     {
         return "200";
-    }else
+    }
+    else
     {
         return "400";
     }
