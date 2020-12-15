@@ -1,20 +1,20 @@
 import React from 'react';
 
-import { Link,withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 
 import CustomButton from '../custom-button/custom-button.component';
 
-
-import './band-item.styles.scss';
+import './search-albums-item.styles.scss';
 
 {/*filter the band from the data with the bandId from props*/ }
-const BandItem = ({ band, history }, props) => {
-    const { bandId, nsfw, bandName, bandLogo } = band;
+const AlbumsItem = ({ album, history }, props) => {
+    const { bandId, albumId, albumName, albumLaunchDate, albumPicture, albumGenre } = album;
+    //console.log(albumPicture);
 
     const style1 = {
         width: 50,
         height: 50,
-      };
+       };
 
     const style2 = {
         margin:50,
@@ -30,43 +30,38 @@ const BandItem = ({ band, history }, props) => {
 
     return (
         <div className='band-item'>
-
             <div
                 className='image'
                 style={{
-                    backgroundImage: `url(${bandLogo})`
+                    backgroundImage: `url(${albumPicture})`
                 }}
-
-                
             />
-
             {/* Band information */}
             <div className='band-footer'>
-                <span className='bandInformation'>{bandName}</span>
-                
+                <span className='bandInformation'>{decodeURIComponent(albumName)}</span>
             </div>
             <div className='band-footer'>
                 <span className='name'></span>
                 
             </div>
-
             {/*Button in the band cover, onClick opens path /bands/:bandId*/}
-
+            
             <CustomButton style={style1} onClick={() => {
-                history.push(`/bands/${bandId}`)
+                history.push({pathname: `/albums/${bandId}`, state: {albumId: albumId, albumName: albumName, albumLaunchDate: albumLaunchDate, albumPicture: albumPicture, albumGenre: albumGenre}})
             }} inverted>
                 INFO
             </CustomButton>
-
+        
             <CustomButton style={style2} onClick={() => {
-                history.push({pathname: `/albums/`, search: '?query=abc', state: { detail: bandId}})
-                }} inverted>
-                    ALBUMS
+                history.push({pathname: `/songs/`, search: '?query=abc', state: { bandId:bandId, albumId: albumId, albumName: albumName}})
+              }} inverted>
+                  SONGS
             </CustomButton>
+
             
 
         </div>
     );
 };
 
-export default withRouter(BandItem);
+export default withRouter(AlbumsItem);

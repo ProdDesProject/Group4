@@ -2,7 +2,7 @@
 import React from 'react';
 
 import SearchBox from '../../components/search-box/search-box.component';
-import AlbumItem from '../../components/album-item/album-item.component';
+import AlbumItem from '../../components/search-albums-item/search-albums-item.component';
 import BandItem from '../../components/band-item/band-item.component';
 
 import getAlbums from '../../services/album/albums-in-service.js';

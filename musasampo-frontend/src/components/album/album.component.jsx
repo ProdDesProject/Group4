@@ -20,14 +20,13 @@ export default class SimpleTabs extends Component
 
   async componentDidMount()
   {
-    //album = await fetchAlbumsByalbumId()
     var albumId = this.props.match.params.albumId;
     console.log(albumId);
 
     var album = await(await fetchAlbumsByalbumId(albumId)).json();
     
     console.log(album);
-    console.log(album[0].bandId);
+    //console.log(album[0].bandId);
 
     var band = await(await getBandsBandId(album[0].bandId)).json();
 
@@ -36,7 +35,7 @@ export default class SimpleTabs extends Component
 
     this.setState({album:album[0]});
 
-    this.setState({logoPath: "http://localhost:9000/upload/imagepath.png/" + band[0].bandName + "/" + band[0].bandLogo})
+    this.setState({logoPath: "http://localhost:9000/upload/imagepath.png/" + band[0].bandName + "/" + band[0].bandLogo});
     
     console.log(this.state.album.albumGenre);
   }

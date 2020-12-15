@@ -18,6 +18,8 @@ import Header from './components/header/header.component';
 import LoginPage from './pages/sign-in-and-sign-up/sign-in-and-sign-up.component';
 import ProfilePage from './pages/profile-page/profile-page.component';
 
+import ProfileAlbums from './components/profile-albums/profile-albums.component';
+
 import ProfileEditPage from './components/profile-edit/profile-edit.component';
 import NewBandPage from './components/profile-new-band/profile-new-band.component';
 import NewAlbumPage from './components/profile-new-album/profile-new-album.component';
@@ -63,6 +65,7 @@ class App extends Component {
                         <PrivateRoute exact path='/mp3-upload' component={Mp3} />
                         <PrivateRoute exact path='/shop' component={ShopPage} />
                         <Route exact path='/search' component={SearchPage}/>
+                        <Route exact path='/profile-albums' component={ProfileAlbums}/>
                         <PrivateRoute exact path='/profile' component={ProfilePage} />
                         <PrivateRoute exact path='/profile/edit' component={ProfileEditPage} />
                         <PrivateRoute exact path='/profile/newband' component={NewBandPage} />
