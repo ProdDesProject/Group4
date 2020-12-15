@@ -1,22 +1,13 @@
 import React from 'react';
-import FormInput from '../../components/form-input/form-input.component';
-import CustomButton from '../../components/custom-button/custom-button.component';
 import { withRouter } from 'react-router-dom';
 import './home-page.styles.scss';
-import { stringify } from 'querystring';
-import Header from '../../components/header/header.component';
 import logo from '../../assets/logo.png';
-import HomeNew from '../../components/home-new/home-new.component';
 import HomeChat from '../../components/home-chat/home-chat.component';
 import HomeGuitarTuner from '../../components/home-guitar-tuner/home-guitar-tuner.component';
 
-import Data from '../../components/data/data.jsx';
-
-class Mainpage extends React.Component 
-{
+class Mainpage extends React.Component {
   constructor(props) {
     super(props);
-
   }
 
   render() {
@@ -34,9 +25,6 @@ class Mainpage extends React.Component
                   <br></br> We offer services for bands and fans alike
             </div>
               </div>
-            </div>
-            <div className='top-row'>
-            <HomeNew />
             </div>
             <div className='bottom-row'>
               <HomeChat />

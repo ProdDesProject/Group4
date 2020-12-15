@@ -15,11 +15,9 @@ export const GuitarOverview = (props) => (
         <div className='items'>
             {/* map guitars from guitar item to specific guitar-item.component.jsx  */}
             {guitars.map((guitar, index) => (
-                <GuitarItem key={guitar.guitarId} guitar={guitar} routeName={"guitartuner"} />
+                <GuitarItem key={guitar.guitarType} guitar={guitar} routeName={"guitartuner"} />
             ))}
-
         </div>
-
     </div>
 );
 

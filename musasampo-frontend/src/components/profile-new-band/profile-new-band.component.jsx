@@ -10,18 +10,17 @@ import createBand from '../../services/band/create-band-service'
 import Switch from '../switch/switch.component';
 
 import checkUploadData from '../../services/check-upload-data-service';
-import uploadData from '../../services/upload-mp3-service' 
+import uploadData from '../../services/upload-mp3-service'
 import createFolders from '../../services/create-folders-for-upload-servise'
 
 var req = <p className="req">*</p>;
 
-class NewBand extends React.Component 
-{
+class NewBand extends React.Component {
   constructor() {
     super();
 
     //local state variables
-    this.state = 
+    this.state =
     {
       status: true,
       submitting: false,
@@ -43,14 +42,12 @@ class NewBand extends React.Component
   }
 
   //handles submit when clicked button ADD BAND:
-  handleSubmit = async event => 
-  {
+  handleSubmit = async event => {
     event.preventDefault();
-    
+
 
     //reset state
-    try
-    {
+    try {
       this.setState(
         {
           bandName: '',
@@ -59,8 +56,7 @@ class NewBand extends React.Component
         }
       )
     }
-    catch(error)
-    {
+    catch (error) {
       console.log(error);
     }
 
@@ -73,104 +69,88 @@ class NewBand extends React.Component
   };
 
   //switch toggle
-  handleToggle(checked)
-  {
-    this.setState({nsfw: checked});
+  handleToggle(checked) {
+    this.setState({ nsfw: checked });
   }
 
-  handleUpload = event =>
-  {
+  handleUpload = event => {
     //save file
-    this.setState({ selectedFile: event.target.files[0],
+    this.setState({
+      selectedFile: event.target.files[0],
       loaded: 0,
-      });
-      //save filename
-    this.setState({ selectedFileName: event.target.files[0].name,
-        loaded: 0,
-        });
-  
-    if (this.state.selectedFile != null)
-    {
-      this.setState({showing:true});
+    });
+    //save filename
+    this.setState({
+      selectedFileName: event.target.files[0].name,
+      loaded: 0,
+    });
+
+    if (this.state.selectedFile != null) {
+      this.setState({ showing: true });
     }
-    else
-    {
-      this.setState({showing:false});
+    else {
+      this.setState({ showing: false });
     }
   }
 
-  onClickHandler = async event => 
-  {
+  onClickHandler = async event => {
     event.preventDefault();
-    
+
     const { bandName, country, nsfw } = this.state;
     //checkResult for file name and datatype:
     var checkResult = await checkUploadData(this.state.selectedFileName);
 
     //if 200:
-    if (checkResult == "200")
-    {
+    if (checkResult == "200") {
       //append testFile and uploadData:
       const data = new FormData();
       data.append('testFile', this.state.selectedFile);
-      
+
       //Create folders for upload:
       //alert("createFolder");
-      var createFoldersresult = await createFolders(bandName,this.state.albumName);
+      var createFoldersresult = await createFolders(bandName, this.state.albumName);
 
       //createFolders.result:
-      if (createFoldersresult == "200" && this.state.filetype == "png")
-      {
+      if (createFoldersresult == "200" && this.state.filetype == "png") {
         //Upload MP3-Data:
         var fileInfo = "png-band";
 
-        if (fileInfo === "png-band")
-        {
-          await uploadData(data,this.state.bandName,"",fileInfo)
-          .then(result =>
-            {
-              if(result.status === 204)
-              {
+        if (fileInfo === "png-band") {
+          await uploadData(data, this.state.bandName, "", fileInfo)
+            .then(result => {
+              if (result.status === 204) {
                 alert("Upload successful")
               }
-              else
-              {
+              else {
                 alert("Upload failed");
               }
             });
         }
-        
-      }else
-      {
+      } else {
         alert("Upload failed");
       }
     }
-    else
-    {
+    else {
       alert("CheckResults went wrong, try again!");
     }
 
     //create band
-    if (!bandName || !country || !this.state.selectedFileName || nsfw === null) 
-    {
+    if (!bandName || !country || !this.state.selectedFileName || nsfw === null) {
       //alert("Neccessary fields not filled!");
-      this.setState({status: false, submittingMessage: "Neccessary fields not filled!"});
+      this.setState({ status: false, submittingMessage: "Neccessary fields not filled!" });
       return;
     }
-    else
-    {
+    else {
       //band registration procedure
       //submitting data
-      this.setState({submitting: true});
+      this.setState({ submitting: true });
 
       await createBand(bandName, country, this.state.selectedFileName, nsfw)
-      .then(status =>
-        {
+        .then(status => {
           //band successfully created
-          if(status !== undefined && status === 201)
-          {
+          if (status !== undefined && status === 201) {
             //change submission status
-            this.setState({submitting: false, status: true});
+            this.setState({ submitting: false, status: true });
             //redirect to profile page to show the band
             this.props.history.push(
               {
@@ -178,25 +158,22 @@ class NewBand extends React.Component
               }
             );
           }
-          else
-          {
-            this.setState({submitting: false, status: false});
+          else {
+            this.setState({ submitting: false, status: false });
           }
         })
-      
     }
   }
 
   //Render:
-  render() 
-  {
+  render() {
     var value = false
     const { bandName, country, nsfw } = this.state;
     return (
       <div className='container'>
         <div className='new-band'>
-          <h2 className='title'>Add a new band</h2>
-          <span className='subtitle'>Fill in information for your band</span>
+          <h2 className='title16'>Add a new band</h2>
+          <span className='subtitle16'>Fill in information for your band</span>
           <br></br><br></br>
           <form className='sign-up-form' onSubmit={this.handleSubmit}>
             <div className='sides'>
@@ -228,37 +205,36 @@ class NewBand extends React.Component
 
               <div className='right-side'>
 
-                    <div className="Main">
-                      <header className="btn btn-secondary btn-sm">
-                        <div>
-                          <form enctype="multipart/form-data">
-                            <input type = "file"  name="file" id="file" accept = ".png" onChange = {this.handleUpload}></input>
-                                {this.state.selectedFile
-                                    ? <input type = "button"  value = "Click to upload!" name = "button" onClick = {this.onClickHandler} className="btn btn-primary btn-sm"/>
-                                    : null
-                                }
-
-                          </form>
-                        </div>
-                      </header>
+                <div className="Main36">
+                  <header className="btn btn-secondary btn-sm">
+                    <div>
+                      <form enctype="multipart/form-data">
+                        <input type="file" name="file" id="file" accept=".png" onChange={this.handleUpload}></input>
+                        {this.state.selectedFile
+                          ? <input type="button" value="Click to upload!" name="button" onClick={this.onClickHandler} className="btn btn-primary btn-sm" />
+                          : null
+                        }
+                      </form>
                     </div>
+                  </header>
+                </div>
 
                 <form>
-                  <p>NSFW: {req}</p>
+                  <p className="switch-title">NSFW: {req}</p>
                   <Switch
-                      value="None"
-                      id="switch"
-                      name="check"
-                      checked = {this.state.nsfw}
-                      onChange = {this.handleToggle}
+                    value="None"
+                    id="switch"
+                    name="check"
+                    checked={this.state.nsfw}
+                    onChange={this.handleToggle}
                   />
-                
+
                 </form>
-                <div className='buttons'>
+                <div className='buttons16'>
                   <Link to="/profile" className='button'>
                     <CustomButton> Cancel </CustomButton>
                   </Link>
-                  <SubmitButton type='submit' onClick={this.onClickHandler} disabled = {this.state.submitting}> Add Band </SubmitButton>
+                  <SubmitButton type='submit' onClick={this.onClickHandler} disabled={this.state.submitting}> Add Band </SubmitButton>
                   {this.state.submitting && <img src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />}
                 </div>
                 {!this.state.status && <h3>{this.state.submittingMessage}</h3>}

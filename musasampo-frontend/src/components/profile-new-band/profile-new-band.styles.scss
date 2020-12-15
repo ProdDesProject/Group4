@@ -12,14 +12,15 @@
         flex-direction: column;
         margin: auto;
     
-        .title {
+        .title16 {
         font-size: 34px;
-        margin-top: 0px;
+        margin-top: 20px;
         margin-bottom: 5px;
         }
     
-        .subtitle {
+        .subtitle16 {
         font-size: 26px;
+        margin-bottom: -20px;
         }
     }
 }
@@ -41,7 +42,15 @@
         margin-left: 50px;
         width: 50%;
 
-        .buttons {
+        .Main36 {
+            padding-top: 36px;
+        }
+
+        .switch-title {
+            padding-top: 40px;
+        }
+
+        .buttons16 {
             display: flex;
             justify-content: space-between;
             margin-top: 50px;
@@ -49,3 +58,4 @@
         }
     }
 }
+

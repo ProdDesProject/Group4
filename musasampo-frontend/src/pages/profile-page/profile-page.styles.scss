@@ -1,4 +1,8 @@
 .profile {
   display: flex;
   flex-direction: column;
+
+  .addBandButton {
+    margin: 60px 0px -5px 40px;
+  }
 }

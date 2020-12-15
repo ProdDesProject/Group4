@@ -3,7 +3,10 @@
     display: flex;
     align-items: center;
     width: 400px;
-    background-color: white;
+    background-color: rgba(255, 255, 255, 0.700);
+    border: solid 1px #393e46;
+    border-radius: 8px;
+    margin-bottom: 25px;
 
     .input {
         margin-left: 30px;

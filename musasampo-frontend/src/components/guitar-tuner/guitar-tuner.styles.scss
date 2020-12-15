@@ -1,35 +1,101 @@
-page-title {
-    margin-left: 40px;
-    font-size: 38px;
-    margin-top: 40px;
+// Help for customizing radio buttons was found in this stackoverflow thread:
+// https://stackoverflow.com/questions/4253920/how-do-i-change-the-color-of-radio-buttons
+// Last access 14.12.2020
+
+.container-63 {
+
+    .page-title {
+        margin-left: 6.5em;
+        font-size: 38px;
+        margin-top: 40px;
+    }
+
+    .flex-container {
+        display: flex;
+        justify-content: column;
+        height: auto;
+
+        .left {
+            font-size: 1.5em;
+            display: inline-block;
+            text-align: center;
+            margin-left: 6em;
+            width: 16em;
+
+            .headstock {
+                margin-top: 1em;
+                width: 91%;
+                height: 91%;
+            }
+
+        }
+    }
+
+    .container-64 {
+        display: flex;
+        justify-content: row;
+
+        .buttons {
+            display: inline-flex;
+        }
+
+        .right {
+            display: inline-flex;
+            flex-direction: column;
+            width: 20em;
+            margin-left: 4em;
+
+            .caption {
+                margin-top: 0.4em;
+                display: block;
+            }
+
+            .radioGroup {
+                margin-right: auto;
+                margin-top: 1.5em;
+                margin-left: 0.15em;
+                display: block;
+            }
+        }
+    }
 }
 
-.flex-container {
-    display: flex;
-    justify-content: column;
-    width: 100%;
-    height: auto;
+.radioGroup p {
+    margin-left: -0.15em;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
 
-    .right {
-    }
+.radioGroup label {
+    font-weight: normal;
+    margin-left: 15px;
+    font-size: 26px;
+}
 
-    .left {
-        font-size: 1.5em;
-        vertical-align: top;
-        display: inline-block;
-        text-align: center;
-        width: 30%;
+input[type='radio']:after {
+    width: 18px;
+    height: 18px;
+    border-radius: 15px;
+    top: -20px;
+    left: -3px;
+    position: relative;
+    background-color: #808080;
+    content: '';
+    display: inline-block;
+    border: 3px solid #222831;
+}
 
-        .headstock {
-            width: 70%;
-            height: 70%;
-        }
-
-        .caption {
-            margin-top: 20px;
-            display: block;
-        }
-    }
+input[type='radio']:checked:after {
+    width: 18px;
+    height: 18px;
+    border-radius: 15px;
+    top: -20px;
+    left: -3px;
+    position: relative;
+    background-color: #32e0c4;
+    content: '';
+    display: inline-block;
+    border: 3px solid #222831;
 }
 
 .flex-container > div {

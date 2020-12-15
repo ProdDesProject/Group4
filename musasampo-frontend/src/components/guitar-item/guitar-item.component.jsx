@@ -7,7 +7,7 @@ import './guitar-item.styles.scss';
 
 {/* props from  guitartuner-page.component.jsx*/ }
 const GuitarItem = ({ guitar, history, match }) => {
-    const { guitarId, title, imageUrl } = guitar;
+    const { guitarType, title, imageUrl } = guitar;
     return (
         <div className='guitar-item'>
             {/*</div><div className='album-item'>
@@ -22,8 +22,8 @@ const GuitarItem = ({ guitar, history, match }) => {
             <div className='guitar-footer'>
                 <span className='guitarInformation'>{title}</span>
             </div>
-            {/*Button in the guitar cover, onClick opens path /guitartuner/:guitarId*/}
-            <CustomButton onClick={() => history.push(`${match.path}/${guitarId}`)} inverted>
+            {/*Button in the guitar cover, onClick opens path /guitartuner/:guitarType*/}
+            <CustomButton onClick={() => history.push(`${match.path}/${guitarType}`)} inverted>
                 TUNE NOW
       </CustomButton>
 

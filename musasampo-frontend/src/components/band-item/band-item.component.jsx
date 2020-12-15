@@ -1,9 +1,8 @@
 import React from 'react';
 
-import { Link,withRouter } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 
 import CustomButton from '../custom-button/custom-button.component';
-
 
 import './band-item.styles.scss';
 
@@ -36,8 +35,6 @@ const BandItem = ({ band, history }, props) => {
                 style={{
                     backgroundImage: `url(${bandLogo})`
                 }}
-
-                
             />
 
             {/* Band information */}
@@ -63,7 +60,6 @@ const BandItem = ({ band, history }, props) => {
                 }} inverted>
                     ALBUMS
             </CustomButton>
-            
 
         </div>
     );

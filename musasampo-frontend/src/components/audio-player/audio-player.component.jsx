@@ -1,3 +1,4 @@
+  
 import React, { useState, useEffect } from "react";
 
 import './audio-player.styles.scss'
@@ -9,7 +10,7 @@ import './audio-player.styles.scss'
 
 {/* make audio object from of every url we are receiving from props */ }
 const useMultiAudio = urls => {
-    const [sources] = useState(
+    const [sources, setSource] = useState(
 
         urls.map(soundUrl => {
             return {
@@ -18,6 +19,13 @@ const useMultiAudio = urls => {
             };
         })
     );
+
+    const setSourceUrl = (e) => setSource(urls.map(soundUrl => {
+        return {
+            soundUrl,
+            audio: new Audio(soundUrl)
+        };
+    }));
 
     {/* handle state of every audio player in players array */ }
     const [players, setPlayers] = useState(
@@ -29,8 +37,9 @@ const useMultiAudio = urls => {
         })
     );
 
-    {/* updates  state of every audio player in players array*/ }
+    {/* updates state of every audio player in players array*/ }
     const toggle = targetIndex => () => {
+        setSourceUrl();
         const newPlayers = [...players];
         const currentIndex = players.findIndex(p => p.playing === true);
         {/* other player is playing, so set this one to false and the targeted player to true */ }
@@ -47,18 +56,17 @@ const useMultiAudio = urls => {
         setPlayers(newPlayers);
     };
 
-
     {/* start and stop the actual audio */ }
     useEffect(() => {
         sources.forEach((source, i) => {
             //check if the audio is starting to play - if you press play, it will always start the note from the beginning, even after pausing it
-            if (players[i].playing){
+            if (players[i].playing) {
+                source.audio.load();
                 source.audio.play();
                 source.audio.currentTime = 0;
             } else {
                 source.audio.pause();
             }
-            
 
             //players[i].addEventListener("ended", () => {
             //    players[i].playing = false;
@@ -88,7 +96,6 @@ const useMultiAudio = urls => {
             });
         };
     });
-
     return [players, toggle];
 };
 
