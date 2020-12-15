@@ -53,17 +53,14 @@ export default async function createFolders(bandName,albumName)
 
     var result;
 
-    if (bandName != undefined && albumName == undefined)
+    if (bandName !== undefined && albumName === undefined)
     {
         result =  await createBand(bandName);
     }
-    if (bandName != undefined && albumName != undefined)
+    if (bandName !== undefined && albumName !== undefined)
     {
-        console.log("create album:" + bandName+albumName);
         result = await createAlbum(bandName,albumName);
-        
     }
-    //alert("result"+result);
     return result;
 
 

@@ -29,12 +29,7 @@ class Bands extends React.Component {
     /* add all albums from data to array  */
     async componentDidMount() {
 
-      /*obj = 
-      {
-          result: true,
-          token: await loginResponse.json(),
-          username: username2
-      };*/
+
         var loggedInUser = [];
         loggedInUser = JSON.parse(localStorage.getItem("currentToken"));
         let username = loggedInUser.username;

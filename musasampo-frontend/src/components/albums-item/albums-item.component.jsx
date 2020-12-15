@@ -9,7 +9,7 @@ import './albums-item.styles.scss';
 {/*filter the band from the data with the bandId from props*/ }
 const AlbumsItem = ({ album, history }, props) => {
     const { bandId, albumId, albumName, albumLaunchDate, albumPicture, albumGenre } = album;
-    //alert(albumPicture);
+    //console.log(albumPicture);
 
     const style2 = {
         margin:50,
@@ -33,7 +33,7 @@ const AlbumsItem = ({ album, history }, props) => {
             />
             {/* Band information */}
             <div className='band-footer'>
-                <span className='bandInformation'>{albumName}</span>
+                <span className='bandInformation'>{decodeURIComponent(albumName)}</span>
             </div>
             <div className='band-footer'>
                 <span className='name'></span>
@@ -42,13 +42,13 @@ const AlbumsItem = ({ album, history }, props) => {
             {/*Button in the band cover, onClick opens path /bands/:bandId*/}
             
             <CustomButton onClick={() => {
-                history.push(`/albums/${bandId}`)
+                history.push({pathname: `/albums/${bandId}`, state: {albumId: albumId, albumName: albumName, albumLaunchDate: albumLaunchDate, albumPicture: albumPicture, albumGenre: albumGenre}})
             }} inverted>
                 ALBUM INFORMATION
             </CustomButton>
 
             <CustomButton style={style2} onClick={() => {
-                history.push({pathname: `/mp3-upload`, search: '?query=abc', state: {albumId: albumId, albumName: albumName}})
+                history.push({pathname: `/mp3-upload`, state: {albumId: albumId, albumName: albumName}})
               }} inverted>
                   ADD SONGS
             </CustomButton>

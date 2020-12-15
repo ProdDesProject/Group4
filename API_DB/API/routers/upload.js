@@ -181,7 +181,7 @@ router.post('/createFoldersForUpload', function (req, res) {
         //Paths for creating folders:
         let path = "./uploads/bands/"+req.body.bandName+"/albums/"+req.body.albumName;
 
-        //Create folder by bandName and inside music and pictures:
+        //Create folder by bandName and albumName and inside music and pictures:
         await fs.mkdirSync(path, { recursive: true });
       }
      
@@ -197,14 +197,14 @@ router.post('/createFoldersForUpload', function (req, res) {
     albumName: req.body.albumName,
   };
 
-  if (bandObj.bandName != undefined && albumObj.albumName == undefined)
+  if (bandObj.bandName !== undefined && albumObj.albumName === undefined)
   {
     console.log("bandObj");
     createFolders("bands");
     res.send("200");
   }
 
-  if (albumObj.albumName != undefined && bandObj.bandName != undefined)
+  if (albumObj.albumName !== undefined && bandObj.bandName !== undefined)
   {
     console.log("albumObj");
     createFolders("albums");
@@ -267,7 +267,8 @@ router.post('/addAlbumPicture/:bandName/:albumName', multerUpload.single('testFi
   fs.rename(req.file.path, './uploads/bands/'+ bandName+ '/albums/' + albumName + '/' + req.file.originalname, function (err) {
     if (err) throw err;
     console.log('renamed complete');
-    res.send("Test");
+    //successful
+    res.sendStatus(204);
   });
 
 });

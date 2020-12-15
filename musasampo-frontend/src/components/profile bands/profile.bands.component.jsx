@@ -88,7 +88,6 @@ class Bands extends React.Component {
         const filteredBands = bands.filter(band =>
             band.bandName.toLowerCase().includes(searchField.toLowerCase())
         );
-
         return (
           
             <div className="search-page">
