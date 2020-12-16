@@ -6,27 +6,6 @@ const db = require('./db.js');
 
 const passport = require('passport');
 
-/*let AlbumsData = [
-    {
-        bandId: "2",
-        albumId: "1",
-        albumName: "Show No Mercy",
-        albumLaunchDate: "1983-12-03",
-        albumPicture: "shownomercy.png",
-        albumGenre: "Thrash Metal"
-    }
-  ];*/
-  
-  /*
-  let AlbumObject = {
-        "bandId": "2",
-        "albumId": "1",
-        "albumName": "Show No Mercy",
-        "albumLaunchDate": "1983-12-03",
-        "albumPicture": "shownomercy.png",
-        "albumGenre": "Thrash Metal"
-  };*/
-
 router
 .route('')
 .get(
