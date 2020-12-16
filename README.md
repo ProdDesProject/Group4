@@ -70,7 +70,71 @@ For creating the table run following SQL Statement:
 
 ## 2. MySQL
 
-TBD.
+Database for storing users,bands,albums and songs.
+
+1. Getting Started
+
+Mysql: https://dev.mysql.com/doc/mysql-getting-started/en/#mysql-getting-started-installing
+
+	create db: 
+
+	CREATE DATABASE db;
+
+	use db:
+
+	USE db;
+
+
+2. create tables:
+
+	CREATE TABLE users (
+	    userId int NOT NULL AUTO_INCREMENT,
+	    username varchar(255) NOT NULL,
+	    password varchar(255) NOT NULL,
+	    name varchar(255) NOT NULL,
+	    email varchar(255) NOT NULL,
+	    phoneNumber varchar(255) NOT NULL,
+	    PRIMARY KEY (userId)
+	); 
+
+	CREATE TABLE bands (
+	    bandId int NOT NULL AUTO_INCREMENT,
+	    nsfw boolean NOT NULL,
+	    bandName varchar(255) NOT NULL,
+	    bandLogo varchar(255) NOT NULL,
+	    country varchar(255) NOT NULL,
+	    PRIMARY KEY (bandId)
+	); 
+
+	CREATE TABLE albums (
+	    bandId int NOT NULL,
+	    albumId int NOT NULL AUTO_INCREMENT,
+	    albumName varchar(255) NOT NULL,
+	    albumLaunchDate varchar(255) NOT NULL,
+	    albumPicture varchar(255) NOT NULL,
+	    albumGenre varchar(255) NOT NULL,
+	    PRIMARY KEY (albumId),
+	    FOREIGN KEY (bandId) REFERENCES bands(bandId)
+	   );
+
+	CREATE TABLE songs (
+	    albumId int NOT NULL,
+	    songId int NOT NULL AUTO_INCREMENT,
+	    songName varchar(255) NOT NULL,
+	    MP3 varchar(255) ,
+	    MP4 varchar(255) ,
+	    PRIMARY KEY (songId),
+	    FOREIGN KEY (albumId) REFERENCES albums(albumId)
+	); 
+
+3. Inserting data:
+
+	INSERT INTO table_name(column1, column2, …)
+	VALUES (value1, value2, …);
+
+4. Modify data:
+	
+	UPDATE table_name SET (values = ? ...) WHERE fieldName = ?
 
 
 ## 3. API for the chat function
@@ -94,7 +158,7 @@ The API is now accessible under http://<your_ip>:3000
  
 ## 4. API for the music and user features    
 
-TBD.
+Documentation: https://app.swaggerhub.com/apis-docs/OAMK81/MusasampoAPI/3.0
 
 
 ## 5. Websocket
